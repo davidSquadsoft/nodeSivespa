@@ -1,0 +1,49 @@
+<% if (idepac) { %>
+<div class="row cuerpo_dashboard">
+
+    <h3>Reportes SIVESPA</h3>
+    <table>
+        <tr class="titulo_tabla">
+            <td>Tipo de Documento</td>
+            <td>Numero de Documento</td>
+            <td>Fecha</td>
+            <td>Nombre</td>
+            <td>Spa</td>
+            <td>Ubicacion</td>
+        </tr>
+        
+        <% for (j=0; j< idepac.length ; j++) {%>
+        <tr>
+            <td>              
+                <%= idepac[j].ID_TIP_IDE %>
+            </td>
+            <td>
+                <%= idepac[j].NUM_IDE %>
+            </td>
+            <td>
+                <%= infogen[j].FEC_NOT.toISOString().slice(0, 10); %>
+            </td>
+            <td>
+                <%= idepac[j].PRI_NOM %> <%= idepac[j].SEG_NOM %> <%= idepac[j].PRI_APE %> <%= idepac[j].SEG_APE %>
+            </td>
+            <td>
+                <% sustancia=nomspa.filter(noms=> noms.id_rl_lista_spa == conactual[j].ID_RL_LISTA_SPA) %>
+
+                <%= sustancia[0].SUSTANCIA %>
+            </td>
+            <td>
+                <%= notifi[j].ID_RL_DIVIPOLA %>
+            </td>
+            <td class="text-center"><a href="/da/show/<%= idepac[j].NUM_IDE %>" class="btn_small btn_green"><i class="bi bi-eye-fill"></i></a></td>
+        </tr>
+        <% } %>
+     
+    </table>
+</div>
+
+<% } else {%>
+
+
+    <H5>Aun no cuentas con reportes hecho por parte de tus usuarios</H5>
+
+    <% } %>

@@ -1,0 +1,77 @@
+<%- include ('includes/header') -%>
+    <div class="container ps-lg-5 pe-lg-5 mt-lg-5 reporte">
+        <div id="reporte_ayuda" class="mb-5"></div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8 col-xs-12 shadow ps-lg-5 pe-lg-5 mt-lg-55 pb-4 pt-4">
+                <h4>Planes de acción y líneas de atención</h4>
+                <p>
+
+                </p>
+                <form action="" autocomplete="off">
+                    <div class="row mt-4">
+                        <div class="col-lg-6">
+                            <label for="" class="form-label">Municipio de residencia</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="myInput" name="Municipio_residencia">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="" class="form-label">Sexo</label>
+                            <select name="sexo" id="" class="form-select">
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                  </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 mt-4">
+                            <label for="" class="form-label">EPS</label>
+                            <select name="Eps" id="" class="form-select">
+                    <option value="nombre_spa">listado de eps</option>
+                  </select>
+                        </div>
+                        <div class="col-lg-6 mt-4">
+                            <label for="" class="form-label">Sustancia de consumo</label>
+                            <select name="sexo" id="" class="form-select">
+                   <option value="Spa">Listado de sustancias</option>
+                 </select>
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 justify-content-center">
+                        <button class="btn_dark_blue w-75" onclick="validar_campos()" type="button" data-bs-toggle="modal" data-bs-target="#modal_guardado">Planes de acción y lineas de atención</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+    <!--Area de Principal-->
+    <div class="modal" tabindex="-1" id="modal_guardado">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body text-center p-5">
+                    <div id="campos_save" class="oculto mt-3 text-center green_ok">
+                        <p>El reporte se ha guardado con exito</p>
+                    </div>
+                    <div id="campos_save_si" class="oculto mt-3 red_warning text-center">
+                        <p>Su nivel de riesgo es:</p>
+                        <h4>valor de riesgo</h4>
+                    </div>
+                    <div class="row mt-3 warning_campos oculto" id="warning">
+                        <p>Por favor complete los campos vacios, para finalizar el proceso de manera correcta </p>
+                    </div>
+                    <button type="button" class="btn_green oculto h-50" id="ir_guia" role="link" data-bs-dismiss="modal" onclick="location.href='guia.html'">Planes de acción y recomendaciones</button>
+                    <button type="button" class="btn_green oculto" id="no_ir_guia" role="link" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/landing/scripts/validar_campos_menor.js"></script>
+
+    <%- include ('includes/footer') -%>

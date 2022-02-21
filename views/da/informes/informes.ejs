@@ -1,0 +1,142 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form">
+                <div class="row buscar">
+                    <div class="row section_btn_dashboard_individual">
+                        <div class="col-lg-3 col-xs-12">
+                            <a href="crear_informe.php" data-bs-toggle="modal" data-bs-target="#modal_crear_entidad">
+                                <div class="card card_dashboard_individual">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.33 21.33"><defs><style>.cls-1{fill:#fff;}</style></defs><title>informe</title><path class="cls-1" d="M13.76,2.2H11.93V1.57A1.27,1.27,0,0,0,10.67.3,1.29,1.29,0,0,0,9.39,1.57V2.2H7.57V4.27h6.19Z"/><path class="cls-1" d="M15,2.71V5.48H6.35V2.71H3.68V21h14V2.71Zm-.52,14.58H6.87V16.07h7.59Zm0-2.68H6.87V13.4h7.59Zm0-2.67H6.87V10.73h7.59Zm0-2.67H6.87V8.05h7.59Z"/></svg>
+                                            </div>
+                                            <div class="col-8">
+                                                <h5 class="card-title align-self-center">Crear Informe</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col col-xs-12">
+                            <form action="" class="form-group">
+                                <p class="textos_black">Buscar informe por titulo o codigo</p>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-secondary btn_search" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row filtrar">
+                    <form action=" " class="form-group ">
+                        <h5>Filtrar</h5>
+                        <div class="row ">
+                            <div class="col-lg-3 col-xs-12 ">
+                                <label for=" ">Fecha de inicio</label>
+                                <input type="date" name="" id="" class="form-control">
+                                <label for=" ">Fecha final</label>
+                                <input type="date" name="" id="" class="form-control">
+                            </div>
+                            <div class="col-lg-3 col-xs-12">
+                                <label for=" ">Listado SPA</label>
+                                <select name="spa " id=" " class="form-control "></select>
+                                <label for=" ">Lista de generos</label>
+                                <select name="genero" id=" " class="form-control "></select>
+                            </div>
+                            <div class="col-lg-6 col-xs-12 ">
+                                <div class="row">
+                                    <label for="">Geolocalizacion</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput1">
+                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn_green ">Aplicar</button>
+                    </form>
+                </div>
+                <div class="row informes">
+                    <div class="row">
+                        <h3>Listado de informes:</h3>
+                    </div>
+                    <div class="card card_informes">
+                        <div class="card-body">
+                            <h5 class="card-title">Nombre del informe</h5>
+                            <p class="card-text">Pequeño resumen del informe</p>
+                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
+                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                        </div>
+                    </div>
+                    <div class="card card_informes">
+                        <div class="card-body">
+                            <h5 class="card-title">Nombre del informe</h5>
+                            <p class="card-text">Pequeño resumen del informe</p>
+                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
+                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                        </div>
+                    </div>
+                    <div class="card card_informes">
+                        <div class="card-body">
+                            <h5 class="card-title">Nombre del informe</h5>
+                            <p class="card-text">Pequeño resumen del informe</p>
+                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
+                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                        </div>
+                    </div>
+                    <div class="card card_informes">
+                        <div class="card-body">
+                            <h5 class="card-title">Nombre del informe</h5>
+                            <p class="card-text">Pequeño resumen del informe</p>
+                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
+                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
+                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <%- include('../includes/footer') -%>

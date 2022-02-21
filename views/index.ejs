@@ -1,0 +1,127 @@
+<%- include('lc/includes/header') -%>
+    <!--Carrusel de imagenes del banner-->
+    <div id="carouselExampleControls" class="carousel slide d-none d-lg-block" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+
+                <a href="acerca.html">
+                    <img src="/landing/images/banner.png" class="d-block w-100" alt="...">
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <!--Botones principales llamado a la accion-->
+    <div class="container mt-3 justify-content-center">
+        <div class="row text-center">
+            <div class="col-lg-3 col-sm-6 col-xs-6 mb-2">
+                <div class="card text-white">
+                    <img class="card-img" src="/landing/images/call1.png" style="max-height: 150px;">
+                </div>
+                <button class="btn_light_green w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: var(--light_green);
+    font-size: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    color: var(--dark_green);
+    transition: ease-in-out 0.2s;
+    font-weight: 600;
+    height: 40px;">Conocer mi nivel de riesgo</button>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-xs-6 mb-2">
+                <div class="card text-white">
+                    <img class="card-img" src="/landing/images/call2.png" style="max-height: 150px;">
+                </div>
+                <button class="btn_dark_blue w-100" onclick="location.href='/lc/contacto'">Lineas De Atención</button>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-xs-6 mb-2">
+                <div class="card text-white">
+                    <img class="card-img" src="/landing/images/call3.png" style="max-height: 150px;">
+                </div>
+                <button class="btn_light_blue  w-100" onclick="location.href='/lc/descargas'">Descargar app</button>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-xs-6 mb-2">
+                <div class="card text-white">
+                    <img class="card-img" src="/landing/images/call4.png" style="max-height: 150px;">
+                </div>
+                <button class="btn_light_green  w-100" onclick="location.href='https://sivespa.site/seguridad/login.php'" type="link" style="background-color: var(--dark_green);
+    font-size: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    color: var(--light_green);
+    transition: ease-in-out 0.2s;
+    font-weight: 600;
+    height: 40px;">Entidades</button>
+            </div>
+        </div>
+    </div>
+    <!--Area de Principal-->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 col-xs-12">
+                <div class="row mt-4">
+                    <div class="col-lg-4 mt-2">
+                        <div class="card">
+                            <img class="card-img-top" src="/landing/images/call5.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Guía al ciudadano</h5>
+                                <p class="card-text">Ofrecemos información de líneas de atención y oferta institucional de salud mental en el departamento de Antioquia e información de utilidad frente al consumo de sustancias psicoactivas (SPA).</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="/lc/contacto" class="card-link-light">Lineas de atención</a></li>
+                                <li class="list-group-item"><a href="/lc/tips" class="card-link-light">Tips</a></li>
+                                <li class="list-group-item"><a href="/lc/noticias" class="card-link-light">Noticias</a></li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="#" class="card-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Conocer mi nivel de riesgo</a>
+                                <a href="/lc/descargas" class="card-link">Descargar app</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-2">
+                        <div class="card">
+                            <img class="card-img-top" src="/landing/images/call6.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Entidades</h5>
+                                <p class="card-text">Si eres usuario de una entidad puedes acceder a la documentación, descarga el software e iniciar sesión.</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="/lc/documentacion" class="card-link-light">Documentación</a></li>
+                                <li class="list-group-item"><a href="/lc/canales" class="card-link-light">Centro de ayuda</a></li>
+                                <li class="list-group-item"><a href="/lc/noticias" class="card-link-light">Noticias</a></li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="/da/descargas" class="card-link">Inicia sesión</a>
+                                <a href="/da/descargas" class="card-link">Descargas</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-2">
+                        <div class="card">
+                            <img class="card-img-top" src="/landing/images/call7.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Sobre SIVESPA</h5>
+                                <p class="card-text">Sistema Integral de vigilancia epidemiológica del Consumo de Sustancias Psicoactivas SPA en Antioquia. </p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="/lc/acerca" class="card-link-light">¿Qué es SIVESPA?</a></li>
+                                <li class="list-group-item"><a href="https://escuelacontraladrogadiccion.gov.co/" class="card-link-light"> Escuela contra la drogradicción</a></li>
+                                <li class="list-group-item"><a href="/lc/faq" class="card-link-light">Preguntas Frecuentes</a></li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="#" class="card-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Gobierno abierto</a>
+                                <a href="#" class="card-link">Cifras</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('lc/includes/footer') -%>

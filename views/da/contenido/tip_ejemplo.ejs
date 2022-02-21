@@ -1,0 +1,84 @@
+<$- include ( '../includes/header')-%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle %>
+                </h4>
+            </div>
+
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                        
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+
+            <div class="container_reporte_form noticia ejemplo">
+                <h3>Titulo del tip</h3>
+                <p>Autor</p>
+                <p>Fecha</p>
+                <img src="../images/fondo_temporal2.jpg" alt="">
+                <p>Contenido del tip: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique recusandae optio mollitia tempora eius animi dolorum sapiente dicta maxime sequi aperiam labore maiores vel et adipisci temporibus, eveniet sit ut.
+                </p>
+                <div class="card-body">
+
+
+                    <button class="btn_green btn_icons" onclick="location.href='crear_contenido.php'"><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" class="btn_red_eliminar btn_icons" data-bs-toggle="modal" data-bs-target="#modal_borrar">
+                        <i class="bi bi-x-octagon-fill "></i>
+                      </button>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <div class="modal fade" id="modal_borrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Esta seguro que de sea elimininar la noticia
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class=" btn_green" data-bs-dismiss="modal">Aceptar</button>
+                    <button type="button" class=" btn_green" data-bs-dismiss="modal">Cancelar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <$- include ( '../includes/footer')-%>

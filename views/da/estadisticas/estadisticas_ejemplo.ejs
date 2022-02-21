@@ -1,0 +1,91 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle %>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form ejemplo container">
+                <h4>Titulo de la estadística</h4>
+                <p>Autor de la estadística</p>
+                <p>Fecha de creación</p>
+                <p>Resumen: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique recusandae optio mollitia tempora eius animi dolorum sapiente dicta maxime sequi aperiam labore maiores vel et adipisci temporibus, eveniet sit ut.</p>
+                <div class="container mt-5 estadistica_css">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="d-flex align-items-end">
+                                <div class=" bello w-10 me-3 align-items-end d-grid">
+                                    <div class="valor text-center  bg-white align-self-baseline"></div>
+                                    <div class=" bg-white">Bello</div>
+                                </div>
+                                <div class="medellin w-10 me-3 align-items-end d-grid">
+                                    <div class="valor text-center  bg-white align-self-baseline"></div>
+                                    <div class=" bg-white">Medellín</div>
+                                </div>
+                                <div class="santa_rosa w-10 me-3 align-items-end d-grid">
+                                    <div class="valor text-center  bg-white align-self-baseline"></div>
+                                    <div class=" bg-white">Boston</div>
+                                </div>
+                                <div class="copacabana w-10 me-3 align-items-end d-grid">
+                                    <div class="valor text-center  bg-white align-self-baseline"></div>
+                                    <div class=" bg-white">Copacabana</div>
+                                </div>
+                                <div class="el_poblado w-10 me-3 align-items-end d-grid">
+                                    <div class="valor text-center  align-self-baseline bg-white"></div>
+                                    <div class=" bg-white">Poblado</div>
+                                </div>
+                                <div class="sabaneta w-10 me-3 align-items-end d-grid">
+                                    <div class="valor text-center  bg-white align-self-baseline"></div>
+                                    <div class=" bg-white">Sabaneta</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mt-5">
+                            <form action="" autocomplete="off">
+                                <label for="" class="form-label">Seleccione la sustancia</label>
+                                <select name="" id="opcion" class="form-select" onclick="cambiar_sustancia()">
+                                    <option value="alcohol" selected>Alcohol</option>
+                                    <option value="marihuana">Marihuana (regular, cripi, cripa)</option>
+                                    <option value="cocaina">Cocaína y/o derivados (perico, crack, nieve, parloca, freebase)</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body mt-5">
+                    <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
+                    <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <%- include('../includes/footer') -%>

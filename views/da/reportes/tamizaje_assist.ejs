@@ -1,0 +1,979 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form fluid-container tamizajes">
+                <form action="" autocomplete="off">
+                    <!--INFORMACION GENERAL SLIDE NUMERO 1 /-->
+                    <!--DATOS COMPLEMENTARIOS PRELIMINARES TAMIZAJE ASSIST (18-60 años/-->
+                    <!--ESTE SLIDE SOLO DEBE DE SALIR EN CUYO CASO LA EDAD DE LA PERSONA QUE SE ESTA REPORTANDO SEA ENTRE 18 A 60 AÑOS, SE DEBE CALCULAR EN BASE A LA FECHA DE NACIMIENTO-->
+                    <!--ENCUESTA TAMIZAJE ASSIST-->
+                    <div class="step step-1 active ">
+                        <div class="form-group">
+                            <h3>ENCUESTA TAMIZAJE ASSIST</h3>
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingDatosB">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDatosB" aria-expanded="false" aria-controls="flush-collapseDatosB">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>Relacion con datos basicos</h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">Si se continua un tamizaje de una persona ya registrada, con la cedula en el primer campo, va a traer todos los datos, de no ser asi, se rellena solo para el tamizaje</p>
+                                                </div>
+                                            </div>
+                                    </button>
+                                    </h2>
+                                    <div id="flush-collapseDatosB" class="accordion-collapse collapse" aria-labelledby="flush-headingDatosB" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="col-lg-6 col-xs-12">
+                                                <label for="Fecha Notificación">1.1 Fecha Notificación</label>
+                                                <input type="date" class="form-control" name="FEC_NOT" id="">
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td><label for="Tipo de Identificación">2.1 Tipo Identificación</label></td>
+                                                    <td><label for="Número Identificación">2.2 Número Identificación</label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><select name="TIP_IDE" id="options" class="form-control"></select></td>
+                                                    <td><input type="text" name="NUM_IDE" class="form-control" required></td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    <td> <label for="Primer Nombre">2.3 Primer Nombre</label></td>
+                                                    <td><label for="Segundo Nombre">2.4 Segundo Nombre</label></td>
+                                                    <td><label for="Primer Apellido">2.5 Primer Apellido</label></td>
+                                                    <td><label for="Segundo Apellido">2.6 Segundo Apellido</label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" name="PRI_NOM" class="form-control" required></td>
+                                                    <td><input type="text" name="SEG_NOM" class="form-control" required></td>
+                                                    <td><input type="text" name="PRI_APE" class="form-control" required></td>
+                                                    <td><input type="text" name="SEG_APE" class="form-control" required></td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    <td><label for="Telefono Paciente">2.7 Telefono Paciente</label></td>
+                                                    <td><label for="Fecha de Nacimiento">2.8 Fecha de Nacimiento</label></td>
+                                                    <td><label for="Edad">2.9 Edad</label></td>
+                                                    <td><label for="Sexo">2.10 Sexo</label></td>
+                                                    <td><label for="Nacionalidad">2.11 Nacionalidad</label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" name="TELEFONO" id="" class="form-control" required></td>
+                                                    <td><input type="date" name="FECHA_NTO" id="" class="form-control" required></td>
+                                                    <td><input type="text" name="EDAD" id="" class="form-control" required></td>
+                                                    <td><select name="SEXO" id="options" class="form-control"></select></td>
+                                                    <td><select name="NACION" id="" class="form-control"></select></td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    3.1 Lugar de ocurrencia del caso
+                                                </tr>
+                                                <tr>
+                                                    <p class="textos_black">Breve descripcion de: "Lugar de ocurrencia"</p>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput1" required>
+                                                    </div>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr><label for="Código del País de Residencia del paciente">Lugar Residencia del paciente</label></tr>
+                                            </table>
+                                            <table>
+                                                <tr><label for="Código del País de Residencia del paciente">3.2 País</label>
+                                                </tr>
+                                                <tr>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="Buscar por Pais" aria-label="Buscar" aria-describedby="button-addon2" id="myInput" required>
+                                                    </div>
+                                                </tr>
+                                            </table>
+                                            <div class="hide_table" id="tabla_oculta">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput2" required>
+                                                </div>
+                                            </div>
+                                            <table class="hide_table" id="tabla_oculta">
+                                                <tr>
+                                                    <td><label for="Dirección de Residencia">3.3 Dirección de Residencia</label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> <input type="text" name="DIR_RES" class="form-control" required></td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    <td><label for="Fecha Consulta">4.1 Tipo de Régimen en Salud</label></td>
+                                                    <td><label for="Fecha Inicio de Síntomas">4.2 Código Administradora</label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="date" name="FEC_CON" id="" class="form-control" required></td>
+                                                    <td><input type="date" name="INI_SIN" id="" class="form-control" required></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 1.</h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO-MÉDICOS)?</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td>Tabaco (cigarrillo)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>¿A que edad inicio a fumar?</td>
+                                                    <td><input class="form-control" type="text" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alcohol</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Otra</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <td>Cual?</td>
+                                                <td><input type="text" name="Otra" id="" class="form-control"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 2.<br></h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">En los últimos tres meses, ¿con qué frecuencia ha consumido las sustancias que mencionó (PRIMERA DROGA, SEGUNDA DROGA, ETC)?</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Nunca</td>
+                                                    <td>1 o 2 veces</td>
+                                                    <td>Cada mes</td>
+                                                    <td>Cada semana</td>
+                                                    <td>A diario</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tabaco (cigarrillo)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alcohol</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Otra</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cual?</td>
+                                                    <td><input type="text" name="Otra" id="" class="form-control"></td>
+                                                    <td><input type="text" name="Otra" id="" class="form-control"></td>
+                                                    <td><input type="text" name="Otra" id="" class="form-control"></td>
+                                                    <td><input type="text" name="Otra" id="" class="form-control"></td>
+                                                    <td><input type="text" name="Otra" id="" class="form-control"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapsThree">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 3.<br> </h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Nunca</td>
+                                                    <td>1 o 2 veces</td>
+                                                    <td>Cada mes</td>
+                                                    <td>Cada semana</td>
+                                                    <td>A diario</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tabaco (cigarrillo)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alcohol</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Otra</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingFour">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 4.<br></h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Nunca</td>
+                                                    <td>1 o 2 veces</td>
+                                                    <td>Cada mes</td>
+                                                    <td>Cada semana</td>
+                                                    <td>A diario</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tabaco (cigarrillo)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alcohol</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Otra</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingFive">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 5.<br></h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">En los últimos tres meses, ¿con qué frecuencia dejó de hacer lo que se esperaba de usted habitualmente por el consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Nunca</td>
+                                                    <td>1 o 2 veces</td>
+                                                    <td>Cada mes</td>
+                                                    <td>Cada semana</td>
+                                                    <td>A diario</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tabaco (cigarrillo)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alcohol</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Otra</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingSix">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 6.<br></h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">¿Un amigo, un familiar o alguien más alguna vez ha mostrado preocupación por su consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Nunca</td>
+                                                    <td>1 o 2 veces</td>
+                                                    <td>Cada mes</td>
+                                                    <td>Cada semana</td>
+                                                    <td>A diario</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tabaco (cigarrillo)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alcohol</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Otra</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingSeven">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 7.<br></h3>
+                                                </div>
+                                                <div class="row"><p class="textos_black">¿Ha intentado alguna vez controlar, reducir o dejar de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC) y no lo ha logrado?</p></div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Nunca</td>
+                                                    <td>1 o 2 veces</td>
+                                                    <td>Cada mes</td>
+                                                    <td>Cada semana</td>
+                                                    <td>A diario</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tabaco (cigarrillo)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alcohol</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Otra</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingEight">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <h3>PREGUNTA 8. </h3>
+                                                </div>
+                                                <div class="row">
+                                                    <p class="textos_black">¿Ha consumido alguna vez alguna droga por vía inyectada? (ÚNICAMENTE PARA USOS NO MÉDICOS)</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td>Si</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>No</td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                            </table>
+                                            <table class="lista_spa_reporte">
+                                                <tr>
+                                                    <td>Frecuencia de la inyección</td>
+                                                    <td><select name="" id="" class="form-select">
+                                                        <option value="">Una vez a la semana o menos ó Menos de 3 días seguidos</option>
+                                                        <option value="">Más de una vez a la semana ó 3 o más días seguidos</option>
+                                                    </select></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn_box">
+                                <button type="button" class="tamizaje btn_green" data-bs-toggle="modal" data-bs-target="#modal_guardado" onclick="validar_formulario();">Guardar</button>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal " tabindex="-1" id="modal_guardado">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <div id="campos_inva" class="hide_table">
+                        <p>Para continuar con el reporte, debe de llenar todo los campos requeridos, favor revisas el formulario por lo campos no completados</p>
+                    </div>
+                    <div id="campos_save" class="hide_table">
+                        <h3 style="text-align: center;">PUNTUACIÓN TAMIZAJE ASSIST</h3>
+                        <div class="row">
+                            <div class="col-lg-6 col-xs-12">
+                                <label for="">Riesgo del consumo de Tabaco:</label>
+                                <!--CALCULO "0-3 = Bajo (P2a+P3a+P4a+P5a+P6a+P7a) 4-26 = Medio (P2a+P3a+P4a+P5a+P6a+P7a) 27-más = Alto (P2a+P3a+P4a+P5a+P6a+P7a)"-->
+                                <input type="text" name="ASSIST_Puntajea_TAB" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Alcohol</label>
+                                <!--CALCULO "0-10 = Bajo (P2b+P3b+P4b+P5b+P6b+P7b) 11-26 = Medio (P2b+P3b+P4b+P5b+P6b+P7b) 27-más = Alto (P2b+P3b+P4b+P5b+P6b+P7b)"-->
+                                <input type="text" name="ASSIST_Puntajeb_ALC" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Cannabis</label>
+                                <!--CALCULO "0-3 = Bajo (P2c+P3c+P4c+P5c+P6c+P7c) 4-26 = Medio (P2c+P3c+P4c+P5c+P6c+P7c) 27-más = Alto (P2c+P3c+P4c+P5c+P6c+P7c)"-->
+                                <input type="text" name="ASSIST_Puntajec_CAN" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Cocaína</label>
+                                <!--CALCULO "0-3 = Bajo (P2d+P3d+P4d+P5d+P6d+P7d) 4-26 = Medio (P2d+P3d+P4d+P5d+P6d+P7d) 27-más = Alto (P2d+P3d+P4d+P5d+P6d+P7d)"-->
+                                <input type="text" name="ASSIST_Puntajed_COC" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Anfetaminas</label>
+                                <!--CALCULO "0-3 = Bajo (P2e+P3e+P4e+P5e+P6e+P7e) 4-26 = Medio (P2e+P3e+P4e+P5e+P6e+P7e) 27-más = Alto (P2e+P3e+P4e+P5e+P6e+P7e)"-->
+                                <input type="text" name="ASSIST_Puntajee_ANF" id="" class="form-control">
+                            </div>
+                            <div class="col-lg-6 col-xs-12">
+                                <label for="">Riesgo del consumo de Inhalantes</label>
+                                <!--CALCULO "0-3 = Bajo (P2f+P3f+P4f+P5f+P6f+P7f) 4-26 = Medio (P2f+P3f+P4f+P5f+P6f+P7f) 27-más = Alto (P2f+P3f+P4f+P5f+P6f+P7f)"-->
+                                <input type="text" name="ASSIST_Puntajef_INH" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Sedantes</label>
+                                <!--CALCUCLO "0-3 = Bajo (P2g+P3g+P4g+P5g+P6g+P7g) 4-26 = Medio (P2g+P3g+P4g+P5g+P6g+P7g) 27-más = Alto (P2g+P3g+P4g+P5g+P6g+P7g)"-->
+                                <input type="text" name="ASSIST_Puntajeg_TRA" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Alucinógenos</label>
+                                <!-- CALCULO "0-3 = Bajo (P2h+P3h+P4h+P5h+P6h+P7h) 4-26 = Medio (P2h+P3h+P4h+P5h+P6h+P7h) 27-más = Alto (P2h+P3h+P4h+P5h+P6h+P7h)"-->
+                                <input type="text" name="ASSIST_Puntajeh_ALU" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Opiáceos</label>
+                                <!--CALCULO "0-3 = Bajo (P2i+P3i+P4i+P5i+P6i+P7i) 4-26 = Medio (P2i+P3i+P4i+P5i+P6i+P7i) 27-más = Alto (P2i+P3i+P4i+P5i+P6i+P7i)"-->
+                                <input type="text" name="ASSIST_Puntajei_OPI" id="" class="form-control">
+                                <label for="">Riesgo del consumo de Otras drogas</label>
+                                <!--CALCULO "0-3 = Bajo (P2j+P3j+P4j+P5j+P6j+P7j) 4-26 = Medio (P2j+P3j+P4j+P5j+P6j+P7j)27 o más = Alto (P2j+P3j+P4j+P5j+P6j+P7j)"-->
+                                <input type="text" name="ASSIST_Puntajej_OTR" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn_green" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/admin/scripts/validar_campos.js"></script>
+    <%- include('../includes/footer') -%>

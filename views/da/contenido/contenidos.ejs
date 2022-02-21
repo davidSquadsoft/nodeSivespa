@@ -1,0 +1,277 @@
+<%- include('../includes/header') -%>
+<section class="content">
+  <div class="titulo_pagina row align-items-center">
+    <div class="col-lg-2">
+      <div class="btn_close d-md-none d-lg-block">
+        <button type="button" class="close_sidebar">
+          <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar"
+            >&nbsp;Maximizar</i
+          >
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <h4><%= tittle%></h4>
+    </div>
+
+    <div class="col-lg-6 d-md-none d-lg-block">
+      <div class="bell_notificaciones">
+        <a href="../notificaciones/notificaciones.php"
+          ><i class="bi bi-bell-fill"></i
+        ></a>
+      </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <% if(user) {%>
+          <p class="nombre_entidad_activa">
+            <%= user.NOMBRE %> <%= user.APELLIDO %>
+          </p>
+          <% }%>
+          <br />
+          <p class="cambiar">Cambiar</p>
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+          <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+          <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section_form fluid-container">
+    <div class="container_reporte_form">
+      <div class="row buscar">
+        <div class="row section_btn_dashboard_individual">
+          <div class="col-lg-3 col-xs-12">
+            <a href="/da/crear_contenido">
+              <div class="card card_dashboard_individual">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 19.63 17.91"
+                      >
+                        <defs>
+                          <style>
+                            .cls-1 {
+                              fill: #fff;
+                            }
+                          </style>
+                        </defs>
+                        <title>crear_entidades</title>
+                        <g id="Capa_2" data-name="Capa 2">
+                          <g id="Capa_1-2" data-name="Capa 1">
+                            <path
+                              class="cls-1"
+                              d="M19.41,7l-2.78-.86V4a.33.33,0,0,0-.17-.28L9,0h0a.3.3,0,0,0-.15,0,.44.44,0,0,0-.16.06h0L3.28,3.87a.31.31,0,0,0-.13.25V6.79l-1-.12H2.08L2,6.69H2L.18,7.5A.31.31,0,0,0,0,7.78v5.16a.29.29,0,0,0,.16.27l1.81,1a.24.24,0,0,0,.11,0h.09l1-.14v.57a.3.3,0,0,0,.16.27l5.35,2.93a.28.28,0,0,0,.14,0,.22.22,0,0,0,.12,0h0L16.43,15l3-1.14a.31.31,0,0,0,.2-.29V7.24A.31.31,0,0,0,19.41,7ZM.86,11.66a.09.09,0,0,1,0,.08.07.07,0,0,1-.06,0h0l-.34-.1a.1.1,0,0,1-.08-.1v-1a.09.09,0,0,1,0-.08.11.11,0,0,1,.07,0l.35,0a.1.1,0,0,1,.09.1v1Zm0-2a.1.1,0,0,1-.09.1l-.35,0h0a.11.11,0,0,1-.07,0,.09.09,0,0,1,0-.07v-1a.1.1,0,0,1,.08-.1L.73,8.5a.1.1,0,0,1,.09,0,.09.09,0,0,1,0,.08v1Zm1,2.32a.12.12,0,0,1,0,.08l-.07,0h0l-.48-.13a.11.11,0,0,1-.07-.1V10.69a.09.09,0,0,1,0-.07.11.11,0,0,1,.08,0l.47.05a.09.09,0,0,1,.1.1v1.2Zm0-2.4a.11.11,0,0,1-.1.1l-.47,0h0a.11.11,0,0,1-.07,0,.09.09,0,0,1,0-.07V8.46a.1.1,0,0,1,.08-.1l.47-.12a.14.14,0,0,1,.09,0,.13.13,0,0,1,0,.09Zm2.57,3.12a.09.09,0,0,1,0,.08l-.06,0h0l-.6-.16a.11.11,0,0,1-.08-.1V10.93a.09.09,0,0,1,0-.08.1.1,0,0,1,.07,0l.61.06a.1.1,0,0,1,.09.1v1.67Zm0-3.34a.11.11,0,0,1-.09.11l-.61.05h0a.11.11,0,0,1-.07,0,.11.11,0,0,1,0-.08V7.82a.1.1,0,0,1,.08-.1l.61-.16a.08.08,0,0,1,.08,0,.09.09,0,0,1,0,.08V9.32ZM4.44,6a.11.11,0,0,1-.06.1l-.6.27h0l0,0a.11.11,0,0,1-.05-.09V4.71a.11.11,0,0,1,.05-.09l.61-.38a.09.09,0,0,1,.1,0,.11.11,0,0,1,.05.09V6ZM6,13.08a.12.12,0,0,1,0,.08l-.06,0h0L5,13a.1.1,0,0,1-.07-.1V11.06A.11.11,0,0,1,5,11a.08.08,0,0,1,.08,0l.82.07a.11.11,0,0,1,.09.11v1.94ZM6,9.2a.1.1,0,0,1-.1.1l-.81.07H5a.11.11,0,0,1-.07,0,.09.09,0,0,1,0-.07V7.47A.09.09,0,0,1,5,7.38l.81-.22a.1.1,0,0,1,.09,0,.12.12,0,0,1,0,.08V9.2ZM6,5.32a.13.13,0,0,1-.06.1l-.82.36H5l0,0a.11.11,0,0,1,0-.09V3.89A.12.12,0,0,1,5,3.8l.81-.5a.14.14,0,0,1,.11,0,.12.12,0,0,1,0,.09V5.32Zm2.1,8.34a.11.11,0,0,1,0,.08.14.14,0,0,1-.1,0h0a6.44,6.44,0,0,1-1.15-.34.11.11,0,0,1-.07-.1V11.23a.09.09,0,0,1,0-.08l.07,0L8,11.24a.11.11,0,0,1,.09.1ZM8.06,9a.11.11,0,0,1-.09.1l-1.15.09h0l-.07,0a.11.11,0,0,1,0-.08V7a.1.1,0,0,1,.08-.1l1.15-.3a.08.08,0,0,1,.08,0s0,0,0,.08V9Zm0-4.64A.09.09,0,0,1,8,4.48L6.86,5H6.81a.06.06,0,0,1,0,0,.09.09,0,0,1,0-.08V2.79a.11.11,0,0,1,0-.09L7.91,2A.09.09,0,0,1,8,2a.11.11,0,0,1,.05.09V4.39Zm4.56-1.16a.1.1,0,0,1,.05-.08.12.12,0,0,1,.1,0L14,3.67a.1.1,0,0,1,.06.09V5.59a.1.1,0,0,1,0,.09L14,5.7h0L12.7,5.32a.11.11,0,0,1-.08-.1v-2Zm0,4a.12.12,0,0,1,0-.08.1.1,0,0,1,.09,0L14,7.32a.1.1,0,0,1,.08.1V9.27a.11.11,0,0,1,0,.07.09.09,0,0,1-.07,0h0l-1.22-.09a.11.11,0,0,1-.1-.1v-2ZM9.44,1.86a.1.1,0,0,1,0-.09.12.12,0,0,1,.1,0l1.74.75a.11.11,0,0,1,.06.1V4.77s0,.07,0,.08a.07.07,0,0,1-.06,0h0L9.51,4.34a.12.12,0,0,1-.07-.1V1.86ZM9.44,9V6.62a.11.11,0,0,1,0-.08.1.1,0,0,1,.09,0l1.74.31a.1.1,0,0,1,.08.1V9.1a.09.09,0,0,1,0,.07.11.11,0,0,1-.07,0h0L9.53,9.1A.1.1,0,0,1,9.44,9Zm3.39,7.12a.1.1,0,0,1-.07.09l-2.27.87h-.1a.15.15,0,0,1,0-.09V11.32a.11.11,0,0,1,.09-.11l2.28-.15a.11.11,0,0,1,.08,0,.09.09,0,0,1,0,.07v5Zm2.74-1.05a.1.1,0,0,1-.06.1L14,15.75h0a.07.07,0,0,1-.06,0,.1.1,0,0,1,0-.08V11.08a.09.09,0,0,1,.09-.1l1.52-.11a.1.1,0,0,1,.11.11ZM16,9.36a.11.11,0,0,1,0,.08l-.07,0h0L15,9.41a.1.1,0,0,1-.09-.1V7.61a.11.11,0,0,1,0-.08.15.15,0,0,1,.09,0l.91.17a.1.1,0,0,1,.08.1V9.36Zm0-3.17a.1.1,0,0,1,0,.09l-.06,0h0L15,6a.1.1,0,0,1-.07-.09V4.22a.13.13,0,0,1,0-.09.12.12,0,0,1,.1,0l.91.4a.09.09,0,0,1,.06.09V6.19Zm1.82,6a.11.11,0,0,1-.09.1l-.66.13h0l-.06,0a.12.12,0,0,1,0-.08V10.87a.09.09,0,0,1,.1-.1l.66,0a.13.13,0,0,1,.08,0,.09.09,0,0,1,0,.07v1.36Zm0-2.71a.11.11,0,0,1,0,.07.11.11,0,0,1-.08,0h0l-.66,0a.1.1,0,0,1-.1-.1V8a.12.12,0,0,1,0-.08.08.08,0,0,1,.08,0l.66.12a.11.11,0,0,1,.09.1V9.47ZM18.94,12a.11.11,0,0,1-.08.11l-.53.1h0l-.06,0a.09.09,0,0,1,0-.08V10.78a.1.1,0,0,1,.1-.1l.52,0a.1.1,0,0,1,.11.11V12Zm0-2.43a.08.08,0,0,1,0,.07.09.09,0,0,1-.07,0h0l-.53,0a.1.1,0,0,1-.1-.1V8.23a.09.09,0,0,1,0-.08.11.11,0,0,1,.08,0l.53.08a.1.1,0,0,1,.08.1V9.53Z"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div class="col-8">
+                      <h5 class="card-title align-self-center">
+                        Crear Contenido
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col col-xs-12">
+            <form action="" class="form-group">
+              <p class="textos_black">Buscar por nombre de titulo o autor</p>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscar"
+                  aria-label="Buscar"
+                  aria-describedby="button-addon2"
+                />
+                <button
+                  class="btn btn-outline-secondary btn_search"
+                  type="button"
+                  id="button-addon2"
+                >
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row filtrar">
+        <form action="" class="form-group">
+          <h5>Filtrar</h5>
+          <div class="row">
+            <div class="col-lg-6 col-xs-12">
+              <label for="">Tipo de Contenido</label>
+              <select name="" id="" class="form-control">
+                <option value="">Noticia</option>
+                <option value="">Tip</option>
+                <option value="">Pagina</option>
+              </select>
+            </div>
+            <div class="col-lg-6 col-xs-12">
+              <label for="">Region</label>
+
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscar por Barrio o Vereda o Centro poblado"
+                  aria-label="Buscar"
+                  aria-describedby="button-addon2"
+                  id="myInput1"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscar por Barrio o Vereda o Centro poblado"
+                  aria-label="Buscar"
+                  aria-describedby="button-addon2"
+                  id="myInput"
+                  style="display: none"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn_green">Aplicar</button>
+        </form>
+      </div>
+      <!--Tabla de usuarios y entidades-->
+      <div class="row">
+        <table>
+          <tr class="titulo_tabla">
+            <td>Titulo</td>
+            <td>Fecha</td>
+            <td>Resumen</td>
+            <td>Autor</td>
+            <td>Tipo de contenido</td>
+            <td>Estado</td>
+          </tr>
+          <tr>
+            <td>Titulo</td>
+            <td>01/01/01</td>
+            <td>Resumen</td>
+            <td>Autor</td>
+            <td>Noticia</td>
+            <td>Publicada/Borrador</td>
+            <td align="center">
+              <button
+                type="link"
+                class="btn_green btn_icons"
+                onclick="location.href='noticia_ejemplo.php'"
+              >
+                <i class="bi bi-eye-fill"></i>
+              </button>
+            </td>
+            <td align="center">
+              <button
+                type="link "
+                class="btn_green btn_icons"
+                onclick="location.href=`crear_contenido.php`"
+              >
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+            <td align="center">
+              <button
+                type="button"
+                class="btn_red_eliminar"
+                data-bs-toggle="modal"
+                data-bs-target="#modal_borrar"
+              >
+                <i class="bi bi-x-octagon-fill"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Titulo</td>
+            <td>01/01/01</td>
+            <td>Resumen</td>
+            <td>Autor</td>
+            <td>Tip</td>
+            <td>Publicada/Borrador</td>
+            <td align="center">
+              <button
+                type="link"
+                class="btn_green btn_icons"
+                onclick="location.href='tip_ejemplo.php'"
+              >
+                <i class="bi bi-eye-fill"></i>
+              </button>
+            </td>
+            <td align="center">
+              <button
+                type="link "
+                class="btn_green btn_icons"
+                onclick="location.href=`crear_contenido.php`"
+              >
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+            <td align="center">
+              <button
+                type="button"
+                class="btn_red_eliminar"
+                data-bs-toggle="modal"
+                data-bs-target="#modal_borrar"
+              >
+                <i class="bi bi-x-octagon-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="modal_borrar"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro que de sea eliminar la noticia/tip?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn_green" data-bs-dismiss="modal">
+          Aceptar
+        </button>
+        <button type="button" class="btn_green" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../includes/footer') -%>

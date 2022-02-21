@@ -1,0 +1,157 @@
+ <!--ACORDION DE USUARIOS-->
+ <div class="accordion accordion-flush" id="accordionFlushExample">
+    <% if (user) { if (user.TIP_USER==1){ %>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <h3>Entidades Municipales:</h3>
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">   <!--Tabla de entidades municipales-->
+                <div class="row titulo_tabla">
+                    <div class="col-lg-2">Codigo:</div>
+                    <div class="col-lg-2">Nombre:</div>
+                    <div class="col-lg-2">Responsable:</div>
+                    <div class="col-lg-3">Correo:</div>
+                    <div class="col-lg-2">Telefono:</div>
+                    <div class="col-lg-1">Accion:</div>
+                </div>
+                <% listaMUNI.forEach((userMUNI)=> { %>
+                <div class="row text-capitalize crud_user ">
+                    <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userMUNI.COD_MUN %></div>
+                    <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userMUNI.NOM_MUN %></div>
+                    <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userMUNI.NOMBRE_RESPON %> <%= userMUNI.APELLIDO_RESPON %></div>
+                    <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= userMUNI.EMAIL %></div>
+                    <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userMUNI.TELEFONO %></div>
+                    <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                     <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+                </div>
+                
+                <% }) %>
+                <h3 class="mt-2">Total de Entidades Municipales: <%= listaMUNI.length %></h3> 
+         </div>
+      </div>
+    </div>
+    <% } } %>
+    <% if (user) { if (user.TIP_USER==1 || user.TIP_USER==2){ %>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            <h3>UPGD:</h3>
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+              <!--Tabla de entidades UPGD-->
+    <div class="row titulo_tabla">
+        <div class="col-lg-2">Codigo:</div>
+        <div class="col-lg-2">Nombre:</div>
+        <div class="col-lg-2">Responsable:</div>
+        <div class="col-lg-3">Correo:</div>
+        <div class="col-lg-2">Telefono:</div>
+        <div class="col-lg-1">Accion:</div>
+    </div>
+    <% listaUPGD.forEach((userUPGD)=> { %>
+    <div class="row text-capitalize crud_user ">
+        <% if(user.TIP_USER==2) { if(userUPGD.COD_MUN==user.COD_MUN){%>
+             <!-- se muestran si es una entidad municipal -->
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.COD_PRE %>-<%= userUPGD.COD_SUB %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.RAZ_SOC %></div>
+        <% listaUSERS.forEach((data)=>{
+            if (data.CEDULA==userUPGD.ID_RES_NOT && data.COD_PRE == userUPGD.COD_PRE && data.TIP_USER==3){
+                result=data.NOMBRE +" "+data.APELLIDO
+            }
+        })%>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= result %></div>
+        <div class="col-lg-3 border border-secondary  align-items-center d-flex"><%= userUPGD.COR_ELE %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.TEL %></div>
+        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+        <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+            <% } } else if (user.TIP_USER==1) { %>
+                <!-- se muestran si es el administrador global -->
+                <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.COD_PRE %>-<%= userUPGD.COD_SUB %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.RAZ_SOC %></div>
+        <% listaUSERS.forEach((data)=>{
+            if (data.CEDULA==userUPGD.ID_RES_NOT && data.COD_PRE == userUPGD.COD_PRE && data.TIP_USER==3){
+                result=data.NOMBRE +" "+data.APELLIDO
+            }
+        })%>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= result%></div>
+        <div class="col-lg-3 border border-secondary overflow-auto"><%= userUPGD.COR_ELE %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.TEL %></div>
+        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                                                        <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+                <%}%>
+    </div>
+    <% }) %>
+        </div>
+      </div>
+    </div>
+    <% } } %>
+    <% if (user) { if (user.TIP_USER==1 || user.TIP_USER==2 || user.TIP_USER==3){ %>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            <h3>Usuarios:</h3>
+        </button>
+      </h2>
+      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+               <!--Tabla de usuarios de UPGD-->
+    <div class="row titulo_tabla">
+        <div class="col-lg-2">Nombre:</div>
+        <div class="col-lg-2">Numero Doc:</div>
+        <div class="col-lg-2">Telefono:</div>
+        <div class="col-lg-3">Correo:</div>
+        <div class="col-lg-2">Entidad:</div>
+        <div class="col-lg-1">Accion:</div>
+    </div>
+    <% listaUSERS.forEach((users)=> { %>
+     <!--Tabla de todos los usuarios para entidad municipal-->
+     <% if(user.TIP_USER==2){ %>
+     <div class="row crud_user ">
+        <% if (users.COD_MUN==user.COD_MUN){%>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.NOMBRE %> <%= users.APELLIDO %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.CEDULA %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.TEL %> </div>
+        <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= users.EMAIL %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.ENTIDAD %></div>
+        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+         <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+        <% } %>
+    </div>
+    <% } %>
+    <% if(user.TIP_USER==1){ %>
+        <div class="row crud_user ">
+    
+           <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.NOMBRE %> <%= users.APELLIDO %></div>
+           <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.CEDULA %></div>
+           <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.TEL %> </div>
+           <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= users.EMAIL %></div>
+           <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.ENTIDAD %></div>
+           <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+            <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+          
+       </div>
+       <% } %>
+       <% if(user.TIP_USER==3){ %>
+        <div class="row crud_user ">
+    
+            <% if (users.COD_PRE==user.COD_PRE){%>
+                <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.NOMBRE %> <%= users.APELLIDO %></div>
+                <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.CEDULA %></div>
+                <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.TEL %> </div>
+                <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= users.EMAIL %></div>
+                <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.ENTIDAD %></div>
+                <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                 <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+                <% } %>
+       </div>
+       <% } %>
+    <% }) %>
+        </div>
+      </div>
+    </div>
+    <% } } %>
+  </div>

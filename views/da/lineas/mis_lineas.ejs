@@ -1,0 +1,127 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle %>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i
+                            class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form ">
+                <div class="row buscar">
+                    <div class="row section_btn_dashboard_individual">
+                        <% if(user) { if (user.TIP_USER !== 4) {%>
+                        <div class="col-lg-4 col-xs-12">
+                            <a data-bs-toggle="modal" data-bs-target="#modal_crear_linea">
+                                <div class="card card_dashboard_individual ">
+                                    <div class="card-body ">
+                                        <div class="row ">
+                                            <div class="col-3">
+                                                <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.33 21.33"><defs><style>.cls-1{fill:#fff;}</style></defs><title>contact</title><g id="_Grupo_" data-name="&lt;Grupo&gt;"><path id="_Trazado_" data-name="&lt;Trazado&gt;" class="cls-1" d="M17.42,9.14a5.75,5.75,0,0,0-5.09-5.48l-.18,0a3,3,0,0,0-.43,0,.71.71,0,0,0-.77.65.74.74,0,0,0,.11.59,1.12,1.12,0,0,0,.8.34l.22,0c2.54.56,3.39,1.46,3.81,4a1.27,1.27,0,0,1,0,.22c0,.3.06.92.73.92h.18c.63-.1.61-.67.6-.94a1.31,1.31,0,0,1,0-.2Z"/><path id="_Trazado_2" data-name="&lt;Trazado&gt;" class="cls-1" d="M11.56,2.68l.2,0c4.18.64,6.1,2.62,6.63,6.82a1.93,1.93,0,0,1,0,.25c0,.33,0,1,.75,1h0a.72.72,0,0,0,.55-.21,1.15,1.15,0,0,0,.2-.88,1.28,1.28,0,0,1,0-.19,8.51,8.51,0,0,0-8-8.35h-.47a.75.75,0,0,0-.83.78C10.6,2.61,11.25,2.65,11.56,2.68Z"/><path id="_Trazado_3" data-name="&lt;Trazado&gt;" class="cls-1" d="M18.19,15l-.27-.21c-.46-.36-.94-.7-1.41-1l-.29-.2a2.93,2.93,0,0,0-1.65-.63A2.13,2.13,0,0,0,12.79,14a1,1,0,0,1-.81.49,1.59,1.59,0,0,1-.66-.16,7.86,7.86,0,0,1-4.11-4,1.31,1.31,0,0,1,.41-1.88,1.91,1.91,0,0,0,1-1.67c-.06-1-2.38-4.21-3.36-4.57A1.9,1.9,0,0,0,4,2.22,3.75,3.75,0,0,0,1.69,4.14,3.55,3.55,0,0,0,1.74,7a23.21,23.21,0,0,0,5.09,7.75,24.62,24.62,0,0,0,7.73,5.13,4.22,4.22,0,0,0,.76.23l.18,0h.1a4.39,4.39,0,0,0,3.64-2.77C19.69,16.11,18.86,15.47,18.19,15Z"/><path id="_Trazado_4" data-name="&lt;Trazado&gt;" class="cls-1" d="M12.18,6.09a.88.88,0,0,0-.92.54.73.73,0,0,0,0,.62,1,1,0,0,0,.7.37,1.64,1.64,0,0,1,1.53,1.65.79.79,0,0,0,.75.77h.09c.47-.06.7-.41.68-1a3,3,0,0,0-.92-2A2.76,2.76,0,0,0,12.18,6.09Z"/></g></svg>
+                                            </div>
+                                            <div class="col-9">
+                                                <h5 class="card-title align-self-center ">Crear Nueva Linea de Atención</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <% }}%>
+                    </div>
+                </div>
+                <!-- <div class="row" id="administrar_noticias">
+                </div> -->
+                <div class="row">
+                    <% todaslineas.forEach((datalineas)=>{ %> 
+                    <div class="col-lg-4 col-xs-12">
+                        <div class="card card_news">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= datalineas.nombre %> /h5>
+                                <p class="card-text"><%= datalineas.description %> </p>
+                                <p class="card-text">Numero de linea de atención: <% datalineas.numero %> </p>
+                                <p class="card-text">Nombre del municipio <% datalineas.NOMMUNIPIO %> </p> 
+                                <p class="card-text">Sustancia: <% datalineas.SUSTANCIA %> </p>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %> 
+                
+                </div>
+            </div>
+    </section>
+    <div class="modal fade" id="modal_crear_linea" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/da/crearlinea" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar/Editar linea de atención</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body modal_lineas">
+                        <div class="row ">
+                            <div class="col-lg-6 ">
+                                <label for="" class="">Nombre:</label>
+                                <input type="text" name="nombre" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="" class="">Numero:</label>
+                                <input type="text" name="numero" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-12">
+                                <label for="" class="form-label">Información</label>
+                                <textarea name="descripcion" id="" rows="10" class="w-100"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-12">
+                                <label for="" class="form-label">Spa</label>
+                                <select name="spa" id="" class="form-select">
+                                    <option value="0">No, dirigido de manera general</option>
+                                    <% listaspa.forEach((lspa)=>{ %> 
+                                        <option value="<%= lspa.id_rl_lista_spa  %>"> <%= lspa.SUSTANCIA %> </option>
+                                        <% }) %> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="SUMBIT" class=" btn_green">Guardar</button>
+                        <button type="button" class=" btn_green" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../includes/footer') -%>

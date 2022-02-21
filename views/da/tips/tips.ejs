@@ -1,0 +1,162 @@
+<%- include('../includes/header') -%>
+
+<% if (filtro==0){ %> 
+<section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form">
+                <div class="row buscar">
+                    <div class="row section_btn_dashboard_individual">
+                        <div class="col-lg-12 col-xs-12">
+                            <form action="/da/filtrotips" class="form-group " method="POST" autocomplete="off">
+                                <p class="textos_black">
+                                    
+    
+                                    Buscar:
+                             
+                                
+                                
+                                </p>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="kbuscar" placeholder="Buscar">
+                                    <button class="btn btn-outline-secondary btn_search" type="submit" id="button-addon2" name="submit"><i class="bi bi-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row" id="administrar_tips">
+                </div> -->
+                <div class="row">
+                    <% tips.forEach((datatips)=>{%>
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="card card_news">
+                                <img src="/upload/<%= datatips.imagen%>" class="card-img-top" alt="..." style=" object-fit: cover;
+                                width: 100%;
+                                height: 20vh;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= datatips.titulo%></h5>
+                                    <p class="card-text"><% resumen= datatips.texto%> <%= resumen.substr(1,50) %></p>
+                                    <a href="/da/vertip/<%= datatips.id %>" class="btn_green pt-2 pb-2">Leer</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </section>
+    <% } %> 
+
+
+    <% if (filtro==1){ %> 
+        <section class="content">
+                <div class="titulo_pagina row align-items-center">
+                    <div class="col-lg-2">
+                        <div class="btn_close d-md-none d-lg-block">
+                            <button type="button" class="close_sidebar">
+                                <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>
+                            <%= tittle%>
+                        </h4>
+                    </div>
+                    <div class="col-lg-6 d-md-none d-lg-block">
+                        <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <% if(user) {%>
+                                    <p class="nombre_entidad_activa">
+                                    <%= user.NOMBRE %> <%= user.APELLIDO %>
+                                    </p><% }%>
+                                <br>
+                                <p class="cambiar">Cambiar</p>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                                <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                                <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="section_form fluid-container">
+                    <div class="container_reporte_form">
+                        <div class="row buscar">
+                            <div class="row section_btn_dashboard_individual">
+                                <div class="col-lg-12 col-xs-12">
+                                    <form action="/da/filtrotips" class="form-group " method="POST" autocomplete="off">
+                                        <p class="textos_black">
+                                            
+            
+                                            Buscar:
+                                     
+                                        
+                                        
+                                        </p>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="kbuscar" placeholder="Buscar">
+                                            <button class="btn btn-outline-secondary btn_search" type="submit" id="button-addon2" name="submit"><i class="bi bi-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row" id="administrar_tips">
+                        </div> -->
+                        <div class="row">
+                            <% datafiltro.forEach((ldatafiltro)=>{%>
+                                <div class="col-lg-4 col-xs-12">
+                                    <div class="card card_news">
+                                        <img src="/upload/<%= ldatafiltro.imagen%>" class="card-img-top" alt="..." style=" object-fit: cover;
+                                        width: 100%;
+                                        height: 20vh;">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><%= ldatafiltro.titulo%></h5>
+                                            <p class="card-text"><% resumen= ldatafiltro.texto%> <%= resumen.substr(1,50) %></p>
+                                            <a href="/da/vertip/<%= ldatafiltro.id %>" class="btn_green pt-2 pb-2">Leer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <% } %> 
+    <script src="/admin/scripts/tips.js"></script>
+    <%- include('../includes/footer') -%>

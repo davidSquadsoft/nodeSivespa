@@ -1,0 +1,135 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form ">
+                <div class="row buscar crear_contenido">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-lg-12 col-xs-12">
+                                <label for="">Titulo</label>
+                                <input type="text" name="" id="">
+                            </div>
+                        </div>
+                        <div class="row crear_contenido_tipo_notificacion">
+                            <div class="col-lg-6 col-xs-12">
+                                <label for="">¿Enviar como notificacion?</label>
+                                <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                <br>
+                                <label for="">Agregar como destacado</label>
+                                <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                <br>
+                                <label for="">Anclar al inicio</label>
+                                <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                            </div>
+                            <div class="col-lg-6 col-xs-12">
+                                <b><label for="">Seleccione a que tipo de usuarios al que va dirigida:</label></b>
+                                <br>
+                                <label for="">Administradores:</label>
+                                <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                <br>
+                                <label for="">Publico ciudadano:</label>
+                                <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                <br>
+                                <label for="">Entidades y sus usuarios:</label>
+                                <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                            </div>
+                        </div>
+                        <div class="row crear_contenido_tipo_notificacion">
+                            <div class="col-lg-6 col-xs-12">
+                                <label for="">Este contenido es enfocado a una región especifica?</label>
+                                <select name="" id="esRegional">
+                                    <option value="0" selected>No, dirigido a toda Antioquia</option>
+                                    <option value="1">Si</option>
+                                </select>
+                                <p class="textos_black">Marque solamente si este contenido es para una región especifica, de ser asi este solo sera visible para dicha región del departamento</p>
+                                <div class="hide_table" id="area_regiones_crear_contenido">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput1">
+                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xs-12 ">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="">Contenido</label>
+                            <img src="../icons/iconos contenidos.png" alt="">
+                            <textarea name="textarea" rows="8"></textarea>
+                        </div>
+                        <div class="row crear_contenido_tipo_notificacion">
+                            <div class="col-lg-4 col-xs-12">
+                                <div>
+                                    <label for="" class="form-label">Campo:</label>
+                                    <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                </div>
+                                <div>
+                                    <label for="" class="form-label">Campo:</label>
+                                    <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                </div>
+                                <div>
+                                    <label for="" class="form-label">Campo:</label>
+                                    <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                </div>
+                                <div>
+                                    <label for="" class="form-label">Campo:</label>
+                                    <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                </div>
+                                <div>
+                                    <label for="" class="form-label">Campo:</label>
+                                    <input class="form-check-input" type="checkbox" checked="checked" value="" id="flexCheckDefault" checked="checked">
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <label for="">Adjuntar Estadística</label>
+                                <input type="text" name="" id="" list="sugerencias" placeholder="Buscar por codigo,titulo o región">
+                                <datalist id="sugerencias">
+                                    <option value="">E01 - Estadistica bello - Bello,Antioquia</option>
+                                    <option value="">E02 - Estadistica menores palmas - El mirador las palmas,Antioquia</option>
+                                    <option value="">E03 - Estadistica mayores santa rosa - Santa rosa de osos,Antioquia</option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10"></div>
+                            <div class="col-lg-2 col-xs-12"><button class="btn_green">Publicar</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/admin/scripts/crear_contenido.js"></script>
+    <%- include('../includes/footer') -%>

@@ -1,0 +1,260 @@
+<%- include('../includes/header') -%>
+
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle %>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.html"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class=" container_reporte_form">
+                <div class="row">
+                    <div class="row section_btn_dashboard_individual">
+                        <div class="col-lg-3 col-xs-12 ">
+                            <a onclick="showPerfil(); ">
+                                <div class="card card_dashboard_individual ">
+                                    <div class="card-body ">
+                                        <div class="row ">
+                                            <div class="col-3 ">
+                                                <svg id="Capa_1 " data-name="Capa 1 " xmlns="http://www.w3.org/2000/svg " viewBox="0 0 21.33 21.33 ">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1 {
+                                                                fill: #fff;
+                                                            }
+                                                        </style>
+                                                    </defs>
+                                                    <title>login</title>
+                                                    <path class="cls-1 "
+                                                        d="M10.67.38A5.43,5.43,0,1,0,16.09,5.8,5.43,5.43,0,0,0,10.67.38Z " />
+                                                    <path class="cls-1 "
+                                                        d="M17.42,14.77a7.79,7.79,0,0,0-5.55-2.34H9.46a7.75,7.75,0,0,0-5.54,2.34,7.89,7.89,0,0,0-2.29,5.58.6.6,0,0,0,.6.6H19.11a.6.6,0,0,0,.6-.6A7.94,7.94,0,0,0,17.42,14.77Z " />
+                                                </svg>
+                                            </div>
+                                            <div class="col-9 ">
+                                                <h5 class="card-title align-self-center ">Mi Perfil</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-3 col-xs-12 ">
+                            <a onclick="showGestionModulos(); ">
+                                <div class="card card_dashboard_individual">
+                                    <div class="card-body ">
+                                        <div class="row ">
+                                            <div class="col-3 ">
+                                                <svg id="Capa_1 " data-name="Capa 1 " xmlns="http://www.w3.org/2000/svg " viewBox="0 0 21.33 21.33 ">
+                                                                            <defs>
+                                                                                <style>
+                                                                                    .cls-1 {
+                                                                                        fill: #fff;
+                                                                                    }
+                                                                                </style>
+                                                                            </defs>
+                                                                            <title>config</title>
+                                                                            <path class="cls-1 "
+                                                                                d="M13.14,11.51a6.54,6.54,0,0,0,.62-1.46l-.95-.72c0-.17.06-.34.08-.51s0-.12,0-.18L14,8.21a6.75,6.75,0,0,0-.19-1.57l-1.18-.15a5.24,5.24,0,0,0-.27-.65l.75-.93a6.13,6.13,0,0,0-1-1.26l-1.09.46a6,6,0,0,0-.56-.44l.19-1.17a6.54,6.54,0,0,0-1.46-.62l-.72,1A4.54,4.54,0,0,0,8,2.74H7.85L7.42,1.62a6.25,6.25,0,0,0-1.57.19L5.7,3a5.18,5.18,0,0,0-.65.26L4.12,2.5a6.94,6.94,0,0,0-1.26,1l.46,1.1a5.89,5.89,0,0,0-.44.55L1.71,4.92a6.67,6.67,0,0,0-.62,1.45l1,.72A4.34,4.34,0,0,0,2,7.61c0,.06,0,.12,0,.18L.83,8.22A6.37,6.37,0,0,0,1,9.79l1.18.14a4.77,4.77,0,0,0,.26.66l-.75.92a7,7,0,0,0,1,1.27l1.1-.46a5.79,5.79,0,0,0,.55.43l-.18,1.18a6.67,6.67,0,0,0,1.45.62l.72-1,.52.08.18,0,.42,1.11A6.9,6.9,0,0,0,9,14.62l.14-1.18a4.8,4.8,0,0,0,.66-.27l.92.75A6.19,6.19,0,0,0,12,13l-.46-1.09a5.93,5.93,0,0,0,.43-.56ZM6.66,12a3.88,3.88,0,1,1,4.56-3A3.89,3.89,0,0,1,6.66,12Z " />
+                                                                            <path class="cls-1 "
+                                                                                d="M3.89,7.51A3.6,3.6,0,1,0,8.13,4.68,3.6,3.6,0,0,0,3.89,7.51Zm6.24,1a2.72,2.72,0,1,1-2.41-3A2.74,2.74,0,0,1,10.13,8.51Z " />
+                                                                            <path class="cls-1 "
+                                                                                d="M13.14,14.63a3.09,3.09,0,1,0,3.68-2.35A3.09,3.09,0,0,0,13.14,14.63Zm4.81,0a1.88,1.88,0,1,1-2.44-1.15A1.89,1.89,0,0,1,18,14.63Z " />
+                                                                            <path class="cls-1 "
+                                                                                d="M20.92,16.75a4.81,4.81,0,0,0,.2-1.07l-.78-.36a5.31,5.31,0,0,0-.05-.68l.72-.47a4.44,4.44,0,0,0-.15-.52,4.4,4.4,0,0,0-.21-.5l-.86.08a3.72,3.72,0,0,0-.39-.56l.39-.78a5,5,0,0,0-.82-.7l-.7.5a5,5,0,0,0-.62-.3l0-.86a5.36,5.36,0,0,0-1.06-.2l-.36.78a3.91,3.91,0,0,0-.68.06L15,10.45a5.26,5.26,0,0,0-.53.15l-.5.2.08.86a5.58,5.58,0,0,0-.56.39l-.77-.39a5,5,0,0,0-.71.82l.5.71a4.27,4.27,0,0,0-.29.61l-.86,0a4.23,4.23,0,0,0-.2,1.06l.78.36A5.19,5.19,0,0,0,12,16l-.72.48a5.08,5.08,0,0,0,.15.52,4.4,4.4,0,0,0,.21.5l.86-.08a3.67,3.67,0,0,0,.38.56l-.38.77a5,5,0,0,0,.82.71l.7-.5a4.85,4.85,0,0,0,.61.29l.06.87a5.36,5.36,0,0,0,1.06.2l.36-.79a5.31,5.31,0,0,0,.68-.05l.47.72A4.44,4.44,0,0,0,17.8,20a3.75,3.75,0,0,0,.5-.21l-.08-.86a4.35,4.35,0,0,0,.57-.38l.77.39a5.42,5.42,0,0,0,.7-.82l-.5-.71a3.83,3.83,0,0,0,.3-.61Zm-5.46,1.69A3.22,3.22,0,1,1,19.3,16,3.22,3.22,0,0,1,15.46,18.44Z " />
+                                                                            <path class="cls-1 "
+                                                                                d="M13,14.6a3.22,3.22,0,1,0,3.84-2.45A3.22,3.22,0,0,0,13,14.6ZM19.17,16a3.09,3.09,0,1,1-2.35-3.68A3.09,3.09,0,0,1,19.17,16Z " />
+                                                                        </svg>
+                                            </div>
+                                            <div class="col-9 ">
+                                                <h5 class="card-title align-self-center ">Configurar Modulos</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-xs-12 ">
+                            <a onclick="showGestionColores(); ">
+                                <div class="card card_dashboard_individual ">
+                                    <div class="card-body ">
+                                        <div class="row ">
+                                            <div class="col-3 ">
+                                                <svg id="Capa_1 " data-name="Capa 1 " xmlns="http://www.w3.org/2000/svg " viewBox="0 0 21.33 21.33 ">
+                                                                            <defs>
+                                                                                <style>
+                                                                                    .cls-1 {
+                                                                                        fill: #fff;
+                                                                                    }
+                                                                                </style>
+                                                                            </defs>
+                                                                            <title>colores</title>
+                                                                            <path class="cls-1 "
+                                                                                d="M6.64,5.6h0Zm0,0h0Zm0,0h0Zm0,0h0Zm13.72,4.84c-.53-1.17-5.31-.38-5.76-1.78-.3-.92.49-1.32,1.29-1.51s2.54-1.55,1-3.18C15.13,2.15,7.59,1.73,3.53,5.48S.16,15,4.06,17.38s10.18,1.32,13.23-.87S20.89,11.62,20.36,10.44ZM4,14.29A2,2,0,0,1,2.23,12.1,2,2,0,0,1,4.1,10a2,2,0,0,1,1.78,2.19A2,2,0,0,1,4,14.29Zm.4-6A2,2,0,0,1,5.55,5.65a2,2,0,0,1,2.74.69A2,2,0,0,1,7.15,8.93,2,2,0,0,1,4.41,8.24Zm6.68,7.85a2.06,2.06,0,0,1-2.44,1.57A2.07,2.07,0,0,1,6.7,15.52,2.07,2.07,0,0,1,9.14,14,2.06,2.06,0,0,1,11.09,16.09ZM9.51,6a2,2,0,0,1,1.74-2.17,2,2,0,0,1,2.42,1.36,2,2,0,0,1-1.73,2.17A2,2,0,0,1,9.51,6Zm6.54,9.71a2,2,0,0,1-2.76-.33,2,2,0,0,1,.77-2.68,2,2,0,0,1,2.77.33A2,2,0,0,1,16.05,15.67Zm-1.1.21h0ZM6.65,5.61h0Zm0,0h0Zm0,0h0Z " />
+                                                                        </svg>
+                                            </div>
+                                            <div class="col-9 ">
+                                                <h5 class="card-title ">Configurar Colores</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-xs-12 ">
+                            <a onclick="showGestionUsuarios(); ">
+                                <div class="card card_dashboard_individual ">
+                                    <div class="card-body ">
+                                        <div class="row ">
+                                            <div class="col-3 ">
+                                                <svg id="Capa_1 " data-name="Capa 1 " xmlns="http://www.w3.org/2000/svg " viewBox="0 0 21.33 21.33 ">
+                                                                            <defs>
+                                                                                <style>
+                                                                                    .cls-1 {
+                                                                                        fill: #fff;
+                                                                                    }
+                                                                                </style>
+                                                                            </defs>
+                                                                            <title>control_usuarios</title>
+                                                                            <path class="cls-1 "
+                                                                                d="M15.55,18.12c-.46,1-.77.78-8.58.78a1.3,1.3,0,0,1-1.29-1.3c0-2.67-.39-4.86,1.64-6.49a4.3,4.3,0,0,1,1.75-.87,3.22,3.22,0,1,1,3.25,0,4.58,4.58,0,0,1,3.34,4.36C15.66,17.89,15.7,17.78,15.55,18.12Z " />
+                                                                            <path class="cls-1 "
+                                                                                d="M20.14,12.59v4A1.13,1.13,0,0,1,19,17.71c-2.5,0-2.24.05-2.24-.11,0-3,.33-5-1.59-6.93a2.36,2.36,0,0,1,.76-.43,2,2,0,1,1,2.49,0A2.51,2.51,0,0,1,20.14,12.59Z " />
+                                                                            <path class="cls-1 "
+                                                                                d="M6.17,10.67c-1.94,2-1.6,4.07-1.6,6.93,0,.16.31.11-2.28.11a1.08,1.08,0,0,1-1.08-1.08v-4a2.5,2.5,0,0,1,1.7-2.36,2,2,0,0,1-.78-1.6,2,2,0,1,1,3.28,1.61A2.36,2.36,0,0,1,6.17,10.67Z " />
+                                                                        </svg>
+                                            </div>
+                                            <div class="col-9 ">
+                                                <h5 class="card-title ">Gestionar Usuarios</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Area donde se muestra el contenido de cada modulo de configuracion-->
+                <!-- Se carga desde un configuracion.js y cada boton llama dicha funcion-->
+                <div class="row conf_contenido " id="conf">
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="modal_crear_usuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-fullscreen-lg-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Registrar Administrador</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-12">
+                            <form action="../includes/reg_admin.inc.php" class="form-group modals_dashboard_entidad" method="post">
+                                <div class="fluid-container">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-xs-12">
+                                            <label for="">Fecha de Creación</label>
+                                            <input id="campos_nuevo_usuario" type="date" name="fc" id="" placeholder="01/01/2022">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Cedula</label>
+                                            <input id="campos_nuevo_usuario" class="" type="number" name="documento" id="" placeholder="1000000000">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Nombre</label>
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="nombre" id="" placeholder="Nombre">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Apellido</label>
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="apellido" id="" placeholder="Apellidos">
+                                        </div>
+
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Entidad</label>
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="n_entidad" id="" placeholder="Nombre de la entidad">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Contraseña</label>
+                                            <input id="campos_nuevo_usuario" class="" type="password" name="pass" id="" placeholder="">
+                                        </div>
+
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Correo Electrónico</label>
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="correo" id="" placeholder="email@domain.com">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Teléfono</label>
+                                            <input id="campos_nuevo_usuario" class="" type="number" name="tel" id="" placeholder="300000000">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Tipo de administrador</label>
+                                            <select name="tpadmin" id="">
+        <option value="2">Administrador general</option>
+        <option value="4">Entidad Regional</option>
+    </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row row_estado_entidad">
+                                        <div class="col-lg-12 col-xs-12">
+                                            <button type="submit" class="btn_green" style="float:right" name="submit">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../includes/footer') -%>

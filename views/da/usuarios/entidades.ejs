@@ -1,0 +1,439 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.html"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class=" container_reporte_form">
+                <div class="row buscar mb-1">
+                    <div class="row section_btn_dashboard_individual">
+                        <% if (user){ if(user.TIP_USER==1){%>
+                        <div class="col-lg-3 col-xs-12">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#modal_crear_entidad_municipal">
+                                <div class="card  card_dashboard_individual">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.33 21.33"><defs><style>.cls-1{fill:#fff;}</style></defs><title>municipal</title><path class="cls-1" d="M10,19.49l.18,1.23c-.07.05-.1.08-.13.08A2.4,2.4,0,0,0,8.5,21C8,21.26,7,20.4,7.05,19.77a4.35,4.35,0,0,0-.11-.46,2.58,2.58,0,0,1-.05-.83c0-.3.07-.45-.27-.61a1.23,1.23,0,0,1-.5-.76c-.1-.36-.28-.5-.62-.46-.52.06-1,.14-1.57.19a1.23,1.23,0,0,1-1.27-1.23c0-.37.1-.75-.28-1.1a4.84,4.84,0,0,1-.71-1.24c-.22-.39,0-.54.35-.64.73-.21.75-.27.39-1a1.5,1.5,0,0,1,1.45-.08.36.36,0,0,0,.53-.23,1.3,1.3,0,0,0-.72-1.73,1,1,0,0,1-.37-.23C2.5,8.64,1.72,7.87.92,7.12c-.41-.4-.4-.47,0-.85a1.75,1.75,0,0,0,.34-.56c.15-.35.28-.72.42-1.07l.64-.1c0,.29.06.54-.36.62-.24,0-.22.58,0,.66s.68.16.78,0A1.52,1.52,0,0,0,3,4.94c0-.47-.19-.94-.21-1.41,0-.92-.21-1.2-1.16-1.64a6.94,6.94,0,0,1,.8-.49c.43-.18.91-.13,1.24-.64C3.91.41,4.45.28,4.92,0a2.81,2.81,0,0,0,.22.51,2.73,2.73,0,0,0,.62.82A1.36,1.36,0,0,1,6.1,3c-.35.51-.66,1.05-1,1.58,0,0-.06.09-.06.13.11.79-.44,1.43-.53,2.17A4.8,4.8,0,0,0,4.67,8.2c.16.91.73,1.2,1.63,1.09a11.07,11.07,0,0,1,1.82.05.48.48,0,0,0,.55-.29,1.33,1.33,0,0,1,1.09-.82.67.67,0,0,0,.49-.34c.32-1.21,1.45-1.77,2.13-2.69.12-.17.5-.17.76-.23a1.89,1.89,0,0,1,.58,0,.74.74,0,0,0,.81-.48c.14-.24.32-.28.56-.07a11.34,11.34,0,0,1,1.06.89,3.24,3.24,0,0,1,.55,1c.18.52.46,1-.16,1.55-.3.24-.2.83.11,1.23s.51.36.74,0c.09-.15.2-.29.29-.44l.15,0c0,.17.07.39,0,.5-.52.77-.19,1.51,0,2.25.1.31.52.34.82.06l1.67-1.57a12.69,12.69,0,0,1,.36,1.41c0,.16-.16.38-.3.53a8.14,8.14,0,0,1-.89.87,10.62,10.62,0,0,1-1.46,1.14c-.51.29-.69.57-.47,1.15a.87.87,0,0,0,.06.13c-.27.73-1.13.91-1.27,1.69,0,.1-.08.24,0,.32.32.54-.1,1-.16,1.46s-.55.64-.73,1c0,.07-.35.09-.44,0-.41-.33-.77-.13-1.14.05a6.66,6.66,0,0,0-.6.39c.15.8-.91.63-1.17,1.26l-.24-.5-.45-1s-.1-.07-.12-.06C10.81,20,10.47,19.65,10,19.49Z"/></svg>
+                                            </div>
+                                            <div class="col-8">
+                                                <h5 class="card-title align-self-center">Registrar Entidad Municipal</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <% }}%>
+                        <% if ( user.TIP_USER==1 || user.TIP_USER==2) {%>
+                        <div class="col-lg-3 col-xs-12">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#modal_crear_entidad">
+                                <div class="card  card_dashboard_individual">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.63 17.91"><defs><style>.cls-1{fill:#fff;}</style></defs><title>crear_entidades</title><g id="Capa_2" data-name="Capa 2"><g id="Capa_1-2" data-name="Capa 1"><path class="cls-1" d="M19.41,7l-2.78-.86V4a.33.33,0,0,0-.17-.28L9,0h0a.3.3,0,0,0-.15,0,.44.44,0,0,0-.16.06h0L3.28,3.87a.31.31,0,0,0-.13.25V6.79l-1-.12H2.08L2,6.69H2L.18,7.5A.31.31,0,0,0,0,7.78v5.16a.29.29,0,0,0,.16.27l1.81,1a.24.24,0,0,0,.11,0h.09l1-.14v.57a.3.3,0,0,0,.16.27l5.35,2.93a.28.28,0,0,0,.14,0,.22.22,0,0,0,.12,0h0L16.43,15l3-1.14a.31.31,0,0,0,.2-.29V7.24A.31.31,0,0,0,19.41,7ZM.86,11.66a.09.09,0,0,1,0,.08.07.07,0,0,1-.06,0h0l-.34-.1a.1.1,0,0,1-.08-.1v-1a.09.09,0,0,1,0-.08.11.11,0,0,1,.07,0l.35,0a.1.1,0,0,1,.09.1v1Zm0-2a.1.1,0,0,1-.09.1l-.35,0h0a.11.11,0,0,1-.07,0,.09.09,0,0,1,0-.07v-1a.1.1,0,0,1,.08-.1L.73,8.5a.1.1,0,0,1,.09,0,.09.09,0,0,1,0,.08v1Zm1,2.32a.12.12,0,0,1,0,.08l-.07,0h0l-.48-.13a.11.11,0,0,1-.07-.1V10.69a.09.09,0,0,1,0-.07.11.11,0,0,1,.08,0l.47.05a.09.09,0,0,1,.1.1v1.2Zm0-2.4a.11.11,0,0,1-.1.1l-.47,0h0a.11.11,0,0,1-.07,0,.09.09,0,0,1,0-.07V8.46a.1.1,0,0,1,.08-.1l.47-.12a.14.14,0,0,1,.09,0,.13.13,0,0,1,0,.09Zm2.57,3.12a.09.09,0,0,1,0,.08l-.06,0h0l-.6-.16a.11.11,0,0,1-.08-.1V10.93a.09.09,0,0,1,0-.08.1.1,0,0,1,.07,0l.61.06a.1.1,0,0,1,.09.1v1.67Zm0-3.34a.11.11,0,0,1-.09.11l-.61.05h0a.11.11,0,0,1-.07,0,.11.11,0,0,1,0-.08V7.82a.1.1,0,0,1,.08-.1l.61-.16a.08.08,0,0,1,.08,0,.09.09,0,0,1,0,.08V9.32ZM4.44,6a.11.11,0,0,1-.06.1l-.6.27h0l0,0a.11.11,0,0,1-.05-.09V4.71a.11.11,0,0,1,.05-.09l.61-.38a.09.09,0,0,1,.1,0,.11.11,0,0,1,.05.09V6ZM6,13.08a.12.12,0,0,1,0,.08l-.06,0h0L5,13a.1.1,0,0,1-.07-.1V11.06A.11.11,0,0,1,5,11a.08.08,0,0,1,.08,0l.82.07a.11.11,0,0,1,.09.11v1.94ZM6,9.2a.1.1,0,0,1-.1.1l-.81.07H5a.11.11,0,0,1-.07,0,.09.09,0,0,1,0-.07V7.47A.09.09,0,0,1,5,7.38l.81-.22a.1.1,0,0,1,.09,0,.12.12,0,0,1,0,.08V9.2ZM6,5.32a.13.13,0,0,1-.06.1l-.82.36H5l0,0a.11.11,0,0,1,0-.09V3.89A.12.12,0,0,1,5,3.8l.81-.5a.14.14,0,0,1,.11,0,.12.12,0,0,1,0,.09V5.32Zm2.1,8.34a.11.11,0,0,1,0,.08.14.14,0,0,1-.1,0h0a6.44,6.44,0,0,1-1.15-.34.11.11,0,0,1-.07-.1V11.23a.09.09,0,0,1,0-.08l.07,0L8,11.24a.11.11,0,0,1,.09.1ZM8.06,9a.11.11,0,0,1-.09.1l-1.15.09h0l-.07,0a.11.11,0,0,1,0-.08V7a.1.1,0,0,1,.08-.1l1.15-.3a.08.08,0,0,1,.08,0s0,0,0,.08V9Zm0-4.64A.09.09,0,0,1,8,4.48L6.86,5H6.81a.06.06,0,0,1,0,0,.09.09,0,0,1,0-.08V2.79a.11.11,0,0,1,0-.09L7.91,2A.09.09,0,0,1,8,2a.11.11,0,0,1,.05.09V4.39Zm4.56-1.16a.1.1,0,0,1,.05-.08.12.12,0,0,1,.1,0L14,3.67a.1.1,0,0,1,.06.09V5.59a.1.1,0,0,1,0,.09L14,5.7h0L12.7,5.32a.11.11,0,0,1-.08-.1v-2Zm0,4a.12.12,0,0,1,0-.08.1.1,0,0,1,.09,0L14,7.32a.1.1,0,0,1,.08.1V9.27a.11.11,0,0,1,0,.07.09.09,0,0,1-.07,0h0l-1.22-.09a.11.11,0,0,1-.1-.1v-2ZM9.44,1.86a.1.1,0,0,1,0-.09.12.12,0,0,1,.1,0l1.74.75a.11.11,0,0,1,.06.1V4.77s0,.07,0,.08a.07.07,0,0,1-.06,0h0L9.51,4.34a.12.12,0,0,1-.07-.1V1.86ZM9.44,9V6.62a.11.11,0,0,1,0-.08.1.1,0,0,1,.09,0l1.74.31a.1.1,0,0,1,.08.1V9.1a.09.09,0,0,1,0,.07.11.11,0,0,1-.07,0h0L9.53,9.1A.1.1,0,0,1,9.44,9Zm3.39,7.12a.1.1,0,0,1-.07.09l-2.27.87h-.1a.15.15,0,0,1,0-.09V11.32a.11.11,0,0,1,.09-.11l2.28-.15a.11.11,0,0,1,.08,0,.09.09,0,0,1,0,.07v5Zm2.74-1.05a.1.1,0,0,1-.06.1L14,15.75h0a.07.07,0,0,1-.06,0,.1.1,0,0,1,0-.08V11.08a.09.09,0,0,1,.09-.1l1.52-.11a.1.1,0,0,1,.11.11ZM16,9.36a.11.11,0,0,1,0,.08l-.07,0h0L15,9.41a.1.1,0,0,1-.09-.1V7.61a.11.11,0,0,1,0-.08.15.15,0,0,1,.09,0l.91.17a.1.1,0,0,1,.08.1V9.36Zm0-3.17a.1.1,0,0,1,0,.09l-.06,0h0L15,6a.1.1,0,0,1-.07-.09V4.22a.13.13,0,0,1,0-.09.12.12,0,0,1,.1,0l.91.4a.09.09,0,0,1,.06.09V6.19Zm1.82,6a.11.11,0,0,1-.09.1l-.66.13h0l-.06,0a.12.12,0,0,1,0-.08V10.87a.09.09,0,0,1,.1-.1l.66,0a.13.13,0,0,1,.08,0,.09.09,0,0,1,0,.07v1.36Zm0-2.71a.11.11,0,0,1,0,.07.11.11,0,0,1-.08,0h0l-.66,0a.1.1,0,0,1-.1-.1V8a.12.12,0,0,1,0-.08.08.08,0,0,1,.08,0l.66.12a.11.11,0,0,1,.09.1V9.47ZM18.94,12a.11.11,0,0,1-.08.11l-.53.1h0l-.06,0a.09.09,0,0,1,0-.08V10.78a.1.1,0,0,1,.1-.1l.52,0a.1.1,0,0,1,.11.11V12Zm0-2.43a.08.08,0,0,1,0,.07.09.09,0,0,1-.07,0h0l-.53,0a.1.1,0,0,1-.1-.1V8.23a.09.09,0,0,1,0-.08.11.11,0,0,1,.08,0l.53.08a.1.1,0,0,1,.08.1V9.53Z"/></g></g></svg>
+                                            </div>
+                                            <div class="col-8">
+                                                <h5 class="card-title align-self-center">Registrar UPGD</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <% }%>
+                        <div class="col-lg-3 col-xs-12">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#modal_crear_usuario_entidad">
+                                <div class="card card_dashboard_individual">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.33 21.33"><defs><style>.cls-1{fill:#fff;}</style></defs><title>login</title><path class="cls-1" d="M10.67.38A5.43,5.43,0,1,0,16.09,5.8,5.43,5.43,0,0,0,10.67.38Z"/><path class="cls-1" d="M17.42,14.77a7.79,7.79,0,0,0-5.55-2.34H9.46a7.75,7.75,0,0,0-5.54,2.34,7.89,7.89,0,0,0-2.29,5.58.6.6,0,0,0,.6.6H19.11a.6.6,0,0,0,.6-.6A7.94,7.94,0,0,0,17.42,14.77Z"/></svg>
+                                            </div>
+                                            <div class="col-8">
+                                                <h5 class="card-title">Registrar Usuario</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col col-xs-12">
+                       
+                            <form action="/da/filterent" class="form-group " method="POST" autocomplete="off">
+                                <p class="textos_black">
+                                    
+    
+                                    Buscar:
+                             
+                                
+                                
+                                </p>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="kbuscar" placeholder="Buscar">
+                                    <button class="btn btn-outline-secondary btn_search" type="submit" id="button-addon2" name="submit"><i class="bi bi-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+  
+                    <% if(filtro) { %>
+                    <!-- Archivo EJS layout con las listas de usuario aplicando filtros -->           
+                    <%- include ('../includes/listaUsuariosFiltro') %>
+                    
+                    <% } %>
+                    <% if(!filtro) { %>
+                        
+                    <!-- Archivo EJS layout con las listas de usuario sin aplicar filtros -->
+                    <%- include ('../includes/listaUsuarios') %>
+                    <% } %>
+
+            
+
+                <br>
+            </div>
+        </div>
+    </section>
+    
+ 
+    <!--   modal para crear nueva entidad-->
+    <div class="modal fade" id="modal_crear_entidad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-fullscreen-lg-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Registrar Nueva UPGD</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-12">
+                            <form action="/da/registerent" class="form-group modals_dashboard_entidad" method="POST" autocomplete="off">
+                                <div class="fluid-container">
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Código del prestador de servicios de salud</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="COD_PRE" id=" " placeholder="1000000000 ">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Sub-índice</label>
+                                            <input id="campos_nueva_entidad " class="form-control " type="number" name="COD_SUB" id=" " placeholder="34 ">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Nit UPGD</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="NIT_UPGD" id=" " placeholder="1000000000 ">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Tipo de unidad notificadora</label>
+                                            <select name="ES_UNI_NOT" id="" class="form-select codigo_prestador">
+                                                <option value="1">UI</option>
+                                                <option value="2">UPGD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">   
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Razón Social</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="RAZ_SOC" id=" " placeholder="Nombre ">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <% if (user.TIP_USER==2) { %>
+                                            <label for=" ">Codigo Municipal:</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="COD_MUN" id="" value="<%= user.COD_MUN %>"  readonly="readonly">
+                                            <%}%>
+                                            <% if (user.TIP_USER==1) { %>
+                                                <label for=" ">Codigo DIVIPOLA del municipio (buscar por nombre) </label>
+                                                <input list="municipios2" name="COD_MUN" class="from-control">
+                                                <datalist id="municipios2">
+                                                    <% for(var i=0; i < regiones.length; i++) { %>
+                                                        <option class="text-lowercase" value="<%= regiones[i].CODMUNIC %>" ><%= regiones[i].NOMMUNIPIO %></option>
+                                                    <%}%>
+                                                </datalist> 
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                    <dvi class="row align-bottom mt-2">
+                                        <label for=" ">Responsable de Notificación</label>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="NOMBRES" id=" " placeholder="Nombre">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="APELLIDOS" id=" " placeholder="Apellido">
+                                        </div>
+                                    </dvi>
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Tipo de documento</label>
+                                            <select name="TIP_IDE" id="">
+                                                <% for(var i=0; i < tipo_ide.length; i++) { %>
+                                                    <option value="<%= tipo_ide[i].COD %>" ><%= tipo_ide[i].DESC %></option>
+                                                <%}%>
+                                            </select>
+                                        </select>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Número de documento</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number " name="NRO_DOC" id=" " placeholder="Numero del documento del responsable ">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Correo Electrónico</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="COR_ELE" id=" " placeholder="email@domain.com ">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Teléfono</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number " name="TEL" id=" " placeholder="300000000 ">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Contraseña</label>
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="password" name="pass" id=" " placeholder=" ">
+                                        </div>
+                                    </div>
+                                    <div class="row row_estado_entidad ">
+                                        <div class="col-lg-7 col-xs-12 ">
+                                            <span>Activa </span>
+                                            <input class="form-check-input " name="ACT_SIV" type="checkbox" checked="checked " value="1" id="flexCheckDefault " checked="checked ">
+                                            <br>
+                                            <span>Estado: Abierta</span>
+                                            <input class="form-check-input" type="checkbox" name="ESTADOUPGD" value="1" id="flexCheckDefault " checked="checked ">
+                                        </div>
+                                        <div class="col-lg-5 col-xs-12 ">
+                                            <button type="submit" class="btn_green " style="float:right " name="submit ">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   modal para crear nuevo usuario de una ya registrada entidad-->
+    <div class="modal fade" id="modal_crear_usuario_entidad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-fullscreen-lg-down ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <h1>Registrar Usuario de una UPGD </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <div class="row ">
+                        <div class="col-lg-12 col-xs-12 ">
+                            <form action="/da/registerentU" class="form-group modals_dashboard_entidad " method="post" autocomplete="off">
+                                <div class="fluid-container ">
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Tipo de Documento</label>
+                                            <select name="TIP_IDE" id="">
+                                                <% for(var i=0; i < tipo_ide.length; i++) { %>
+                                                    <option value="<%= tipo_ide[i].COD %>" ><%= tipo_ide[i].DESC %></option>
+                                                <%}%>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Número de Documento</label>
+                                            <input id="campos_nuevo_usuario " class=" " type="number " name="NRO_DOC" id=" " placeholder="1000000000 ">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Nombre</label>
+                                            <input id="campos_nuevo_usuario " class=" " type="text " name="NOMBRES" id=" " placeholder="Nombre ">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Apellido</label>
+                                            <input id="campos_nuevo_usuario " class=" " type="text " name="APELLIDOS" id=" " placeholder="Apellidos ">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">
+                                       <div class="col-lg-6 col-xs-12 align-bottom ">
+                                    <% if (user.TIP_USER ==2) { if (misUPGD) {%>
+                                      <label for=" ">Entidad</label>
+                                      <select name="COD_PRE" id="" class="form-select">
+                                        <% for(var i=0; i < misUPGD.length; i++) { %>
+                                            <option class="text-lowercase" value="<%= misUPGD[i].COD_PRE %>" ><%= misUPGD[i].RAZ_SOC %></option>
+                                        <%}%>
+                                      </select>
+                                      <%} }%>
+                                      <% if (user.TIP_USER ==1) { if (todasUPGD) {%>
+                                        <label for=" ">Entidad</label>
+                                        <select name="COD_PRE" id="" class="form-select">
+                                          <% for(var i=0; i < todasUPGD.length; i++) { %>
+                                              <option class="text-lowercase" value="<%= todasUPGD[i].COD_PRE %>" ><%= todasUPGD[i].RAZ_SOC %></option>
+                                          <%}%>
+                                        </select>
+                                        <%} }%>
+                                      <% if (user.TIP_USER == 3) {%>
+                                        <label for=" ">Codigo de mi Entidad:</label>
+                                        <input id="campos_nuevo_usuario " class=" " type="text " name="COD_PRE" id=" " value="<%= user.COD_PRE %>" readonly="readonly" >
+                                      <%}%>
+                                      </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom"> 
+                                            <% if (user.TIP_USER == 3 || user.TIP_USER == 2) {%>
+                                                <label for=" ">Codigo de municipal dd:</label>
+                                            <input type="number"  value="<%= user.COD_MUN %>" name="COD_MUN" readonly="readonly"  >
+                                            <% }%>
+                                            <% if (user.TIP_USER == 1) {%>
+                                                <label for=" ">Codigo DIVIPOLA del Municipio al que pertenece:</label>
+                                                <input list="municipios" name="COD_MUN" class="from-control">
+                                                <datalist id="municipios" class="">
+                                                    <% for(var i=0; i < regiones.length; i++) { %>
+                                                        <option class="text-lowercase" value="<%= regiones[i].CODMUNIC %>" ><%= regiones[i].NOMMUNIPIO %></option>
+                                                    <%}%>
+                                                </datalist>  
+                                                <%}%>  
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Correo Electrónico</label>
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="COR_ELE" id="" placeholder="email@domain.com">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Teléfono</label>
+                                            <input id="campos_nuevo_usuario" class="" type="number" name="TEL" id="" placeholder="300000000">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                        <label for="">Contraseña</label>
+                                        <input id="campos_nuevo_usuario" class="" type="password" name="pass" id="" placeholder="">
+                                    </div>
+                                    </div>
+                                    <div class="row row_estado_entidad">
+                                        <div class="col-lg-12 col-xs-12">
+                                            <button type="submit" class="btn_green" style="float:right" name="submit">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   modal para crear nueva entidad municipal-->
+    <div class="modal fade" id="modal_crear_entidad_municipal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-fullscreen-lg-down ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <h1>Registrar Entidad Municipal</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <div class="row ">
+                        <div class="col-lg-12 col-xs-12 ">
+                            <form action="/da/registerentM" class="form-group modals_dashboard_entidad " method="post">
+                                <div class="fluid-container ">
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Nombre de Entidad Municipal</label>
+                                            <input id="campos_nuevo_usuario " class=" " type="number " name="NOM_MUN" id=" " placeholder="Ej: Alcaldia de ... ">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for=" ">Codigo DIVIPOLA del Municipio</label>
+                                            <input list="municipios" name="municipio" class="from-control">
+                                            <datalist id="municipios" class="">
+                                                <% for(var i=0; i < regiones.length; i++) { %>
+                                                    <option class="text-lowercase" value="<%= regiones[i].CODMUNIC %>" ><%= regiones[i].NOMMUNIPIO %></option>
+                                                <%}%>
+                                            </datalist>                                        
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Nombre del responsable</label>
+                                            <input id="campos_nuevo_usuario " class=" " type="text " name="NOMBRE_RESPON" id=" " placeholder="Nombre ">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Apellido del responsable</label>
+                                            <input id="campos_nuevo_usuario " class=" " type="text " name="APELLIDO_RESPON" id=" " placeholder="Apellidos ">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom ">
+                                        <div class="col-lg-6 col-xs-12 align-bottom ">
+                                            <label for=" ">Tipo de Documento</label>
+                                            <select name="TIP_IDE" id="">
+                                                <% for(var i=0; i < tipo_ide.length; i++) { %>
+                                                    <option value="<%= tipo_ide[i].COD %>" ><%= tipo_ide[i].DESC %></option>
+                                                <%}%>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Número de documento</label>
+                                            <input id="campos_nuevo_usuario" class="" type="" name="NRO_DOC" id="" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Correo Electrónico</label>
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="EMAIL" id="" placeholder="email@domain.com">
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Teléfono</label>
+                                            <input id="campos_nuevo_usuario" class="" type="number" name="TEL" id="" placeholder="300000000">
+                                        </div>
+                                    </div>
+                                    <div class="row align-bottom">
+                                        <div class="col-lg-6 col-xs-12 align-bottom">
+                                            <label for="">Contraseña</label>
+                                            <input id="campos_nuevo_usuario" class="" type="password" name="pass" id="" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="row row_estado_entidad">
+                                        <div class="col-lg-12 col-xs-12">
+                                            <button type="submit" class="btn_green" style="float:right" name="submit">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../includes/footer') -%>

@@ -1,0 +1,115 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form">
+                <div class="card card_notificaciones">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-xs-12">
+                                <h5 class="card-title">Titulo</h5>
+                            </div>
+                            <div class="col-lg-6 col-xs-12"><i class="bi bi-bookmark-check-fill notificacion_vista"></i>
+                            </div>
+                        </div>
+                        <p class="textos_black">Resumen de la notificacion</p>
+                        <p class="textos_black fecha_notificacion">01/01/01</p>
+                        <button type="button" class="btn_news btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_ver_notificacion">Ver Mas</button>
+                    </div>
+                </div>
+                <div class="card card_notificaciones">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-xs-12">
+                                <h5 class="card-title">Titulo</h5>
+                            </div>
+                            <div class="col-lg-6 col-xs-12"><i class="bi bi-bookmark-check-fill notificacion_no_vista"></i></div>
+                        </div>
+                        <p class="textos_black">Resumen de la notificacion</p>
+                        <p class="textos_black fecha_notificacion">01/01/01</p>
+                        <button type="button" class="btn_news btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_ver_notificacion">Ver Mas</button>
+                    </div>
+                </div>
+                <div class="card card_notificaciones">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-xs-12">
+                                <h5 class="card-title">Titulo</h5>
+                            </div>
+                            <div class="col-lg-6 col-xs-12"><i class="bi bi-bookmark-check-fill notificacion_no_vista"></i></div>
+                        </div>
+                        <p class="textos_black">Resumen de la notificacion</p>
+                        <p class="textos_black fecha_notificacion">01/01/01</p>
+                        <button type="button" class="btn_news btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_ver_notificacion">Ver Mas</button>
+                    </div>
+                </div>
+                <div class="card card_notificaciones">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-xs-12">
+                                <h5 class="card-title">Titulo</h5>
+                            </div>
+                            <div class="col-lg-6 col-xs-12"><i class="bi bi-bookmark-check-fill notificacion_no_vista"></i></div>
+                        </div>
+                        <p class="textos_black">Resumen de la notificacion</p>
+                        <p class="textos_black fecha_notificacion">01/01/01</p>
+                        <button type="button" class="btn_news btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_ver_notificacion">Ver Mas</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="modal_ver_notificacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-fullscreen-lg-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Titulo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal_body_notificacion">
+                    <div class="row">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia praesentium voluptates unde voluptatibus consectetur magni qui molestias ab, deserunt sapiente sunt similique dolore commodi veritatis, nam harum reprehenderit expedita
+                        minus.
+                    </div>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-4 col-xs-8"><button class="btn_news" type="button" data-bs-dismiss="modal" aria-label="Close">Marcar como leida</button></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../includes/footer') -%>

@@ -1,0 +1,59 @@
+<%- include('header') -%>
+    <%- include('footer') -%>
+
+
+    <%- include('../includes/header') -%>
+     <%- include('../includes/footer') -%>
+
+<%= tittle%>
+
+
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "u674755405_sivespa",
+
+
+
+      <% if(user) { if (user.TIP_USER == 1 || user.TIP_USER == 2 ||
+          user.TIP_USER == 3 ) {%>
+
+          <% }}%>
+
+     <% pais.forEach((pais)=> { %>
+                                                        <datalist id="nacion">
+                                                            <option value="<%=pais.ID_RL_PAIS_DIAN%>"><%=pais.DESC%></option>
+                                                        </datalist>
+                                                
+                                                    <%})%>  
+
+           <div class="row filtrar mb-1">
+                    <form action=" " class="form-group ">
+                        <h5>Filtrar</h5>
+                        <div class="row ">
+                            <div class="col-lg-3 col-xs-12 ">
+                                <label for=" ">Fecha de inicio</label>
+                                <input type="date" name="" id="" class="form-control">
+                                <label for=" ">Fecha final</label>
+                                <input type="date" name="" id="" class="form-control">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 ">
+                                <div class="col-lg-6 col-xs-12">
+                                    <label for=" ">Estado</label>
+                                    <select name="spa " id=" " class="form-control ">
+                                        <option value="">Activa</option>
+                                        <option value="">No Activa</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <label for="">Geolocalizacion</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput1">
+                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn_green ">Aplicar</button>
+                    </form>
+                </div>

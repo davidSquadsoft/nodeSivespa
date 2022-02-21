@@ -1,0 +1,582 @@
+<%- include('../includes/header') -%>
+<section class="content">
+  <div class="titulo_pagina row align-items-center">
+    <div class="col-lg-2">
+      <div class="btn_close d-md-none d-lg-block">
+        <button type="button" class="close_sidebar">
+          <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar"
+            >&nbsp;Maximizar</i
+          >
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <h4><%= tittle%></h4>
+    </div>
+    <div class="col-lg-6 d-md-none d-lg-block">
+      <div class="bell_notificaciones">
+        <a href="../notificaciones/notificaciones.php"
+          ><i class="bi bi-bell-fill"></i
+        ></a>
+      </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <% if(user) {%>
+          <p class="nombre_entidad_activa text-capitalize">
+            <%= user.NOMBRE %> <%= user.APELLIDO %>
+          </p>
+          <% }%>
+          <br />
+          <p class="cambiar">Cambiar</p>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+          <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+          <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="section_form fluid-container">
+    <div class="container_reporte_form">
+      <div class="row bienvenida">
+        <div class="col-lg-9 col-xs-12 text-capitalize">
+          <h1>
+            Bienvenido<br />
+            <%= user.NOMBRE %> <%= user.APELLIDO %>
+          </h1>
+        </div>
+        <div class="col-lg-3 col-xs-12">
+          <button
+            class="btn_dashboard_title"
+            role="link"
+            onclick="location.href='/soporte/tutoriales.php';"
+          >
+            Tutoriales
+          </button>
+          <button
+            class="btn_dashboard_title"
+            role="link"
+            onclick="location.href='/soporte/tutoriales.php';"
+          >
+            Soporte técnico
+          </button>
+        </div>
+      </div>
+      <div class="row align-items-center cards_section_btn_dashboards">
+        <div class="col-lg-4 col-xs-12">
+          <a href="../reportes/reportes.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                    </style>
+                  </defs>
+                  <title>report</title>
+                  <path
+                    class="cls-1"
+                    d="M15.33,4.72h3.52L15.14,1.08V4.54A.18.18,0,0,0,15.33,4.72Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M15.33,5.89A1.35,1.35,0,0,1,14,4.54V.74H4.31A2.17,2.17,0,0,0,2.14,2.91V18.42a2.17,2.17,0,0,0,2.17,2.17H17a2.17,2.17,0,0,0,2.17-2.17V5.89ZM14,15.78H6.51a.58.58,0,1,1,0-1.16H14a.58.58,0,0,1,0,1.16Zm-8.08-2.9a.58.58,0,0,1,.59-.58h6.68a.58.58,0,0,1,0,1.16H6.51A.58.58,0,0,1,5.92,12.88Zm8.78-1.75H6.51a.58.58,0,1,1,0-1.16H14.7a.58.58,0,1,1,0,1.16Z"
+                  />
+                </svg>
+                <h5 class="card-title">Reportar</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% if(user) { if (user.TIP_USER == 1 || user.TIP_USER == 2 ||
+          user.TIP_USER == 3 ) {%>
+
+        <div class="col-lg-4 col-xs-12">
+          <a href="../informes/informes.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                    </style>
+                  </defs>
+                  <title>informe</title>
+                  <path
+                    class="cls-1"
+                    d="M13.76,2.2H11.93V1.57A1.27,1.27,0,0,0,10.67.3,1.29,1.29,0,0,0,9.39,1.57V2.2H7.57V4.27h6.19Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M15,2.71V5.48H6.35V2.71H3.68V21h14V2.71Zm-.52,14.58H6.87V16.07h7.59Zm0-2.68H6.87V13.4h7.59Zm0-2.67H6.87V10.73h7.59Zm0-2.67H6.87V8.05h7.59Z"
+                  />
+                </svg>
+                <h5 class="card-title">informes</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>      
+         <% } }%>
+        <% if(user) { if (user.TIP_USER == 1 || user.TIP_USER == 2 ||
+        user.TIP_USER == 3 ) {%>
+        <div class="col-lg-4 col-xs-12">
+          <a href="../estadisticas/estadisticas.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                    </style>
+                  </defs>
+                  <title>estadistica</title>
+                  <path
+                    class="cls-1"
+                    d="M10,2.86a8.47,8.47,0,1,0,8.46,8.47H10Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M11.33,1.54V10h8.46A8.47,8.47,0,0,0,11.33,1.54Z"
+                  />
+                </svg>
+                <h5 class="card-title">Estadisticas</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% } }%>
+      
+   
+        <% if(user) { if (user.TIP_USER == 1 || user.TIP_USER == 2 || user.TIP_USER == 3 ) {%>
+        <div class="col-lg-4 col-xs-12">
+          <a href="../usuarios/entidades.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                    </style>
+                  </defs>
+                  <title>control_usuarios</title>
+                  <path
+                    class="cls-1"
+                    d="M15.55,18.12c-.46,1-.77.78-8.58.78a1.3,1.3,0,0,1-1.29-1.3c0-2.67-.39-4.86,1.64-6.49a4.3,4.3,0,0,1,1.75-.87,3.22,3.22,0,1,1,3.25,0,4.58,4.58,0,0,1,3.34,4.36C15.66,17.89,15.7,17.78,15.55,18.12Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M20.14,12.59v4A1.13,1.13,0,0,1,19,17.71c-2.5,0-2.24.05-2.24-.11,0-3,.33-5-1.59-6.93a2.36,2.36,0,0,1,.76-.43,2,2,0,1,1,2.49,0A2.51,2.51,0,0,1,20.14,12.59Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M6.17,10.67c-1.94,2-1.6,4.07-1.6,6.93,0,.16.31.11-2.28.11a1.08,1.08,0,0,1-1.08-1.08v-4a2.5,2.5,0,0,1,1.7-2.36,2,2,0,0,1-.78-1.6,2,2,0,1,1,3.28,1.61A2.36,2.36,0,0,1,6.17,10.67Z"
+                  />
+                </svg>
+                <h5 class="card-title">Entidades</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% } }%>
+        <div class="col-lg-4 col-xs-12">
+          <a href="../sivespa/informacion.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                      .cls-2 {
+                        fill: #fff;
+                      }
+                    </style>
+                  </defs>
+                  <title>info</title>
+                  <path
+                    class="cls-2"
+                    d="M10.67,5.64A1.06,1.06,0,1,0,11.72,6.7,1.06,1.06,0,0,0,10.67,5.64Z"
+                  />
+                  <path
+                    class="cls-2"
+                    d="M10.67,9.34a.8.8,0,0,0-.8.8V14.9a.8.8,0,0,0,1.59,0V10.14A.8.8,0,0,0,10.67,9.34Z"
+                  />
+                </svg>
+                <h5 class="card-title">Información</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <a href="../noticias/noticias.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                    </style>
+                  </defs>
+                  <title>news</title>
+                  <path
+                    class="cls-1"
+                    d="M16.39,4.76l1.25-1.25a.59.59,0,0,0,0-.83.6.6,0,0,0-.83,0L15.57,3.93a.59.59,0,0,0,0,.83A.57.57,0,0,0,16.39,4.76Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M19.1,7.51H17.85a.59.59,0,0,0,0,1.17H19.1a.59.59,0,1,0,0-1.17Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M12.23,3.06a.59.59,0,0,0,.58-.59V1.22a.58.58,0,1,0-1.16,0V2.47A.59.59,0,0,0,12.23,3.06Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M1.82,15.18a.59.59,0,0,0,0,.83l2.5,2.5a.59.59,0,0,0,.82,0l1-1L2.8,14.2Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M11.92,15.65l-4.1,1.93,2.8,2.8a.59.59,0,0,0,.83,0l2.18-2.19a.57.57,0,0,0,0-.82Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M9.52,2.68A.62.62,0,0,0,9,2.52a.59.59,0,0,0-.42.33l-5,10.53L7,16.7l10.53-4.95a.57.57,0,0,0,.32-.43.59.59,0,0,0-.16-.51Z"
+                  />
+                </svg>
+                <h5 class="card-title">Noticias</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+   
+     
+        <div class="col-lg-4 col-xs-12">
+          <a href="../tips/tips.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                      .cls-2 {
+                        fill: #fff;
+                      }
+                    </style>
+                  </defs>
+                  <title>tips</title>
+                  <path
+                    class="cls-1"
+                    d="M13,18.32l.21,0v1.09a1.51,1.51,0,0,1-1.51,1.5H9.6a1.56,1.56,0,0,1-1.5-1.75V18.3l.19,0Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M16.68,10.59a6,6,0,0,1-2.3,4.72,2.86,2.86,0,0,0-1.09,1.76A.69.69,0,0,0,13,17H8.29a.93.93,0,0,0-.24,0,2.71,2.71,0,0,0-1-1.67,6,6,0,1,1,9.62-4.8Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M10.67,3.26A.65.65,0,0,1,10,2.62V.94a.65.65,0,0,1,1.29,0V2.62A.64.64,0,0,1,10.67,3.26Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M16.31,5.6a.63.63,0,0,1-.46-.19.65.65,0,0,1,0-.91L17,3.31a.64.64,0,0,1,.91.91L16.76,5.41A.61.61,0,0,1,16.31,5.6Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M20.32,11.24H18.64a.65.65,0,0,1,0-1.29h1.68a.65.65,0,1,1,0,1.29Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M17.49,18.07a.65.65,0,0,1-.45-.19l-1.19-1.19a.64.64,0,1,1,.91-.91L18,17a.65.65,0,0,1,0,.91A.68.68,0,0,1,17.49,18.07Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M3.84,18.07a.68.68,0,0,1-.46-.19.65.65,0,0,1,0-.91l1.19-1.19a.64.64,0,1,1,.91.91L4.3,17.88A.7.7,0,0,1,3.84,18.07Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M2.69,11.24H1A.65.65,0,0,1,1,10H2.69a.65.65,0,0,1,0,1.29Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M5,5.6a.63.63,0,0,1-.46-.19L3.38,4.22a.65.65,0,0,1,0-.91.66.66,0,0,1,.92,0L5.48,4.5a.65.65,0,0,1,0,.91A.61.61,0,0,1,5,5.6Z"
+                  />
+                  <path
+                    class="cls-2"
+                    d="M13.89,11a.64.64,0,0,1-.65-.64A2.36,2.36,0,0,0,10.88,8a.65.65,0,0,1,0-1.29,3.66,3.66,0,0,1,3.65,3.65A.64.64,0,0,1,13.89,11Z"
+                  />
+                </svg>
+                <h5 class="card-title">Tips</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <a href="../soporte/canales.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                    </style>
+                  </defs>
+                  <title>contact</title>
+                  <g id="_Grupo_" data-name="&lt;Grupo&gt;">
+                    <path
+                      id="_Trazado_"
+                      data-name="&lt;Trazado&gt;"
+                      class="cls-1"
+                      d="M17.42,9.14a5.75,5.75,0,0,0-5.09-5.48l-.18,0a3,3,0,0,0-.43,0,.71.71,0,0,0-.77.65.74.74,0,0,0,.11.59,1.12,1.12,0,0,0,.8.34l.22,0c2.54.56,3.39,1.46,3.81,4a1.27,1.27,0,0,1,0,.22c0,.3.06.92.73.92h.18c.63-.1.61-.67.6-.94a1.31,1.31,0,0,1,0-.2Z"
+                    />
+                    <path
+                      id="_Trazado_2"
+                      data-name="&lt;Trazado&gt;"
+                      class="cls-1"
+                      d="M11.56,2.68l.2,0c4.18.64,6.1,2.62,6.63,6.82a1.93,1.93,0,0,1,0,.25c0,.33,0,1,.75,1h0a.72.72,0,0,0,.55-.21,1.15,1.15,0,0,0,.2-.88,1.28,1.28,0,0,1,0-.19,8.51,8.51,0,0,0-8-8.35h-.47a.75.75,0,0,0-.83.78C10.6,2.61,11.25,2.65,11.56,2.68Z"
+                    />
+                    <path
+                      id="_Trazado_3"
+                      data-name="&lt;Trazado&gt;"
+                      class="cls-1"
+                      d="M18.19,15l-.27-.21c-.46-.36-.94-.7-1.41-1l-.29-.2a2.93,2.93,0,0,0-1.65-.63A2.13,2.13,0,0,0,12.79,14a1,1,0,0,1-.81.49,1.59,1.59,0,0,1-.66-.16,7.86,7.86,0,0,1-4.11-4,1.31,1.31,0,0,1,.41-1.88,1.91,1.91,0,0,0,1-1.67c-.06-1-2.38-4.21-3.36-4.57A1.9,1.9,0,0,0,4,2.22,3.75,3.75,0,0,0,1.69,4.14,3.55,3.55,0,0,0,1.74,7a23.21,23.21,0,0,0,5.09,7.75,24.62,24.62,0,0,0,7.73,5.13,4.22,4.22,0,0,0,.76.23l.18,0h.1a4.39,4.39,0,0,0,3.64-2.77C19.69,16.11,18.86,15.47,18.19,15Z"
+                    />
+                    <path
+                      id="_Trazado_4"
+                      data-name="&lt;Trazado&gt;"
+                      class="cls-1"
+                      d="M12.18,6.09a.88.88,0,0,0-.92.54.73.73,0,0,0,0,.62,1,1,0,0,0,.7.37,1.64,1.64,0,0,1,1.53,1.65.79.79,0,0,0,.75.77h.09c.47-.06.7-.41.68-1a3,3,0,0,0-.92-2A2.76,2.76,0,0,0,12.18,6.09Z"
+                    />
+                  </g>
+                </svg>
+                <h5 class="card-title">Contacto</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <a href="../notificaciones/notificaciones.php">
+            <div class="card card_dashboard">
+              <div class="card-body">
+                <svg
+                  id="Capa_1"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21.33 21.33"
+                >
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #636363;
+                      }
+                    </style>
+                  </defs>
+                  <title>novedades</title>
+                  <path
+                    class="cls-1"
+                    d="M18.16,14.59a5.33,5.33,0,0,1-1.9-4.09V8.27a5.6,5.6,0,0,0-4.79-5.53V1.88a.8.8,0,1,0-1.6,0v.86A5.59,5.59,0,0,0,5.08,8.27V10.5a5.38,5.38,0,0,1-1.91,4.1,1.38,1.38,0,0,0-.49,1.06,1.4,1.4,0,0,0,1.4,1.4H17.26a1.4,1.4,0,0,0,1.39-1.4A1.42,1.42,0,0,0,18.16,14.59Z"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M10.67,20.25a3,3,0,0,0,2.93-2.4H7.73A3,3,0,0,0,10.67,20.25Z"
+                  />
+                </svg>
+                <h5 class="card-title">Notificaciones</h5>
+                <p class="card-text">Texto de resumen corto.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--Noticias destacadas-->
+      <div class="row card_news_destacadas mt-5">
+        <h1 class="pb-2">Noticias destacadas</h1>
+        <div class="col-lg-4 col-xs-12">
+          <div class="card">
+            <img
+              src="../images/fondo_temporal2.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Titulo noticia</h5>
+              <p class="card-text">
+                Pequeño parrafo del texto de la noticia <br />Lorem ipsum, dolor
+                sit amet consectetur adipisicing elit...
+              </p>
+              <button class="btn_green">Leer</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <div class="card">
+            <img
+              src="../images/fondo_temporal2.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Titulo noticia</h5>
+              <p class="card-text">
+                Pequeño parrafo del texto de la noticia <br />Lorem ipsum, dolor
+                sit amet consectetur adipisicing elit...
+              </p>
+              <button class="btn_green">Leer</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <div class="card">
+            <img
+              src="../images/fondo_temporal2.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Titulo noticia</h5>
+              <p class="card-text">
+                Pequeño parrafo del texto de la noticia <br />Lorem ipsum, dolor
+                sit amet consectetur adipisicing elit...
+              </p>
+              <button class="btn_green">Leer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Estadisticas Destacadas-->
+      <div class="row card_estadisticas_destacadas mt-5">
+        <h1 class="pb-2">Estadisticas destacadas</h1>
+        <div class="col-lg-4 col-xs-12">
+          <div class="card">
+            <img
+              src="../images/estadistica_barras.svg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Titulo estadística</h5>
+              <p class="card-text">Pequeño resumen de la estadistica</p>
+              <button
+                class="btn_green"
+                role="link"
+                onclick="location.href='../estadisticas/estadisticas_ejemplo.php';"
+              >
+                Leer
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <div class="card">
+            <img
+              src="../images/estadistica_barras.svg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Titulo estadística</h5>
+              <p class="card-text">Pequeño resumen de la estadistica</p>
+              <button
+                class="btn_green"
+                role="link"
+                onclick="location.href='../estadisticas/estadisticas_ejemplo.php';"
+              >
+                Leer
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <div class="card">
+            <img
+              src="../images/estadistica_barras.svg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Titulo estadística</h5>
+              <p class="card-text">Pequeño resumen de la estadistica</p>
+              <button
+                class="btn_green"
+                role="link"
+                onclick="location.href='../estadisticas/estadisticas_ejemplo.php';"
+              >
+                Leer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../includes/footer') -%>
