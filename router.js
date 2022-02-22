@@ -10,13 +10,16 @@ const fileupload= require('express-fileupload')
 router.post('/registerent', authController.registerent)
 router.post('/registerentM', authController.registerentM)
 router.post('/registerentU', authController.registerentU)
+router.post('/controluser', authController.userUpdate)
 router.post('/login', authController.login)
 router.get('/logout', authController.logout)
+router.get('/borraruser/:id', authController.deleteuser)
 //router para los metodos del controller de filtros
 router.post('/filterent', filtros.filterent )
 //router para los metodos del reporte SIVESPA de administradores
 router.post('/reportesivespa', reporte.dareporte)
 router.post('/savetamcrafft', reporte.tamizajecrafft)
+
 //ruta principal para el login
 router.get('/login', (req, res) => {
   res.render('da/seguridad/login', {
@@ -323,7 +326,7 @@ router.get('/tips', authController.isAuth, async(req, res) => {
 })
 router.get('/entidades', authController.isAuth, (req, res) => {
   sqlmunicipios = 'SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola'
-  sqltipoide = 'SELECT `DESC`, `COD` FROM rl_tip_ide'
+  sqltipoide = 'SELECT `DESC`, `COD`,`ID_RL_TIP_IDE` FROM rl_tip_ide'
   sqltipoUPGD = 'SELECT `COD_PRE`,`RAZ_SOC` FROM `db_uni_not`'
   munfiltro = req.user.COD_MUN
   sqlmiMun ='SELECT `COD_PRE`,`RAZ_SOC` FROM `db_uni_not` WHERE COD_MUN = ' + munfiltro
@@ -367,6 +370,8 @@ router.get('/entidades', authController.isAuth, (req, res) => {
         listaUSERS: result[6],
         listaMUNI: result[7],
         filtro:0
+        
+        
       })
     }
   })
@@ -585,11 +590,23 @@ router.post('/crearlinea', authController.isAuth, async(req,res)=>{
 
 router.get('/datausuario/:id', authController.isAuth ,async(req , res)=>{
   iduser=req.params.id
-  var user = await q(`SELECT * FROM st_user WHERE id= ${iduser}`)
-  nombrecompleto=user.NOMBRE + " " + user.APELLIDO
-  res.render('/da/usuarios/datausuario' , {
-    title:nombrecompleto,
-    user:user
+  var userver = await q(`SELECT * FROM st_user WHERE id_st_user= ${iduser}`)
+  nombrecompleto=userver[0].NOMBRE + " " + userver[0].APELLIDO
+  
+  nombreide= await q(`SELECT rl_tip_ide.DESC FROM rl_tip_ide WHERE ID_RL_TIP_IDE  = ${userver[0].TIP_IDEN}`)
+  listatipoide=await q(`SELECT * FROM rl_tip_ide`)
+  miupgd= await q(`SELECT * FROM db_uni_not WHERE COD_PRE= ${userver[0].COD_PRE} AND COD_SUB=${userver[0].COD_SUB}`)
+  mimuni= await q (`SELECT DISTINCT * FROM rl_divipola WHERE CODMUNIC=${userver[0].COD_MUN}`)
+
+  res.render('da/usuarios/datausuario' , {
+    tittle:'Editar Usuario',
+    user:req.user,
+    userver:userver[0],
+    nombrecompleto:nombrecompleto,
+    tip_ide:nombreide[0].DESC,
+    listatipide:listatipoide,
+    miupgd:miupgd[0],
+   mimuni:mimuni[0]
   })
 }) 
 

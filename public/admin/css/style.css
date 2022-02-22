@@ -1532,8 +1532,32 @@ table tr td {
     width: 25px;
     height: 25px!important;
     padding: 0px!important;
+    
 }
+.btn_edit_ver{
+    background-color: var(--green_always)!important;
+    color:#fff!important;
+    width: 25px;
+    height: 25px!important;
+    border-radius: 5px;
+    text-align: center!important;
+    padding-top: 0.3em;
 
+}
+.btn_red {
+    
+
+    background-image: linear-gradient(to right, #f00020, #ee2435, #7e0a0a);
+    color:#fff!important;
+    width: 25px;
+    height: 25px!important;
+    border-radius: 5px;
+    text-align: center!important;
+    padding-top: 0.3em!important;
+    background-size: 300%;
+    border: 0;
+    background-position: left;
+}
 .btn_red_eliminar {
     width: 25px!important;
     height: 25px!important;
@@ -1651,6 +1675,7 @@ table tr td {
 .sidebar-right ul li a:hover {
     color: var(--green_sidebar_right_hover);
 }
+
 
 #sidebar ul li a {
     font-family: 'Gotham';

@@ -1,5 +1,5 @@
 <%- include('../includes/header') -%>
-
+<% var rol %> 
     <section class="content">
         <div class="titulo_pagina row align-items-center">
             <div class="col-lg-2">
@@ -37,12 +37,66 @@
             <div class=" container_reporte_form">
                 <div class="row buscar mb-1">
                 
-                    <form action="" class="form-control" method="post">
+                    <form action="/da/controluser"  method="post" autocomplete="off" class="ps-5 pe-5"> 
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" value="<%= userver.id_st_user %>" hidden name="id_st_user">
+                                <label for="">Nombre</label>
+                                <input type="text" name="NOMBRE" class="form-control mb-2" value="<%= userver.NOMBRE %> ">
+                                <label for="">Rol</label>
+                                <% if(userver.TIP_USER==1) { rol="Admin"}  %> 
+                                <% if(userver.TIP_USER==2) { rol="Entidad Municipal"}  %> 
+                                <% if(userver.TIP_USER==3) { rol="UPGD"}  %> 
+                                <% if(userver.TIP_USER==4) { rol="Usuario de UPGD"}  %> 
+                                <input type="text" class="form-control mb-2" value="<%= rol %>" readonly="readonly">
+                                <label for="">Email</label>
+                                <input type="text" name="EMAIL" class="form-control mb-2" value="<%= userver.EMAIL%>">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">APELLIDO</label>
+                                <input type="text" name="APELLIDO" class="form-control mb-2" value="<%= userver.APELLIDO %> ">
+                                <label for="">Tipo de identificación</label>
+                                
+                                <select name="TIP_IDEN" id="" CLASS="form-select">
+                                    <% listatipoide.forEach((lide)=> { %> 
 
-                        <input type="text" value="<%= user. %>" class="form-control">
+                                    <option value="<%= lide.ID_RL_TIP_IDE %>"  <% if(lide.ID_RL_TIP_IDE == user.TIP_IDEN){ %> selected="selected" <% } %>><%= lide.DESC %></option>
+                                    <% }) %> 
+                                </select>
+                                
+                                <label for="">Numero de identificación</label>
+                                <input type="text" name="CEDULA" class="form-control mb-2" value="<%= userver.CEDULA %>">
+                      
+                            </div>
+                        </div>
 
-                        hola mundo
-
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="">Telefono de contacto:</label>
+                                <input type="text" name="TEL" class="form-control mb-2" value="<%= userver.TEL%>">
+                                <label for="">Municipio en el que opera</label>
+                                <input type="text" class="form-control mb-2" value="<%= mimuni.NOMMUNIPIO %>" readonly="readonly">
+               
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">Entidad a la que pertenece:</label>
+                                <input type="text" class="form-control mb-2" value="<%= miupgd.RAZ_SOC %>" readonly="readonly">
+                            
+                             
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-4"></div>
+                            
+                            <div class="col-4">
+                                <button type="submit" name="updateuser" value="1" class="btn_green">Actualizar</button>
+                                <button  type="submit" name="deleteuser" value="0" class="btn_red" >Eliminar</button>
+                            </div>
+                            <div class="col-4 align-content-end">      </div>
+                       
+                            
+                            
+                        </div>
                     </form>
 
 

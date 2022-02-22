@@ -1,4 +1,5 @@
 <%- include('../includes/header') -%>
+  
     <section class="content">
         <div class="titulo_pagina row align-items-center">
             <div class="col-lg-2">
@@ -198,7 +199,7 @@
                                             <label for=" ">Tipo de documento</label>
                                             <select name="TIP_IDE" id="">
                                                 <% for(var i=0; i < tipo_ide.length; i++) { %>
-                                                    <option value="<%= tipo_ide[i].COD %>" ><%= tipo_ide[i].DESC %></option>
+                                                    <option value="<%= tipo_ide[i].ID_RL_TIP_IDE %>" ><%= tipo_ide[i].DESC %></option>
                                                 <%}%>
                                             </select>
                                         </select>
@@ -264,7 +265,7 @@
                                             <label for=" ">Tipo de Documento</label>
                                             <select name="TIP_IDE" id="">
                                                 <% for(var i=0; i < tipo_ide.length; i++) { %>
-                                                    <option value="<%= tipo_ide[i].COD %>" ><%= tipo_ide[i].DESC %></option>
+                                                    <option value="<%= tipo_ide[i].ID_RL_TIP_IDE %>" ><%= tipo_ide[i].DESC %></option>
                                                 <%}%>
                                             </select>
                                         </div>
@@ -396,7 +397,7 @@
                                             <label for=" ">Tipo de Documento</label>
                                             <select name="TIP_IDE" id="">
                                                 <% for(var i=0; i < tipo_ide.length; i++) { %>
-                                                    <option value="<%= tipo_ide[i].COD %>" ><%= tipo_ide[i].DESC %></option>
+                                                    <option value="<%= tipo_ide[i].ID_RL_TIP_IDE %>" ><%= tipo_ide[i].DESC %></option>
                                                 <%}%>
                                             </select>
                                         </div>

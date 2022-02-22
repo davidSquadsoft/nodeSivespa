@@ -1,4 +1,5 @@
  <!--ACORDION DE USUARIOS-->
+ <% var result %>  
  <div class="accordion accordion-flush" id="accordionFlushExample">
     <% if (user) { if (user.TIP_USER==1){ %>
     <div class="accordion-item">
@@ -24,8 +25,8 @@
                     <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userMUNI.NOMBRE_RESPON %> <%= userMUNI.APELLIDO_RESPON %></div>
                     <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= userMUNI.EMAIL %></div>
                     <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userMUNI.TELEFONO %></div>
-                    <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-                     <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+                    <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><a href="/da/datausuario/<%= user.id_st_user %>" class=" "><i class="bi bi-pencil-square"></i></a>
+                     <button class="btn_red_eliminar btn_edit_vers ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
                 </div>
                 
                 <% }) %>
@@ -52,6 +53,7 @@
         <div class="col-lg-2">Telefono:</div>
         <div class="col-lg-1">Accion:</div>
     </div>
+
     <% listaUPGD.forEach((userUPGD)=> { %>
     <div class="row text-capitalize crud_user ">
         <% if(user.TIP_USER==2) { if(userUPGD.COD_MUN==user.COD_MUN){%>
@@ -66,8 +68,8 @@
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= result %></div>
         <div class="col-lg-3 border border-secondary  align-items-center d-flex"><%= userUPGD.COR_ELE %></div>
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.TEL %></div>
-        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-        <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><a href="/da/datausuario/<%= user.id_st_user %>" class="btn_edit_ver "><i class="bi bi-pencil-square"></i></a>
+        <button class="btn_red_eliminar btn_edit_vers ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
             <% } } else if (user.TIP_USER==1) { %>
                 <!-- se muestran si es el administrador global -->
                 <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.COD_PRE %>-<%= userUPGD.COD_SUB %></div>
@@ -77,11 +79,12 @@
                 result=data.NOMBRE +" "+data.APELLIDO
             }
         })%>
-        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= result%></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= result %></div>
         <div class="col-lg-3 border border-secondary overflow-auto"><%= userUPGD.COR_ELE %></div>
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.TEL %></div>
-        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-                                                        <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+                <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><a href="/da/datausuario/<%= user.id_st_user %>" class="btn_edit_ver"><i class="bi bi-pencil-square"></i></a>
+                  
+                                                        <button class="btn_red_eliminar btn_edit_vers ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
                 <%}%>
     </div>
     <% }) %>
@@ -117,8 +120,8 @@
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.TEL %> </div>
         <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= users.EMAIL %></div>
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.ENTIDAD %></div>
-        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-         <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><a href="/da/datausuario/<%= users.id_st_user %>" class="btn_edit_ver "><i class="bi bi-pencil-square"></i></a>
+         <button class="btn_red_eliminar btn_edit_vers ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
         <% } %>
     </div>
     <% } %>
@@ -130,8 +133,8 @@
            <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.TEL %> </div>
            <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= users.EMAIL %></div>
            <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.ENTIDAD %></div>
-           <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-            <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+           <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><a href="/da/datausuario/<%= users.id_st_user %>" class="btn_edit_ver"><i class="bi bi-pencil-square"></i></a>
+            <a href="/da/borraruser/<%= users.id_st_user %>" class="btn_red btn_icons"><i class="bi bi-x-octagon-fill"></i></a></div>
           
        </div>
        <% } %>
@@ -144,8 +147,8 @@
                 <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.TEL %> </div>
                 <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= users.EMAIL %></div>
                 <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.ENTIDAD %></div>
-                <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><button type="button" id="editar_usuario_entidad_button" class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-                 <button class="btn_red_eliminar btn_icons ms-2"><i class="bi bi-x-octagon-fill"></i></button></div>
+                <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center"><a href="/da/datausuario/<%= users.id_st_user %>" class="btn_edit_ver"><i class="bi bi-pencil-square"></i></a>
+                  <a href="/da/borraruser/<%= users.id_st_user %>" class="btn_red btn_icons"><i class="bi bi-x-octagon-fill"></i></a></div>
                 <% } %>
        </div>
        <% } %>
