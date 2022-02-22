@@ -376,7 +376,7 @@ router.get('/misreportes', authController.isAuth, async (req, res) => {
 })
 router.get('/show/:u', authController.isAuth, async(req,res)=>{
   const id=req.params.u;
-//  let queryQuien = await q(`SELECT * FROM db_ide_pac WHERE NUM_IDE = ${id}`);
+
   let idepaciente = await q(`SELECT * FROM db_ide_pac WHERE NUM_IDE = ${id}`);
   const paciente =idepaciente[0]
   const idreporte=paciente.id_reporte
