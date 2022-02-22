@@ -47,7 +47,7 @@ router.get('/contenido', authController.isAuth, (req, res) => {
   })
 })
 router.get('/crear_contenido', authController.isAuth, async(req, res) => {
-  var queryMuni = await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from RL_DIVIPOLA');
+  var queryMuni = await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola');
   var querySPa = await q('SELECT * from rl_lista_spa');
   res.render('da/contenido/crear_contenido', {
     tittle: 'Crear Contenido',
@@ -129,7 +129,7 @@ router.get('/nuevoreporte', authController.isAuth, async (req, res) => {
   //estas son las funcionas asincronicas que envian una variable que contiene el query sql y retorna un valor
   //la funcion se encuentra en querys.js
   factual = new Date().toISOString().slice(0, 10);
-  sqlmunicipios = 'SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from RL_DIVIPOLA'
+  sqlmunicipios = 'SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola'
   sqltipoide = 'SELECT * FROM rl_tip_ide'  
   sqlsexo ='SELECT * FROM `rl_sexo`'
   sqlpais = 'SELECT * FROM `rl_pais_dian` '
@@ -322,7 +322,7 @@ router.get('/tips', authController.isAuth, async(req, res) => {
 })
 })
 router.get('/entidades', authController.isAuth, (req, res) => {
-  sqlmunicipios = 'SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from RL_DIVIPOLA'
+  sqlmunicipios = 'SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola'
   sqltipoide = 'SELECT `DESC`, `COD` FROM rl_tip_ide'
   sqltipoUPGD = 'SELECT `COD_PRE`,`RAZ_SOC` FROM `db_uni_not`'
   munfiltro = req.user.COD_MUN
