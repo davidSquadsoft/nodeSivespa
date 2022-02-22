@@ -326,8 +326,7 @@ router.get('/entidades', authController.isAuth, (req, res) => {
   sqltipoide = 'SELECT `DESC`, `COD` FROM rl_tip_ide'
   sqltipoUPGD = 'SELECT `COD_PRE`,`RAZ_SOC` FROM `db_uni_not`'
   munfiltro = req.user.COD_MUN
-  sqlmiMun =
-    'SELECT `COD_PRE`,`RAZ_SOC` FROM `db_uni_not` WHERE COD_MUN = ' + munfiltro
+  sqlmiMun ='SELECT `COD_PRE`,`RAZ_SOC` FROM `db_uni_not` WHERE COD_MUN = ' + munfiltro
   todasUPGD = 'SELECT `COD_PRE`,`COD_MUN`,`RAZ_SOC` FROM `db_uni_not`'
   listaUPGD = 'SELECT * FROM `db_uni_not`'
   listaUSERS = 'SELECT * FROM `st_user`'
