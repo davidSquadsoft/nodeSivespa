@@ -1,0 +1,57 @@
+<%- include('../includes/header') -%>
+
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle %>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.html"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class=" container_reporte_form">
+                <div class="row buscar mb-1">
+                
+                    <form action="" class="form-control" method="post">
+                        <input type="text" value="<%= user. %>" class="form-control">
+
+
+
+                    </form>
+
+
+
+
+                </div>
+  
+
+            </div>
+        </div>
+    </section>
+    
+    <%- include('../includes/footer') -%>

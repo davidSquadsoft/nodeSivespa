@@ -582,4 +582,15 @@ router.post('/crearlinea', authController.isAuth, async(req,res)=>{
   res.redirect('/da/mislineas')
 })
 
+
+router.get('/datausuario/:id', authController.isAuth ,async(req , res)=>{
+  iduser=req.params.id
+  var user = await q(`SELECT * FROM st_user WHERE id= ${iduser}`)
+  nombrecompleto=user.NOMBRE + " " + user.APELLIDO
+  res.render('/da/usuarios/datausuario' , {
+    title:nombrecompleto,
+    user:user
+  })
+}) 
+
 module.exports = router
