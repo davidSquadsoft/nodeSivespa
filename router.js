@@ -11,9 +11,13 @@ router.post('/registerent', authController.registerent)
 router.post('/registerentM', authController.registerentM)
 router.post('/registerentU', authController.registerentU)
 router.post('/controluser', authController.userUpdate)
+router.post('/controlupgd', authController.upgdUpdate)
+router.post('/controlentmun', authController.entmunUpdate)
 router.post('/login', authController.login)
 router.get('/logout', authController.logout)
 router.get('/borraruser/:id', authController.deleteuser)
+router.get('/borrarupgd/:id', authController.deleteupgd)
+router.get('/borraentmun/:id', authController.deleteentmuni)
 //router para los metodos del controller de filtros
 router.post('/filterent', filtros.filterent )
 //router para los metodos del reporte SIVESPA de administradores
@@ -610,4 +614,26 @@ router.get('/datausuario/:id', authController.isAuth ,async(req , res)=>{
   })
 }) 
 
+
+router.get('/dataupgd/:id', authController.isAuth ,async(req , res)=>{
+  uidupgd=req.params.id
+  var upgdver = await q(`SELECT * FROM db_uni_not WHERE PK_UNI_NOTIF= ${uidupgd}`)
+  
+  
+  responsable= await q(`SELECT * FROM st_user WHERE CEDULA  = ${upgdver[0].ID_RES_NOT}`)
+  listatipoide=await q(`SELECT * FROM rl_tip_ide`)
+  
+  mimuni= await q (`SELECT DISTINCT * FROM rl_divipola WHERE CODMUNIC=${upgdver[0].COD_MUN}`)
+
+  res.render('da/usuarios/dataupgd' , {
+    tittle:'Editar UPGD',
+    user:req.user,
+    upgdver:upgdver[0],
+    nombrecompleto:'0',
+    responuser:responsable[0],
+    tip_ide:responsable[0].TIP_IDEN,
+    listatipide:listatipoide,
+    mimuni:mimuni[0]
+  })
+}) 
 module.exports = router

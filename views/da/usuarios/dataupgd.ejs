@@ -37,52 +37,56 @@
             <div class=" container_reporte_form">
                 <div class="row buscar mb-1">
                 
-                    <form action="/da/controluser"  method="post" autocomplete="off" class="ps-5 pe-5"> 
+                    <form action="/da/controlupgd"  method="post" autocomplete="off" class="ps-5 pe-5"> 
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" value="<%= userver.id_st_user %>" hidden name="id_st_user">
-                                <label for="">Nombre</label>
-                                <input type="text" name="NOMBRE" class="form-control mb-2" value="<%= userver.NOMBRE %> ">
-                                <label for="">Rol</label>
-                                <% if(userver.TIP_USER==1) { rol="Admin"}  %> 
-                                <% if(userver.TIP_USER==2) { rol="Entidad Municipal"}  %> 
-                                <% if(userver.TIP_USER==3) { rol="UPGD"}  %> 
-                                <% if(userver.TIP_USER==4) { rol="Usuario de UPGD"}  %> 
-                                <input type="text" class="form-control mb-2" value="<%= rol %>" readonly="readonly">
+                                <input type="number" value="<%= upgdver.PK_UNI_NOTIF %>" hidden name="PK_UNI_NOTIF">
+                                <input type="number" value="<%= responuser.id_st_user %>" hidden name="id_st_user">
+                                <label for="">Razon Social</label>
+                             
+                                <input type="text" name="RAZ_SOC" class="form-control mb-2" value="<%= upgdver.RAZ_SOC %> ">
+                    
+                                <label for="">Nombre del responsable</label>
+                       
+                                <input type="text" class="form-control mb-2" value="<%= responuser.NOMBRE %>" name="NOMBRE">
                                 <label for="">Email</label>
-                                <input type="text" name="EMAIL" class="form-control mb-2" value="<%= userver.EMAIL%>">
-                            </div>
-                            <div class="col-lg-6">
-                                <label for="">APELLIDO</label>
-                                <input type="text" name="APELLIDO" class="form-control mb-2" value="<%= userver.APELLIDO %> ">
+                                <input type="text" name="EMAIL" class="form-control mb-2" value="<%= upgdver.COR_ELE%>">
                                 <label for="">Tipo de identificación</label>
                                 
                                 <select name="TIP_IDEN" id="" CLASS="form-select">
                                     <% listatipoide.forEach((lide)=> { %> 
 
-                                    <option value="<%= lide.ID_RL_TIP_IDE %>"  <% if(lide.ID_RL_TIP_IDE == user.TIP_IDEN){ %> selected="selected" <% } %>><%= lide.DESC %></option>
+                                    <option value="<%= lide.ID_RL_TIP_IDE %>"  <% if(lide.ID_RL_TIP_IDE == responuser.TIP_IDEN){ %> selected="selected" <% } %>><%= lide.DESC %></option>
                                     <% }) %> 
                                 </select>
-                                
+                            </div>
+                            <div class="col-lg-6">
+
+                                <label for="">NIT</label>
+                                <input type="text" name="NIT_UPGD" class="form-control mb-2" value="<%= upgdver.NIT_UPGD %> ">
+                           
+                                <label for="">Apellido del responsable</label>
+                                <input type="text" name="APELLIDO" class="form-control mb-2" value="<%= responuser.APELLIDO %> ">
+                           
+                                <label for="">Telefono de contacto:</label>
+                                <input type="text" name="TEL" class="form-control mb-2" value="<%= upgdver.TEL%>">
                                 <label for="">Numero de identificación</label>
-                                <input type="text" name="CEDULA" class="form-control mb-2" value="<%= userver.CEDULA %>">
+                                <input type="text" name="CEDULA" class="form-control mb-2" value="<%= responuser.CEDULA %>">
                       
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <label for="">Telefono de contacto:</label>
-                                <input type="text" name="TEL" class="form-control mb-2" value="<%= userver.TEL%>">
+                        
                                 <label for="">Municipio en el que opera</label>
                                 <input type="text" class="form-control mb-2" value="<%= mimuni.NOMMUNIPIO %>" readonly="readonly">
                
                             </div>
                             <div class="col-lg-6">
-                                <label for="">Entidad a la que pertenece:</label>
-                                <input type="text" class="form-control mb-2" value="<%= miupgd.RAZ_SOC %>" readonly="readonly">
-                            
-                             
+                                <label for="">Contraseña:</label>
+                                <input type="password" class="form-control mb-2" value="" name="PASS">
+                                
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -90,7 +94,7 @@
                             
                             <div class="col-4">
                                 <button type="submit" name="updateuser" value="1" class="btn_green">Actualizar</button>
-                                <button   onclick="confirmar(<%= userver.id_st_user %>)" type="button" name="deleteuser" value="0" class="btn_red_wide" >Eliminar</button>
+                                <button  onclick="confirmarupgd(<%= upgdver.PK_UNI_NOTIF %>)" type="button" name="deleteuser" value="0" class="btn_red_wide" >Eliminar</button>
                             </div>
                             <div class="col-4 align-content-end">      </div>
                        
@@ -109,24 +113,26 @@
         </div>
     </section>
     <script>
-        function confirmar(id){
-            Swal.fire({
-  title: 'Desea eliminar el usuario?',
-  text: "Este cambio no se puede revertir!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3c773c',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Si, eliminar'
-}).then((result) => {
-  if (result.isConfirmed) {
-    
-        window.location='/da/borraruser/'+id;
-      
-   
-    
-  }
-})
+
+
+function confirmarupgd(id){
+        Swal.fire({
+        title: 'Desea eliminar la UPGD?',
+        text: "Este cambio no se puede revertir y al eliminar una upgd todos los usuarios asociados a la misma seran eliminados permanentemente!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3c773c',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar'
+        }).then((result) => {
+        if (result.isConfirmed) {
+
+            window.location='/da/borrarupgd/'+id;
+        
+
+
         }
-    </script>
+        })
+            }
+</script>
     <%- include('../includes/footer') -%>

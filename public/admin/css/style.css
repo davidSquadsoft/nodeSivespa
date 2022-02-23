@@ -1544,6 +1544,24 @@ table tr td {
     padding-top: 0.3em;
 
 }
+.btn_red_wide {
+    
+
+    background-image: linear-gradient(to right, #f00020, #ee2435, #7e0a0a);
+    border-radius: 5px;
+    background-size: 200%;
+    height: 35px;
+    border: 0;
+    background-position: left;
+    outline: none;
+    color: #fff!important;
+    width: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    cursor: pointer;
+    transition: 1s ease-in-out!important;
+    font-weight: 300!important;
+}
 .btn_red {
     
 
