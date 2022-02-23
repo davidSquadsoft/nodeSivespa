@@ -1,0 +1,138 @@
+<%- include('../includes/header') -%>
+<% var rol %> 
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle %>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.html"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class=" container_reporte_form">
+                <div class="row buscar mb-1">
+                
+                    <form action="/da/controlupgd"  method="post" autocomplete="off" class="ps-5 pe-5"> 
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="number" value="<%= upgdver.PK_UNI_NOTIF %>" hidden name="PK_UNI_NOTIF">
+                                <input type="number" value="<%= responuser.id_st_user %>" hidden name="id_st_user">
+                                <label for="">Razon Social</label>
+                             
+                                <input type="text" name="RAZ_SOC" class="form-control mb-2" value="<%= upgdver.RAZ_SOC %> ">
+                    
+                                <label for="">Nombre del responsable</label>
+                       
+                                <input type="text" class="form-control mb-2" value="<%= responuser.NOMBRE %>" name="NOMBRE">
+                                <label for="">Email</label>
+                                <input type="text" name="EMAIL" class="form-control mb-2" value="<%= upgdver.COR_ELE%>">
+                                <label for="">Tipo de identificación</label>
+                                
+                                <select name="TIP_IDEN" id="" CLASS="form-select">
+                                    <% listatipoide.forEach((lide)=> { %> 
+
+                                    <option value="<%= lide.ID_RL_TIP_IDE %>"  <% if(lide.ID_RL_TIP_IDE == responuser.TIP_IDEN){ %> selected="selected" <% } %>><%= lide.DESC %></option>
+                                    <% }) %> 
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+
+                                <label for="">NIT</label>
+                                <input type="text" name="NIT_UPGD" class="form-control mb-2" value="<%= upgdver.NIT_UPGD %> ">
+                           
+                                <label for="">Apellido del responsable</label>
+                                <input type="text" name="APELLIDO" class="form-control mb-2" value="<%= responuser.APELLIDO %> ">
+                           
+                                <label for="">Telefono de contacto:</label>
+                                <input type="text" name="TEL" class="form-control mb-2" value="<%= upgdver.TEL%>">
+                                <label for="">Numero de identificación</label>
+                                <input type="text" name="CEDULA" class="form-control mb-2" value="<%= responuser.CEDULA %>">
+                      
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                        
+                                <label for="">Municipio en el que opera</label>
+                                <input type="text" class="form-control mb-2" value="<%= mimuni.NOMMUNIPIO %>" readonly="readonly">
+               
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">Contraseña:</label>
+                                <input type="password" class="form-control mb-2" value="" name="PASS">
+                                
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-4"></div>
+                            
+                            <div class="col-4">
+                                <button type="submit" name="updateuser" value="1" class="btn_green">Actualizar</button>
+                                <button  onclick="confirmarupgd(<%= upgdver.PK_UNI_NOTIF %>)" type="button" name="deleteuser" value="0" class="btn_red_wide" >Eliminar</button>
+                            </div>
+                            <div class="col-4 align-content-end">      </div>
+                       
+                            
+                            
+                        </div>
+                    </form>
+
+
+
+
+                </div>
+  
+
+            </div>
+        </div>
+    </section>
+    <script>
+
+
+function confirmarupgd(id){
+        Swal.fire({
+        title: 'Desea eliminar la UPGD?',
+        text: "Este cambio no se puede revertir y al eliminar una upgd todos los usuarios asociados a la misma seran eliminados permanentemente!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3c773c',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar'
+        }).then((result) => {
+        if (result.isConfirmed) {
+
+            window.location='/da/borrarupgd/'+id;
+        
+
+
+        }
+        })
+            }
+</script>
+    <%- include('../includes/footer') -%>
