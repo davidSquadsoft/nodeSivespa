@@ -324,14 +324,15 @@ exports.upgdUpdate = async (req, res) => {
   if (PASS) {
     if (req.body.updateuser == 1) {
       insert = await q(`UPDATE db_uni_not SET RAZ_SOC = "${RAZ_SOC}" , COR_ELE = "${COR_ELE}", ID_RES_NOT = "${ID_RES_NOT}", TEL = "${TELEFONO}", NIT_UPGD = "${NIT_UPGD}" WHERE db_uni_not.PK_UNI_NOTIF = ${PK_UNI_NOTIF}`)
-      insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", USER = "${COR_ELE}", PASS = "${PASS}", PASS2 = "${PASS}" WHERE st_user.id_st_user = ${PK_UNI_NOTIF}`)
+      insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, CEDULA="${ID_RES_NOT}",TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", USER = "${COR_ELE}", PASS = "${PASS}", PASS2 = "${PASS}" WHERE st_user.id_st_user = ${id_st_user}`)
     }
   } else {
     insert = await q(`UPDATE db_uni_not SET RAZ_SOC = "${RAZ_SOC}" , COR_ELE = "${COR_ELE}", ID_RES_NOT = "${ID_RES_NOT}", TEL = "${TELEFONO}", NIT_UPGD = "${NIT_UPGD}" WHERE db_uni_not.PK_UNI_NOTIF = ${PK_UNI_NOTIF} `)
-    insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", USER = "${COR_ELE}" WHERE st_user.id_st_user = ${id_st_user} `)
+    insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, CEDULA="${ID_RES_NOT}",TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", USER = "${COR_ELE}" WHERE st_user.id_st_user = ${id_st_user} `)
   }
   res.redirect('/da/entidades')
 }
+
 exports.entmunUpdate = async (req, res) => {
   NOMBRE = req.body.NOMBRE
   APELLIDO = req.body.APELLIDO
@@ -339,20 +340,22 @@ exports.entmunUpdate = async (req, res) => {
   ID_RES_NOT = req.body.CEDULA
   COR_ELE = req.body.EMAIL
   TELEFONO = req.body.TEL
-  RAZ_SOC = req.body.RAZ_SOC
-  PK_UNI_NOTIF = req.body.PK_UNI_NOTIF
+  NOM_MUN = req.body.NOM_MUN
+  CEDULA=req.body.CEDULA
   NIT_UPGD = req.body.NIT_UPGD
   PASS = req.body.PASS
-  id_st_user = req.body.id_st_user
+  id = req.body.id
+  id_st_user=req.body.id_st_user
   if (PASS) {
     if (req.body.updateuser == 1) {
-      insert = await q(`UPDATE db_uni_not SET RAZ_SOC = "${RAZ_SOC}" , COR_ELE = "${COR_ELE}", ID_RES_NOT = "${ID_RES_NOT}", TEL = "${TELEFONO}", NIT_UPGD = "${NIT_UPGD}" WHERE db_uni_not.PK_UNI_NOTIF = ${PK_UNI_NOTIF}`)
-      insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", USER = "${COR_ELE}", PASS = "${PASS}", PASS2 = "${PASS}" WHERE st_user.id_st_user = ${PK_UNI_NOTIF}`)
+      insert = await q(`UPDATE db_ent_mun SET NOM_MUN = "${NOM_MUN}" , EMAIL = "${COR_ELE}",NRO_DOC="${ID_RES_NOT}", ID_RL_TIP_IDE = "${TIP_IDEN}", TELEFONO = "${TELEFONO}", NOMBRE_RESPON = "${NOMBRE}",APELLIDO_RESPON = "${APELLIDO}" WHERE db_ent_mun.id = ${id}`)
+      insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", CEDULA="${CEDULA}",USER = "${COR_ELE}", PASS = "${PASS}", PASS2 = "${PASS}" WHERE st_user.id_st_user = ${id_st_user}`)
     }
   } else {
-    insert = await q(`UPDATE db_uni_not SET RAZ_SOC = "${RAZ_SOC}" , COR_ELE = "${COR_ELE}", ID_RES_NOT = "${ID_RES_NOT}", TEL = "${TELEFONO}", NIT_UPGD = "${NIT_UPGD}" WHERE db_uni_not.PK_UNI_NOTIF = ${PK_UNI_NOTIF} `)
-    insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", USER = "${COR_ELE}" WHERE st_user.id_st_user = ${id_st_user} `)
+    insert = await q(`UPDATE db_ent_mun SET NOM_MUN = "${NOM_MUN}" , EMAIL = "${COR_ELE}",NRO_DOC="${ID_RES_NOT}", ID_RL_TIP_IDE = "${TIP_IDEN}", TELEFONO = "${TELEFONO}", NOMBRE_RESPON = "${NOMBRE}",APELLIDO_RESPON = "${APELLIDO}" WHERE db_ent_mun.id = ${id}`)
+    insert2 = await q(`UPDATE st_user SET NOMBRE = "${NOMBRE}" , APELLIDO = "${APELLIDO}", TIP_IDEN = ${TIP_IDEN}, TEL = "${TELEFONO}",EMAIL = "${COR_ELE}", CEDULA="${CEDULA}",USER = "${COR_ELE}" WHERE st_user.id_st_user = ${id_st_user} `)
   }
+  console.log(insert2)
   res.redirect('/da/entidades')
 }
 exports.deleteuser = async (req, res) => {

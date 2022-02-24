@@ -35,12 +35,8 @@
         </div>
         <div class="section_form fluid-container reportes">
             <div class="container_reporte_form fluid-container">
-                <!-- <p>Progreso actual: <span>10%</span></p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 10%"></div>
-                </div> -->
-          
-                <form action="/da/reportesivespa" method="post">
+      
+                <form action="/da/updatereportesivespa" method="post" autocomplete="off">
                     
                     <div class="form-group">
                        
@@ -62,10 +58,10 @@
                                             <tr>
                                                 <td><select name="ID_TIP_IDE" id="options" class="form-control"  >
                                                     <% tipo_ide.forEach((tipoide)=> { %>
-                                                        <option value="<%= tipoide.ID_RL_TIP_IDE %>"><%=tipoide.DESC %></option>
+                                                        <option value="<%= tipoide.ID_RL_TIP_IDE %>"  <% if(tipoide.ID_RL_TIP_IDE == db_ide_pac.ID_TIP_IDE){ %> selected="selected" <% } %>><%=tipoide.DESC %></option>
                                                     <%})%>
                                                 </select></td>
-                                                <td><input type="text" name="NUM_IDE" class="form-control"  ></td>
+                                                <td><input type="text" name="NUM_IDE" class="form-control" placeholder="<%=  db_ide_pac.NUM_IDE %> " ></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -76,10 +72,10 @@
                                                 <td><label for="Segundo Apellido">2.6 Segundo Apellido</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="PRI_NOM" class="form-control" ></td>
-                                                <td><input type="text" name="SEG_NOM" class="form-control" ></td>
-                                                <td><input type="text" name="PRI_APE" class="form-control" ></td>
-                                                <td><input type="text" name="SEG_APE" class="form-control" ></td>
+                                                <td><input type="text" name="PRI_NOM" class="form-control"  placeholder="<%=  db_ide_pac.PRI_NOM %>" ></td>
+                                                <td><input type="text" name="SEG_NOM" class="form-control"placeholder="<%=  db_ide_pac.SEG_NOM %>" ></td>
+                                                <td><input type="text" name="PRI_APE" class="form-control" placeholder="<%=  db_ide_pac.PRI_APE %>"></td>
+                                                <td><input type="text" name="SEG_APE" class="form-control" placeholder="<%=  db_ide_pac.SEG_APE %>"></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -91,21 +87,22 @@
                                                 <td><label for="Nacionalidad">2.11 Nacionalidad</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="TELEFONO" id="" class="form-control" ></td>
-                                                <td><input type="date" name="FECHA_NTO"  class="form-control"></td>
-                                                <td><input type="text" name="EDAD" id="" class="form-control" ></td>
+                                                <td><input type="text" name="TELEFONO" id="" class="form-control"  placeholder="<%=  db_ide_pac.TELEFONO %>"></td>
+                                                <td><input type="date" name="FECHA_NTO"  class="form-control" value="<%=  db_ide_pac.FECHA_NTO.toISOString().slice(0, 10); %>"></td>
+                                                <td><input type="text" name="EDAD" id="" class="form-control" placeholder="<%=  db_ide_pac.EDAD %>" ></td>
                                                 <td><select name="ID_SEXO" id="options" class="form-control" >
                                                     <% sexo.forEach((tiposexo)=> { %>
-                                                        <option value="<%= tiposexo.ID_SEXO %>"><%=tiposexo.DESC%></option>
+                                                        <option value="<%= tiposexo.ID_SEXO %>"  <% if(tiposexo.ID_SEXO == db_ide_pac.ID_SEXO){ %> selected="selected" <% } %>><%=tiposexo.DESC%></option>
                                                 
                                                     <%})%>  
                                                 </select></td>
-                                                <td><input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion">
+                                                <% userpais= pais.filter(nom=> nom.ID_RL_PAIS_DIAN == db_ide_pac.ID_RL_NACIONALIDAD ) %>
+                                                <td><input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion" placeholder=" <%= userpais[0].DESC%>" >
                                          
                                                         
                                                         <datalist id="nacion">
                                                             <% pais.forEach((listpais)=> { %>
-                                                            <option  class="text-lowercase" value="<%= listpais.ID_RL_PAIS_DIAN %>" > <%= listpais.DESC %></option>
+                                                            <option  class="text-lowercase" value="<%= listpais.ID_RL_PAIS_DIAN %>"><%= listpais.DESC %></option>
                                                             <%})%>  
                                                         </datalist>
                                                 
@@ -119,11 +116,11 @@
                                             </tr>
                                             <tr>
                                                 <p class="textos_black">Busca por nombre de lugar"</p>
-                                              
-                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                    <% lugarocurrencia = ocurrencia.filter(nocurrencia=>nocurrencia.CODCENTROPOBLADO = db_ide_pac.ID_RL_DIVIPOLA)%>
+                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="<%= lugarocurrencia[0].NOMMUNIPIO %>"  list="listadoocurrencia" >
                                                     <datalist id="listadoocurrencia">
                                                         <% ocurrencia.forEach((listaocurrencia)=> { %>
-                                                            <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
+                                                            <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO%> , <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
                                                             <%})%>  
 
                                                     </datalist>
@@ -139,10 +136,11 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input name="CIUO88" id="" class="form-control" list="profesion" >
+                                                    <% profuser = prof.filter(nomprof=> nomprof.ID_OCUPACIONES  == db_ide_pac.CIUO88) %>
+                                                    <input name="CIUO88" id="" class="form-control" list="profesion" placeholder="<%=profuser[0].TITULO_088 %>" >
                                                     <datalist id="profesion">
                                                         <% prof.forEach((profesion)=> { %>
-                                                        <option  class="text-lowercase" value="<%= profesion.ID_OCUPACIONES %>" > <%= profesion.TITULO_08 %></option>
+                                                        <option  class="text-lowercase" value="<%= profesion.ID_OCUPACIONES  %>" > <%= profesion.TITULO_08 %></option>
                                                         <%})%>  
                                                     </datalist>
                                                 </td>
@@ -150,12 +148,14 @@
                                                     <select name="id_rl_tip_ss" id="" class="form-select" >
                                                  
                                                         <% regimen.forEach((lregimen)=> { %>
-                                                        <option  class="text-lowercase" value="<%= lregimen.id_rl_tip_ss %>" > <%= lregimen.DESCRIP %></option>
+                                                        <option  class="text-lowercase" value="<%= lregimen.id_rl_tip_ss %>" <% if(lregimen.id_rl_tip_ss == db_ide_pac.id_rl_tip_ss){ %> selected="selected" <% } %> > <%= lregimen.DESCRIP %></option>
                                                         <%})%>  
                                                     </select>
                                                
                                                 </td>
-                                                <td><input type="text" name="COD_ASE" id="" class="form-control" list="codadmSalud" >
+                                                <td>
+                                                    <% useradsalud= listaADMSALUD.filter(nsalud=>nsalud.CODIGOHABILITACION == db_ide_pac.COD_ASE)%>
+                                                    <input type="text" name="COD_ASE" id="" class="form-control" list="codadmSalud" placeholder="<%= useradsalud[0].CODIGOHABILITACION %> " >
                                                     <datalist id="codadmSalud">
                                                         <% listaADMSALUD.forEach((ladmsalud)=> { %>
                                                         <option  class="text-lowercase" value="<%= ladmsalud.CODIGOHABILITACION %>" > <%= ladmsalud.NOMBRE %></option>
@@ -173,18 +173,20 @@
                                             <tr>
                                                 <td><select name="rl_per_ind" id="" class="form-control" >
                                                     <% etnias.forEach((letnias)=> { %>
-                                                        <option  class="text-lowercase" value="<%= letnias.id_rl_per_ind %>" <% if(letnias.id_rl_per_ind=8){ %>selected="selected" <% }%> ><%= letnias.DESC %></option>
+                                                        <option  class="text-lowercase" value="<%= letnias.id_rl_per_ind %>" <% if(letnias.id_rl_per_ind==db_ide_pac.rl_per_ind){ %>selected="selected" <% }%> ><%= letnias.DESC %></option>
                                                         <%})%> 
 
                                                 </select></td>
-                                                <td><input type="text" name="NOM_GRUPO" id="" class="form-control" ></td>
+                                                <td><input type="text" name="NOM_GRUPO" id="" class="form-control" placeholder="<%= db_ide_pac.NOM_GRUPO %>" ></td>
                                                 <td><select name="ESTRATO" id="" class="form-control" >
-                                                    <option value="1">Estrato 1</option>
-                                                    <option value="2">Estrato 2</option>
-                                                    <option value="3">Estrato 3</option>
-                                                    <option value="4">Estrato 4</option>
-                                                    <option value="5">Estrato 5</option>
-                                                    <option value="6">Estrato 6</option>
+
+                                                    <option value="1" <% if(db_ide_pac.ESTRATO == 1){ %> selected="selected" <% } %>>Estrato 1</option>
+                                                    <option value="2" <% if(db_ide_pac.ESTRATO == 2){ %> selected="selected" <% } %>>Estrato 2</option>
+                                                    <option value="3" <% if(db_ide_pac.ESTRATO == 3){ %> selected="selected" <% } %>>Estrato 3</option>
+                                                    <option value="4" <% if(db_ide_pac.ESTRATO == 4){ %> selected="selected" <% } %>>Estrato 4</option>
+                                                    <option value="5" <% if(db_ide_pac.ESTRATO == 5){ %> selected="selected" <% } %>>Estrato 5</option>
+                                                    <option value="6" <% if(db_ide_pac.ESTRATO == 6){ %> selected="selected" <% } %>>Estrato 6</option>
+
                                                 </select></td>
                                             </tr>
                                         </table>
@@ -193,24 +195,24 @@
                                                 <label for="Grupo Poblacional - Discapacitados">2.26 Grupo Poblacional a los que pertenece</label>
                                             </tr>
                                             <tr>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpdes"><label for="Grupo Poblacional - Desplazados">Desplazados</label></td>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpmigr"><label for="Grupo Poblacional - Migrantes">Migrantes</label></td>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpcar"><label for="Grupo Poblacional - Carcelarios">Carcelarios</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpdes" <% if(db_ide_pac.gpdes == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Desplazados">Desplazados</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpmigr" <% if(db_ide_pac.gpmigr == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Migrantes">Migrantes</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpcar" <% if(db_ide_pac.gpcar == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Carcelarios">Carcelarios</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpges"><label for="Grupo Poblacional - Gestantes">Gestantes</label></td>
-                                                <td><input name="SEM_GES" id="" class="form-control" placeholder="Semanas de Gestación" style="width:80%!important"></td>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpindi"><label for="Grupo Poblacional - Habitante de calle">Habitante de calle</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpges" <% if(db_ide_pac.gpges == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Gestantes">Gestantes</label></td>
+                                                <td><input name="SEM_GES" id="" class="form-control" placeholder="Semanas de Gestación" style="width:80%!important" <%= db_ide_pac.SEM_GES %> ></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpindi" <% if(db_ide_pac.gpindi == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Habitante de calle">Habitante de calle</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpicbfs"><label for="Grupo Poblacional - Población infantil a cargo del ICBF ">Población infantil a cargo del ICBF</label></td>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpmc"><label for="Grupo Poblacional - Madres Comunitarias">Madres Comunitarias</label></td>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpdesmo"><label for="Grupo Poblacional - Desmovilizados">Desmovilizados</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpicbfs" <% if(db_ide_pac.gpicbfs == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Población infantil a cargo del ICBF ">Población infantil a cargo del ICBF</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpmc"  <% if(db_ide_pac.gpmc == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Madres Comunitarias">Madres Comunitarias</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpdesmo"  <% if(db_ide_pac.gpdesmo == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Desmovilizados">Desmovilizados</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gppsi"><label for="Grupo Poblacional - Población en centros psiquiátricos">Centros psiquiátricos</label></td>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpvicvio"><label for="Grupo Poblacional - Víctima de violencia armada">Víctima de violencia armada</label></td>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpotro"><label for="Grupo Poblacional - Otros">Otros</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gppsi" <% if(db_ide_pac.gppsi == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Población en centros psiquiátricos">Centros psiquiátricos</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpvicvio" <% if(db_ide_pac.gpvicvio == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Víctima de violencia armada">Víctima de violencia armada</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpotro" <% if(db_ide_pac.gpotro == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Otros">Otros</label></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -222,18 +224,18 @@
                                             <tr>
                                                 <td><select name="GENERO" id="" class="form-control" >
                                                     <% identidadG.forEach((lidentidadg)=> { %>
-                                                        <option  class="text-lowercase" value="<%= lidentidadg.ID_iden_sexual %>" > <%= lidentidadg.DESC %></option>
+                                                        <option  class="text-lowercase" value="<%= lidentidadg.ID_iden_sexual %>"  <% if(lidentidadg.ID_iden_sexual==db_ide_pac.GENERO){ %> selected="selected" <% } %>> <%= lidentidadg.DESC %></option>
                                                         <%})%> 
                                                 </select></td>
                                                 <td><select name="EST_CIV" id="" class="form-control" >
                                                     <% estadoCivil.forEach((lestadoCivil)=> { %>
-                                                        <option  class="text-lowercase" value="<%= lestadoCivil.ID_EST_CIV %>" > <%= lestadoCivil.DESCMASC %>/<%= lestadoCivil.DESCFEME %></option>
+                                                        <option  class="text-lowercase" value="<%= lestadoCivil.ID_EST_CIV %>"  <% if(lestadoCivil.ID_EST_CIV==db_ide_pac.EST_CIV){ %> selected="selected" <% } %>> <%= lestadoCivil.DESCMASC %>/<%= lestadoCivil.DESCFEME %></option>
                                                         <%})%> 
                                                     
                                                 </select></td>
                                                 <td><select name="NIV_ESC_TER" id="" class="form-control" >
                                                     <% nivelescolaridad.forEach((lnivelescolaridad)=> { %>
-                                                        <option  class="text-lowercase" value="<%= lnivelescolaridad.rl_niv_esc_ter %>" > <%= lnivelescolaridad.DESC%></option>
+                                                        <option  class="text-lowercase" value="<%= lnivelescolaridad.rl_niv_esc_ter %>" <% if(lnivelescolaridad.rl_niv_esc_ter==db_ide_pac.NIV_ESC_TER){ %> selected="selected" <% } %> > <%= lnivelescolaridad.DESC%></option>
                                                         <%})%> 
                                                 </select></td>
                                             </tr>
@@ -256,7 +258,7 @@
                                             <tr>
                                                 <td><select name="ID_RL_FUENTE" id="" class="form-control" >
                                                     <% fuente.forEach((lfuente)=> { %>
-                                                        <option  class="text-lowercase" value="<%= lfuente.id_db_fuente %>" > <%= lfuente.DESC%></option>
+                                                        <option  class="text-lowercase" value="<%= lfuente.id_db_fuente %>" <% if(lfuente.id_db_fuente==db_notif.ID_RL_FUENTE){ %> selected="selected" <% } %>> <%= lfuente.DESC%></option>
                                                         <%})%> 
                                                 </select></td>
                                             </tr>
@@ -268,7 +270,7 @@
                                             <tr><label for="Código del País de Residencia del paciente">3.2 País</label>
                                             </tr>
                                             <tr>
-                                                <input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion">
+                                                <input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion" placeholder="<%= userpais[0].DESC%>">
                                                 <datalist id="nacion">
                                                     <% pais.forEach((listpais)=> { %>
                                                     <option  class="text-lowercase" value="<%= listpais.ID_RL_PAIS_DIAN %>" > <%= listpais.DESC %></option>
@@ -276,7 +278,8 @@
                                                 </datalist>
                                             </tr>
                                             <tr >
-                                                <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                <% lugarocurrencia2 = ocurrencia.filter(nocurrencia=>nocurrencia.CODCENTROPOBLADO = db_notif.ID_RL_DIVIPOLA)%>
+                                                <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder=" <%= lugarocurrencia2[0].NOMMUNIPIO %>"  list="listadoocurrencia" >
                                                 <datalist id="listadoocurrencia">
                                                     <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                         <option class="text-lowercase" value="<%= listaocurrencia.CODMUNIC %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
@@ -285,7 +288,7 @@
                                                 </datalist>
                                             </tr>
                                             <tr >
-                                                <input type="text" name="DIR_RES" class="form-control"  placeholder="Dirección de residencia"   >
+                                                <input type="text" name="DIR_RES" class="form-control"  value=""<%= db_notif.DIR_RES %>    >
                                            
                                             </tr>
                                         </table>
@@ -298,16 +301,16 @@
                                                 <td><label for="Hospitalizado">3.7 Hospitalizado</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="date" name="FEC_CON" id="" class="form-control" value="<%= fechaActual %>" ></td>
-                                                <td><input type="date" name="INI_SIN" id="" class="form-control" ></td>
+                                                <td><input type="date" name="FEC_CON" id="" class="form-control" value="<%= db_notif.FEC_CON.toISOString().slice(0, 10) %>" ></td>
+                                                <td><input type="date" name="INI_SIN" id="" class="form-control"  alue="<%= db_notif.INI_SIN.toISOString().slice(0, 10) %>" ></td>
                                                 <td><select name="ID_TIP_CAS" class="form-control"  id="">
                                                     <% tipocaso.forEach((ltipocaso)=> { %>
-                                                        <option class="text-lowercase" value="<%= ltipocaso.ID_RL_TIP_CAS %>" > <%= ltipocaso.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= ltipocaso.ID_RL_TIP_CAS %>"<% if(ltipocaso.ID_RL_TIP_CAS==db_notif.ID_TIP_CAS){ %> selected="selected" <% } %> > <%= ltipocaso.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
                                                 <td><select name="PAC_HOS" id="" class="form-control" >
-                                                    <OPTION value ="1">Sí </OPTION>
-                                                    <OPTION value ="2">No </OPTION>
+                                                    <OPTION value ="1" <% if(db_notif.PAC_HOS==1){ %> selected="selected" <% } %>>Sí </OPTION>
+                                                    <OPTION value ="2" <% if(db_notif.PAC_HOS==2){ %> selected="selected" <% } %>>No </OPTION>
                                                 </select></td>
                                             </tr>
                                         </table>
@@ -320,15 +323,17 @@
                                                 <td><label for="Causa básica de defunción">3.12 Causa básica de defunción</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="date" name="FEC_HOS" id="" class="form-control" ></td>
+                                                <td><input type="date" name="FEC_HOS" id="" class="form-control" value="<%= db_notif.FEC_HOS.toISOString().slice(0, 10)%>" ></td>
                                                 <td><select name="ID_CON_FIN" id="" class="form-control" >
-                                                    <OPTION value ="0">No sabe, no responde </OPTION>
-                                                    <OPTION value ="1">Vivo  </OPTION>
-                                                    <OPTION value ="2">Muerto </OPTION>
+                                                    <OPTION value ="0" <% if(db_notif.ID_CON_FIN==0){ %> selected="selected" <% } %>>No sabe, no responde </OPTION>
+                                                    <OPTION value ="1" <% if(db_notif.ID_CON_FIN==1){ %> selected="selected" <% } %>>Vivo  </OPTION>
+                                                    <OPTION value ="2" <% if(db_notif.ID_CON_FIN==2){ %> selected="selected" <% } %>>Muerto </OPTION>
                                                 </select></td>
-                                                <td><input type="date" name="FEC_DEF" id="" class="form-control" ></td>
-                                                <td><input type="text" name="CER_DEF" id="" class="form-control" ></td>
-                                                <td><input type="text" name="ID_RL_CIE_10" class="form-control" list="causadefunciondata" >
+                                                <td><input type="date" name="FEC_DEF" id="" class="form-control" value="<%= db_notif.FEC_DEF.toISOString().slice(0, 10)%>"></td>
+                                                <td><input type="text" name="CER_DEF" id="" class="form-control" value="<%= db_notif.CER_DEF%>"></td>
+                                                <td>
+                                                    <% nomcausa= causadefuncion.filter(ndef => ndef.ID_CIE_10==db_notif.ID_RL_CIE_10) %>
+                                                    <input type="text" name="ID_RL_CIE_10" class="form-control" list="causadefunciondata" placeholder="<%= nomcausa[0].DESC4CHART %>">
                                                     <datalist id="causadefunciondata">
                                                         <% causadefuncion.forEach((lcausadefuncion)=> { %>
                                                             <option class="text-lowercase" value="<%= lcausadefuncion.ID_CIE_10 %>" > <%= lcausadefuncion.DESC4CHART %></option>
@@ -343,8 +348,8 @@
                                                 <td><label for="Teléfono del profesional que diligencia la ficha">3.14 Teléfono del profesional que diligencia la ficha</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="NOM_DIL_FI" id="" class="form-control" value="<%= user.NOMBRE %> <%= user.APELLIDO %>" readonly="readonly"></td>
-                                                <td><input type="text" name="TEL_DIL_FI" id="" class="form-control" value="<%= user.TEL %>"  readonly="readonly"></td>
+                                                <td><input type="text" name="NOM_DIL_FI" id="" class="form-control" value="<%= db_notif.NOM_DIL_FI %>" readonly="readonly"></td>
+                                                <td><input type="text" name="TEL_DIL_FI" id="" class="form-control" value="<%= db_notif.TEL_DIL_FI %>"  readonly="readonly"></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -367,10 +372,10 @@
                                             <tr>
                                                 <td><select name="ID_RL_AJUSTE" class="form-control"  id="">
                                                     <% ajustecaso.forEach((lajustecaso)=> { %>
-                                                        <option class="text-lowercase" value="<%= lajustecaso.COD_INT %>" > <%= lajustecaso.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= lajustecaso.COD_INT %>"<% if(lajustecaso.COD_INT==db_aju.ID_RL_AJUSTE){ %> selected="selected" <% } %>  > <%= lajustecaso.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input type="date" name="" id="" class="form-control"  value="<%= factual %>" readonly="readonly"></td>
+                                                <td><input type="date" name="" id="" class="form-control"  value="<%= db_aju.FEC_AJU.toISOString().slice(0, 10) %>" readonly="readonly"></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -395,10 +400,10 @@
 
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="INI_EDAD" id="" class="form-control" ></td>
+                                                <td><input type="text" name="INI_EDAD" id="" class="form-control" placeholder="<%= db_ini_con.INI_EDAD %>"></td>
                                                 <td><select name="INI_ENTORNO" id="" class="form-control" >
                                                     <% entorno.forEach((lentorno)=> { %>
-                                                        <option class="text-lowercase" value="<%= lentorno.ID_RL_INI_ENTORNO %>" > <%= lentorno.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= lentorno.ID_RL_INI_ENTORNO %>" <% if(lentorno.ID_RL_INI_ENTORNO==db_ini_con.ID_RL_INI_ENTORNO){ %> selected="selected" <% } %>> <%= lentorno.DESC %></option>
                                                         <%})%>  
                                         
 
@@ -418,13 +423,13 @@
                                             <tr>
                                                 <td><select name="INI_LUGAR" id="" class="form-control" >
                                                     <% inilugar.forEach((linilugar)=> { %>
-                                                        <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>" > <%= linilugar.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>" <% if(linilugar.ID_RL_INI_LUGAR==db_ini_con.ID_RL_INI_LUGAR){ %> selected="selected" <% } %> > <%= linilugar.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input name="INI_LUGAR_OTRO" id="" class="form-control"></td>
+                                                <td><input name="INI_LUGAR_OTRO" id="" class="form-control" placeholder="<%= db_ini_con.INI_LUGAR_OTRO%>"></td>
                                                 <td><select name="INI_PERSONA" id="" class="form-control" >
                                                     <% iniperso.forEach((lperso)=> { %>
-                                                        <option class="text-lowercase" value="<%= lperso.ID_RL_INI_PER %>" > <%= lperso.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= lperso.ID_RL_INI_PER %>" <% if(lperso.ID_RL_INI_PER==db_ini_con.ID_RL_INI_PER){ %> selected="selected" <% } %>> <%= lperso.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
 
@@ -440,10 +445,10 @@
                                             <tr>
                                                 <td><select name="INI_MOTIVO" id="" class="form-control" >
                                                     <% inimotivo.forEach((linimotivo)=> { %>
-                                                        <option class="text-lowercase" value="<%= linimotivo.ID_RL_INI_MOTIV %>" > <%= linimotivo.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= linimotivo.ID_RL_INI_MOTIV %>"<% if(linimotivo.ID_RL_INI_MOTIV==db_ini_con.ID_RL_INI_MOTIV){ %> selected="selected" <% } %> > <%= linimotivo.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input  name="INI_MOTIVO_OTRA" id="" class="form-control"></td>
+                                                <td><input  name="INI_MOTIVO_OTRA" id="" class="form-control" placeholder="<%= db_ini_con.ID_RL_INI_MOTIV2 %>"></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -454,10 +459,10 @@
                                             <tr>
                                                 <td><select name="INI_SPA" id="" class="form-control" >
                                                     <% spa.forEach((lspa)=> { %>
-                                                        <option class="text-lowercase" value="<%= lspa.id_rl_lista_spa %>" > <%= lspa.SUSTANCIA %></option>
+                                                        <option class="text-lowercase" value="<%= lspa.id_rl_lista_spa %>"<% if(lspa.id_rl_lista_spa==db_ini_con.ID_RL_LISTA_SPA){ %> selected="selected" <% } %>> <%= lspa.SUSTANCIA %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input type="text" name="INI_SPA_OTRA" id="" class="form-control">
+                                                <td><input type="text" name="INI_SPA_OTRA" id="" class="form-control" placeholder="<%= db_ini_con.ID_RL_LISTA_SPA2 %> ">
                                                    </td>
                                             </tr>
                                         </table>
@@ -474,116 +479,116 @@
                                                 <td>Alcohol</td>
 
 
-                                                <td><input name="ACT_SPA_ALC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_ALC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_ALC == 1){ %> checked="checked" <% } %> ></td>
                                             </tr>
                                             <tr>
                                                 <td>Tabaco (cigarrillo)</td>
 
-                                                <td><input name="ACT_SPA_TAB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_TAB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" <% if(db_con_act.ACT_SPA_TAB == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
                                                 <td>Marihuana (regular, cripi, cripa)</td>
 
-                                                <td><input name="ACT_SPA_MAR" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_MAR" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_MAR == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
                                                 <td>Cocaína y/o derivados (perico, crack, nieve, parloca, freebase)</td>
 
-                                                <td><input name="ACT_SPA_COC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_COC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_COC == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
                                                 <td>Basuco</td>
 
-                                                <td><input name="ACT_SPA_BAS" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_BAS" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_BAS == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
                                                 <td>Éxtasis – MDMA</td>
-                                                <td><input name="ACT_SPA_EXT" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_EXT" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_EXT == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>LSD (Dietalimida del acido lisérgico, ácido o tripi)</td>
-                                                <td><input name="ACT_SPA_LSD" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_LSD" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_LSD == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Heroína (Hache o "H")</td>
-                                                <td><input name="ACT_SPA_HER" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_HER" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_HER == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>2CB (tusi, tucibi o nexus)</td>
-                                                <td><input name="ACT_SPA_2CB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_2CB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_2CB == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Metanfetaminas (o meth, cristal, ice, hielo, speed)</td>
-                                                <td><input name="ACT_SPA_MET" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_MET" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_MET == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>GHB ("G" o éxtasis líquido)</td>
-                                                <td><input name="ACT_SPA_GHB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_GHB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_GHB == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Ketamina o ketalar (Ketashort,Ketanir,Anesket,Imalgene)</td>
-                                                <td><input name="ACT_SPA_KET" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_KET" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_KET == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Popper (Nitrito de amilo, Butilo)</td>
-                                                <td><input name="ACT_SPA_POP" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_POP" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_POP == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>DICK, ladys, fragancia (cloruro de metileno o dichlorometano)</td>
-                                                <td><input name="ACT_SPA_DIC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_DIC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_DIC == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Solventes Inhalables (pegantes/sacol, pinturas, thinner, solventes, colas, gasolina, combustibles, aerosoles, gases)</td>
-                                                <td><input name="ACT_SPA_SOL" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_SOL" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_SOL == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Anfetaminas o estimulantes sin prescripción médica (Metilfenidato, píldoras adelgazantes, Benzedrina,Dexedrina)</td>
-                                                <td><input name="ACT_SPA_ANF" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_ANF" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_ANF == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Benzodiazepinas: ansioliticos y tranquilizantes sin prescripción médica (Clonazepam, Lorazepam, Diazepam, Midazolam, Alprazolam, etc)</td>
-                                                <td><input name="ACT_SPA_TRA" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_TRA" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_TRA == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Analgésicos derivados de los opioides sin prescripción médica (Codeína, Metadona, Tramadol, Hidromorfona, Morfina, Oxicodona, Hidrocodona, Oximorfona, Fetanilo)</td>
-                                                <td><input name="ACT_SPA_OPI" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_OPI" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_OPI == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Cacao sabanero</td>
-                                                <td><input nane="ACT_SPA_CAC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input nane="ACT_SPA_CAC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_CAC == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Hongos</td>
-                                                <td><input name="ACT_SPA_HON" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_HON" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_HON == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Cannabinoides sintéticos(CS, AM 2201)</td>
-                                                <td><input name="ACT_SPA_CSI" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input name="ACT_SPA_CSI" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_CSI == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Otra</td>
-                                                <td><input nane="ACT_SPA_OTR" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"></td>
+                                                <td><input nane="ACT_SPA_OTR" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_OTR == 1){ %> checked="checked" <% } %>></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Cual?</td>
-                                                <td><input type="text" name="ACT_SPA_OTR_CUA" id="" class="form-control"></td>
+                                                <td><input type="text" name="ACT_SPA_OTR_CUA" id="" class="form-control" placeholder="<%= db_con_act.ACT_SPA_OTR_CUA%>"></td>
 
                                             </tr>
                                         </table>
@@ -597,10 +602,10 @@
                                             <tr>
                                                 <td><select name="IMP_SPA" id="" class="form-control" >
                                                     <% spa.forEach((lspa)=> { %>
-                                                        <option class="text-lowercase" value="<%= lspa.id_rl_lista_spa %>" > <%= lspa.SUSTANCIA %></option>
+                                                        <option class="text-lowercase" value="<%= lspa.id_rl_lista_spa %>"<% if(lspa.id_rl_lista_spa==db_con_act.IMP_SPA){ %> selected="selected" <% } %> > <%= lspa.SUSTANCIA %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input name="IMP_SPA_OTRA" id="" class="form-control"></td>
+                                                <td><input name="IMP_SPA_OTRA" id="" class="form-control" placeholder="<%= db_con_act.ID_RL_LISTA_SPA2%>"></td>
 
                                             </tr>
                                         </table>
@@ -618,20 +623,20 @@
                                                 <td>
                                                     <select name="COD_CIE10" id="" class="form-select" >
                                                         <% cie.forEach((lcie)=> { %>
-                                                            <option class="text-lowercase" value="<%= lcie.COD_4 %>" > <%= lcie.DESC4CHART %></option>
+                                                            <option class="text-lowercase" value="<%= lcie.COD_4 %>"<% if(lcie.COD_4==db_con_act.ID_CIE_10){ %> selected="selected" <% } %>  > <%= lcie.DESC4CHART %></option>
                                                             <%})%>  
                                                     </select></td>
                                                 <td><select name="IMP_ENTORNO" id="" class="form-control" >
                                                     <% entorno.forEach((lentorno)=> { %>
-                                                        <option class="text-lowercase" value="<%= lentorno.ID_RL_INI_ENTORNO %>" > <%= lentorno.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= lentorno.ID_RL_INI_ENTORNO %>"<% if(lentorno.ID_RL_INI_ENTORNO==db_con_act.ID_RL_INI_ENTORNO ){ %> selected="selected" <% } %> > <%= lentorno.DESC %></option>
                                                         <%})%> 
                                                 </select></td>
                                                 <td><select name="IMP_LUGAR" id="" class="form-control" >
                                                     <% inilugar.forEach((linilugar)=> { %>
-                                                        <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>" > <%= linilugar.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>"<% if(linilugar.ID_RL_INI_LUGAR==db_con_act.ID_RL_INI_LUGAR ){ %> selected="selected" <% } %> > <%= linilugar.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input name="IMP_LUGAR_OTRO" id="" class="form-control"></select></td>
+                                                <td><input name="IMP_LUGAR_OTRO" id="" class="form-control" placeholder="<%= db_con_act.ID_RL_INI_LUGAR2 %> "></td>
 
                                             </tr>
                                         </table>
@@ -643,15 +648,15 @@
                                             </tr>
                                             <tr>
                                                 <td><select name="IMP_FREC_USO" id="" class="form-control" >
-                                                    <option value="1">Algunas veces por mes</option>
-                                                    <option value="2">Algunas veces por semana</option>
-                                                    <option value="3">Una vez al día</option>
-                                                    <option value="4">Dos a tres veces al día</option>
-                                                    <option value="5">Más de tres veces al día</option>
+                                                    <option value="1"<% if(db_con_act.ID_RL_IMP_FREC_USO == 1 ){ %> selected="selected" <% } %> >Algunas veces por mes</option>
+                                                    <option value="2"<% if(db_con_act.ID_RL_IMP_FREC_USO == 2 ){ %> selected="selected" <% } %>>Algunas veces por semana</option>
+                                                    <option value="3"<% if(db_con_act.ID_RL_IMP_FREC_USO == 3 ){ %> selected="selected" <% } %>>Una vez al día</option>
+                                                    <option value="4"<% if(db_con_act.ID_RL_IMP_FREC_USO == 4 ){ %> selected="selected" <% } %>>Dos a tres veces al día</option>
+                                                    <option value="5"<% if(db_con_act.ID_RL_IMP_FREC_USO == 5 ){ %> selected="selected" <% } %>>Más de tres veces al día</option>
                                                 </select></td>
                                                 <td><select name="IMP_VIA_ADM" id="" class="form-control" >
                                                     <% viaadm.forEach((lviaadm)=> { %>
-                                                        <option class="text-lowercase" value="<%= lviaadm.ID_RL_IMP_VIA_ADM %>" > <%= lviaadm.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= lviaadm.ID_RL_IMP_VIA_ADM %>"<% if(lviaadm.ID_RL_IMP_VIA_ADM==db_con_act.ID_RL_IMP_VIA_ADM ){ %> selected="selected" <% } %> > <%= lviaadm.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
                                             </tr>
@@ -666,22 +671,22 @@
                                             </tr>
                                             <tr>
                                                 <td><select name="IMP_FR_INYECC" id="" class="form-control">
-                                                    <option value="1">Sí</option>
-                                                    <option value="2">No</option>
-                                                    <option value="3">No aplica</option>
+                                                    <option value="1"<% if(db_con_act.IMP_FR_INYECC == 1 ){ %> selected="selected" <% } %>>Sí</option>
+                                                    <option value="2"<% if(db_con_act.IMP_FR_INYECC == 2 ){ %> selected="selected" <% } %>>No</option>
+                                                    <option value="3"<% if(db_con_act.IMP_FR_INYECC == 3 ){ %> selected="selected" <% } %>>No aplica</option>
                                                 </select></td>
                                                 <td><select name="PRO_CA" id="" class="form-control" >
                                                     <% pripro.forEach((lpripro)=> { %>
-                                                        <option class="text-lowercase" value="<%= lpripro.ID_RL_PRO_CA %>" > <%= lpripro.DESC %></option>
+                                                        <option class="text-lowercase" value="<%= lpripro.ID_RL_PRO_CA %>"<% if(lpripro.ID_RL_PRO_CA==db_con_act.ID_RL_PRO_CA ){ %> selected="selected" <% } %> > <%= lpripro.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
                                                 <td><select name="FR_SOBRED" id="" class="form-control" >
-                                                    <option value="1">Sí</option>
-                                                    <option value="2" selected="selected">No</option>
+                                                    <option value="1" <% if(db_con_act.FR_SOBRED == 1 ){ %> selected="selected" <% } %>>Sí</option>
+                                                    <option value="2"  <% if(db_con_act.FR_SOBRED == 2 ){ %> selected="selected" <% } %>>No</option>
                                                 </select></td>
                                                 <td><select name="FR_SEXUAL" id="" class="form-control" >
-                                                    <option value="1">Sí</option>
-                                                    <option value="2" selected="selected">No</option>
+                                                    <option value="1"  <% if(db_con_act.FR_SEXUAL == 1 ){ %> selected="selected" <% } %>>Sí</option>
+                                                    <option value="2" <% if(db_con_act.FR_SEXUAL == 2 ){ %> selected="selected" <% } %>>No</option>
                                                 </select></td>
                                             </tr>
                                         </table>
@@ -705,17 +710,17 @@
                                             </tr>
                                             <tr>
                                                 <td><select name="EDUC_PREV" id="" class="form-control" >
-                                                    <option value="1">Sí</option>
-                                                    <option value="2" selected="selected">No</option>
+                                                    <option value="1" <% if(db_intven.EDUC_PREV == 1 ){ %> selected="selected" <% } %>>Sí</option>
+                                                    <option value="2" <% if(db_intven.EDUC_PREV == 2 ){ %> selected="selected" <% } %>>No</option>
                                                 </select></td>
                                                 <td><select name="ID_RL_EDUC_CAL" id="" class="form-control" >
-                                                    <option value="1">Baja</option>
-                                                    <option value="2">Media</option>
-                                                    <option value="3">Alta</option>
+                                                    <option value="1"  <% if(db_intven.ID_RL_EDUC_CAL == 1 ){ %> selected="selected" <% } %>>Baja</option>
+                                                    <option value="2" <% if(db_intven.ID_RL_EDUC_CAL == 2 ){ %> selected="selected" <% } %>>Media</option>
+                                                    <option value="3" <% if(db_intven.ID_RL_EDUC_CAL == 3 ){ %> selected="selected" <% } %>>Alta</option>
                                                 </select></td>
                                                 <td><select name="TTO_PREVIO" id="" class="form-control" >
-                                                    <option value="1">Sí</option>
-                                                    <option value="2" selected="selected">No</option>
+                                                    <option value="1" <% if(db_intven.TTO_PREVIO == 1 ){ %> selected="selected" <% } %>>Sí</option>
+                                                    <option value="2" <% if(db_intven.TTO_PREVIO == 2 ){ %> selected="selected" <% } %>>No</option>
                                                 </select></td>
                                             </tr>
                                         </table>
@@ -726,13 +731,13 @@
                                             </tr>
                                             <tr>
                                                 <td><select name="ID_DISP_AYUDA" id="" class="form-control" >
-                                                    <option value="1">Sí</option>
-                                                    <option value="2">No</option>
-                                                    <option value="3">No requiere</option>
+                                                    <option value="1"<% if(db_intven.ID_DISP_AYUDA == 1 ){ %> selected="selected" <% } %> >Sí</option>
+                                                    <option value="2"<% if(db_intven.ID_DISP_AYUDA == 2 ){ %> selected="selected" <% } %>>No</option>
+                                                    <option value="3"<% if(db_intven.ID_DISP_AYUDA == 3 ){ %> selected="selected" <% } %>>No requiere</option>
                                                 </select></td>
                                                 <td><select name="RED_APOYO" id="" class="form-control" >
-                                                    <option value="1">Sí</option>
-                                                    <option value="2">No</option>
+                                                    <option value="1"<% if(db_intven.RED_APOYO == 1 ){ %> selected="selected" <% } %>>Sí</option>
+                                                    <option value="2"<% if(db_intven.RED_APOYO == 2 ){ %> selected="selected" <% } %>>No</option>
                                                     
                                                 </select></td>
                                             </tr>
@@ -752,26 +757,7 @@
                 </div>
             </div>
     </section>
-       <div class="modal" tabindex="-1" id="modal_guardado">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="campos_inva" class="hide_table">
-                                            <p>Para continuar con el reporte, debe de llenar todo los campos requeridos, favor revisas el formulario por lo campos no completados</p>
-                                        </div>
-                                        <div id="campos_save" class="hide_table">
-                                            <p>El reporte se ha guardado con exito</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn_green"  data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
   
 
     <script src="/admin/scripts/validar_campos.js"></script>
