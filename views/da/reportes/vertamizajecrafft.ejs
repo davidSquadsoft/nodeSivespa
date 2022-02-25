@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <h4>Tamizaje</h4>
+                <h4><%= tittle%></h4>
             </div>
             <div class="col-lg-6 d-md-none d-lg-block">
                 <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
@@ -32,7 +32,7 @@
         </div>
         <div class="section_form fluid-container">
             <div class="container_reporte_form fluid-container tamizajes">
-                <form action="/da/savetamcrafft" method="post">
+                <form action="/da/updatetamcrafft" method="post">
                     
 
                     <div class="form-group">
@@ -42,6 +42,7 @@
                         <div class="step step-1 active">
                             <div class="form-group">
                                 <h3>ENCUESTA TAMIZAJE CRAFFT</h3>
+                                <input type="text" name="id_tamizaje" hidden>
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingDatosB">
@@ -67,10 +68,10 @@
                                                     <tr>
                                                         <td><select name="TIP_IDE" id="options" class="form-control" required>
                                                             <% tipide.forEach((lide)=> { %>
-                                                                <option value="<%= lide.ID_RL_TIP_IDE%>"><%= lide.DESC%></option>
+                                                                <option value="<%= lide.ID_RL_TIP_IDE%>" <% if(lide.ID_RL_TIP_IDE==vercrafft.TIP_IDE){ %>selected="selected" <% } %>  ><%= lide.DESC%></option>
                                                                 <% }) %>
                                                         </select></td>
-                                                        <td><input type="text" name="NUM_IDE" class="form-control" required></td>
+                                                        <td><input type="text" name="NUM_IDE" class="form-control" value="<%= vercrafft.NUM_IDE %>" required></td>
                                                     </tr>
                                                 </table>
                                                 <table>
@@ -81,10 +82,10 @@
                                                         <td><label for="Segundo Apellido">2.6 Segundo Apellido</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="text" name="PRI_NOM" class="form-control" required></td>
-                                                        <td><input type="text" name="SEG_NOM" class="form-control" required></td>
-                                                        <td><input type="text" name="PRI_APE" class="form-control" required></td>
-                                                        <td><input type="text" name="SEG_APE" class="form-control" required></td>
+                                                        <td><input type="text" name="PRI_NOM" class="form-control" value="<%= vercrafft.PRI_NOM %>" required></td>
+                                                        <td><input type="text" name="SEG_NOM" class="form-control" value="<%= vercrafft.SEG_NOM %>" required></td>
+                                                        <td><input type="text" name="PRI_APE" class="form-control" value="<%= vercrafft.PRI_APE %>" required></td>
+                                                        <td><input type="text" name="SEG_APE" class="form-control" value="<%= vercrafft.SEG_APE %>" required></td>
                                                     </tr>
                                                 </table>
                                                 <table>
@@ -93,12 +94,13 @@
                                                         <td><label for="Fecha de Nacimiento">2.8 Fecha de Nacimiento</label></td>
                                                         <td><label for="Edad">2.9 Edad</label></td>
                                                         <td><label for="Sexo">2.10 Sexo</label></td>
-                                                        <td><label for="Nacionalidad">2.11 Nacionalidad</label></td>
+                                                        <% nacionUSER=nacion.filter(nacionU=>nacionU.ID_NACIONALIDAD==vercrafft.NACION) %>
+                                                        <td><label for="Nacionalidad">2.11 Nacionalidad:<%= nacionUSER[0].GENTILICIO_NAC %> </label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="text" name="TELEFONO" id="" class="form-control" required></td>
-                                                        <td><input type="date" name="FECHA_NTO" id="" class="form-control" required></td>
-                                                        <td><Select class="form-control" name="EDAD">
+                                                        <td><input type="text" name="TELEFONO" id="" class="form-control" value="<%= vercrafft.TELEFONO %>" required></td>
+                                                        <td><input type="date" name="FECHA_NTO" id="" class="form-control" value="<%= vercrafft.FECHA_NTO.toISOString().slice(0,10) %>" required></td>
+                                                        <td><Select class="form-control" name="EDAD" value="<%= vercrafft.EDAD %>">
                                                             <option value="1">5</option>
                                                             <option value="1">6</option>
                                                             <option value="1">7</option>
@@ -115,10 +117,12 @@
                                                         </Select></td>
                                                         <td><select name="SEXO" id="options" class="form-control">
                                                             <% sexo.forEach((lsexo)=>{ %> 
-                                                                <option value="<%= lsexo.ID_SEXO %> "><%= lsexo.DESC %> </option>
+                                                                <option value="<%= lsexo.ID_SEXO %>"<% if(lsexo.ID_SEXO==vercrafft.SEXO){ %> selected="selected" <% } %> ><%= lsexo.DESC %> </option>
                                                                 <% }) %> 
                                                         </select></td>
-                                                        <td><input name="NACION" id="" class="form-control" list="listanacionalidades">
+
+                                                        <td>
+                                                            <input name="NACION" id="" class="form-control" list="listanacionalidades" value="<%= vercrafft.NACION %>">
                                                             <datalist id="listanacionalidades">
                                                                 <% nacion.forEach((lnacion)=>{ %> 
                                                                     <option value="<%= lnacion.ID_NACIONALIDAD %>"><%= lnacion.GENTILICIO_NAC %> </option>
@@ -130,11 +134,13 @@
                                                 </table>
                                                 <table class="">
                                                     <tr>
-                                                        <p class="mt-3">3.1 Lugar de ocurrencia del caso</p>
+                                                        <% nameocu=ocurrencia.filter(noc=>noc.CODCENTROPOBLADO==vercrafft.ID_RL_DIVIPOLA) %> 
+                                                        <p class="mt-3 text-lowercase">3.1 Lugar de ocurrencia del caso: <%= nameocu[0].NOMMUNIPIO %> / <%= nameocu[0].NOMCENTRPOBLADO %> </p>
                                                     </tr>
                                                     <tr>
-                                                        <p class="textos_black">Busca por nombre de lugar"</p>
-                                                        <input type="text" name="ID_RL_DIVIPOLA" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                        
+                                                        <p class="textos_black">Busca por nombre de lugar</p>
+                                                        <input type="text" name="ID_RL_DIVIPOLA" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  value="<%= vercrafft.ID_RL_DIVIPOLA %>" list="listadoocurrencia" >
                                                     <datalist id="listadoocurrencia">
                                                         <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                             <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
@@ -144,23 +150,24 @@
                                                     </tr>
                                                 </table>
                                                 <table >
-                                                    <tr>3.2 Lugar Residencia del paciente</tr>
+                                                    <% nameocu1=ocurrencia.filter(noc=>noc.CODCENTROPOBLADO==vercrafft.ID_RL_DIVIPOLA_RESI) %> 
+                                                    <tr class="text-lowercase">3.2 Lugar Residencia del paciente: <%= nameocu1[0].NOMMUNIPIO %> / <%= nameocu1[0].NOMCENTRPOBLADO %> </tr>
                                                 </table>
                                                 <table>
                                              
                                                     <tr>
-                                                    <p class="textos_black">Busca por nombre de lugar"</p>
-                                                        <input type="text" name="ID_RL_DIVIPOLA_RESI" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                    <p class="textos_black">Busca por nombre de lugar</p>
+                                                        <input type="text" name="ID_RL_DIVIPOLA_RESI" class="form-control mb-3"  value="<%= vercrafft.ID_RL_DIVIPOLA_RESI %>"placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
                                                     <datalist id="listadoocurrencia">
                                                         <% ocurrencia.forEach((listaocurrencia)=> { %>
-                                                            <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
+                                                            <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>"> <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
                                                             <%})%>  
 
                                                           
                                                     </tr>
                                                     <tr>3.2 Dirección de residencia del paciente:</tr>
                                                     <tr>
-                                                        <input type="text" name="DIR_RES" class="form-control mt-2"  placeholder="Dirección de residencia" >
+                                                        <input type="text" name="DIR_RES" class="form-control mt-2"  value="<%= vercrafft.DIR_RES %> " >
                                                     </tr>
                                                 </table>
                                      
@@ -173,10 +180,10 @@
                                                     <tr>
                                                         <td><select name="tip_reg" id="options" class="form-control">
                                                             <% regimens.forEach((lregimen)=>{ %> 
-                                                                <option value="<%= lregimen.id_rl_tip_ss %> "> <%= lregimen.DESCRIP %> </option>
+                                                                <option value="<%= lregimen.id_rl_tip_ss %>" <% if(lregimen.id_rl_tip_ss==vercrafft.tip_reg){ %>selected="selected"<% } %>  > <%= lregimen.DESCRIP %> </option>
                                                                 <% }) %> 
                                                         </select></td>
-                                                        <td><input name="cod_adm" list="prestadoras" class="form-control">
+                                                        <td><input name="cod_adm" list="prestadoras" class="form-control" value="<%= vercrafft.cod_adm %> ">
                                                             <datalist id="prestadoras">
 
                                                                 <% prestadoras.forEach((lprestadoras)=> { %>
@@ -207,27 +214,27 @@
                                                     <tr>
                                                         <td>
                                                             <label for="">¿A qué edad inició el consumo?</label>
-                                                            <Select class="form-control" name="EDAD_INI">
-                                                                <option value="1">5</option>
-                                                                <option value="1">6</option>
-                                                                <option value="1">7</option>
-                                                                <option value="1">8</option>
-                                                                <option value="1">9</option>
-                                                                <option value="1">10</option>
-                                                                <option value="1">11</option>
-                                                                <option value="1">12</option>
-                                                                <option value="1">13</option>
-                                                                <option value="1">14</option>
-                                                                <option value="1">15</option>
-                                                                <option value="1">16</option>
-                                                                <option value="1">17</option>
+                                                            <Select class="form-control" name="EDAD_INI" >
+                                                                <option value="5" <% if(vercrafft.EDAD_INI=5){ %> selected="selected" <% } %> >5</option>
+                                                                <option value="6" <% if(vercrafft.EDAD_INI=6){ %> selected="selected" <% } %>>6</option>
+                                                                <option value="7" <% if(vercrafft.EDAD_INI=7){ %> selected="selected" <% } %>>7</option>
+                                                                <option value="8" <% if(vercrafft.EDAD_INI=8){ %> selected="selected" <% } %>>8</option>
+                                                                <option value="9" <% if(vercrafft.EDAD_INI=9){ %> selected="selected" <% } %>>9</option>
+                                                                <option value="10" <% if(vercrafft.EDAD_INI=10){ %> selected="selected" <% } %>>10</option>
+                                                                <option value="11" <% if(vercrafft.EDAD_INI=11){ %> selected="selected" <% } %>>11</option>
+                                                                <option value="12" <% if(vercrafft.EDAD_INI=12){ %> selected="selected" <% } %>>12</option>
+                                                                <option value="13" <% if(vercrafft.EDAD_INI=13){ %> selected="selected" <% } %>>13</option>
+                                                                <option value="14"<% if(vercrafft.EDAD_INI=14){ %> selected="selected" <% } %>>14</option>
+                                                                <option value="15" <% if(vercrafft.EDAD_INI=15){ %> selected="selected" <% } %>>15</option>
+                                                                <option value="16"<% if(vercrafft.EDAD_INI=16){ %> selected="selected" <% } %>>16</option>
+                                                                <option value="17" <% if(vercrafft.EDAD_INI=17){ %> selected="selected" <% } %>>17</option>
                                                             </Select>
                                                         </td>
                                                         <td >
                                                             <label for="">Con cuál sustancia inició el consumo</label>
                                                             <select name="SPA_INI" id="" class="form-control">
                                                                 <% spa.forEach((lspa) =>{ %> 
-                                                                    <option style="width: 20px!important;" value="<%= lspa.id_rl_lista_spa %>"> <%= lspa.SUSTANCIA %> </option>
+                                                                    <option style="width: 20px!important;" value="<%= lspa.id_rl_lista_spa %>"<% if(lspa.id_rl_lista_spa==vercrafft.SPA_INI){ %>selected="selected"<% } %>  > <%= lspa.SUSTANCIA %> </option>
                                                                     <% }) %> 
                                                             </select>
                                                         </td>
@@ -241,49 +248,49 @@
                                                     </tr>
                                                     <tr>
                                                         <td>¿Ha consumido bebidas alcohólicas (más de unos pocos tragos)?</td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pa1_ALC" type="radio" value="1" id="flexCheckDefault2"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pa1_ALC" type="radio" value="0" id="flexCheckDefault2"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pa1_ALC" type="radio" value="1" id="flexCheckDefault2" <% if(vercrafft.CRAFFT_Pa1_ALC==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pa1_ALC" type="radio" value="0" id="flexCheckDefault2" <% if(vercrafft.CRAFFT_Pa1_ALC==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Ha fumado marihuana o probado hachís?</td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pa2_MAR" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pa2_MAR" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pa2_MAR" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pa2_MAR==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pa2_MAR" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pa2_MAR==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Ha usado algún otro tipo de sustancias que alteren tu estado de ánimo o de conciencia? </td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pa3_OTR" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pa3_OTR" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pa3_OTR" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pa3_OTR==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pa3_OTR" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pa3_OTR==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Ha viajado, alguna vez, en un carro o vehículo, conducido por una persona (o usted mismo) o ha tomado riesgos en grupo (como realizar robos, colarse en las fiestas, pedir que lo lleve un desconocido
                                                             dentro o fuera de la ciudad) que haya o hayan consumido alcohol, drogas o sustancias psicoactivas?</td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb1_RIESGOS" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb1_RIESGOS" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb1_RIESGOS" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb1_RIESGOS==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb1_RIESGOS" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb1_RIESGOS==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Le han sugerido, alguna vez, sus amigos o su familia, que disminuya el consumo de alcohol, drogas o sustancias psicoactivas?</td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb2_DISMIN" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb2_DISMIN" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb2_DISMIN" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb2_DISMIN==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb2_DISMIN" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb2_DISMIN==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Ha usado, alguna vez, bebidas alcohólicas, drogas o sustancias psicoactivas para relajarse, para sentirse mejor consigo mismo o para integrarse a un grupo? </td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb3_RELAJ" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb3_RELAJ" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb3_RELAJ" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb3_RELAJ==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb3_RELAJ" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb3_RELAJ==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Se ha metido, alguna vez, en líos o problemas al tomar alcohol, drogas o sustancias psicoactivas?</td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb4_LIOS" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb4_LIOS" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb4_LIOS" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb4_LIOS==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb4_LIOS" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb4_LIOS==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Ha olvidado, alguna vez, lo que hizo al tomar alcohol, drogas o sustancias psicoactivas? </td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb5_OLVIDO" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb5_OLVIDO" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb5_OLVIDO" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb5_OLVIDO==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb5_OLVIDO" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb5_OLVIDO==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                     <tr>
                                                         <td>¿Ha consumido, alguna vez, alcohol, drogas o alguna sustancia psicoactiva, encontrándose solo/a o sin compañía? </td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb6_SOLO" type="radio" value="1" id="flexCheckDefault"></td>
-                                                        <td><input class="form-check-input" name="CRAFFT_Pb6_SOLO" type="radio" value="0" id="flexCheckDefault"></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb6_SOLO" type="radio" value="1" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb6_SOLO==1){ %> checked="checked" <% } %>></td>
+                                                        <td><input class="form-check-input" name="CRAFFT_Pb6_SOLO" type="radio" value="0" id="flexCheckDefault" <% if(vercrafft.CRAFFT_Pb6_SOLO==0){ %> checked="checked" <% } %>></td>
                                                     </tr>
                                                 </table>
                                                 <table>

@@ -10,43 +10,199 @@ exports.tamizajecrafft = async (req, res) => {
   try {
     const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
     creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
+    var factual = new Date().toISOString().slice(0, 10);
     id_tamizaje = req.body.NUM_IDE + factual
     const id_creador = creador[0].CEDULA
     const nombrecreador = creador[0].NOMBRE + creador[0].APELLIDO
     var factual = new Date().toISOString().slice(0, 10);
-    constTIP_IDE = req.body.TIP_IDE
-    constNUM_IDE = req.body.NUM_IDE
-    constPRI_NOM = req.body.PRI_NOM
-    constSEG_NOM = req.body.SEG_NOM
-    constPRI_APE = req.body.PRI_APE
-    constSEG_APE = req.body.SEG_APE
-    constTELEFONO = req.body.TELEFONO
-    constFECHA_NTO = req.body.FECHA_NTO
-    constEDAD = req.body.EDAD
-    constSEXO = req.body.SEXO
-    constNACION = req.body.NACION
-    constID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA
-    constID_RL_DIVIPOLA_RESI = req.body.ID_RL_DIVIPOLA_RESI
-    constDIR_RES = req.body.DIR_RES
-    consttip_reg = req.body.tip_reg
-    constcod_adm = req.body.cod_adm
-    constEDAD_INI = req.body.EDAD_INI
-    constSPA_INI = req.body.SPA_INI
-    constCRAFFT_Pa1_ALC = req.body.CRAFFT_Pa1_ALC
-    constCRAFFT_Pa2_MAR = req.body.CRAFFT_Pa2_MAR
-    constCRAFFT_Pa3_OTR = req.body.CRAFFT_Pa3_OTR
-    constCRAFFT_Pb1_RIESGOS = req.body.CRAFFT_Pb1_RIESGOS
-    constCRAFFT_Pb2_DISMIN = req.body.CRAFFT_Pb2_DISMIN
-    constCRAFFT_Pb3_RELAJ = req.body.CRAFFT_Pb3_RELAJ
-    constCRAFFT_Pb4_LIOS = req.body.CRAFFT_Pb4_LIOS
-    constCRAFFT_Pb5_OLVIDO = req.body.CRAFFT_Pb5_OLVIDO
-    constCRAFFT_Pb6_SOLO = req.body.CRAFFT_Pb6_SOLO
-    values = []
+    const TIP_IDE = req.body.TIP_IDE
+    const NUM_IDE = req.body.NUM_IDE
+    const PRI_NOM = req.body.PRI_NOM
+    const SEG_NOM = req.body.SEG_NOM
+    const PRI_APE = req.body.PRI_APE
+    const SEG_APE = req.body.SEG_APE
+    const TELEFONO = req.body.TELEFONO
+    const FECHA_NTO = req.body.FECHA_NTO
+    const EDAD = req.body.EDAD
+    const SEXO = req.body.SEXO
+    const NACION = req.body.NACION
+    const ID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA
+    const ID_RL_DIVIPOLA_RESI = req.body.ID_RL_DIVIPOLA_RESI
+    const DIR_RES = req.body.DIR_RES
+    const tip_reg = req.body.tip_reg
+    const cod_adm = req.body.cod_adm
+    const EDAD_INI = req.body.EDAD_INI
+    const SPA_INI = req.body.SPA_INI
+    const CRAFFT_Pa1_ALC = req.body.CRAFFT_Pa1_ALC
+    const CRAFFT_Pa2_MAR = req.body.CRAFFT_Pa2_MAR
+    const CRAFFT_Pa3_OTR = req.body.CRAFFT_Pa3_OTR
+    var CRAFFT_Pb1_RIESGOS = parseInt(req.body.CRAFFT_Pb1_RIESGOS)
+    var CRAFFT_Pb2_DISMIN = parseInt(req.body.CRAFFT_Pb2_DISMIN)
+    var CRAFFT_Pb3_RELAJ = parseInt(req.body.CRAFFT_Pb3_RELAJ)
+     var CRAFFT_Pb4_LIOS = parseInt(req.body.CRAFFT_Pb4_LIOS)
+    var CRAFFT_Pb5_OLVIDO = parseInt(req.body.CRAFFT_Pb5_OLVIDO)
+    var CRAFFT_Pb6_SOLO = parseInt(req.body.CRAFFT_Pb6_SOLO)
+    var CRAFFT_Puntaje=CRAFFT_Pb2_DISMIN + CRAFFT_Pb3_RELAJ + CRAFFT_Pb4_LIOS + CRAFFT_Pb1_RIESGOS + CRAFFT_Pb5_OLVIDO + CRAFFT_Pb6_SOLO
+    console.log(CRAFFT_Puntaje)
+    if (CRAFFT_Puntaje == 1 || CRAFFT_Puntaje==2){
+      var accion='Se debe hacer entrevista a profundidad y hablar con la familia (núcleo primario) por tratarse de un menor de edad.'
+
+    }else if (CRAFFT_Puntaje ==3 || CRAFFT_Puntaje==4 || CRAFFT_Puntaje==6){
+      var accion= 'Alerta sobre un posible consumo de riesgo, criterio para remitir al usuario a una evaluación especializada; se debe afianzar el criterio con lo identificado en la entrevista y la aplicación de otras pruebas'
+      
+    }else{
+      var accion='No corre riesgo'
+    }
+
+    values = [
+      id_tamizaje,
+      id_creador,
+      nombrecreador,
+      factual,
+      TIP_IDE,
+      NUM_IDE,
+      PRI_NOM,
+      SEG_NOM,
+      PRI_APE,
+      SEG_APE,
+      TELEFONO,
+      FECHA_NTO,
+      EDAD,
+      SEXO,
+      NACION,
+      ID_RL_DIVIPOLA,
+      ID_RL_DIVIPOLA_RESI,
+      DIR_RES,
+      tip_reg,
+      cod_adm,
+      EDAD_INI,
+      SPA_INI,
+      CRAFFT_Pa1_ALC,
+      CRAFFT_Pa2_MAR,
+      CRAFFT_Pa3_OTR,
+      CRAFFT_Pb1_RIESGOS,
+      CRAFFT_Pb2_DISMIN,
+      CRAFFT_Pb3_RELAJ,
+      CRAFFT_Pb4_LIOS,
+      CRAFFT_Pb5_OLVIDO,
+      CRAFFT_Pb6_SOLO,
+      CRAFFT_Puntaje,
+      accion
+    ]
     sqlguardar = 'INSERT INTO db_tam_crafft VALUES (?)'
+
+    conexion.query(sqlguardar, [values], (error) => {
+      if (error) {
+        throw error
+      }else{
+        res.redirect('/da/reportes')
+      }
+    })
   } catch (error) {
     console.log(error)
   }
 };
+
+exports.updateCrafft= async(req,res)=>{
+  id_tamizaje=req.body.id_tamizaje
+  try {
+    const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
+    creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
+    var factual = new Date().toISOString().slice(0, 10);
+    id_tamizaje = req.body.NUM_IDE + factual
+    const id_creador = creador[0].CEDULA
+    const nombrecreador = creador[0].NOMBRE + creador[0].APELLIDO
+    var factual = new Date().toISOString().slice(0,10);
+    const TIP_IDE = req.body.TIP_IDE
+    const NUM_IDE = req.body.NUM_IDE
+    const PRI_NOM = req.body.PRI_NOM
+    const SEG_NOM = req.body.SEG_NOM
+    const PRI_APE = req.body.PRI_APE
+    const SEG_APE = req.body.SEG_APE
+    const TELEFONO = req.body.TELEFONO
+    var FECHA_NTO = req.body.FECHA_NTO
+    
+    const EDAD = req.body.EDAD
+    const SEXO = req.body.SEXO
+    const NACION = req.body.NACION
+    const ID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA
+    const ID_RL_DIVIPOLA_RESI = req.body.ID_RL_DIVIPOLA_RESI
+    const DIR_RES = req.body.DIR_RES
+    const tip_reg = req.body.tip_reg
+    const cod_adm = req.body.cod_adm
+    const EDAD_INI = req.body.EDAD_INI
+    const SPA_INI = req.body.SPA_INI
+    const CRAFFT_Pa1_ALC = req.body.CRAFFT_Pa1_ALC
+    const CRAFFT_Pa2_MAR = req.body.CRAFFT_Pa2_MAR
+    const CRAFFT_Pa3_OTR = req.body.CRAFFT_Pa3_OTR
+    var CRAFFT_Pb1_RIESGOS = parseInt(req.body.CRAFFT_Pb1_RIESGOS)
+    var CRAFFT_Pb2_DISMIN = parseInt(req.body.CRAFFT_Pb2_DISMIN)
+    var CRAFFT_Pb3_RELAJ = parseInt(req.body.CRAFFT_Pb3_RELAJ)
+     var CRAFFT_Pb4_LIOS = parseInt(req.body.CRAFFT_Pb4_LIOS)
+    var CRAFFT_Pb5_OLVIDO = parseInt(req.body.CRAFFT_Pb5_OLVIDO)
+    var CRAFFT_Pb6_SOLO = parseInt(req.body.CRAFFT_Pb6_SOLO)
+    var CRAFFT_Puntaje=CRAFFT_Pb2_DISMIN + CRAFFT_Pb3_RELAJ + CRAFFT_Pb4_LIOS + CRAFFT_Pb1_RIESGOS + CRAFFT_Pb5_OLVIDO + CRAFFT_Pb6_SOLO
+    
+    if (CRAFFT_Puntaje == 1 || CRAFFT_Puntaje==2){
+      var accion='Se debe hacer entrevista a profundidad y hablar con la familia (núcleo primario) por tratarse de un menor de edad.'
+
+    }else if (CRAFFT_Puntaje ==3 || CRAFFT_Puntaje==4 || CRAFFT_Puntaje==6){
+      var accion= 'Alerta sobre un posible consumo de riesgo, criterio para remitir al usuario a una evaluación especializada; se debe afianzar el criterio con lo identificado en la entrevista y la aplicación de otras pruebas'
+      
+    }else{
+      var accion='No corre riesgo'
+    }
+
+    console.log(factual)
+    sqlupdate = await q(`UPDATE db_tam_crafft SET nombrecreador='${nombrecreador}',
+      
+      TIP_IDE=${TIP_IDE},
+      NUM_IDE=${NUM_IDE},
+      PRI_NOM='${PRI_NOM}',
+      SEG_NOM='${SEG_NOM}',
+      PRI_APE='${PRI_APE}',
+      SEG_APE='${SEG_APE}',
+      TELEFONO=${TELEFONO},
+      FECHA_NTO='${FECHA_NTO}',
+      EDAD=${EDAD},
+      SEXO=${SEXO},
+      NACION=${NACION},
+      ID_RL_DIVIPOLA=${ID_RL_DIVIPOLA[0]},
+      ID_RL_DIVIPOLA_RESI=${ID_RL_DIVIPOLA_RESI[0]},
+      DIR_RES='${DIR_RES}',
+      tip_reg=${tip_reg},
+      cod_adm=${cod_adm},
+      EDAD_INI=${EDAD_INI},
+      SPA_INI=${SPA_INI},
+      CRAFFT_Pa1_ALC=${CRAFFT_Pa1_ALC},
+      CRAFFT_Pa2_MAR=${CRAFFT_Pa2_MAR},
+      CRAFFT_Pa3_OTR=${CRAFFT_Pa3_OTR},
+      CRAFFT_Pb1_RIESGOS=${CRAFFT_Pb1_RIESGOS},
+      CRAFFT_Pb2_DISMIN=${CRAFFT_Pb2_DISMIN},
+      CRAFFT_Pb3_RELAJ=${CRAFFT_Pb3_RELAJ},
+      CRAFFT_Pb4_LIOS=${CRAFFT_Pb4_LIOS},
+      CRAFFT_Pb5_OLVIDO=${CRAFFT_Pb5_OLVIDO},
+      CRAFFT_Pb6_SOLO=${CRAFFT_Pb6_SOLO},
+      CRAFFT_Puntaje=${CRAFFT_Puntaje},
+      accion='${accion}' WHERE db_tam_crafft.id_tamizaje="${id_tamizaje}"
+    
+    
+    `)
+   
+
+ 
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+exports.deleteCrafft = async(req,res)=>{
+  id_tamizaje=req.params.id
+  console.log(id_tamizaje)
+  delete_tam=await q(`DELETE FROM db_tam_crafft WHERE db_tam_crafft.id_tamizaje="${id_tamizaje}"`)
+  res.send(delete_tam)
+};
+
 exports.dareporte = async (req, res) => {
   try {
     const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
@@ -154,14 +310,15 @@ exports.dareporte = async (req, res) => {
         ID_RL_FUENTE = req.body.ID_RL_FUENTE
         DIR_RES = req.body.DIR_RES
         FEC_CON = req.body.FEC_CON
-        INI_SIN = req.body.INI_SIN
+        INI_SIN = req.body.INI_SIN || new Date("1001-01-01").toISOString().slice(0, 10)
+         
         ID_TIP_CAS = req.body.ID_TIP_CAS
         PAC_HOS = req.body.PAC_HOS
-        FEC_HOS = req.body.FEC_HOS || new Date("0001-01-01");
+        FEC_HOS = req.body.FEC_HOS || new Date("1001-01-01").toISOString().slice(0, 10)
         ID_CON_FIN = req.body.ID_CON_FIN
-        FEC_DEF = req.body.FEC_DEF || new Date("0001-01-01");
+        FEC_DEF = req.body.FEC_DEF || new Date("1001-01-01").toISOString().slice(0, 10)
         CER_DEF = req.body.CER_DEF || 'No aplica'
-        ID_RL_CIE_10 = req.body.ID_RL_CIE_10 || 'No aplica'
+        ID_RL_CIE_10 = req.body.ID_RL_CIE_10 || 20000
         NOM_DIL_FI = req.body.NOM_DIL_FI
         TEL_DIL_FI = req.body.TEL_DIL_FI
         const valuesDBnotif = [
@@ -178,12 +335,12 @@ exports.dareporte = async (req, res) => {
           ID_CON_FIN,
           FEC_DEF,
           CER_DEF,
-          ID_RL_CIE_10[0],
+          ID_RL_CIE_10,
           NOM_DIL_FI,
           TEL_DIL_FI
         ]
         // redaccion del query de db_notif notificacion del incidente
-        //      queryDBnotif='INSERT INTO db_notif (`ID_RL_FUENTE`,`ID_RL_PAIS_DIAN`,`ID_RL_DIVIPOLA`,`DIR_RES`,`FEC_CON`,`INI_SIN`,`ID_TIP_CAS`,`PAC_HOS`,`FEC_HOS`,`ID_CON_FIN`,`FEC_DEF`,`CER_DEF`,`ID_RL_CIE_10`,`NOM_DIL_FI`,`TEL_DIL_FI`) VALUES (?)'
+        
         queryDBnotif = 'INSERT INTO db_notif VALUES (?)'
         //VARIABLES DE AJUSTE DEL CASO
         ID_RL_AJUSTE = req.body.ID_RL_AJUSTE
@@ -396,9 +553,11 @@ exports.updatereporte = async (req, res) => {
   try {
     const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
     creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
-    const factual = new Date().toISOString().slice(0, 10);
-    const ID_TIP_IDE = req.body.ID_TIP_IDE
-    const NUM_IDE = req.body.NUM_IDE
+    user = creador[0]
+    id_reporte = req.body.id_reporte
+     factual = new Date().toISOString().slice(0, 10);
+     ID_TIP_IDE = req.body.ID_TIP_IDE
+     NUM_IDE = req.body.NUM_IDE
     PRI_NOM = req.body.PRI_NOM
     SEG_NOM = req.body.SEG_NOM
     PRI_APE = req.body.PRI_APE
@@ -407,13 +566,13 @@ exports.updatereporte = async (req, res) => {
     FECHA_NTO = req.body.FECHA_NTO
     EDAD = req.body.EDAD
     ID_SEXO = req.body.ID_SEXO
-    ID_RL_NACIONALIDAD = req.body.ID_RL_NACIONALIDAD
-    ID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA
-    DIR_RES = req.body.DIR_RES
-    ID_COD_PAIS_O = ID_RL_NACIONALIDAD
+    ID_RL_NACIONALIDAD = req.body.ID_RL_NACIONALIDAD[0]
+    var ID_RL_NACIONALIDADa = req.body.ID_RL_NACIONALIDADa
+    ID_COD_PAIS_O = ID_RL_NACIONALIDAD[0]
+    ID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA[0]
+      console.log(req.body.ID_RL_DIVIPOLA[0])
     DIR_RES = req.body.DIR_RES
     id_rl_tip_ss = req.body.id_rl_tip_ss
-    CIUO88 = req.body.CIUO88
     ESTRATO = req.body.ESTRATO
     gpdes = req.body.gpdes || 2
     gpmigr = req.body.gpmigr || 2
@@ -427,6 +586,7 @@ exports.updatereporte = async (req, res) => {
     gppsi = req.body.gppsi || 2
     gpvicvio = req.body.gpvicvio || 2
     gpotro = req.body.gpotro || 2
+    CIUO88 = req.body.CIUO88
     COD_ASE = req.body.COD_ASE
     rl_per_ind = req.body.rl_per_ind
     NOM_GRUPO = req.body.NOM_GRUPO || 'No aplica'
@@ -439,11 +599,11 @@ exports.updatereporte = async (req, res) => {
     INI_SIN = req.body.INI_SIN
     ID_TIP_CAS = req.body.ID_TIP_CAS
     PAC_HOS = req.body.PAC_HOS
-    FEC_HOS = req.body.FEC_HOS || new Date("0001-01-01");
+    FEC_HOS = req.body.FEC_HOS || new Date("1001-01-01").toISOString().slice(0, 10)
     ID_CON_FIN = req.body.ID_CON_FIN
-    FEC_DEF = req.body.FEC_DEF || new Date("0001-01-01");
+    FEC_DEF = req.body.FEC_DEF || new Date("1001-01-01").toISOString().slice(0, 10)
     CER_DEF = req.body.CER_DEF || 'No aplica'
-    ID_RL_CIE_10 = req.body.ID_RL_CIE_10 || 'No aplica'
+    ID_RL_CIE_10 = req.body.ID_RL_CIE_10 || 20000
     NOM_DIL_FI = req.body.NOM_DIL_FI
     TEL_DIL_FI = req.body.TEL_DIL_FI
     ID_RL_AJUSTE = req.body.ID_RL_AJUSTE
@@ -458,14 +618,14 @@ exports.updatereporte = async (req, res) => {
     ID_RL_INI_MOTIV = req.body.INI_MOTIVO
     ID_RL_INI_MOTIV2 = req.body.INI_MOTIVO_OTRA || 'No aplica'
     ID_CIE_10 = req.body.COD_CIE10
-    ID_RL_LISTA_SPA = req.body.IMP_SPA
-    ID_RL_LISTA_SPA2 = req.body.IMP_SPA_OTRA || 'No aplica'
+    ID_RL_LISTA_SPA_ac = req.body.IMP_SPA
+    ID_RL_LISTA_SPA2_ac = req.body.IMP_SPA_OTRA || 'No aplica'
     ID_RL_IMP_FREC_USO = req.body.IMP_FREC_USO
     ID_RL_IMP_VIA_ADM = req.body.IMP_VIA_ADM
     IMP_FR_INYECC = req.body.IMP_FR_INYECC
-    ID_RL_INI_ENTORNO = req.body.IMP_ENTORNO
-    ID_RL_INI_LUGAR = req.body.IMP_LUGAR
-    ID_RL_INI_LUGAR2 = req.body.IMP_LUGAR_OTRO || 'No aplica'
+    ID_RL_INI_ENTORNO_ac = req.body.IMP_ENTORNO
+    ID_RL_INI_LUGAR_ac = req.body.IMP_LUGAR
+    ID_RL_INI_LUGAR2_ac = req.body.IMP_LUGAR_OTRO || 'No aplica'
     ID_RL_PRO_CA = req.body.PRO_CA || 2
     FR_SOBRED = req.body.FR_SOBRED || 2
     FR_SEXUAL = req.body.FR_SEXUAL || 2
@@ -502,10 +662,154 @@ exports.updatereporte = async (req, res) => {
     NRO_DOC = user.CEDULA
     TEL_PER = user.TEL
     ID_RL_PRE_SERV_SAL = user.COD_PRE
-
-    update_db_aju= await q(`UPDATE db_aju SET ID_RL_AJUSTE = '3', FEC_AJU = '2022-02-28', ID_HP_AYUDA = '1' WHERE db_aju.id_reporte = '78999992022-02-24' `)
-    console.log(update_db_aju)
-    res.send(update_db_aju)
+    ID_RL_PAIS_DIAN = ID_RL_NACIONALIDAD
+    update_db_aju = await q(`UPDATE db_aju SET ID_RL_AJUSTE = '${ID_RL_AJUSTE}', FEC_AJU = '${factual}' WHERE db_aju.id_reporte = '${id_reporte}' `)
+    //
+    update_db_ide_pac = await q(`UPDATE db_ide_pac SET ID_TIP_IDE='${ID_TIP_IDE}',
+    NUM_IDE='${NUM_IDE}',
+    PRI_NOM='${PRI_NOM}',
+    SEG_NOM='${SEG_NOM}',
+    PRI_APE='${PRI_APE}',
+    SEG_APE='${SEG_APE}',
+    TELEFONO='${TELEFONO}',
+    FECHA_NTO='${FECHA_NTO}',
+    EDAD='${EDAD}',
+    ID_SEXO='${ID_SEXO}',
+    ID_RL_NACIONALIDAD='${ID_RL_NACIONALIDADa}',
+    ID_COD_PAIS_O='${ID_COD_PAIS_O}',
+    ID_RL_DIVIPOLA='${ID_RL_DIVIPOLA}',
+    DIR_RES='${DIR_RES}',
+    id_rl_tip_ss='${id_rl_tip_ss}',
+    ESTRATO='${ESTRATO}',
+    gpdes='${gpdes}',
+    gpmigr='${gpmigr}',
+    gpcar='${gpcar}',
+    gpges='${gpges}',
+    SEM_GES='${SEM_GES}',
+    gpindi='${gpindi}',
+    gpicbfs='${gpicbfs}',
+    gpmc='${gpmc}',
+    gpdesmo='${gpdesmo}',
+    gppsi='${gppsi}',
+    gpvicvio='${gpvicvio}',
+    gpotro='${gpotro}',
+    CIUO88='${CIUO88}',
+    COD_ASE='${COD_ASE}',
+    rl_per_ind='${rl_per_ind}',
+    NOM_GRUPO='${NOM_GRUPO}',
+    GENERO='${GENERO}',
+    EST_CIV='${EST_CIV}',
+    NIV_ESC_TER='${NIV_ESC_TER}'
+    WHERE db_ide_pac.id_reporte = '${id_reporte}'`)
+    //
+    update_db_notif = await q(`UPDATE db_notif SET 
+    ID_RL_FUENTE='${ID_RL_FUENTE}',
+    ID_RL_PAIS_DIAN='${ID_RL_PAIS_DIAN}',
+    ID_RL_DIVIPOLA='${ID_RL_DIVIPOLA}',
+    DIR_RES='${DIR_RES}',
+    FEC_CON='${FEC_CON}',
+    INI_SIN='${INI_SIN}',
+    ID_TIP_CAS='${ID_TIP_CAS}',
+    PAC_HOS='${PAC_HOS}',
+    FEC_HOS='${FEC_HOS}',
+    ID_CON_FIN='${ID_CON_FIN}',
+    FEC_DEF='${FEC_DEF}',
+    CER_DEF='${CER_DEF}',
+    ID_RL_CIE_10='${ID_RL_CIE_10}',
+    NOM_DIL_FI='${NOM_DIL_FI}',
+    TEL_DIL_FI='${TEL_DIL_FI}'
+    WHERE db_notif.id_reporte='${id_reporte}'`)
+    //
+    currentdate = new Date();
+    var oneJan = new Date(currentdate.getFullYear(), 0, 1);
+    var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
+    var semanaEp = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7)
+    const fechaN = new Date()
+    const año = fechaN.getFullYear();
+    const COD_PRE = user.COD_PRE
+    const COD_SUB = user.COD_SUB
+    //
+    update_db_info_gral=await q(`UPDATE db_info_gral SET
+    ID_TIP_IDE = '${ID_TIP_IDE}',
+    COD_EVE='${ID_CIE_10}',
+    FEC_NOT='${factual}',
+    SEMANA='${semanaEp}',
+    ANO='${año}',
+    COD_PRE='${COD_PRE}',
+    COD_SUB='${COD_SUB}' WHERE db_info_gral.id_reporte='${id_reporte}'`)
+    //
+    update_db_ini_con= await q (`UPDATE db_ini_con SET 
+    INI_EDAD='${INI_EDAD}',
+    ID_RL_LISTA_SPA='${ID_RL_LISTA_SPA}',
+    ID_RL_LISTA_SPA2='${ID_RL_LISTA_SPA2}',
+    ID_RL_INI_PER='${ID_RL_INI_PER}',
+    ID_RL_INI_ENTORNO='${ID_RL_INI_ENTORNO}',
+    ID_RL_INI_LUGAR='${ID_RL_INI_LUGAR}',
+    INI_LUGAR_OTRO='${INI_LUGAR_OTRO}',
+    ID_RL_INI_MOTIV='${ID_RL_INI_MOTIV}',
+    ID_RL_INI_MOTIV2='${ID_RL_INI_MOTIV2}' WHERE db_ini_con.id_reporte='${id_reporte}'`)
+    //
+    update_db_con_act= await q(`UPDATE db_con_act SET 
+    ID_CIE_10='${ID_CIE_10}',
+    ID_RL_LISTA_SPA='${ID_RL_LISTA_SPA_ac}',
+    ID_RL_LISTA_SPA2='${ID_RL_LISTA_SPA2_ac}',
+    ID_RL_IMP_FREC_USO='${ID_RL_IMP_FREC_USO}',
+    ID_RL_IMP_VIA_ADM='${ID_RL_IMP_VIA_ADM}',
+    IMP_FR_INYECC='${IMP_FR_INYECC}',
+    ID_RL_INI_ENTORNO='${ID_RL_INI_ENTORNO_ac}',
+    ID_RL_INI_LUGAR='${ID_RL_INI_LUGAR_ac}',
+    ID_RL_INI_LUGAR2='${ID_RL_INI_LUGAR2_ac}',
+    ID_RL_PRO_CA='${ID_RL_PRO_CA}',
+    FR_SOBRED='${FR_SOBRED}',
+    FR_SEXUAL='${FR_SEXUAL}',
+    ACT_SPA_ALC='${ACT_SPA_ALC}',
+    ACT_SPA_TAB='${ACT_SPA_TAB}',
+    ACT_SPA_MAR='${ACT_SPA_MAR}',
+    ACT_SPA_COC='${ACT_SPA_COC}',
+    ACT_SPA_BAS='${ACT_SPA_BAS}',
+    ACT_SPA_EXT='${ACT_SPA_EXT}',
+    ACT_SPA_LSD='${ACT_SPA_LSD}',
+    ACT_SPA_HER='${ACT_SPA_HER}',
+    ACT_SPA_2CB='${ACT_SPA_2CB}',
+    ACT_SPA_MET='${ACT_SPA_MET}',
+    ACT_SPA_GHB='${ACT_SPA_GHB}',
+    ACT_SPA_KET='${ACT_SPA_KET}',
+    ACT_SPA_POP='${ACT_SPA_POP}',
+    ACT_SPA_DIC='${ACT_SPA_DIC}',
+    ACT_SPA_SOL='${ACT_SPA_SOL}',
+    ACT_SPA_ANF='${ACT_SPA_ANF}',
+    ACT_SPA_TRA='${ACT_SPA_TRA}',
+    ACT_SPA_OPI='${ACT_SPA_OPI}',
+    ACT_SPA_CAC='${ACT_SPA_CAC}',
+    ACT_SPA_HON='${ACT_SPA_HON}',
+    ACT_SPA_CSI='${ACT_SPA_CSI}',
+    ACT_SPA_OTR='${ACT_SPA_OTR}',
+    ACT_SPA_OTR_CUA='${ACT_SPA_OTR_CUA}' WHERE db_con_act.id_reporte= '${id_reporte}'`)
+    //
+    update_db_intven = await q(`UPDATE db_intven SET 
+    ID_DISP_AYUDA='${ID_DISP_AYUDA}',
+    EDUC_PREV='${EDUC_PREV}',
+    ID_RL_EDUC_CAL='${ID_RL_EDUC_CAL}',
+    TTO_PREVIO='${TTO_PREVIO}',
+    RED_APOYO='${RED_APOYO}' WHERE db_intven.id_reporte='${id_reporte}'`)
+    //
+    res.redirect(`/da/verreporte/${id_reporte}`)
   } catch (error) {
+    console.log(error)
   }
+}
+
+exports.deletereporte= async(req,res)=>{
+  id_reporte=req.params.id
+  console.log(id_reporte)
+  delete_db_aju= await q(`DELETE FROM db_aju WHERE db_aju.id_reporte= "${id_reporte}"`)
+  delete_db_ide_pac= await q(`DELETE FROM db_ide_pac WHERE db_ide_pac.id_reporte= "${id_reporte}"`)
+  delete_db_notif= await q(`DELETE FROM db_notif WHERE db_notif.id_reporte= "${id_reporte}"`)
+  delete_db_info_gral= await q(`DELETE FROM db_info_gral WHERE db_info_gral.id_reporte= "${id_reporte}"`)
+  delete_db_ini_con= await q(`DELETE FROM db_ini_con WHERE db_ini_con.id_reporte= "${id_reporte}"`)
+  delete_db_con_act= await q(`DELETE FROM db_con_act WHERE db_con_act.id_reporte= "${id_reporte}"`)
+  delete_db_intven= await q(`DELETE FROM db_intven WHERE db_intven.id_reporte= "${id_reporte}"`)
+  console.log(delete_db_aju)
+
+  res.redirect('/da/reportes')
 }

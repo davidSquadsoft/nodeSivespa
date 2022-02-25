@@ -23,7 +23,10 @@ router.post('/filterent', filtros.filterent)
 //router para los metodos del reporte SIVESPA de administradores
 router.post('/reportesivespa', reporte.dareporte)
 router.post('/updatereportesivespa', reporte.updatereporte)
+router.get('/deletereportesivespa/:id', reporte.deletereporte)
 router.post('/savetamcrafft', reporte.tamizajecrafft)
+router.post('/updatetamcrafft',reporte.updateCrafft)
+router.get('/deletetamcrafft/:id', reporte.deleteCrafft)
 
 //ruta principal para el login
 router.get('/login', (req, res) => {
@@ -193,7 +196,7 @@ router.get('/nuevoreporte', authController.isAuth, async (req, res) => {
     if (error) {
       throw error
     } else {
-      //console.log(result[1])
+
       res.render('da/reportes/reportes', {
         tittle: 'Nuevo Reporte - SIVESPA ',
         user: req.user,
@@ -232,6 +235,8 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
   var querynomspa = await q(`SELECT * FROM rl_lista_spa`)
   //estas son las funcionas asincronicas que envian una variable que contiene el query sql y retorna un valor
   //la funcion se encuentra en querys.js
+  var municipios = await q(`SELECT * FROM rl_divipola`)
+
   if (req.user.TIP_USER == 1) {
     var queryAjuste = await q('SELECT * FROM `db_aju`');
     var queryConActual = await q('SELECT * FROM `db_con_act` ');
@@ -241,11 +246,12 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     var queryIntven = await q('SELECT * FROM `db_intven`  ');
     var queryNotif = await q('SELECT * FROM `db_notif` ');
     var queryResnot = await q('SELECT * FROM `db_res_not` ');
-    console.log(queryConActual[0])
+    var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft`);
+
   } else if (req.user.TIP_USER == 2) {
     var queryuserdemun = await q(`SELECT CEDULA FROM st_user WHERE COD_MUN = ${req.user.COD_MUN}`);
     misusuarios = queryuserdemun
-    console.log(misusuarios)
+
     var concatenarMisUsuarios = misusuarios[0].CEDULA
     for (j = 1; j < misusuarios.length; j++) {
       concatenarMisUsuarios += ',' + misusuarios[j].CEDULA
@@ -256,6 +262,8 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
       for (i = 1; i < repMiMun.length; i++) {
         concatenarMisReportes += ',' + `'` + repMiMun[i].id_reporte + `'`
       }
+
+      var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisUsuarios})`);
       var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryConActual = await q(`SELECT * FROM db_con_act WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryIdePac = await q(`SELECT * FROM db_ide_pac WHERE id_reporte IN (${concatenarMisReportes})`);
@@ -263,9 +271,60 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
       var queryIniCon = await q(`SELECT * FROM db_ini_con WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryIntven = await q(`SELECT * FROM db_intven WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryNotif = await q(`SELECT * FROM db_notif WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryResnot = await q(`SELECT * FROM db_res_not WHERE id_reporte IN (${concatenarMisReportes})`);
     } else {
       console.log('notiene reportes')
     }
+  } else if (req.user.TIP_USER == 3) {
+    var queryusermiupgd = await q(`SELECT CEDULA FROM st_user WHERE COD_PRE = ${req.user.COD_PRE}`);
+    misusuarios = queryusermiupgd
+    var concatenarMisUsuarios = misusuarios[0].CEDULA
+    for (j = 1; j < misusuarios.length; j++) {
+      concatenarMisUsuarios += ',' + misusuarios[j].CEDULA
+    }
+
+    var repMiUPGD = await q(`SELECT id_reporte FROM db_res_not WHERE NRO_DOC IN (${concatenarMisUsuarios})`);
+    if (repMiUPGD.length > 0) {
+      var concatenarMisReportes = `'` + repMiUPGD[0].id_reporte + `'`
+      for (i = 1; i < repMiUPGD.length; i++) {
+        concatenarMisReportes += ',' + `'` + repMiMun[i].id_reporte + `'`
+      }
+      var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisUsuarios})`);
+      var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryConActual = await q(`SELECT * FROM db_con_act WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryIdePac = await q(`SELECT * FROM db_ide_pac WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryInfoGen = await q(`SELECT * FROM db_info_gral WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryIniCon = await q(`SELECT * FROM db_ini_con WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryIntven = await q(`SELECT * FROM db_intven WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryNotif = await q(`SELECT * FROM db_notif WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryResnot = await q(`SELECT * FROM db_res_not WHERE id_reporte IN (${concatenarMisReportes})`);
+
+    }else{
+      console.log('notiene reportes')
+    }
+
+  }else{
+    var misreportesuser= await q (`SELECT * FROM db_res_not WHERE NRO_DOC= ${req.user.CEDULA}`)
+    if (misreportesuser.length >0){
+      var concatenarMisReportes = `'` + misreportesuser[0].id_reporte + `'`
+      for (i = 1; i < misreportesuser.length; i++) {
+        concatenarMisReportes += ',' + `'` + misreportesuser[i].id_reporte + `'`
+      }
+
+      var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisReportes})`);
+      var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryConActual = await q(`SELECT * FROM db_con_act WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryIdePac = await q(`SELECT * FROM db_ide_pac WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryInfoGen = await q(`SELECT * FROM db_info_gral WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryIniCon = await q(`SELECT * FROM db_ini_con WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryIntven = await q(`SELECT * FROM db_intven WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryNotif = await q(`SELECT * FROM db_notif WHERE id_reporte IN (${concatenarMisReportes})`);
+      var queryResnot = await q(`SELECT * FROM db_res_not WHERE id_reporte IN (${concatenarMisReportes})`);
+  
+    }else{
+      console.log('no tiene reporetes')
+    }
+
   }
   iduser = req.user.CEDULA
   res.render('da/reportes/dashboard_reportes', {
@@ -279,7 +338,9 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     interven: queryIntven,
     notifi: queryNotif,
     responsable: queryResnot,
-    nomspa: querynomspa
+    nomspa: querynomspa,
+    municipios: municipios,
+    tamizajecrafft:tamizajecrafft
   })
 })
 
@@ -391,13 +452,13 @@ router.get('/show/:u', authController.isAuth, async (req, res) => {
   let idepaciente = await q(`SELECT * FROM db_ide_pac WHERE NUM_IDE = ${id}`);
   const paciente = idepaciente[0]
   const idreporte = paciente.id_reporte
-  console.log(idreporte)
+
   let conactual = await q(`SELECT * FROM db_con_act WHERE id_reporte = '${idreporte}'`);
-  console.log(conactual[0])
+
   const consumoactual = conactual[0]
   let spa = await q(`SELECT * FROM rl_lista_spa`);
   listaspa = spa[0]
-  console.log(listaspa)
+
   let nombrespa = spa.filter(lp => lp.id_rl_lista_spa == consumoactual.ID_RL_LISTA_SPA);
   res.send(paciente)
 })
@@ -435,7 +496,7 @@ router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
   }
 
   nommuni = nommuni[0].NOMMUNIPIO
-  console.log(nommuni)
+
   values = [
     fcreacion,
     titulo,
@@ -508,7 +569,7 @@ router.post('/filtronoticias', authController.isAuth, async (req, res) => {
   const quebuscar = req.body.kbuscar
   var filtro = 1
   resfiltro = await q(`SELECT * from contenido WHERE CONCAT(NOMSPA,titulo,NOMMUNI) LIKE "%${quebuscar}%" AND tipo_con=1`)
-  console.log(resfiltro)
+
   res.render('da/noticias/noticias', {
     tittle: 'Noticias ',
     user: req.user,
@@ -626,7 +687,7 @@ router.get('/dataupgd/:id', authController.isAuth, async (req, res) => {
   listatipoide = await q(`SELECT * FROM rl_tip_ide`)
 
   mimuni = await q(`SELECT DISTINCT * FROM rl_divipola WHERE CODMUNIC=${upgdver[0].COD_MUN}`)
-  console.log(upgdver[0].ID_RES_NOT)
+
   res.render('da/usuarios/dataupgd', {
     tittle: 'Editar UPGD',
     user: req.user,
@@ -645,7 +706,7 @@ router.get('/dataentmun/:id', authController.isAuth, async (req, res) => {
 
 
   responsable = await q(`SELECT * FROM st_user WHERE CEDULA  = ${entmunver[0].NRO_DOC}`)
-  console.log(responsable)
+  
   listatipoide = await q(`SELECT * FROM rl_tip_ide`)
   mimuni = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${entmunver[0].COD_MUN}`)
 
@@ -691,8 +752,8 @@ router.get('/verreporte/:id', authController.isAuth, async (req, res) => {
   sqladmsalud = await q(`SELECT * FROM rl_pre_ser_sal`)
   sqletnica = await q(`SELECT * FROM rl_per_ind`)
   sqlidentidadg = await q(`SELECT * FROM rl_iden_sex `)
-  sqlestadocivil = await q(`SELECT * FROM rl_est_civ `)
-  sqlescolaridad = await q(`SELECT * FROM rl_niv_esc_ter `)
+  sqlestadocivil = await q(`SELECT * FROM rl_est_civ`)
+  sqlescolaridad = await q(`SELECT * FROM rl_niv_esc_ter`)
   sqlfuente = await q(`SELECT * FROM rl_fuente `)
   sqltcaso = await q(`SELECT * FROM rl_tip_cas `)
   sqldefuncion = await q(`SELECT * FROM rl_cie_10`)
@@ -705,6 +766,8 @@ router.get('/verreporte/:id', authController.isAuth, async (req, res) => {
   sqlcei = await q(`SELECT * FROM rl_cie_10`)
   sqlviaadm = await q(`SELECT * FROM rl_imp_via_adm`)
   sqlpripro = await q(`SELECT * FROM rl_pro_ca`)
+
+  muniocu = await q(`SELECT NOMCENTRPOBLADO FROM rl_divipola WHERE CODCENTROPOBLADO=${db_ide_pac[0].ID_RL_DIVIPOLA}`)
 
   nombrepaciente = db_ide_pac[0].PRI_NOM + " " + db_ide_pac[0].SEG_NOM + " " + db_ide_pac[0].PRI_APE + " " + db_ide_pac[0].SEG_APE
   res.render('da/reportes/verreporte', {
@@ -742,8 +805,40 @@ router.get('/verreporte/:id', authController.isAuth, async (req, res) => {
     db_intven: db_intven[0],
     db_notif: db_notif[0],
     db_res_not: db_res_not[0],
-    todomun:sqltodomun
+    todomun: muniocu
 
+  })
+
+
+})
+
+router.get('/vertamizaje_crafft/:id', authController.isAuth, async(req,res)=>{
+
+  id_tamizaje=req.params.id
+
+  var vercrafft= await q(`SELECT * FROM db_tam_crafft WHERE id_tamizaje="${id_tamizaje}"`)
+
+  var querydivipola = await q(`SELECT * FROM rl_divipola`)
+  var querytipide = await q(`SELECT * FROM rl_tip_ide`)
+  var querysexo = await q('SELECT * FROM rl_sexo')
+  var queryNacion = await q('SELECT * FROM rl_nacionalidad')
+  var querytregimen = await q('SELECT * FROM rl_tip_ss')
+  var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
+  var queryspas = await q('SELECT * FROM rl_lista_spa')
+  
+  var nombre_completo= vercrafft[0].PRI_NOM +' '+vercrafft[0].SEG_NOM +' '+vercrafft[0].PRI_APE +' '+vercrafft[0].SEG_APE
+  
+  res.render('da/reportes/vertamizajecrafft', {
+    tittle: 'Tamizaje CRAFFT de ' + nombre_completo ,
+    user: req.user,
+    ocurrencia: querydivipola,
+    tipide: querytipide,
+    sexo: querysexo,
+    nacion: queryNacion,
+    regimens: querytregimen,
+    prestadoras: queryprestadoras,
+    spa: queryspas,
+    vercrafft:vercrafft[0]
   })
 
 

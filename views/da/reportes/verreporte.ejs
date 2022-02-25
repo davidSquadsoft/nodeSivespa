@@ -23,7 +23,6 @@
                             </p><% }%>
                         <br>
                         <p class="cambiar">Cambiar</p>
-                        
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#">Entidad 1</a></li>
@@ -35,11 +34,9 @@
         </div>
         <div class="section_form fluid-container reportes">
             <div class="container_reporte_form fluid-container">
-      
                 <form action="/da/updatereportesivespa" method="post" autocomplete="off">
-                    
                     <div class="form-group">
-                       
+                       <input type="text" name="id_reporte" id="" value="<%= db_ide_pac.id_reporte %>" hidden/>
                         <div class="accordion accordion-flush" id="accordionFlushExample">
                             <div class="accordion-item">
                                 <!--IDENTIFICACION DEL PACIENTE SLIDE NUMERO 2 /-->
@@ -58,10 +55,10 @@
                                             <tr>
                                                 <td><select name="ID_TIP_IDE" id="options" class="form-control"  >
                                                     <% tipo_ide.forEach((tipoide)=> { %>
-                                                        <option value="<%= tipoide.ID_RL_TIP_IDE %>"  <% if(tipoide.ID_RL_TIP_IDE == db_ide_pac.ID_TIP_IDE){ %> selected="selected" <% } %>><%=tipoide.DESC %></option>
+                                                        <option value="<%= tipoide.ID_RL_TIP_IDE %>" <% if(tipoide.ID_RL_TIP_IDE == db_ide_pac.ID_TIP_IDE){ %> selected="selected" <% } %>><%=tipoide.DESC %></option>
                                                     <%})%>
                                                 </select></td>
-                                                <td><input type="text" name="NUM_IDE" class="form-control" placeholder="<%=  db_ide_pac.NUM_IDE %> " ></td>
+                                                <td><input type="text" name="NUM_IDE" class="form-control" value="<%= db_ide_pac.NUM_IDE %>" ></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -72,10 +69,10 @@
                                                 <td><label for="Segundo Apellido">2.6 Segundo Apellido</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="PRI_NOM" class="form-control"  placeholder="<%=  db_ide_pac.PRI_NOM %>" ></td>
-                                                <td><input type="text" name="SEG_NOM" class="form-control"placeholder="<%=  db_ide_pac.SEG_NOM %>" ></td>
-                                                <td><input type="text" name="PRI_APE" class="form-control" placeholder="<%=  db_ide_pac.PRI_APE %>"></td>
-                                                <td><input type="text" name="SEG_APE" class="form-control" placeholder="<%=  db_ide_pac.SEG_APE %>"></td>
+                                                <td><input type="text" name="PRI_NOM" class="form-control"  value="<%=  db_ide_pac.PRI_NOM %>" ></td>
+                                                <td><input type="text" name="SEG_NOM" class="form-control"value="<%=  db_ide_pac.SEG_NOM %>" ></td>
+                                                <td><input type="text" name="PRI_APE" class="form-control" value="<%=  db_ide_pac.PRI_APE %>"></td>
+                                                <td><input type="text" name="SEG_APE" class="form-control" value="<%=  db_ide_pac.SEG_APE %>"></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -84,78 +81,69 @@
                                                 <td><label for="Fecha de Nacimiento">2.8 Fecha de Nacimiento</label></td>
                                                 <td><label for="Edad">2.9 Edad</label></td>
                                                 <td><label for="Sexo">2.10 Sexo</label></td>
-                                                <td><label for="Nacionalidad">2.11 Nacionalidad</label></td>
+                                                <% userpais= pais.filter(nom=> nom.ID_RL_PAIS_DIAN == db_ide_pac.ID_RL_NACIONALIDAD ) %>
+                                                <td><label for="Nacionalidad">2.11 Nacionalidad: <%= userpais[0].DESC%></label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="TELEFONO" id="" class="form-control"  placeholder="<%=  db_ide_pac.TELEFONO %>"></td>
+                                                <td><input type="text" name="TELEFONO" id="" class="form-control"  value="<%=  db_ide_pac.TELEFONO %>"></td>
                                                 <td><input type="date" name="FECHA_NTO"  class="form-control" value="<%=  db_ide_pac.FECHA_NTO.toISOString().slice(0, 10); %>"></td>
-                                                <td><input type="text" name="EDAD" id="" class="form-control" placeholder="<%=  db_ide_pac.EDAD %>" ></td>
+                                                <td><input type="text" name="EDAD" id="" class="form-control" value="<%=  db_ide_pac.EDAD %>" ></td>
                                                 <td><select name="ID_SEXO" id="options" class="form-control" >
                                                     <% sexo.forEach((tiposexo)=> { %>
                                                         <option value="<%= tiposexo.ID_SEXO %>"  <% if(tiposexo.ID_SEXO == db_ide_pac.ID_SEXO){ %> selected="selected" <% } %>><%=tiposexo.DESC%></option>
-                                                
                                                     <%})%>  
                                                 </select></td>
-                                                <% userpais= pais.filter(nom=> nom.ID_RL_PAIS_DIAN == db_ide_pac.ID_RL_NACIONALIDAD ) %>
-                                                <td><input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion" placeholder=" <%= userpais[0].DESC%>" >
-                                         
-                                                        
+                                                                   <td>
+                                                    <input name="ID_RL_NACIONALIDADa" id="" class="form-control" list="nacion" value="<%= db_ide_pac.ID_RL_NACIONALIDAD %>" >
                                                         <datalist id="nacion">
                                                             <% pais.forEach((listpais)=> { %>
-                                                            <option  class="text-lowercase" value="<%= listpais.ID_RL_PAIS_DIAN %>"><%= listpais.DESC %></option>
+                                                            <option class="text-lowercase" value="<%= listpais.ID_RL_PAIS_DIAN %>"><%= listpais.DESC %></option>
                                                             <%})%>  
                                                         </datalist>
-                                                
-                                   
                                   </td>
                                             </tr>
                                         </table>
                                         <table>
                                             <tr>
-                                                Lugar de ocurrencia del caso
+                                                Lugar de ocurrencia del caso:
                                             </tr>
                                             <tr>
-                                                <p class="textos_black">Busca por nombre de lugar"</p>
-                                                    <% lugarocurrencia = ocurrencia.filter(nocurrencia=>nocurrencia.CODCENTROPOBLADO = db_ide_pac.ID_RL_DIVIPOLA)%>
-                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="<%= lugarocurrencia[0].NOMMUNIPIO %>"  list="listadoocurrencia" >
-                                                    <datalist id="listadoocurrencia">
+                                               
+                                                <label><%= todomun[0].NOMCENTRPOBLADO %> </label>
+                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control" list="listadoocurrencia1" value="<%= db_ide_pac.ID_RL_DIVIPOLA %>" >
+                                                    <datalist id="listadoocurrencia1">
                                                         <% ocurrencia.forEach((listaocurrencia)=> { %>
-                                                            <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO%> , <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
+                                                            <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>"> <%= listaocurrencia.NOMMUNIPIO%>,<%= listaocurrencia.NOMCENTRPOBLADO %> - <%= listaocurrencia.TIPOCENTPOBLADO %></option>
                                                             <%})%>  
-
                                                     </datalist>
-                                  
                                             </tr>
                                         </table>
-
                                         <table>
                                             <tr>
-                                                <td><label for="Ocupación del paciente">2.20 Ocupación del paciente</label></td>
+                                                <% profuser = prof.filter(nomprof=> nomprof.ID_OCUPACIONES  == db_ide_pac.CIUO88) %>
+                                                <% useradsalud= listaADMSALUD.filter(nsalud=>nsalud.CODIGOHABILITACION == db_ide_pac.COD_ASE)%>
+                                                <td><label for="Ocupación del paciente">2.20 Ocupación del paciente: <%=profuser[0].TITULO_088 %></label></td>
                                                 <td><label for="Tipo de Régimen en Salud">2.21 Tipo de Régimen en Salud</label></td>
-                                                <td><label for="Código Administradora">2.22 Código Administradora</label></td>
+                                                <td><label for="Código Administradora">2.22 Código Administradora:</label></td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <% profuser = prof.filter(nomprof=> nomprof.ID_OCUPACIONES  == db_ide_pac.CIUO88) %>
-                                                    <input name="CIUO88" id="" class="form-control" list="profesion" placeholder="<%=profuser[0].TITULO_088 %>" >
+                                                    <input name="CIUO88" id="" class="form-control" list="profesion" value="<%= db_ide_pac.CIUO88 %>" >
                                                     <datalist id="profesion">
                                                         <% prof.forEach((profesion)=> { %>
-                                                        <option  class="text-lowercase" value="<%= profesion.ID_OCUPACIONES  %>" > <%= profesion.TITULO_08 %></option>
+                                                        <option  class="text-lowercase" value="<%= profesion.ID_OCUPACIONES  %>"> <%= profesion.TITULO_08 %></option>
                                                         <%})%>  
                                                     </datalist>
                                                 </td>
                                                 <td>
                                                     <select name="id_rl_tip_ss" id="" class="form-select" >
-                                                 
                                                         <% regimen.forEach((lregimen)=> { %>
                                                         <option  class="text-lowercase" value="<%= lregimen.id_rl_tip_ss %>" <% if(lregimen.id_rl_tip_ss == db_ide_pac.id_rl_tip_ss){ %> selected="selected" <% } %> > <%= lregimen.DESCRIP %></option>
                                                         <%})%>  
                                                     </select>
-                                               
                                                 </td>
                                                 <td>
-                                                    <% useradsalud= listaADMSALUD.filter(nsalud=>nsalud.CODIGOHABILITACION == db_ide_pac.COD_ASE)%>
-                                                    <input type="text" name="COD_ASE" id="" class="form-control" list="codadmSalud" placeholder="<%= useradsalud[0].CODIGOHABILITACION %> " >
+                                                    <input type="text" name="COD_ASE" id="" class="form-control" list="codadmSalud" value="<%= db_ide_pac.COD_ASE %>" >
                                                     <datalist id="codadmSalud">
                                                         <% listaADMSALUD.forEach((ladmsalud)=> { %>
                                                         <option  class="text-lowercase" value="<%= ladmsalud.CODIGOHABILITACION %>" > <%= ladmsalud.NOMBRE %></option>
@@ -175,18 +163,15 @@
                                                     <% etnias.forEach((letnias)=> { %>
                                                         <option  class="text-lowercase" value="<%= letnias.id_rl_per_ind %>" <% if(letnias.id_rl_per_ind==db_ide_pac.rl_per_ind){ %>selected="selected" <% }%> ><%= letnias.DESC %></option>
                                                         <%})%> 
-
                                                 </select></td>
-                                                <td><input type="text" name="NOM_GRUPO" id="" class="form-control" placeholder="<%= db_ide_pac.NOM_GRUPO %>" ></td>
+                                                <td><input type="text" name="NOM_GRUPO" id="" class="form-control" value="<%= db_ide_pac.NOM_GRUPO %>" ></td>
                                                 <td><select name="ESTRATO" id="" class="form-control" >
-
                                                     <option value="1" <% if(db_ide_pac.ESTRATO == 1){ %> selected="selected" <% } %>>Estrato 1</option>
                                                     <option value="2" <% if(db_ide_pac.ESTRATO == 2){ %> selected="selected" <% } %>>Estrato 2</option>
                                                     <option value="3" <% if(db_ide_pac.ESTRATO == 3){ %> selected="selected" <% } %>>Estrato 3</option>
                                                     <option value="4" <% if(db_ide_pac.ESTRATO == 4){ %> selected="selected" <% } %>>Estrato 4</option>
                                                     <option value="5" <% if(db_ide_pac.ESTRATO == 5){ %> selected="selected" <% } %>>Estrato 5</option>
                                                     <option value="6" <% if(db_ide_pac.ESTRATO == 6){ %> selected="selected" <% } %>>Estrato 6</option>
-
                                                 </select></td>
                                             </tr>
                                         </table>
@@ -205,7 +190,7 @@
                                                 <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpindi" <% if(db_ide_pac.gpindi == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Habitante de calle">Habitante de calle</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpicbfs" <% if(db_ide_pac.gpicbfs == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Población infantil a cargo del ICBF ">Población infantil a cargo del ICBF</label></td>
+                                                <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpicbfs" <% if(db_ide_pac.gpicbfs == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Población infantil a cargo del ICBF">Población infantil a cargo del ICBF</label></td>
                                                 <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpmc"  <% if(db_ide_pac.gpmc == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Madres Comunitarias">Madres Comunitarias</label></td>
                                                 <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="gpdesmo"  <% if(db_ide_pac.gpdesmo == 1){ %> checked="checked" <% } %>><label for="Grupo Poblacional - Desmovilizados">Desmovilizados</label></td>
                                             </tr>
@@ -231,11 +216,10 @@
                                                     <% estadoCivil.forEach((lestadoCivil)=> { %>
                                                         <option  class="text-lowercase" value="<%= lestadoCivil.ID_EST_CIV %>"  <% if(lestadoCivil.ID_EST_CIV==db_ide_pac.EST_CIV){ %> selected="selected" <% } %>> <%= lestadoCivil.DESCMASC %>/<%= lestadoCivil.DESCFEME %></option>
                                                         <%})%> 
-                                                    
                                                 </select></td>
                                                 <td><select name="NIV_ESC_TER" id="" class="form-control" >
                                                     <% nivelescolaridad.forEach((lnivelescolaridad)=> { %>
-                                                        <option  class="text-lowercase" value="<%= lnivelescolaridad.rl_niv_esc_ter %>" <% if(lnivelescolaridad.rl_niv_esc_ter==db_ide_pac.NIV_ESC_TER){ %> selected="selected" <% } %> > <%= lnivelescolaridad.DESC%></option>
+                                                        <option  class="text-lowercase" value="<%= lnivelescolaridad.RL_NIV_ESC_TER%>" <% if(lnivelescolaridad.RL_NIV_ESC_TER==db_ide_pac.NIV_ESC_TER){ %> selected="selected" <% } %> > <%= lnivelescolaridad.DESC%></option>
                                                         <%})%> 
                                                 </select></td>
                                             </tr>
@@ -267,11 +251,11 @@
                                             <tr><label for="Código del País de Residencia del paciente">Lugar Residencia del paciente</label></tr>
                                         </table>
                                         <table>
-                                            <tr><label for="Código del País de Residencia del paciente">3.2 País</label>
+                                            <tr><label for="Código del País de Residencia del paciente">3.2 País: <%= userpais[0].DESC%></label>
                                             </tr>
                                             <tr>
-                                                <input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion" placeholder="<%= userpais[0].DESC%>">
-                                                <datalist id="nacion">
+                                                <input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion1" value="<%= db_notif.ID_RL_PAIS_DIAN%>">
+                                                <datalist id="nacion1">
                                                     <% pais.forEach((listpais)=> { %>
                                                     <option  class="text-lowercase" value="<%= listpais.ID_RL_PAIS_DIAN %>" > <%= listpais.DESC %></option>
                                                     <%})%>  
@@ -279,20 +263,18 @@
                                             </tr>
                                             <tr >
                                                 <% lugarocurrencia2 = ocurrencia.filter(nocurrencia=>nocurrencia.CODCENTROPOBLADO = db_notif.ID_RL_DIVIPOLA)%>
-                                                <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder=" <%= lugarocurrencia2[0].NOMMUNIPIO %>"  list="listadoocurrencia" >
+                                                <label for="Código del País de Residencia del paciente">Municipio: <%= lugarocurrencia2[0].NOMMUNIPIO %></label>
+                                                <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  value="<%= db_notif.ID_RL_DIVIPOLA %> "  list="listadoocurrencia" >
                                                 <datalist id="listadoocurrencia">
                                                     <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                         <option class="text-lowercase" value="<%= listaocurrencia.CODMUNIC %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
                                                         <%})%>  
-
                                                 </datalist>
                                             </tr>
-                                            <tr >
-                                                <input type="text" name="DIR_RES" class="form-control"  value=""<%= db_notif.DIR_RES %>    >
-                                           
+                                            <tr ><label for="Código del País de Residencia del paciente">Direccion de residencia:</label>
+                                                <input type="text" name="DIR_RES" class="form-control"  value="<%= db_notif.DIR_RES %>" >
                                             </tr>
                                         </table>
-                                       
                                         <table>
                                             <tr>
                                                 <td><label for="Fecha Consulta">3.4 Fecha Consulta</label></td>
@@ -302,7 +284,7 @@
                                             </tr>
                                             <tr>
                                                 <td><input type="date" name="FEC_CON" id="" class="form-control" value="<%= db_notif.FEC_CON.toISOString().slice(0, 10) %>" ></td>
-                                                <td><input type="date" name="INI_SIN" id="" class="form-control"  alue="<%= db_notif.INI_SIN.toISOString().slice(0, 10) %>" ></td>
+                                                <td><input type="date" name="INI_SIN" id="" class="form-control"  value="<%= db_notif.INI_SIN.toISOString().slice(0, 10) %>" ></td>
                                                 <td><select name="ID_TIP_CAS" class="form-control"  id="">
                                                     <% tipocaso.forEach((ltipocaso)=> { %>
                                                         <option class="text-lowercase" value="<%= ltipocaso.ID_RL_TIP_CAS %>"<% if(ltipocaso.ID_RL_TIP_CAS==db_notif.ID_TIP_CAS){ %> selected="selected" <% } %> > <%= ltipocaso.DESC %></option>
@@ -320,7 +302,8 @@
                                                 <td><label for="Condición final">3.9 Condición final</label></td>
                                                 <td><label for="Fecha Defunción">3.10 Fecha Defunción</label></td>
                                                 <td><label for="Numero del certificado defunción">3.11 Numero del certificado defunción</label></td>
-                                                <td><label for="Causa básica de defunción">3.12 Causa básica de defunción</label></td>
+                                                <% nomcausa= causadefuncion.filter(ndef => ndef.ID_CIE_10==db_notif.ID_RL_CIE_10) %>
+                                                <td><label for="Causa básica de defunción">3.12 Causa básica de defunción: <%= nomcausa[0].DESC4CHART.substr(0,20)  %> </label></td>
                                             </tr>
                                             <tr>
                                                 <td><input type="date" name="FEC_HOS" id="" class="form-control" value="<%= db_notif.FEC_HOS.toISOString().slice(0, 10)%>" ></td>
@@ -332,8 +315,7 @@
                                                 <td><input type="date" name="FEC_DEF" id="" class="form-control" value="<%= db_notif.FEC_DEF.toISOString().slice(0, 10)%>"></td>
                                                 <td><input type="text" name="CER_DEF" id="" class="form-control" value="<%= db_notif.CER_DEF%>"></td>
                                                 <td>
-                                                    <% nomcausa= causadefuncion.filter(ndef => ndef.ID_CIE_10==db_notif.ID_RL_CIE_10) %>
-                                                    <input type="text" name="ID_RL_CIE_10" class="form-control" list="causadefunciondata" placeholder="<%= nomcausa[0].DESC4CHART %>">
+                                                    <input type="text" name="ID_RL_CIE_10" class="form-control" list="causadefunciondata" value="<%= db_notif.ID_RL_CIE_10 %>">
                                                     <datalist id="causadefunciondata">
                                                         <% causadefuncion.forEach((lcausadefuncion)=> { %>
                                                             <option class="text-lowercase" value="<%= lcausadefuncion.ID_CIE_10 %>" > <%= lcausadefuncion.DESC4CHART %></option>
@@ -366,7 +348,7 @@
                                     <div class="accordion-body">
                                         <table>
                                             <tr>
-                                                <td><label for="Seguimiento y clasificación final del caso ">4.1 Seguimiento y clasificación final del caso (Ajuste)</label></td>
+                                                <td><label for="Seguimiento y clasificación final del caso">4.1 Seguimiento y clasificación final del caso (Ajuste)</label></td>
                                                 <td><label for="Fecha del ajuste">4.2 Fecha del ajuste</label></td>
                                             </tr>
                                             <tr>
@@ -395,24 +377,15 @@
                                             <tr>
                                                 <td><label for="¿A qué edad inició el consumo?">5.1 ¿A qué edad inició el consumo?</label></td>
                                                 <td><label for="Entorno del primer consumo">5.2 Entorno del primer consumo</label></td>
-
-
-
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="INI_EDAD" id="" class="form-control" placeholder="<%= db_ini_con.INI_EDAD %>"></td>
+                                                <td><input type="text" name="INI_EDAD" id="" class="form-control" value="<%= db_ini_con.INI_EDAD %>"></td>
                                                 <td><select name="INI_ENTORNO" id="" class="form-control" >
                                                     <% entorno.forEach((lentorno)=> { %>
                                                         <option class="text-lowercase" value="<%= lentorno.ID_RL_INI_ENTORNO %>" <% if(lentorno.ID_RL_INI_ENTORNO==db_ini_con.ID_RL_INI_ENTORNO){ %> selected="selected" <% } %>> <%= lentorno.DESC %></option>
                                                         <%})%>  
-                                        
-
                                                 </select></td>
-
-
                                             </tr>
-
-
                                         </table>
                                         <table>
                                             <tr>
@@ -426,17 +399,14 @@
                                                         <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>" <% if(linilugar.ID_RL_INI_LUGAR==db_ini_con.ID_RL_INI_LUGAR){ %> selected="selected" <% } %> > <%= linilugar.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input name="INI_LUGAR_OTRO" id="" class="form-control" placeholder="<%= db_ini_con.INI_LUGAR_OTRO%>"></td>
+                                                <td><input name="INI_LUGAR_OTRO" id="" class="form-control" value="<%= db_ini_con.INI_LUGAR_OTRO%>"></td>
                                                 <td><select name="INI_PERSONA" id="" class="form-control" >
                                                     <% iniperso.forEach((lperso)=> { %>
                                                         <option class="text-lowercase" value="<%= lperso.ID_RL_INI_PER %>" <% if(lperso.ID_RL_INI_PER==db_ini_con.ID_RL_INI_PER){ %> selected="selected" <% } %>> <%= lperso.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-
                                             </tr>
-
                                         </table>
-
                                         <table>
                                             <tr>
                                                 <td><label for="Principal motivación al primer consumo">5.4 Principal motivación al primer consumo</label></td>
@@ -448,7 +418,7 @@
                                                         <option class="text-lowercase" value="<%= linimotivo.ID_RL_INI_MOTIV %>"<% if(linimotivo.ID_RL_INI_MOTIV==db_ini_con.ID_RL_INI_MOTIV){ %> selected="selected" <% } %> > <%= linimotivo.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input  name="INI_MOTIVO_OTRA" id="" class="form-control" placeholder="<%= db_ini_con.ID_RL_INI_MOTIV2 %>"></td>
+                                                <td><input  name="INI_MOTIVO_OTRA" id="" class="form-control" value="<%= db_ini_con.ID_RL_INI_MOTIV2 %>"></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -462,7 +432,7 @@
                                                         <option class="text-lowercase" value="<%= lspa.id_rl_lista_spa %>"<% if(lspa.id_rl_lista_spa==db_ini_con.ID_RL_LISTA_SPA){ %> selected="selected" <% } %>> <%= lspa.SUSTANCIA %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input type="text" name="INI_SPA_OTRA" id="" class="form-control" placeholder="<%= db_ini_con.ID_RL_LISTA_SPA2 %> ">
+                                                <td><input type="text" name="INI_SPA_OTRA" id="" class="form-control" value="<%= db_ini_con.ID_RL_LISTA_SPA2 %>">
                                                    </td>
                                             </tr>
                                         </table>
@@ -470,134 +440,106 @@
                                         <table class="lista_spa_reporte">
                                             <tr>
                                                 <td></td>
-
                                                 <td>6.1 ¿Cuáles sustancias consume actualmente (último mes)?(Puede seleccionar varias opciones)</td>
-
                                             </tr>
                                             </tr>
                                             <tr>
                                                 <td>Alcohol</td>
-
-
                                                 <td><input name="ACT_SPA_ALC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_ALC == 1){ %> checked="checked" <% } %> ></td>
                                             </tr>
                                             <tr>
                                                 <td>Tabaco (cigarrillo)</td>
-
                                                 <td><input name="ACT_SPA_TAB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" <% if(db_con_act.ACT_SPA_TAB == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
                                                 <td>Marihuana (regular, cripi, cripa)</td>
-
                                                 <td><input name="ACT_SPA_MAR" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_MAR == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
                                                 <td>Cocaína y/o derivados (perico, crack, nieve, parloca, freebase)</td>
-
                                                 <td><input name="ACT_SPA_COC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_COC == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
                                                 <td>Basuco</td>
-
                                                 <td><input name="ACT_SPA_BAS" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_BAS == 1){ %> checked="checked" <% } %>></td>
                                             </tr>
                                             <tr>
-                                                <td>Éxtasis – MDMA</td>
+                                                <td>Éxtasis - MDMA</td>
                                                 <td><input name="ACT_SPA_EXT" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_EXT == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>LSD (Dietalimida del acido lisérgico, ácido o tripi)</td>
                                                 <td><input name="ACT_SPA_LSD" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_LSD == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
-                                                <td>Heroína (Hache o "H")</td>
+                                                <td>Heroína (Hache o"H")</td>
                                                 <td><input name="ACT_SPA_HER" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_HER == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>2CB (tusi, tucibi o nexus)</td>
                                                 <td><input name="ACT_SPA_2CB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_2CB == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Metanfetaminas (o meth, cristal, ice, hielo, speed)</td>
                                                 <td><input name="ACT_SPA_MET" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_MET == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>GHB ("G" o éxtasis líquido)</td>
                                                 <td><input name="ACT_SPA_GHB" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_GHB == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Ketamina o ketalar (Ketashort,Ketanir,Anesket,Imalgene)</td>
                                                 <td><input name="ACT_SPA_KET" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_KET == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Popper (Nitrito de amilo, Butilo)</td>
                                                 <td><input name="ACT_SPA_POP" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_POP == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>DICK, ladys, fragancia (cloruro de metileno o dichlorometano)</td>
                                                 <td><input name="ACT_SPA_DIC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_DIC == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Solventes Inhalables (pegantes/sacol, pinturas, thinner, solventes, colas, gasolina, combustibles, aerosoles, gases)</td>
                                                 <td><input name="ACT_SPA_SOL" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_SOL == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Anfetaminas o estimulantes sin prescripción médica (Metilfenidato, píldoras adelgazantes, Benzedrina,Dexedrina)</td>
                                                 <td><input name="ACT_SPA_ANF" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_ANF == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Benzodiazepinas: ansioliticos y tranquilizantes sin prescripción médica (Clonazepam, Lorazepam, Diazepam, Midazolam, Alprazolam, etc)</td>
                                                 <td><input name="ACT_SPA_TRA" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_TRA == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Analgésicos derivados de los opioides sin prescripción médica (Codeína, Metadona, Tramadol, Hidromorfona, Morfina, Oxicodona, Hidrocodona, Oximorfona, Fetanilo)</td>
                                                 <td><input name="ACT_SPA_OPI" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_OPI == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Cacao sabanero</td>
                                                 <td><input nane="ACT_SPA_CAC" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_CAC == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Hongos</td>
                                                 <td><input name="ACT_SPA_HON" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_HON == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Cannabinoides sintéticos(CS, AM 2201)</td>
                                                 <td><input name="ACT_SPA_CSI" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_CSI == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Otra</td>
                                                 <td><input nane="ACT_SPA_OTR" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"<% if(db_con_act.ACT_SPA_OTR == 1){ %> checked="checked" <% } %>></td>
-
                                             </tr>
                                             <tr>
                                                 <td>Cual?</td>
                                                 <td><input type="text" name="ACT_SPA_OTR_CUA" id="" class="form-control" placeholder="<%= db_con_act.ACT_SPA_OTR_CUA%>"></td>
-
                                             </tr>
                                         </table>
-
                                         <table>
                                             <tr>
                                                 <td><label for="6.2 En su consumo actual (último mes), cuál es la sustancia de mayor impacto">6.2 En su consumo actual (último mes), cuál es la sustancia de mayor impacto</label></td>
                                                 <td><label for="6.2.22.1 Otra sustancia de mayor impacto, cual">6.2.2.1 Otra sustancia de mayor impacto, cuall</label></td>
-
                                             </tr>
                                             <tr>
                                                 <td><select name="IMP_SPA" id="" class="form-control" >
@@ -605,19 +547,15 @@
                                                         <option class="text-lowercase" value="<%= lspa.id_rl_lista_spa %>"<% if(lspa.id_rl_lista_spa==db_con_act.IMP_SPA){ %> selected="selected" <% } %> > <%= lspa.SUSTANCIA %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input name="IMP_SPA_OTRA" id="" class="form-control" placeholder="<%= db_con_act.ID_RL_LISTA_SPA2%>"></td>
-
+                                                <td><input name="IMP_SPA_OTRA" id="" class="form-control" value="<%= db_con_act.ID_RL_LISTA_SPA2%>"></td>
                                             </tr>
                                         </table>
-
-
                                         <table>
                                             <tr>
                                                 <td><label for="6.3 Código CIE10 asociado al consumo SPA">6.3 Código CIE10 asociado al consumo SPA</label></td>
                                                 <td><label for="Entorno de consumo actual">6.4 Entorno de consumo actual</label></td>
                                                 <td><label for="6.4.1 Lugar del consumo actual">6.4.1 Lugar del consumo actual</label></td>
                                                 <td><label for="6.4.1.1 Cual otro lugar de consumo actual">6.4.1.1 Cual otro lugar de consumo actual</label></td>
-
                                             </tr>
                                             <tr>
                                                 <td>
@@ -636,15 +574,13 @@
                                                         <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>"<% if(linilugar.ID_RL_INI_LUGAR==db_con_act.ID_RL_INI_LUGAR ){ %> selected="selected" <% } %> > <%= linilugar.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
-                                                <td><input name="IMP_LUGAR_OTRO" id="" class="form-control" placeholder="<%= db_con_act.ID_RL_INI_LUGAR2 %> "></td>
-
+                                                <td><input name="IMP_LUGAR_OTRO" id="" class="form-control" value="<%= db_con_act.ID_RL_INI_LUGAR2 %>"></td>
                                             </tr>
                                         </table>
                                         <table>
                                             <tr>
                                                 <td><label for="6.5 Frecuencia de uso">6.5 Frecuencia de uso</label></td>
                                                 <td><label for="Principal vía de administración">6.6 Principal vía de administración</label></td>
-
                                             </tr>
                                             <tr>
                                                 <td><select name="IMP_FREC_USO" id="" class="form-control" >
@@ -738,7 +674,6 @@
                                                 <td><select name="RED_APOYO" id="" class="form-control" >
                                                     <option value="1"<% if(db_intven.RED_APOYO == 1 ){ %> selected="selected" <% } %>>Sí</option>
                                                     <option value="2"<% if(db_intven.RED_APOYO == 2 ){ %> selected="selected" <% } %>>No</option>
-                                                    
                                                 </select></td>
                                             </tr>
                                         </table>
@@ -747,18 +682,11 @@
                             </div>
                         </div>
                         <div class="btn_box">
-                            
                             <button type="submit" class="btn_green align-center">guardar</button>
                         </div>
-
-                        
                 </form>
-                
                 </div>
             </div>
     </section>
-
-  
-
     <script src="/admin/scripts/validar_campos.js"></script>
     <%- include('../includes/footer') -%>
