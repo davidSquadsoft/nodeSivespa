@@ -42,7 +42,7 @@
                         <div class="step step-1 active">
                             <div class="form-group">
                                 <h3>ENCUESTA TAMIZAJE CRAFFT</h3>
-                                <input type="text" name="id_tamizaje" hidden>
+                                <input type="text" name="id_tamizaje" value="<%= vercrafft.id_tamizaje %>" hidden>
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingDatosB">
@@ -68,7 +68,7 @@
                                                     <tr>
                                                         <td><select name="TIP_IDE" id="options" class="form-control" required>
                                                             <% tipide.forEach((lide)=> { %>
-                                                                <option value="<%= lide.ID_RL_TIP_IDE%>" <% if(lide.ID_RL_TIP_IDE==vercrafft.TIP_IDE){ %>selected="selected" <% } %>  ><%= lide.DESC%></option>
+                                                                <option value="<%= lide.ID_RL_TIP_IDE%>" <% if(lide.ID_RL_TIP_IDE=="vercrafft".TIP_IDE){ %>selected="selected" <% } %>  ><%= lide.DESC%></option>
                                                                 <% }) %>
                                                         </select></td>
                                                         <td><input type="text" name="NUM_IDE" class="form-control" value="<%= vercrafft.NUM_IDE %>" required></td>
@@ -134,7 +134,7 @@
                                                 </table>
                                                 <table class="">
                                                     <tr>
-                                                        <% nameocu=ocurrencia.filter(noc=>noc.CODCENTROPOBLADO==vercrafft.ID_RL_DIVIPOLA) %> 
+                                                        <% nameocu=ocurrencia.filter(noc=>noc.ID_DIVIPOLA==vercrafft.ID_RL_DIVIPOLA) %> 
                                                         <p class="mt-3 text-lowercase">3.1 Lugar de ocurrencia del caso: <%= nameocu[0].NOMMUNIPIO %> / <%= nameocu[0].NOMCENTRPOBLADO %> </p>
                                                     </tr>
                                                     <tr>
@@ -150,8 +150,10 @@
                                                     </tr>
                                                 </table>
                                                 <table >
-                                                    <% nameocu1=ocurrencia.filter(noc=>noc.CODCENTROPOBLADO==vercrafft.ID_RL_DIVIPOLA_RESI) %> 
-                                                    <tr class="text-lowercase">3.2 Lugar Residencia del paciente: <%= nameocu1[0].NOMMUNIPIO %> / <%= nameocu1[0].NOMCENTRPOBLADO %> </tr>
+                                          
+                                                    <% nameocu1=ocurrencia.filter(noc => noc.CODCENTROPOBLADO == vercrafft.ID_RL_DIVIPOLA_RESI); %> 
+
+                                                    <tr class="text-lowercase">3.2 Lugar Residencia del paciente: </tr>
                                                 </table>
                                                 <table>
                                              

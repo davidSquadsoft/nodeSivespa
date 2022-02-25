@@ -27,6 +27,7 @@ router.get('/deletereportesivespa/:id', reporte.deletereporte)
 router.post('/savetamcrafft', reporte.tamizajecrafft)
 router.post('/updatetamcrafft',reporte.updateCrafft)
 router.post('/savetamassist', reporte.tamizajeassist)
+router.post('/updatetamassist',reporte.updateAssist)
 router.get('/deletetamcrafft/:id', reporte.deleteCrafft)
 router.get('/deletetamassist/:id', reporte.deleteAssist)
 
@@ -851,7 +852,7 @@ router.get('/vertamizaje_crafft/:id', authController.isAuth, async(req,res)=>{
   var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
   var queryspas = await q('SELECT * FROM rl_lista_spa')
   
-  var nombre_completo= vercrafft[0].PRI_NOM +' '+vercrafft[0].SEG_NOM +' '+vercrafft[0].PRI_APE +' '+vercrafft[0].SEG_APE
+  var nombre_completo= vercrafft[0].PRI_NOM + ' '+ vercrafft[0].SEG_NOM + ' ' + vercrafft[0].PRI_APE + ' ' + vercrafft[0].SEG_APE
   
   res.render('da/reportes/vertamizajecrafft', {
     tittle: 'Tamizaje CRAFFT de ' + nombre_completo ,
@@ -885,7 +886,7 @@ router.get('/vertamizaje_assist/:id', authController.isAuth, async(req,res)=>{
   var queryspas = await q('SELECT * FROM rl_lista_spa')
   var profesiones= await q("SELECT * FROM rl_ciu088")
   
-  var nombre_completo= verassist[0].PRI_NOM +' '+verassist[0].SEG_NOM +' '+verassist[0].PRI_APE +' '+verassist[0].SEG_APE
+  var nombre_completo= verassist[0].PRI_NOM + ' '+verassist[0].SEG_NOM + ' ' + verassist[0].PRI_APE + ' '+ verassist[0].SEG_APE
   
   res.render('da/reportes/vertamizajeassist', {
     tittle: 'Tamizaje ASSIST de ' + nombre_completo ,
