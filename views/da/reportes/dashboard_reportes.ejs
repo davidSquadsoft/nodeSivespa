@@ -107,9 +107,10 @@
 
 
                     <%- include('../includes/misreportes') -%>
-
+                    <div class="mt-3"></div>
                     <%- include('../includes/mistamizajescrafft') -%>
-  
+                    <div class="mt-3"></div>
+                    <%- include('../includes/mistamizajesassist') -%>
                     
                 </div>
             </div>
@@ -214,6 +215,29 @@
     if (result.isConfirmed) {
     
         window.location='/da/deletetamcrafft/'+id;
+      
+    
+    
+    }
+    })
+        }
+</script>
+
+
+<script>
+    function confirmarassist(id){
+            Swal.fire({
+    title: 'Desea eliminar el tamizaje ASSIST?',
+    text: "Este cambio no se puede revertir y al eliminar este reporte no sera recuperable!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3c773c',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, eliminar'
+    }).then((result) => {
+    if (result.isConfirmed) {
+    
+        window.location='/da/deletetamassist/'+id;
       
     
     

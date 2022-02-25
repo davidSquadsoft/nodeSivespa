@@ -68,10 +68,10 @@
                                                 <tr>
                                                     <td><select name="TIP_IDE" id="options" class="form-control" required>
                                                         <% tipide.forEach((lide)=> { %>
-                                                            <option value="<%= lide.ID_RL_TIP_IDE%>"><%= lide.DESC%></option>
+                                                            <option value="<%= lide.ID_RL_TIP_IDE%>" <% if (lide.ID_RL_TIP_IDE== verassist.TIP_IDE) { %>selected="selected" <%}%> ><%= lide.DESC%></option>
                                                             <% }) %>
                                                     </select></td>
-                                                    <td><input type="text" name="NUM_IDE" class="form-control" required></td>
+                                                    <td><input type="text" name="NUM_IDE" class="form-control" value="<%= verassist.NUM_IDE %> "required></td>
                                                 </tr>
                                             </table>
                                             <table>
@@ -82,10 +82,10 @@
                                                     <td><label for="Segundo Apellido">2.6 Segundo Apellido</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" name="PRI_NOM" class="form-control" required></td>
-                                                    <td><input type="text" name="SEG_NOM" class="form-control" required></td>
-                                                    <td><input type="text" name="PRI_APE" class="form-control" required></td>
-                                                    <td><input type="text" name="SEG_APE" class="form-control" required></td>
+                                                    <td><input type="text" name="PRI_NOM" class="form-control" value="<%= verassist.PRI_NOM %>" required></td>
+                                                    <td><input type="text" name="SEG_NOM" class="form-control" value="<%= verassist.SEG_NOM %>" required></td>
+                                                    <td><input type="text" name="PRI_APE" class="form-control" value="<%= verassist.PRI_APE %>" required></td>
+                                                    <td><input type="text" name="SEG_APE" class="form-control" value="<%= verassist.SEG_APE %>" required></td>
                                                 </tr>
                                             </table>
                                             <table>
@@ -94,19 +94,21 @@
                                                     <td><label for="Fecha de Nacimiento">2.8 Fecha de Nacimiento</label></td>
                                                     <td><label for="Edad">2.9 Edad</label></td>
                                                     <td><label for="Sexo">2.10 Sexo</label></td>
-                                                    <td><label for="Nacionalidad">2.11 Nacionalidad</label></td>
+                                                   <% nacionUSER=nacion.filter(nacionU=>nacionU.ID_NACIONALIDAD==verassist.NACION) %>
+                                                    <td><label for="Nacionalidad">2.11 Nacionalidad:<%= nacionUSER[0].GENTILICIO_NAC %> </label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" name="TELEFONO" id="" class="form-control" required></td>
-                                                    <td><input type="date" name="FECHA_NTO" id="" class="form-control" required></td>
-                                                    <td><input class="form-control" name="EDAD">
+                                                    <td><input type="text" name="TELEFONO" id="" class="form-control" value="<%= verassist.TELEFONO %>" required></td>
+                                                    <td><input type="date" name="FECHA_NTO" id="" class="form-control" value="<%= verassist.FECHA_NTO.toISOString().slice(0,10) %>" required></td>
+                                                    <td><input class="form-control" name="EDAD" value="<%= verassist.EDAD %> ">
                                                     </td>
                                                     <td><select name="SEXO" id="options" class="form-control">
                                                         <% sexo.forEach((lsexo)=>{ %> 
-                                                            <option value="<%= lsexo.ID_SEXO %> "><%= lsexo.DESC %> </option>
+                                                            <option value="<%= lsexo.ID_SEXO %>"<% if(lsexo.ID_SEXO==verassist.SEXO){ %> selected="selected" <% } %> ><%= lsexo.DESC %> </option>
                                                             <% }) %> 
                                                     </select></td>
-                                                    <td><input name="NACION" id="" class="form-control" list="listanacionalidades">
+                                                    <td>
+                                                        <input name="NACION" id="" class="form-control" list="listanacionalidades" value="<%= verassist.NACION %>">
                                                         <datalist id="listanacionalidades">
                                                             <% nacion.forEach((lnacion)=>{ %> 
                                                                 <option value="<%= lnacion.ID_NACIONALIDAD %>"><%= lnacion.GENTILICIO_NAC %> </option>
@@ -118,11 +120,13 @@
                                             </table>
                                             <table class="">
                                                 <tr>
-                                                    <p class="mt-3">3.1 Lugar de ocurrencia del caso</p>
+                                                    <% nameocu=ocurrencia.filter(noc=>noc.CODCENTROPOBLADO==verassist.ID_RL_DIVIPOLA) %> 
+                                                    <p class="mt-3 text-lowercase">3.1 Lugar de ocurrencia del caso: <%= nameocu[0].NOMMUNIPIO %> / <%= nameocu[0].NOMCENTRPOBLADO %> </p>
                                                 </tr>
                                                 <tr>
-                                                    <p class="textos_black">Busca por nombre de lugar"</p>
-                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                    
+                                                    <p class="textos_black">Busca por nombre de lugar</p>
+                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  value="<%= verassist.ID_RL_DIVIPOLA %>" list="listadoocurrencia" >
                                                 <datalist id="listadoocurrencia">
                                                     <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                         <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
@@ -132,23 +136,24 @@
                                                 </tr>
                                             </table>
                                             <table >
-                                                <tr>3.2 Lugar Residencia del paciente</tr>
+                                                <% nameocu1=ocurrencia.filter(noc=>noc.CODCENTROPOBLADO==verassist.ID_RL_DIVIPOLA_RESI) %> 
+                                                <tr class="text-lowercase">3.2 Lugar Residencia del paciente: <%= nameocu1[0].NOMMUNIPIO %> / <%= nameocu1[0].NOMCENTRPOBLADO %> </tr>
                                             </table>
                                             <table>
                                          
                                                 <tr>
-                                                <p class="textos_black">Busca por nombre de lugar"</p>
-                                                    <input type="text" name="ID_RL_DIVIPOLA_RESI" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                <p class="textos_black">Busca por nombre de lugar</p>
+                                                    <input type="text" name="ID_RL_DIVIPOLA_RESI" class="form-control mb-3"  value="<%= verassist.ID_RL_DIVIPOLA_RESI %>"placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
                                                 <datalist id="listadoocurrencia">
                                                     <% ocurrencia.forEach((listaocurrencia)=> { %>
-                                                        <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
+                                                        <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>"> <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
                                                         <%})%>  
 
                                                       
                                                 </tr>
                                                 <tr>3.2 Dirección de residencia del paciente:</tr>
                                                 <tr>
-                                                    <input type="text" name="DIR_RES" class="form-control mt-2"  placeholder="Dirección de residencia" >
+                                                    <input type="text" name="DIR_RES" class="form-control mt-2"  value="<%= verassist.DIR_RES %> " >
                                                 </tr>
                                             </table>
                                  
@@ -161,10 +166,10 @@
                                                 <tr>
                                                     <td><select name="tip_reg" id="options" class="form-control">
                                                         <% regimens.forEach((lregimen)=>{ %> 
-                                                            <option value="<%= lregimen.id_rl_tip_ss %> "> <%= lregimen.DESCRIP %> </option>
+                                                            <option value="<%= lregimen.id_rl_tip_ss %>" <% if(lregimen.id_rl_tip_ss==verassist.tip_reg){ %>selected="selected"<% } %>  > <%= lregimen.DESCRIP %> </option>
                                                             <% }) %> 
                                                     </select></td>
-                                                    <td><input name="cod_adm" list="prestadoras" class="form-control">
+                                                    <td><input name="cod_adm" list="prestadoras" class="form-control" value="<%= verassist.cod_adm %> ">
                                                         <datalist id="prestadoras">
 
                                                             <% prestadoras.forEach((lprestadoras)=> { %>
@@ -178,11 +183,11 @@
                                             <TABLE>
                                                 <tr>
                                                     <td><label for="">Edad de inicio de consumo: </label></td>
-                                                    <td><label for="">Profesión: </label></td>
+                                                    <td><label for="">Codigo de Profesión: </label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="number" for="" name="INI_EDAD"></td>
-                                                    <td><input type="text"  name="PROFESION" list="profesion">
+                                                    <td><input type="number" for="" name="INI_EDAD" value="<%= verassist.INI_EDAD %> "></td>
+                                                    <td><input type="text"  name="PROFESION" list="profesion" value="<%= verassist.PROFESION %> ">
                                                         <datalist id="profesion">
                                                             <% profesiones.forEach((lprof)=>{ %> 
                                                                 <option value="<%= lprof.ID_OCUPACIONES %>"><%= lprof.TITULO_088 %></option>
@@ -212,50 +217,50 @@
                                             <table class="lista_spa_reporte">
                                                 <tr>
                                                     <td>Tabaco (cigarrillo)</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1a_TAB"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" <% if(verassist.ASSIST_P1a_TAB==3){%> checked="checked" <% }%> name="ASSIST_P1a_TAB"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>¿A que edad inicio a fumar?</td>
-                                                    <td><input class="form-control" type="text" id="flexCheckDefault" name="ASSIST_P1_EDAD_INI_CIG"></td>
+                                                    <td><input class="form-control" type="text" id="flexCheckDefault" name="ASSIST_P1_EDAD_INI_CIG"  value="<%=verassist.ASSIST_P1_EDAD_INI_CIG%>"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alcohol</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1b_ALC"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1b_ALC"<% if(verassist.ASSIST_P1b_ALC==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1c_CAN"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1c_CAN"<% if(verassist.ASSIST_P1c_CAN==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1d_COC"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1d_COC"<% if(verassist.ASSIST_P1d_COC==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault "name="ASSIST_P1e_ANF" ></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault "name="ASSIST_P1e_ANF" <% if(verassist.ASSIST_P1e_ANF==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1f_INH"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1f_INH"<% if(verassist.ASSIST_P1f_INH==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1g_TRA"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1g_TRA"<% if(verassist.ASSIST_P1g_TRA==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1h_ALU"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1h_ALU"<% if(verassist.ASSIST_P1h_ALU==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1i_OPI"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1i_OPI"<% if(verassist.ASSIST_P1i_OPI==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Otra</td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1j_OTR"></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P1j_OTR"<% if(verassist.ASSIST_P1j_OTR==3){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <td>Cual?</td>
-                                                <td><input type="text" name="ASSIST_P1_CUAL_OTRA" id="" class="form-control"></td>
+                                                <td><input type="text" name="ASSIST_P1_CUAL_OTRA" id="" class="form-control" value="<%= verassist.ASSIST_P1_CUAL_OTRA %> "></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -287,87 +292,88 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Tabaco (cigarrillo)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0"  name="ASSIST_P2a_T0ABname="ASSIST_P2b_ALC" " id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2"  name="ASSIST_P2a_T0ABname="ASSIST_P2b_ALC" " id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3"  name="ASSIST_P2a_T0ABname="ASSIST_P2b_ALC" " id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4"  name="ASSIST_P2a_T0ABname="ASSIST_P2b_ALC" " id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6"  name="ASSIST_P2a_T0ABname="ASSIST_P2b_ALC" " id="flexCheckDefault"></td>
+                                                    
+                                                    <td><input class="form-check-input" type="radio" value="0"  name="ASSIST_P2a_TAB" id="flexCheckDefault" <% if(verassist.ASSIST_P2a_TAB==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2"  name="ASSIST_P2a_TAB" id="flexCheckDefault" <% if(verassist.ASSIST_P2a_TAB==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3"  name="ASSIST_P2a_TAB" id="flexCheckDefault" <% if(verassist.ASSIST_P2a_TAB==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4"  name="ASSIST_P2a_TAB" id="flexCheckDefault" <% if(verassist.ASSIST_P2a_TAB==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6"  name="ASSIST_P2a_TAB" id="flexCheckDefault" <% if(verassist.ASSIST_P2a_TAB==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alcohol</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" name="ASSIST_P2b_ALC" id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" name="ASSIST_P2b_ALC" id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" name="ASSIST_P2b_ALC" id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" name="ASSIST_P2b_ALC" id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" name="ASSIST_P2b_ALC" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" name="ASSIST_P2b_ALC" id="flexCheckDefault" <% if(verassist.ASSIST_P2b_ALC==0){%> checked="checked" <% }%> ></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" name="ASSIST_P2b_ALC" id="flexCheckDefault" <% if(verassist.ASSIST_P2b_ALC==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" name="ASSIST_P2b_ALC" id="flexCheckDefault" <% if(verassist.ASSIST_P2b_ALC==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" name="ASSIST_P2b_ALC" id="flexCheckDefault" <% if(verassist.ASSIST_P2b_ALC==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" name="ASSIST_P2b_ALC" id="flexCheckDefault" <% if(verassist.ASSIST_P2b_ALC==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2c_CAN"></td> 
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2c_CAN"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2c_CAN" <% if(verassist.ASSIST_P2c_CAN==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2c_CAN" <% if(verassist.ASSIST_P2c_CAN==2){%> checked="checked" <% }%>></td> 
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2c_CAN" <% if(verassist.ASSIST_P2c_CAN==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2c_CAN" <% if(verassist.ASSIST_P2c_CAN==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2c_CAN" <% if(verassist.ASSIST_P2c_CAN==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2d_COC"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2d_COC" <% if(verassist.ASSIST_P2d_COC==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2d_COC" <% if(verassist.ASSIST_P2d_COC==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2d_COC" <% if(verassist.ASSIST_P2d_COC==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2d_COC" <% if(verassist.ASSIST_P2d_COC==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2d_COC" <% if(verassist.ASSIST_P2d_COC==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2e_ANF"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2e_ANF" <% if(verassist.ASSIST_P2e_ANF==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2e_ANF" <% if(verassist.ASSIST_P2e_ANF==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2e_ANF" <% if(verassist.ASSIST_P2e_ANF==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2e_ANF" <% if(verassist.ASSIST_P2e_ANF==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2e_ANF" <% if(verassist.ASSIST_P2e_ANF==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2f_INH"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2f_INH" <% if(verassist.ASSIST_P2f_INH==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2f_INH" <% if(verassist.ASSIST_P2f_INH==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2f_INH" <% if(verassist.ASSIST_P2f_INH==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2f_INH" <% if(verassist.ASSIST_P2f_INH==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2f_INH" <% if(verassist.ASSIST_P2f_INH==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2g_TRA"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2g_TRA" <% if(verassist.ASSIST_P2g_TRA==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2g_TRA" <% if(verassist.ASSIST_P2g_TRA==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2g_TRA" <% if(verassist.ASSIST_P2g_TRA==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2g_TRA" <% if(verassist.ASSIST_P2g_TRA==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2g_TRA" <% if(verassist.ASSIST_P2g_TRA==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2h_ALU"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2h_ALU" <% if(verassist.ASSIST_P2h_ALU==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2h_ALU" <% if(verassist.ASSIST_P2h_ALU==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2h_ALU" <% if(verassist.ASSIST_P2h_ALU==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2h_ALU" <% if(verassist.ASSIST_P2h_ALU==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2h_ALU" <% if(verassist.ASSIST_P2h_ALU==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2i_OPI"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2i_OPI" <% if(verassist.ASSIST_P2i_OPI==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2i_OPI" <% if(verassist.ASSIST_P2i_OPI==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2i_OPI" <% if(verassist.ASSIST_P2i_OPI==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2i_OPI" <% if(verassist.ASSIST_P2i_OPI==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2i_OPI" <% if(verassist.ASSIST_P2i_OPI==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Otra</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2j_OTR"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P2j_OTR" <% if(verassist.ASSIST_P2j_OTR==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="2" id="flexCheckDefault" name="ASSIST_P2j_OTR" <% if(verassist.ASSIST_P2j_OTR==2){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P2j_OTR" <% if(verassist.ASSIST_P2j_OTR==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P2j_OTR" <% if(verassist.ASSIST_P2j_OTR==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P2j_OTR" <% if(verassist.ASSIST_P2j_OTR==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cual?</td>
-                                                    <td><input type="text" name="ASSIST_P2i_CUAL" id="" class="form-control"></td>
+                                                    <td><input type="text" name="ASSIST_P2i_CUAL" id="" class="form-control" value="<%= verassist.ASSIST_P2i_CUAL %> "></td>
                                                  
                                                 </tr>
                                             </table>
@@ -400,83 +406,83 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Tabaco (cigarrillo)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3a_TAB"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3a_TAB" <% if(verassist.ASSIST_P3a_TAB==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3a_TAB" <% if(verassist.ASSIST_P3a_TAB==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3a_TAB" <% if(verassist.ASSIST_P3a_TAB==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3a_TAB" <% if(verassist.ASSIST_P3a_TAB==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3a_TAB" <% if(verassist.ASSIST_P3a_TAB==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alcohol</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault"name="ASSIST_P3b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault"name="ASSIST_P3b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault"name="ASSIST_P3b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault"name="ASSIST_P3b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault"name="ASSIST_P3b_ALC"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault"name="ASSIST_P3b_ALC" <% if(verassist.ASSIST_P3b_ALC==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault"name="ASSIST_P3b_ALC" <% if(verassist.ASSIST_P3b_ALC==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault"name="ASSIST_P3b_ALC" <% if(verassist.ASSIST_P3b_ALC==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault"name="ASSIST_P3b_ALC" <% if(verassist.ASSIST_P3b_ALC==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault"name="ASSIST_P3b_ALC" <% if(verassist.ASSIST_P3b_ALC==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3c_CAN"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3c_CAN" <% if(verassist.ASSIST_P3c_CAN==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3c_CAN" <% if(verassist.ASSIST_P3c_CAN==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3c_CAN" <% if(verassist.ASSIST_P3c_CAN==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3c_CAN" <% if(verassist.ASSIST_P3c_CAN==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3c_CAN" <% if(verassist.ASSIST_P3c_CAN==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3d_COC"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3d_COC" <% if(verassist.ASSIST_P3d_COC==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3d_COC" <% if(verassist.ASSIST_P3d_COC==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3d_COC" <% if(verassist.ASSIST_P3d_COC==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3d_COC" <% if(verassist.ASSIST_P3d_COC==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3d_COC" <% if(verassist.ASSIST_P3d_COC==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3e_ANF"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3e_ANF" <% if(verassist.ASSIST_P3e_ANF==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3e_ANF" <% if(verassist.ASSIST_P3e_ANF==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3e_ANF" <% if(verassist.ASSIST_P3e_ANF==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3e_ANF" <% if(verassist.ASSIST_P3e_ANF==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3e_ANF" <% if(verassist.ASSIST_P3e_ANF==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3f_INH"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3f_INH" <% if(verassist.ASSIST_P3f_INH==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3f_INH" <% if(verassist.ASSIST_P3f_INH==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3f_INH" <% if(verassist.ASSIST_P3f_INH==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3f_INH" <% if(verassist.ASSIST_P3f_INH==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3f_INH" <% if(verassist.ASSIST_P3f_INH==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3g_TRA"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3g_TRA" <% if(verassist.ASSIST_P3g_TRA==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3g_TRA" <% if(verassist.ASSIST_P3g_TRA==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3g_TRA" <% if(verassist.ASSIST_P3g_TRA==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3g_TRA" <% if(verassist.ASSIST_P3g_TRA==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3g_TRA" <% if(verassist.ASSIST_P3g_TRA==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3h_ALU"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3h_ALU" <% if(verassist.ASSIST_P3h_ALU==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3h_ALU" <% if(verassist.ASSIST_P3h_ALU==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3h_ALU" <% if(verassist.ASSIST_P3h_ALU==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3h_ALU" <% if(verassist.ASSIST_P3h_ALU==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3h_ALU" <% if(verassist.ASSIST_P3h_ALU==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3i_OPI"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3i_OPI" <% if(verassist.ASSIST_P3i_OPI==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3i_OPI" <% if(verassist.ASSIST_P3i_OPI==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3i_OPI" <% if(verassist.ASSIST_P3i_OPI==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3i_OPI" <% if(verassist.ASSIST_P3i_OPI==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3i_OPI" <% if(verassist.ASSIST_P3i_OPI==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Otra</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3j_OTR"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P3j_OTR" <% if(verassist.ASSIST_P3j_OTR==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="3" id="flexCheckDefault" name="ASSIST_P3j_OTR" <% if(verassist.ASSIST_P3j_OTR==3){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P3j_OTR" <% if(verassist.ASSIST_P3j_OTR==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P3j_OTR" <% if(verassist.ASSIST_P3j_OTR==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P3j_OTR" <% if(verassist.ASSIST_P3j_OTR==6){%> checked="checked" <% }%>></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -508,83 +514,83 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Tabaco (cigarrillo)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4a_TAB"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4a_TAB"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4a_TAB" <% if(verassist.ASSIST_P4a_TAB==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4a_TAB" <% if(verassist.ASSIST_P4a_TAB==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4a_TAB" <% if(verassist.ASSIST_P4a_TAB==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4a_TAB" <% if(verassist.ASSIST_P4a_TAB==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4a_TAB" <% if(verassist.ASSIST_P4a_TAB==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alcohol</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4b_ALC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4b_ALC"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4b_ALC" <% if(verassist.ASSIST_P4b_ALC==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4b_ALC" <% if(verassist.ASSIST_P4b_ALC==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4b_ALC" <% if(verassist.ASSIST_P4b_ALC==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4b_ALC" <% if(verassist.ASSIST_P4b_ALC==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4b_ALC" <% if(verassist.ASSIST_P4b_ALC==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cannabis (marihuana, hierba, hashish, etc.))</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4c_CAN"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4c_CAN"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4c_CAN" <% if(verassist.ASSIST_P4c_CAN==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4c_CAN" <% if(verassist.ASSIST_P4c_CAN==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4c_CAN" <% if(verassist.ASSIST_P4c_CAN==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4c_CAN" <% if(verassist.ASSIST_P4c_CAN==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4c_CAN" <% if(verassist.ASSIST_P4c_CAN==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td> Cocaína (coca, basuco, crack, paco, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4d_COC"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4d_COC"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4d_COC" <% if(verassist.ASSIST_P4d_COC==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4d_COC" <% if(verassist.ASSIST_P4d_COC==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4d_COC" <% if(verassist.ASSIST_P4d_COC==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4d_COC" <% if(verassist.ASSIST_P4d_COC==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4d_COC" <% if(verassist.ASSIST_P4d_COC==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Anfetaminas u otro tipo de estimulantes (speed, éxtasis, píldoras adelgazantes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4e_ANF"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4e_ANF"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4e_ANF" <% if(verassist.ASSIST_P4e_ANF==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4e_ANF" <% if(verassist.ASSIST_P4e_ANF==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4e_ANF" <% if(verassist.ASSIST_P4e_ANF==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4e_ANF" <% if(verassist.ASSIST_P4e_ANF==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4e_ANF" <% if(verassist.ASSIST_P4e_ANF==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Inhalantes (pegantes, colas, gasolina, solventes, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4f_INH"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4f_INH"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4f_INH" <% if(verassist.ASSIST_P4f_INH==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4f_INH" <% if(verassist.ASSIST_P4f_INH==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4f_INH" <% if(verassist.ASSIST_P4f_INH==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4f_INH" <% if(verassist.ASSIST_P4f_INH==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4f_INH" <% if(verassist.ASSIST_P4f_INH==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Tranquilizantes o pastillas para dormir (Valium/Diazepam, Trankimazin/Alprazolam/Xanax, Orfidal/Lorazepam, Rohipnol, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4g_TRA"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4g_TRA"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4g_TRA" <% if(verassist.ASSIST_P4g_TRA==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4g_TRA" <% if(verassist.ASSIST_P4g_TRA==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4g_TRA" <% if(verassist.ASSIST_P4g_TRA==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4g_TRA" <% if(verassist.ASSIST_P4g_TRA==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4g_TRA" <% if(verassist.ASSIST_P4g_TRA==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alucinógenos (LSD, ácidos, hongos, mezcalina, ketamina, PCP, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4h_ALU"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4h_ALU"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4h_ALU" <% if(verassist.ASSIST_P4h_ALU==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4h_ALU" <% if(verassist.ASSIST_P4h_ALU==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4h_ALU" <% if(verassist.ASSIST_P4h_ALU==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4h_ALU" <% if(verassist.ASSIST_P4h_ALU==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4h_ALU" <% if(verassist.ASSIST_P4h_ALU==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Opiáceos (heroína, metadona, codeína, morfina, dolantina/petidina, etc.)</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4i_OPI"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4i_OPI"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4i_OPI" <% if(verassist.ASSIST_P4i_OPI==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4i_OPI" <% if(verassist.ASSIST_P4i_OPI==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4i_OPI" <% if(verassist.ASSIST_P4i_OPI==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4i_OPI" <% if(verassist.ASSIST_P4i_OPI==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4i_OPI" <% if(verassist.ASSIST_P4i_OPI==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Otra</td>
-                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4j_OTR"></td>
-                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4j_OTR"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P4j_OTR" <% if(verassist.ASSIST_P4j_OTR==0){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="4" id="flexCheckDefault" name="ASSIST_P4j_OTR" <% if(verassist.ASSIST_P4j_OTR==4){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="5" id="flexCheckDefault" name="ASSIST_P4j_OTR" <% if(verassist.ASSIST_P4j_OTR==5){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="6" id="flexCheckDefault" name="ASSIST_P4j_OTR" <% if(verassist.ASSIST_P4j_OTR==6){%> checked="checked" <% }%>></td>
+                                                    <td><input class="form-check-input" type="radio" value="7" id="flexCheckDefault" name="ASSIST_P4j_OTR" <% if(verassist.ASSIST_P4j_OTR==7){%> checked="checked" <% }%>></td>
                                                 </tr>
                                             </table>
                                         </div>

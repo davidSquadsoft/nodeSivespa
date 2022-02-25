@@ -26,7 +26,9 @@ router.post('/updatereportesivespa', reporte.updatereporte)
 router.get('/deletereportesivespa/:id', reporte.deletereporte)
 router.post('/savetamcrafft', reporte.tamizajecrafft)
 router.post('/updatetamcrafft',reporte.updateCrafft)
+router.post('/savetamassist', reporte.tamizajeassist)
 router.get('/deletetamcrafft/:id', reporte.deleteCrafft)
+router.get('/deletetamassist/:id', reporte.deleteAssist)
 
 //ruta principal para el login
 router.get('/login', (req, res) => {
@@ -247,6 +249,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     var queryNotif = await q('SELECT * FROM `db_notif` ');
     var queryResnot = await q('SELECT * FROM `db_res_not` ');
     var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft`);
+    var tamizajeassist = await q(`SELECT * FROM db_tam_assist`);
 
   } else if (req.user.TIP_USER == 2) {
     var queryuserdemun = await q(`SELECT CEDULA FROM st_user WHERE COD_MUN = ${req.user.COD_MUN}`);
@@ -262,6 +265,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
       for (i = 1; i < repMiMun.length; i++) {
         concatenarMisReportes += ',' + `'` + repMiMun[i].id_reporte + `'`
       }
+      var tamizajeassist = await q(`SELECT * FROM db_tam_assist WHERE id_creador IN (${concatenarMisUsuarios})`);
 
       var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisUsuarios})`);
       var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
@@ -289,6 +293,8 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
       for (i = 1; i < repMiUPGD.length; i++) {
         concatenarMisReportes += ',' + `'` + repMiMun[i].id_reporte + `'`
       }
+      var tamizajeassist = await q(`SELECT * FROM db_tam_assist WHERE id_creador IN (${concatenarMisUsuarios})`);
+
       var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisUsuarios})`);
       var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryConActual = await q(`SELECT * FROM db_con_act WHERE id_reporte IN (${concatenarMisReportes})`);
@@ -310,6 +316,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
       for (i = 1; i < misreportesuser.length; i++) {
         concatenarMisReportes += ',' + `'` + misreportesuser[i].id_reporte + `'`
       }
+      var tamizajeassist = await q(`SELECT * FROM db_tam_assist WHERE id_creador IN (${concatenarMisReportes})`);
 
       var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisReportes})`);
       var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
@@ -340,15 +347,33 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     responsable: queryResnot,
     nomspa: querynomspa,
     municipios: municipios,
-    tamizajecrafft:tamizajecrafft
+    tamizajecrafft:tamizajecrafft,
+    tamizajeassist:tamizajeassist
   })
 })
 
 
-router.get('/tassist', authController.isAuth, (req, res) => {
+router.get('/tassist', authController.isAuth, async(req, res) => {
+  var querydivipola = await q(`SELECT * FROM rl_divipola`)
+  var querytipide = await q(`SELECT * FROM rl_tip_ide`)
+  var querysexo = await q('SELECT * FROM rl_sexo')
+  var queryNacion = await q('SELECT * FROM rl_nacionalidad')
+  var querytregimen = await q('SELECT * FROM rl_tip_ss')
+  var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
+  var queryspas = await q('SELECT * FROM rl_lista_spa')
+  var profesiones= await q(`SELECT * FROM rl_ciu088`)
+
   res.render('da/reportes/tamizaje_assist', {
-    tittle: 'Tamizaje ASSIST - SIVESPA ',
+    tittle: 'Tamizaje ASSIST',
     user: req.user,
+    ocurrencia: querydivipola,
+    tipide: querytipide,
+    sexo: querysexo,
+    nacion: queryNacion,
+    regimens: querytregimen,
+    prestadoras: queryprestadoras,
+    spa: queryspas,
+    profesiones:profesiones
   })
 })
 router.get('/descargas', authController.isAuth, (req, res) => {
@@ -839,6 +864,41 @@ router.get('/vertamizaje_crafft/:id', authController.isAuth, async(req,res)=>{
     prestadoras: queryprestadoras,
     spa: queryspas,
     vercrafft:vercrafft[0]
+  })
+
+
+})
+
+
+router.get('/vertamizaje_assist/:id', authController.isAuth, async(req,res)=>{
+
+  id_tamizaje=req.params.id
+
+  var verassist= await q(`SELECT * FROM db_tam_assist WHERE id_tamizaje="${id_tamizaje}"`)
+
+  var querydivipola = await q(`SELECT * FROM rl_divipola`)
+  var querytipide = await q(`SELECT * FROM rl_tip_ide`)
+  var querysexo = await q('SELECT * FROM rl_sexo')
+  var queryNacion = await q('SELECT * FROM rl_nacionalidad')
+  var querytregimen = await q('SELECT * FROM rl_tip_ss')
+  var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
+  var queryspas = await q('SELECT * FROM rl_lista_spa')
+  var profesiones= await q("SELECT * FROM rl_ciu088")
+  
+  var nombre_completo= verassist[0].PRI_NOM +' '+verassist[0].SEG_NOM +' '+verassist[0].PRI_APE +' '+verassist[0].SEG_APE
+  
+  res.render('da/reportes/vertamizajeassist', {
+    tittle: 'Tamizaje ASSIST de ' + nombre_completo ,
+    user: req.user,
+    ocurrencia: querydivipola,
+    tipide: querytipide,
+    sexo: querysexo,
+    nacion: queryNacion,
+    regimens: querytregimen,
+    prestadoras: queryprestadoras,
+    spa: queryspas,
+    verassist:verassist[0],
+    profesiones:profesiones
   })
 
 

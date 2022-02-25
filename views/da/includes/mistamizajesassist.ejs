@@ -1,0 +1,32 @@
+<div class="cuerpo_dashboard">
+
+    <h3>Tamizajes ASSIST</h3>
+    <div class="row titulo_tabla">
+            
+        <div class="col-lg-3">Nro de Documento</div>
+        <div class="col-lg-2">Fecha</div>
+        <div class="col-lg-2">Nombre</div>
+        <div class="col-lg-2">Nivel de riesgo</div>
+        <div class="col-lg-2">Accion</div>
+        <div class="col-lg-1"></div>
+    </div>
+    <% for(d=0;d<tamizajeassist.length;d++) {%> 
+    <div class="row crud_user text-capitalize">
+        
+        <div class="col-lg-3 border border-secondary align-items-center d-flex"><%= tamizajeassist[d].NUM_IDE %> </div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= tamizajeassist[d].FEC_NOT.toISOString().slice(0,10) %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= tamizajeassist[d].PRI_NOM %> <%= tamizajeassist[d].SEG_NOM %> <%= tamizajeassist[d].PRI_APE %> <%= tamizajeassist[d].SEG_APE %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= tamizajeassist[d].ASSIST_Puntajea_TAB %> / <%= tamizajeassist[d].ASSIST_Puntajeb_ALC %> / <%= tamizajeassist[d].ASSIST_Puntajec_CAN %> /  <%= tamizajeassist[d].ASSIST_Puntajed_COC %> / <%= tamizajeassist[d]. ASSIST_Puntajef_INH  %> / <%= tamizajeassist[d].ASSIST_Puntajeg_TRA %> / <%= tamizajeassist[d].ASSIST_Puntajeh_ALU %> / <%= tamizajeassist[d].ASSIST_Puntajei_OPI %> / <%= tamizajeassist[d].ASSIST_Puntajej_OTR %> / <%= tamizajeassist[d].ASSIST_Puntajej_8INY %></div>
+        <div class="col-lg-2 border border-secondary align-items-center d-flex"></div>
+        <div class="col-lg-1 border border-secondary align-items-center d-flex p-1 justify-content-center">
+
+            <a href="/da/vertamizaje_assist/<%= tamizajeassist[d].id_tamizaje %>"  class="btn_edit_ver btn_green btn_icons"><i class="bi bi-eye-fill"></i></a>
+            <a onclick="confirmarcrafft('<%= tamizajeassist[d].id_tamizaje %>')" class="btn_red btn_icons"><i class="bi bi-x-octagon-fill"></i></a>
+        </div>
+    </div>
+    <% } %> 
+
+
+
+
+</div>  
