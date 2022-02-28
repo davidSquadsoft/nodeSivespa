@@ -334,6 +334,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     }
 
   }
+  console.log(queryConActual)
   iduser = req.user.CEDULA
   res.render('da/reportes/dashboard_reportes', {
     tittle: 'Reportes SIVESPA ',
@@ -472,6 +473,7 @@ router.get('/entidades', authController.isAuth, (req, res) => {
 // rutas para ver reportes
 router.get('/misreportes', authController.isAuth, async (req, res) => {
 })
+
 router.get('/show/:u', authController.isAuth, async (req, res) => {
   const id = req.params.u;
 

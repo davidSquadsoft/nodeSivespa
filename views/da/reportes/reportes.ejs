@@ -40,14 +40,14 @@
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 10%"></div>
                 </div> -->
           
-                <form action="/da/reportesivespa" method="post">
+                <form action="/da/reportesivespa" method="post" autocomplete="off">
                     
                     <div class="form-group">
                        
                         <div class="accordion accordion-flush" id="accordionFlushExample">
                             <div class="accordion-item">
                                 <!--IDENTIFICACION DEL PACIENTE SLIDE NUMERO 2 /-->
-                                <h2 class="accordion-header" id="flush-headingTwo">
+                                <h2 class="accordion-header" id="flush-headingTwo"> 
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                         <h3>Identificación del paciente</h3>
                                     </button>
@@ -60,12 +60,12 @@
                                                 <td><label for="Número Identificación">2.2 Número Identificación</label></td>
                                             </tr>
                                             <tr>
-                                                <td><select name="ID_TIP_IDE" id="options" class="form-control"  >
+                                                <td><select name="ID_TIP_IDE" id="options" class="form-control" required  >
                                                     <% tipo_ide.forEach((tipoide)=> { %>
                                                         <option value="<%= tipoide.ID_RL_TIP_IDE %>"><%=tipoide.DESC %></option>
                                                     <%})%>
                                                 </select></td>
-                                                <td><input type="text" name="NUM_IDE" class="form-control"></td>
+                                                <td><input type="text" name="NUM_IDE" class="form-control" required></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -76,10 +76,10 @@
                                                 <td><label for="Segundo Apellido">2.6 Segundo Apellido</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="PRI_NOM" class="form-control" ></td>
-                                                <td><input type="text" name="SEG_NOM" class="form-control" ></td>
-                                                <td><input type="text" name="PRI_APE" class="form-control" ></td>
-                                                <td><input type="text" name="SEG_APE" class="form-control" ></td>
+                                                <td><input type="text" name="PRI_NOM" class="form-control" required ></td>
+                                                <td><input type="text" name="SEG_NOM" class="form-control" required></td>
+                                                <td><input type="text" name="PRI_APE" class="form-control" required></td>
+                                                <td><input type="text" name="SEG_APE" class="form-control" required></td>
                                             </tr>
                                         </table>
                                         <table>
@@ -91,16 +91,16 @@
                                                 <td><label for="Nacionalidad">2.11 Nacionalidad</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="TELEFONO" id="" class="form-control" ></td>
-                                                <td><input type="date" name="FECHA_NTO"  class="form-control"></td>
-                                                <td><input type="text" name="EDAD" id="" class="form-control" ></td>
-                                                <td><select name="ID_SEXO" id="options" class="form-control" >
+                                                <td><input type="text" name="TELEFONO" id="" class="form-control" required></td>
+                                                <td><input type="date" name="FECHA_NTO"  class="form-control" required></td>
+                                                <td><input type="text" name="EDAD" id="" class="form-control" required></td>
+                                                <td><select name="ID_SEXO" id="options" class="form-control" required>
                                                     <% sexo.forEach((tiposexo)=> { %>
                                                         <option value="<%= tiposexo.ID_SEXO %>"><%=tiposexo.DESC%></option>
                                                 
                                                     <%})%>  
                                                 </select></td>
-                                                <td><input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion">
+                                                <td><input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion" >
                                          
                                                         
                                                         <datalist id="nacion">
@@ -120,7 +120,7 @@
                                             <tr>
                                                 <p class="textos_black">Busca por nombre de lugar"</p>
                                               
-                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                    <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia"required >
                                                     <datalist id="listadoocurrencia">
                                                         <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                             <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
@@ -139,7 +139,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input name="CIUO88" id="" class="form-control" list="profesion" >
+                                                    <input name="CIUO88" id="" class="form-control" list="profesion" required >
                                                     <datalist id="profesion">
                                                         <% prof.forEach((profesion)=> { %>
                                                         <option  class="text-lowercase" value="<%= profesion.ID_OCUPACIONES %>" > <%= profesion.TITULO_08 %></option>
@@ -147,7 +147,7 @@
                                                     </datalist>
                                                 </td>
                                                 <td>
-                                                    <select name="id_rl_tip_ss" id="" class="form-select" >
+                                                    <select name="id_rl_tip_ss" id="" class="form-select" required >
                                                  
                                                         <% regimen.forEach((lregimen)=> { %>
                                                         <option  class="text-lowercase" value="<%= lregimen.id_rl_tip_ss %>" > <%= lregimen.DESCRIP %></option>
@@ -155,7 +155,7 @@
                                                     </select>
                                                
                                                 </td>
-                                                <td><input type="text" name="COD_ASE" id="" class="form-control" list="codadmSalud" >
+                                                <td><input type="text" name="COD_ASE" id="" class="form-control" list="codadmSalud" required >
                                                     <datalist id="codadmSalud">
                                                         <% listaADMSALUD.forEach((ladmsalud)=> { %>
                                                         <option  class="text-lowercase" value="<%= ladmsalud.CODIGOHABILITACION %>" > <%= ladmsalud.NOMBRE %></option>
@@ -177,8 +177,8 @@
                                                         <%})%> 
 
                                                 </select></td>
-                                                <td><input type="text" name="NOM_GRUPO" id="" class="form-control" ></td>
-                                                <td><select name="ESTRATO" id="" class="form-control" >
+                                                <td><input type="text" name="NOM_GRUPO" id="" class="form-control"></td>
+                                                <td><select name="ESTRATO" id="" class="form-control"  >
                                                     <option value="1">Estrato 1</option>
                                                     <option value="2">Estrato 2</option>
                                                     <option value="3">Estrato 3</option>
@@ -220,18 +220,18 @@
                                                 <td><label for="Nivel de escolaridad terminado">2.29 Nivel de escolaridad terminado</label></td>
                                             </tr>
                                             <tr>
-                                                <td><select name="GENERO" id="" class="form-control" >
+                                                <td><select name="GENERO" id="" class="form-control" required >
                                                     <% identidadG.forEach((lidentidadg)=> { %>
                                                         <option  class="text-lowercase" value="<%= lidentidadg.ID_iden_sexual %>" > <%= lidentidadg.DESC %></option>
                                                         <%})%> 
                                                 </select></td>
-                                                <td><select name="EST_CIV" id="" class="form-control" >
+                                                <td><select name="EST_CIV" id="" class="form-control" required >
                                                     <% estadoCivil.forEach((lestadoCivil)=> { %>
                                                         <option  class="text-lowercase" value="<%= lestadoCivil.ID_EST_CIV %>" > <%= lestadoCivil.DESCMASC %>/<%= lestadoCivil.DESCFEME %></option>
                                                         <%})%> 
                                                     
                                                 </select></td>
-                                                <td><select name="NIV_ESC_TER" id="" class="form-control" >
+                                                <td><select name="NIV_ESC_TER" id="" class="form-control" required >
                                                     <% nivelescolaridad.forEach((lnivelescolaridad)=> { %>
                                                         <option  class="text-lowercase" value="<%= lnivelescolaridad.RL_NIV_ESC_TER %>" > <%= lnivelescolaridad.DESC%></option>
                                                         <%})%> 
@@ -254,7 +254,7 @@
                                                 <td><label for="Fuente">3.1 Fuente</label></td>
                                             </tr>
                                             <tr>
-                                                <td><select name="ID_RL_FUENTE" id="" class="form-control" >
+                                                <td><select name="ID_RL_FUENTE" id="" class="form-control" required >
                                                     <% fuente.forEach((lfuente)=> { %>
                                                         <option  class="text-lowercase" value="<%= lfuente.id_db_fuente %>" > <%= lfuente.DESC%></option>
                                                         <%})%> 
@@ -268,7 +268,7 @@
                                             <tr><label for="Código del País de Residencia del paciente">3.2 País</label>
                                             </tr>
                                             <tr>
-                                                <input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion">
+                                                <input name="ID_RL_NACIONALIDAD" id="" class="form-control" list="nacion" required>
                                                 <datalist id="nacion">
                                                     <% pais.forEach((listpais)=> { %>
                                                     <option  class="text-lowercase" value="<%= listpais.ID_RL_PAIS_DIAN %>" > <%= listpais.DESC %></option>
@@ -276,7 +276,7 @@
                                                 </datalist>
                                             </tr>
                                             <tr >
-                                                <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                <input type="text" name="ID_RL_DIVIPOLA" class="form-control"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" required >
                                                 <datalist id="listadoocurrencia">
                                                     <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                         <option class="text-lowercase" value="<%= listaocurrencia.CODMUNIC %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
@@ -285,7 +285,7 @@
                                                 </datalist>
                                             </tr>
                                             <tr >
-                                                <input type="text" name="DIR_RES" class="form-control"  placeholder="Dirección de residencia"   >
+                                                <input type="text" name="DIR_RES" class="form-control"  placeholder="Dirección de residencia" required>
                                            
                                             </tr>
                                         </table>
@@ -299,8 +299,8 @@
                                             </tr>
                                             <tr>
                                                 <td><input type="date" name="FEC_CON" id="" class="form-control" value="<%= fechaActual %>" ></td>
-                                                <td><input type="date" name="INI_SIN" id="" class="form-control" ></td>
-                                                <td><select name="ID_TIP_CAS" class="form-control"  id="">
+                                                <td><input type="date" name="INI_SIN" id="" class="form-control" required ></td>
+                                                <td><select name="ID_TIP_CAS" class="form-control"  id="" required>
                                                     <% tipocaso.forEach((ltipocaso)=> { %>
                                                         <option class="text-lowercase" value="<%= ltipocaso.ID_RL_TIP_CAS %>" > <%= ltipocaso.DESC %></option>
                                                         <%})%>  
@@ -321,7 +321,7 @@
                                             </tr>
                                             <tr>
                                                 <td><input type="date" name="FEC_HOS" id="" class="form-control" ></td>
-                                                <td><select name="ID_CON_FIN" id="" class="form-control" >
+                                                <td><select name="ID_CON_FIN" id="" class="form-control" required>
                                                     <OPTION value ="0">No sabe, no responde </OPTION>
                                                     <OPTION value ="1">Vivo  </OPTION>
                                                     <OPTION value ="2">Muerto </OPTION>
@@ -395,7 +395,7 @@
 
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="INI_EDAD" id="" class="form-control" ></td>
+                                                <td><input type="text" name="INI_EDAD" id="" class="form-control" required></td>
                                                 <td><select name="INI_ENTORNO" id="" class="form-control" >
                                                     <% entorno.forEach((lentorno)=> { %>
                                                         <option class="text-lowercase" value="<%= lentorno.ID_RL_INI_ENTORNO %>" > <%= lentorno.DESC %></option>
@@ -416,13 +416,13 @@
                                                 <td><label for="Quien le indujo al primer consumo">5.3 ¿Quien le indujo al primer consumo?</label></td>
                                             </tr>
                                             <tr>
-                                                <td><select name="INI_LUGAR" id="" class="form-control" >
+                                                <td><select name="INI_LUGAR" id="" class="form-control" required >
                                                     <% inilugar.forEach((linilugar)=> { %>
                                                         <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>" > <%= linilugar.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
                                                 <td><input name="INI_LUGAR_OTRO" id="" class="form-control"></td>
-                                                <td><select name="INI_PERSONA" id="" class="form-control" >
+                                                <td><select name="INI_PERSONA" id="" class="form-control"required >
                                                     <% iniperso.forEach((lperso)=> { %>
                                                         <option class="text-lowercase" value="<%= lperso.ID_RL_INI_PER %>" > <%= lperso.DESC %></option>
                                                         <%})%>  
