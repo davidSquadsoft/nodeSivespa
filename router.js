@@ -1,7 +1,14 @@
 var express = require('express')
+var appjs= express()
 var router = express.Router()
 const conexion = require('./database/db')
 const q = require('./database/querys')
+const cookieParser = require('cookie-parser')
+appjs.use(express.json())
+const bodyparser2 = require('body-parser')
+appjs.use(bodyparser2.urlencoded({ extended: true }))
+appjs.use(cookieParser())
+
 const authController = require('./controllers/authController')
 const filtros = require('./controllers/filtros')
 const reporte = require('./controllers/reportesivespa')
@@ -69,17 +76,37 @@ router.get('/crear_contenido', authController.isAuth, async (req, res) => {
     municipios: queryMuni,
     spa: querySPa
   })
+}
+)
+router.get('/resesta' ,async(req,res)=>{
+  esta=await q(`SELECT COUNT (*) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1`)
+  result = JSON.parse(JSON.stringify(esta));
+  console.log(result)
+  res.send(result)
 })
-router.get('/estadisticas', authController.isAuth, (req, res) => {
+
+
+
+
+router.get('/estadisticas', authController.isAuth, async(req, res) => {
+
+var alcoholAnt=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1`)
+var tabaco=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_TAB = 1`)
+console.log(tabaco)
+console.log(alcoholAnt)
+
   res.render('da/estadisticas/estadisticas', {
     tittle: 'Estadisticas',
-    user: req.user,
+    user: req.user
+ 
   })
 })
+
+
 router.get('/crearestadistica', authController.isAuth, (req, res) => {
   res.render('da/estadisticas/crear_estadistica', {
     tittle: 'Crear Estadistica',
-    user: req.user,
+    user: req.user
   })
 })
 router.get('/informes', authController.isAuth, (req, res) => {
@@ -334,7 +361,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     }
 
   }
-  console.log(queryConActual)
+  
   iduser = req.user.CEDULA
   res.render('da/reportes/dashboard_reportes', {
     tittle: 'Reportes SIVESPA ',
@@ -907,3 +934,4 @@ router.get('/vertamizaje_assist/:id', authController.isAuth, async(req,res)=>{
 
 })
 module.exports = router
+
