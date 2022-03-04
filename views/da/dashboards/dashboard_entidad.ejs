@@ -15,7 +15,7 @@
     </div>
     <div class="col-lg-6 d-md-none d-lg-block">
       <div class="bell_notificaciones">
-        <a href="../notificaciones/notificaciones.php"
+        <a href="/da/notificaciones"
           ><i class="bi bi-bell-fill"></i
         ></a>
       </div>
@@ -56,14 +56,14 @@
           <button
             class="btn_dashboard_title"
             role="link"
-            onclick="location.href='/soporte/tutoriales.php';"
+            onclick="location.href='/da/tutoriales';"
           >
             Tutoriales
           </button>
           <button
             class="btn_dashboard_title"
             role="link"
-            onclick="location.href='/soporte/tutoriales.php';"
+            onclick="location.href='/da/tutoriales';"
           >
             Soporte técnico
           </button>
@@ -71,7 +71,7 @@
       </div>
       <div class="row align-items-center cards_section_btn_dashboards">
         <div class="col-lg-4 col-xs-12">
-          <a href="../reportes/reportes.php">
+          <a href="/da/reportes">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -107,7 +107,7 @@
           user.TIP_USER == 3 ) {%>
 
         <div class="col-lg-4 col-xs-12">
-          <a href="../informes/informes.php">
+          <a href="/da/informes">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -143,7 +143,7 @@
         <% if(user) { if (user.TIP_USER == 1 || user.TIP_USER == 2 ||
         user.TIP_USER == 3 ) {%>
         <div class="col-lg-4 col-xs-12">
-          <a href="../estadisticas/estadisticas.php">
+          <a href="/da/estadisticas">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -180,7 +180,7 @@
    
         <% if(user) { if (user.TIP_USER == 1 || user.TIP_USER == 2 || user.TIP_USER == 3 ) {%>
         <div class="col-lg-4 col-xs-12">
-          <a href="../usuarios/entidades.php">
+          <a href="/da/entidades">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -218,7 +218,7 @@
         </div>
         <% } }%>
         <div class="col-lg-4 col-xs-12">
-          <a href="../sivespa/informacion.php">
+          <a href="/da/informacion">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -254,7 +254,7 @@
           </a>
         </div>
         <div class="col-lg-4 col-xs-12">
-          <a href="../noticias/noticias.php">
+          <a href="/da/noticias">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -305,7 +305,7 @@
    
      
         <div class="col-lg-4 col-xs-12">
-          <a href="../tips/tips.php">
+          <a href="/da/tips">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -373,7 +373,7 @@
           </a>
         </div>
         <div class="col-lg-4 col-xs-12">
-          <a href="../soporte/canales.php">
+          <a href="/da/canales">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -424,7 +424,7 @@
           </a>
         </div>
         <div class="col-lg-4 col-xs-12">
-          <a href="../notificaciones/notificaciones.php">
+          <a href="/da/notificaciones">
             <div class="card card_dashboard">
               <div class="card-body">
                 <svg
@@ -457,125 +457,331 @@
           </a>
         </div>
       </div>
+      <!--Estadisticas Destacadas-->
+      <div class="row card_estadisticas_destacadas mt-5 p-4">
+        <h1 class="pb-2">Estadisticas Actuales</h1>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Alcohol</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= alcoholAnt %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Tabaco</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= tabaco %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Marihuana</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= marihuana %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Cocaína</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= cocaina%></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Basuco</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= basuco %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Éxtasis – MDMA</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= extasis %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">LSD</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= lsd %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">2CB</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= cb2 %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Metanfetaminas</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= metanfetaminas%></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">GHB</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= ghb %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Ketamina</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= ketamina %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Popper</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= popper %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">DICK</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= dick %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Solventes Inhalables</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= solventes %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Anfetaminas</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= anfetaminas %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Benzodiazepinas</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= benzodiazepinas %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Analgésicos opioides</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= analgecicos %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Cacao sabanero</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= cacaosab %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Hongos</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= hongos %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+        <div class="card card_dashboard col-4 p-0 mb-2 mb-2">
+              <div class="card-body row">
+               
+         
+                  <div class="col-9">
+                    <h5 class="card-title">Cannabinoides sintéticos</h5>
+                  </div>
+                  <div class="col-3">
+                    <h2 class="estaHomeVal font-weight-bold"><%= cannartifi %></h2>
+                  </div>
+                  <div>
+                    "Indice de riesgo"
+                    </div>
+              </div>
+        </div>
+      </div>
       <!--Noticias destacadas-->
       <div class="row card_news_destacadas mt-5">
         <h1 class="pb-2">Noticias destacadas</h1>
-        <div class="col-lg-4 col-xs-12">
-          <div class="card">
-            <img
-              src="../images/fondo_temporal2.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Titulo noticia</h5>
-              <p class="card-text">
-                Pequeño parrafo del texto de la noticia <br />Lorem ipsum, dolor
-                sit amet consectetur adipisicing elit...
-              </p>
-              <button class="btn_green">Leer</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-xs-12">
-          <div class="card">
-            <img
-              src="../images/fondo_temporal2.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Titulo noticia</h5>
-              <p class="card-text">
-                Pequeño parrafo del texto de la noticia <br />Lorem ipsum, dolor
-                sit amet consectetur adipisicing elit...
-              </p>
-              <button class="btn_green">Leer</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-xs-12">
-          <div class="card">
-            <img
-              src="../images/fondo_temporal2.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Titulo noticia</h5>
-              <p class="card-text">
-                Pequeño parrafo del texto de la noticia <br />Lorem ipsum, dolor
-                sit amet consectetur adipisicing elit...
-              </p>
-              <button class="btn_green">Leer</button>
-            </div>
-          </div>
-        </div>
+        <% if (datanoticias!=0){%>
+        <% for(i=0;i<datanoticias.length;i++){ %>
+          <div class="col-lg-4 col-xs-12">
+                                    <div class="card card_news">
+                                        <img src="/upload/<%= datanoticias[i].imagen%>" class="card-img-top" alt="..." style=" object-fit: cover;
+                                        width: 100%;
+                                        height: 20vh;">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><%= datanoticias[i].titulo%></h5>
+                                            <p class="card-text"><% resumen= datanoticias[i].texto%> <%= resumen.substr(1,50) %></p>
+                                            <a href="/da/vertip/<%= datanoticias[i].id %>" class="btn_green pt-2 pb-2">Leer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                                <% } %>
       </div>
-      <!--Estadisticas Destacadas-->
-      <div class="row card_estadisticas_destacadas mt-5">
-        <h1 class="pb-2">Estadisticas destacadas</h1>
-        <div class="col-lg-4 col-xs-12">
-          <div class="card">
-            <img
-              src="../images/estadistica_barras.svg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Titulo estadística</h5>
-              <p class="card-text">Pequeño resumen de la estadistica</p>
-              <button
-                class="btn_green"
-                role="link"
-                onclick="location.href='../estadisticas/estadisticas_ejemplo.php';"
-              >
-                Leer
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-xs-12">
-          <div class="card">
-            <img
-              src="../images/estadistica_barras.svg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Titulo estadística</h5>
-              <p class="card-text">Pequeño resumen de la estadistica</p>
-              <button
-                class="btn_green"
-                role="link"
-                onclick="location.href='../estadisticas/estadisticas_ejemplo.php';"
-              >
-                Leer
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-xs-12">
-          <div class="card">
-            <img
-              src="../images/estadistica_barras.svg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Titulo estadística</h5>
-              <p class="card-text">Pequeño resumen de la estadistica</p>
-              <button
-                class="btn_green"
-                role="link"
-                onclick="location.href='../estadisticas/estadisticas_ejemplo.php';"
-              >
-                Leer
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
 </section>

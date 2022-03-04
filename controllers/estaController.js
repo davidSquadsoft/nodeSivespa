@@ -20,10 +20,10 @@ exports.estamuni = async (req, res) => {
     var filtro
     if(user.TIP_USER==3){
         fechas = await q(`SELECT id_reporte FROM db_info_gral WHERE FEC_NOT >= "${dateini}" AND FEC_NOT <= "${dateend}" AND COD_PRE="${user.COD_PRE}"`)
-        console.log('es una upgd')        
+      
     }else{
         fechas = await q(`SELECT id_reporte FROM db_info_gral WHERE FEC_NOT >= "${dateini}" AND FEC_NOT <= "${dateend}"`)
-        console.log('no es upgd')
+
     }
     municipio = await q(`SELECT id_reporte FROM db_ide_pac WHERE id_rl_divipola LIKE "${codmuni}%"`)
     nommuni = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${codmuni}`)
@@ -122,7 +122,6 @@ exports.estamuni = async (req, res) => {
         var cacaosab = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CAC = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var hongos = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var cannartifi = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
-        console.log('solo pasa si es upgd')
     }
     var lmuni = await q(`SELECT DISTINCT NOMMUNIPIO,CODMUNIC from rl_divipola`)
     res.render('da/estadisticas/estadisticas', {
@@ -165,7 +164,7 @@ exports.estasemana= async(req,res)=>{
     semEsta= await q(`SELECT id_reporte FROM db_info_gral WHERE SEMANA = ${semana} AND ANO = ${ano}`)
     nommuni= lmuni.filter(name=>name.CODMUNIC == codmuni)
     nommuni=nommuni[0].NOMMUNIPIO
-    console.log(nommuni)
+
     if(user.TIP_USER == 3){
         semEsta= await q(`SELECT id_reporte FROM db_info_gral WHERE SEMANA = ${semana} AND ANO= ${ano} AND COD_PRE="${user.COD_PRE}"`)
     }else{
@@ -356,7 +355,6 @@ exports.estaedad=async(req,res)=>{
         var hongos = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var cannartifi = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
     }else{
-        console.log(concatEdadR)
         var alcoholAnt = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var tabaco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_TAB = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var marihuana = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MAR = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
@@ -377,7 +375,6 @@ exports.estaedad=async(req,res)=>{
         var cacaosab = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CAC = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var hongos = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var cannartifi = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
-        console.log('sin municipio')
     }
     if(user.TIP_USER==3){
         var alcoholAnt = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
@@ -400,7 +397,6 @@ exports.estaedad=async(req,res)=>{
         var cacaosab = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CAC = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var hongos = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var cannartifi = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
-        console.log('solo upgd')
     }
     res.render('da/estadisticas/estadisticas', {
         tittle: 'Estadisticas',

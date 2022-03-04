@@ -37,7 +37,7 @@
                 <div class="row buscar">
                     <div class="row section_btn_dashboard_individual">
                         <div class="col-lg-3 col-xs-12">
-                            <a href="crear_informe.php" data-bs-toggle="modal" data-bs-target="#modal_crear_entidad">
+                            <a href="/da/nuevo_informe">
                                 <div class="card card_dashboard_individual">
                                     <div class="card-body ">
                                         <div class="row">
@@ -52,46 +52,10 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col col-xs-12">
-                            <form action="" class="form-group">
-                                <p class="textos_black">Buscar informe por titulo o codigo</p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                                    <button class="btn btn-outline-secondary btn_search" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
-                                </div>
-                            </form>
-                        </div>
+                   
                     </div>
                 </div>
-                <div class="row filtrar">
-                    <form action=" " class="form-group ">
-                        <h5>Filtrar</h5>
-                        <div class="row ">
-                            <div class="col-lg-3 col-xs-12 ">
-                                <label for=" ">Fecha de inicio</label>
-                                <input type="date" name="" id="" class="form-control">
-                                <label for=" ">Fecha final</label>
-                                <input type="date" name="" id="" class="form-control">
-                            </div>
-                            <div class="col-lg-3 col-xs-12">
-                                <label for=" ">Listado SPA</label>
-                                <select name="spa " id=" " class="form-control "></select>
-                                <label for=" ">Lista de generos</label>
-                                <select name="genero" id=" " class="form-control "></select>
-                            </div>
-                            <div class="col-lg-6 col-xs-12 ">
-                                <div class="row">
-                                    <label for="">Geolocalizacion</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput1">
-                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput" style="display: none;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn_green ">Aplicar</button>
-                    </form>
-                </div>
+                
                 <div class="row informes">
                     <div class="row">
                         <h3>Listado de informes:</h3>
@@ -106,36 +70,7 @@
                             <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
                         </div>
                     </div>
-                    <div class="card card_informes">
-                        <div class="card-body">
-                            <h5 class="card-title">Nombre del informe</h5>
-                            <p class="card-text">Pequeño resumen del informe</p>
-                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
-                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-                        </div>
-                    </div>
-                    <div class="card card_informes">
-                        <div class="card-body">
-                            <h5 class="card-title">Nombre del informe</h5>
-                            <p class="card-text">Pequeño resumen del informe</p>
-                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
-                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-                        </div>
-                    </div>
-                    <div class="card card_informes">
-                        <div class="card-body">
-                            <h5 class="card-title">Nombre del informe</h5>
-                            <p class="card-text">Pequeño resumen del informe</p>
-                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
-                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
     </section>

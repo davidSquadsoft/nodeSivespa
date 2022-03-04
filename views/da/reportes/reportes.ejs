@@ -40,7 +40,7 @@
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 10%"></div>
                 </div> -->
           
-                <form action="/da/reportesivespa" method="post" autocomplete="off">
+                <form action="/da/reportesivespa" method="post" autocomplete="off" id="form">
                     
                     <div class="form-group">
                        
@@ -61,8 +61,8 @@
                                                 <td><label for="Número Identificación">2.2 Número Identificación</label></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="date" name="FEC_NOT" class="form-control" required value="<%= fechaActual %>"></td>
-                                                <td><select name="ID_TIP_IDE" id="options" class="form-control" required  >
+                                                <td><input type="date" name="FEC_NOT" class="form-control" value="<%= fechaActual %>"></td>
+                                                <td><select name="ID_TIP_IDE" id="options" class="form-control">
                                                     <% tipo_ide.forEach((tipoide)=> { %>
                                                         <option value="<%= tipoide.ID_RL_TIP_IDE %>"><%=tipoide.DESC %></option>
                                                     <%})%>
@@ -96,7 +96,7 @@
                                                 <td><input type="text" name="TELEFONO" id="" class="form-control" required></td>
                                                 <td><input type="date" name="FECHA_NTO"  class="form-control" required></td>
                                                 <td><input type="text" name="EDAD" id="" class="form-control" required></td>
-                                                <td><select name="ID_SEXO" id="options" class="form-control" required>
+                                                <td><select name="ID_SEXO" id="options" class="form-control">
                                                     <% sexo.forEach((tiposexo)=> { %>
                                                         <option value="<%= tiposexo.ID_SEXO %>"><%=tiposexo.DESC%></option>
                                                 
@@ -149,7 +149,7 @@
                                                     </datalist>
                                                 </td>
                                                 <td>
-                                                    <select name="id_rl_tip_ss" id="" class="form-select" required >
+                                                    <select name="id_rl_tip_ss" id="" class="form-select" >
                                                  
                                                         <% regimen.forEach((lregimen)=> { %>
                                                         <option  class="text-lowercase" value="<%= lregimen.id_rl_tip_ss %>" > <%= lregimen.DESCRIP %></option>
@@ -222,18 +222,18 @@
                                                 <td><label for="Nivel de escolaridad terminado">2.29 Nivel de escolaridad terminado</label></td>
                                             </tr>
                                             <tr>
-                                                <td><select name="GENERO" id="" class="form-control" required >
+                                                <td><select name="GENERO" id="" class="form-control"  >
                                                     <% identidadG.forEach((lidentidadg)=> { %>
                                                         <option  class="text-lowercase" value="<%= lidentidadg.ID_iden_sexual %>" > <%= lidentidadg.DESC %></option>
                                                         <%})%> 
                                                 </select></td>
-                                                <td><select name="EST_CIV" id="" class="form-control" required >
+                                                <td><select name="EST_CIV" id="" class="form-control"  >
                                                     <% estadoCivil.forEach((lestadoCivil)=> { %>
                                                         <option  class="text-lowercase" value="<%= lestadoCivil.ID_EST_CIV %>" > <%= lestadoCivil.DESCMASC %>/<%= lestadoCivil.DESCFEME %></option>
                                                         <%})%> 
                                                     
                                                 </select></td>
-                                                <td><select name="NIV_ESC_TER" id="" class="form-control" required >
+                                                <td><select name="NIV_ESC_TER" id="" class="form-control"  >
                                                     <% nivelescolaridad.forEach((lnivelescolaridad)=> { %>
                                                         <option  class="text-lowercase" value="<%= lnivelescolaridad.RL_NIV_ESC_TER %>" > <%= lnivelescolaridad.DESC%></option>
                                                         <%})%> 
@@ -256,7 +256,7 @@
                                                 <td><label for="Fuente">3.1 Fuente</label></td>
                                             </tr>
                                             <tr>
-                                                <td><select name="ID_RL_FUENTE" id="" class="form-control" required >
+                                                <td><select name="ID_RL_FUENTE" id="" class="form-control" >
                                                     <% fuente.forEach((lfuente)=> { %>
                                                         <option  class="text-lowercase" value="<%= lfuente.id_db_fuente %>" > <%= lfuente.DESC%></option>
                                                         <%})%> 
@@ -302,7 +302,7 @@
                                             <tr>
                                                 <td><input type="date" name="FEC_CON" id="" class="form-control" value="<%= fechaActual %>" ></td>
                                                 <td><input type="date" name="INI_SIN" id="" class="form-control" required ></td>
-                                                <td><select name="ID_TIP_CAS" class="form-control"  id="" required>
+                                                <td><select name="ID_TIP_CAS" class="form-control"  id="" >
                                                     <% tipocaso.forEach((ltipocaso)=> { %>
                                                         <option class="text-lowercase" value="<%= ltipocaso.ID_RL_TIP_CAS %>" > <%= ltipocaso.DESC %></option>
                                                         <%})%>  
@@ -323,7 +323,7 @@
                                             </tr>
                                             <tr>
                                                 <td><input type="date" name="FEC_HOS" id="" class="form-control" ></td>
-                                                <td><select name="ID_CON_FIN" id="" class="form-control" required>
+                                                <td><select name="ID_CON_FIN" id="" class="form-control">
                                                     <OPTION value ="0">No sabe, no responde </OPTION>
                                                     <OPTION value ="1">Vivo  </OPTION>
                                                     <OPTION value ="2">Muerto </OPTION>
@@ -418,13 +418,13 @@
                                                 <td><label for="Quien le indujo al primer consumo">5.3 ¿Quien le indujo al primer consumo?</label></td>
                                             </tr>
                                             <tr>
-                                                <td><select name="INI_LUGAR" id="" class="form-control" required >
+                                                <td><select name="INI_LUGAR" id="" class="form-control" >
                                                     <% inilugar.forEach((linilugar)=> { %>
                                                         <option class="text-lowercase" value="<%= linilugar.ID_RL_INI_LUGAR %>" > <%= linilugar.DESC %></option>
                                                         <%})%>  
                                                 </select></td>
                                                 <td><input name="INI_LUGAR_OTRO" id="" class="form-control"></td>
-                                                <td><select name="INI_PERSONA" id="" class="form-control"required >
+                                                <td><select name="INI_PERSONA" id="" class="form-control">
                                                     <% iniperso.forEach((lperso)=> { %>
                                                         <option class="text-lowercase" value="<%= lperso.ID_RL_INI_PER %>" > <%= lperso.DESC %></option>
                                                         <%})%>  
@@ -745,36 +745,19 @@
                         </div>
                         <div class="btn_box">
                             
-                            <button type="submit" class="btn_green align-center">guardar</button>
+                            <button type="button" class="btn_green align-center" onclick="validar();">guardar</button>
                         </div>
 
                         
                 </form>
-                
+
                 </div>
             </div>
     </section>
-       <div class="modal" tabindex="-1" id="modal_guardado">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="campos_inva" class="hide_table">
-                                            <p>Para continuar con el reporte, debe de llenar todo los campos requeridos, favor revisas el formulario por lo campos no completados</p>
-                                        </div>
-                                        <div id="campos_save" class="hide_table">
-                                            <p>El reporte se ha guardado con exito</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn_green"  data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
   
 
     <script src="/admin/scripts/validar_campos.js"></script>
+
+
     <%- include('../includes/footer') -%>

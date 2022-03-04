@@ -110,133 +110,27 @@
               </div>
             </form>
           </div>
+          <div class="row mt-4">
+            <% contenidos.forEach((ldatafiltro)=>{%>
+              <div class="col-lg-4 col-xs-12 mt-4">
+                  <div class="card card_news">
+                      <img src="/upload/<%= ldatafiltro.imagen%>" class="card-img-top" alt="..." style=" object-fit: cover;
+                      width: 100%;
+                      height: 20vh;">
+                      <div class="card-body">
+                          <h5 class="card-title"><%= ldatafiltro.titulo%></h5>
+                          <p class="card-text"><% resumen= ldatafiltro.texto%> <%= resumen.substr(1,50) %></p>
+                          <a href="/da/vertip/<%= ldatafiltro.id %>" class="btn_green pt-2 pb-2">Leer</a>
+                      </div>
+                  </div>
+              </div>
+          <% }) %>
+          </div>
         </div>
       </div>
-      <div class="row filtrar">
-        <form action="" class="form-group">
-          <h5>Filtrar</h5>
-          <div class="row">
-            <div class="col-lg-6 col-xs-12">
-              <label for="">Tipo de Contenido</label>
-              <select name="" id="" class="form-control">
-                <option value="">Noticia</option>
-                <option value="">Tip</option>
-                <option value="">Pagina</option>
-              </select>
-            </div>
-            <div class="col-lg-6 col-xs-12">
-              <label for="">Region</label>
-
-              <div class="input-group mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Buscar por Barrio o Vereda o Centro poblado"
-                  aria-label="Buscar"
-                  aria-describedby="button-addon2"
-                  id="myInput1"
-                />
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Buscar por Barrio o Vereda o Centro poblado"
-                  aria-label="Buscar"
-                  aria-describedby="button-addon2"
-                  id="myInput"
-                  style="display: none"
-                />
-              </div>
-            </div>
-          </div>
-
-          <button type="submit" class="btn_green">Aplicar</button>
-        </form>
-      </div>
+      
       <!--Tabla de usuarios y entidades-->
-      <div class="row">
-        <table>
-          <tr class="titulo_tabla">
-            <td>Titulo</td>
-            <td>Fecha</td>
-            <td>Resumen</td>
-            <td>Autor</td>
-            <td>Tipo de contenido</td>
-            <td>Estado</td>
-          </tr>
-          <tr>
-            <td>Titulo</td>
-            <td>01/01/01</td>
-            <td>Resumen</td>
-            <td>Autor</td>
-            <td>Noticia</td>
-            <td>Publicada/Borrador</td>
-            <td align="center">
-              <button
-                type="link"
-                class="btn_green btn_icons"
-                onclick="location.href='noticia_ejemplo.php'"
-              >
-                <i class="bi bi-eye-fill"></i>
-              </button>
-            </td>
-            <td align="center">
-              <button
-                type="link "
-                class="btn_green btn_icons"
-                onclick="location.href=`crear_contenido.php`"
-              >
-                <i class="bi bi-pencil-square"></i>
-              </button>
-            </td>
-            <td align="center">
-              <button
-                type="button"
-                class="btn_red_eliminar"
-                data-bs-toggle="modal"
-                data-bs-target="#modal_borrar"
-              >
-                <i class="bi bi-x-octagon-fill"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Titulo</td>
-            <td>01/01/01</td>
-            <td>Resumen</td>
-            <td>Autor</td>
-            <td>Tip</td>
-            <td>Publicada/Borrador</td>
-            <td align="center">
-              <button
-                type="link"
-                class="btn_green btn_icons"
-                onclick="location.href='tip_ejemplo.php'"
-              >
-                <i class="bi bi-eye-fill"></i>
-              </button>
-            </td>
-            <td align="center">
-              <button
-                type="link "
-                class="btn_green btn_icons"
-                onclick="location.href=`crear_contenido.php`"
-              >
-                <i class="bi bi-pencil-square"></i>
-              </button>
-            </td>
-            <td align="center">
-              <button
-                type="button"
-                class="btn_red_eliminar"
-                data-bs-toggle="modal"
-                data-bs-target="#modal_borrar"
-              >
-                <i class="bi bi-x-octagon-fill"></i>
-              </button>
-            </td>
-          </tr>
-        </table>
-      </div>
+      
     </div>
   </div>
 </section>

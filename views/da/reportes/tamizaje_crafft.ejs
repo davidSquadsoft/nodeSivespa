@@ -32,7 +32,7 @@
         </div>
         <div class="section_form fluid-container">
             <div class="container_reporte_form fluid-container tamizajes">
-                <form action="/da/savetamcrafft" method="post">
+                <form action="/da/savetamcrafft" method="post" id="form">
                     
 
                     <div class="form-group">
@@ -66,8 +66,9 @@
                                                         <td><label for="Número Identificación">2.2 Número Identificación</label></td>
                                                     </tr>
                                                     <tr>
+                                                        <% fechaActual=new Date().toISOString().slice(0, 10); %>
                                                            <td><input type="date" name="FEC_NOT" class="form-control" required value="<%= fechaActual %>"></td>
-                                                        <td><select name="TIP_IDE" id="options" class="form-control" required>
+                                                        <td><select name="TIP_IDE" id="options" class="form-control" >
                                                             <% tipide.forEach((lide)=> { %>
                                                                 <option value="<%= lide.ID_RL_TIP_IDE%>"><%= lide.DESC%></option>
                                                                 <% }) %>
@@ -120,7 +121,7 @@
                                                                 <option value="<%= lsexo.ID_SEXO %> "><%= lsexo.DESC %> </option>
                                                                 <% }) %> 
                                                         </select></td>
-                                                        <td><input name="NACION" id="" class="form-control" list="listanacionalidades">
+                                                        <td><input name="NACION" id="" class="form-control" list="listanacionalidades" required>
                                                             <datalist id="listanacionalidades">
                                                                 <% nacion.forEach((lnacion)=>{ %> 
                                                                     <option value="<%= lnacion.ID_NACIONALIDAD %>"><%= lnacion.GENTILICIO_NAC %> </option>
@@ -136,7 +137,7 @@
                                                     </tr>
                                                     <tr>
                                                         <p class="textos_black">Busca por nombre de lugar"</p>
-                                                        <input type="text" name="ID_RL_DIVIPOLA" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                        <input type="text" name="ID_RL_DIVIPOLA" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" required >
                                                     <datalist id="listadoocurrencia">
                                                         <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                             <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
@@ -152,7 +153,7 @@
                                              
                                                     <tr>
                                                     <p class="textos_black">Busca por nombre de lugar"</p>
-                                                        <input type="text" name="ID_RL_DIVIPOLA_RESI" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" >
+                                                        <input type="text" name="ID_RL_DIVIPOLA_RESI" class="form-control mb-3"  placeholder="Buscar por Barrio o Vereda o Centro poblado"  list="listadoocurrencia" required >
                                                     <datalist id="listadoocurrencia">
                                                         <% ocurrencia.forEach((listaocurrencia)=> { %>
                                                             <option class="text-lowercase" value="<%= listaocurrencia.CODCENTROPOBLADO %>" > <%= listaocurrencia.NOMMUNIPIO %>, <%= listaocurrencia.NOMCENTRPOBLADO %>, <%= listaocurrencia.NOMCENTRPOBLADO %> </option>
@@ -162,7 +163,7 @@
                                                     </tr>
                                                     <tr>3.2 Dirección de residencia del paciente:</tr>
                                                     <tr>
-                                                        <input type="text" name="DIR_RES" class="form-control mt-2"  placeholder="Dirección de residencia" >
+                                                        <input type="text" name="DIR_RES" class="form-control mt-2"  placeholder="Dirección de residencia" required >
                                                     </tr>
                                                 </table>
                                      
@@ -178,7 +179,7 @@
                                                                 <option value="<%= lregimen.id_rl_tip_ss %> "> <%= lregimen.DESCRIP %> </option>
                                                                 <% }) %> 
                                                         </select></td>
-                                                        <td><input name="cod_adm" list="prestadoras" class="form-control">
+                                                        <td><input name="cod_adm" list="prestadoras" class="form-control" required>
                                                             <datalist id="prestadoras">
 
                                                                 <% prestadoras.forEach((lprestadoras)=> { %>
@@ -294,7 +295,7 @@
                                         </div>
                                     </div>
                                     <div class="btn_box">
-                                      <button type="submit" class="btn_green align-center">Guardar</button>
+                                      <button type="button" class="btn_green align-center" onclick="validar();">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -304,6 +305,6 @@
             </div>
         </div>
     </section>
-
+    <script src="/admin/scripts/validar_campos.js"></script>
     <script src="../scripts/validar_campos.js"></script>
     <%- include('../includes/footer') -%>

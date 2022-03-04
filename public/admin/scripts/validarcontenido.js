@@ -20,7 +20,7 @@ console.log(vacio)
 };
 function camposAlerta(s){
   Swal.fire({
-    title: 'Validar los siguientes campos vacios antes de guardar el reporte:',
+    title: 'Validar los siguientes campos vacios antes de guardar el contenido:',
     html: s,
     icon: 'error',
     confirmButtonText: 'Ok',
@@ -29,7 +29,7 @@ function camposAlerta(s){
 };
 function guardar(){
   Swal.fire({
-    title: 'Guardar Reporte',
+    title: 'Guardar Contenido',
     icon: 'success',
     confirmButtonText: 'Ok',
     confirmButtonColor:'#3c773c',

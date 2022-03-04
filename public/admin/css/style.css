@@ -1192,6 +1192,12 @@ input:invalid {
 
 input:invalid:required {
     border: 1px red solid!important;
+    border-radius: 5px;
+}
+
+input[type=file]:invalid:required {
+    border: 1px white solid!important;
+    border-radius: 5px;
 }
 
 .hide_table {
@@ -2094,3 +2100,26 @@ input {
 .crud_user {
     font-size: 1.7vh;
 }
+
+.estaHomeVal{
+    font-size: 1.5em;
+}
+
+.card.card_dashboard.col-4.p-0.mb-2.mb-2{
+    border-radius: 5px!important;
+    border-color: var(--green)!important;
+    
+}
+
+
+input[type=file]::file-selector-button {
+    border: 0px solid ;
+    padding: 0.5em;
+    border-radius: .2em;
+    background-color: var(--green_titulo_tabla);
+    transition: 1s;
+    border-radius:5px;
+    color:#fff;
+  }
+  
+ 
