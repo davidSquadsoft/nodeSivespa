@@ -62,10 +62,13 @@
                                 
                                             <table>
                                                 <tr>
+
+                                                               <td><label for="Tipo de Identificación">1.1 Fecha de Notificación</label></td>
                                                     <td><label for="Tipo de Identificación">2.1 Tipo Identificación</label></td>
                                                     <td><label for="Número Identificación">2.2 Número Identificación</label></td>
                                                 </tr>
                                                 <tr>
+                                                       <td><input type="date" name="FEC_NOT" class="form-control" required value="<%= fechaActual %>"></td>
                                                     <td><select name="TIP_IDE" id="options" class="form-control" required>
                                                         <% tipide.forEach((lide)=> { %>
                                                             <option value="<%= lide.ID_RL_TIP_IDE%>"><%= lide.DESC%></option>

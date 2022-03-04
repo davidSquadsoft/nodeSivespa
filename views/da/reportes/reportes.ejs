@@ -55,11 +55,13 @@
                                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
                                         <table>
-                                            <tr>
+                                            <tr>          
+                                                <td><label for="Tipo de Identificación">1.1 Fecha de Notificación</label></td>
                                                 <td><label for="Tipo de Identificación">2.1 Tipo Identificación</label></td>
                                                 <td><label for="Número Identificación">2.2 Número Identificación</label></td>
                                             </tr>
                                             <tr>
+                                                <td><input type="date" name="FEC_NOT" class="form-control" required value="<%= fechaActual %>"></td>
                                                 <td><select name="ID_TIP_IDE" id="options" class="form-control" required  >
                                                     <% tipo_ide.forEach((tipoide)=> { %>
                                                         <option value="<%= tipoide.ID_RL_TIP_IDE %>"><%=tipoide.DESC %></option>

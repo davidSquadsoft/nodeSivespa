@@ -10,6 +10,7 @@
         <div class="col-lg-2">Accion</div>
         <div class="col-lg-1"></div>
     </div>
+    <% if(tamizajeassist) {%> 
     <% for(d=0;d<tamizajeassist.length;d++) {%> 
     <div class="row crud_user text-capitalize">
         
@@ -24,6 +25,7 @@
             <a onclick="confirmarassist('<%= tamizajeassist[d].id_tamizaje%>')" class="btn_red btn_icons"><i class="bi bi-x-octagon-fill"></i></a>
         </div>
     </div>
+    <% } %> 
     <% } %> 
 
 

@@ -1519,6 +1519,24 @@ table tr td {
     font-weight: 300!important;
 }
 
+.btn_green_s {
+    background-image: var(--green_button);
+    border-radius: 5px;
+    background-size: 200%;
+    
+    border: 0;
+    background-position: left;
+    outline: none;
+    color: #fff!important;
+    width: auto!important;
+    
+    padding-left: 1em;
+    padding-right: 1em;
+    cursor: pointer;
+    transition: 1s ease-in-out!important;
+    font-weight: 300!important;
+}
+
 .btn_green:hover {
     background-position: right;
 }

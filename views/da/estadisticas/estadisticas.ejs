@@ -34,127 +34,558 @@
         </div>
         <div class="section_form fluid-container">
             <div class="container_reporte_form">
-                <div class="row buscar">
-                    <div class="row section_btn_dashboard_individual">
-                        <div class="col-lg-3 col-xs-12">
-                            <a href="crear_estadistica.html" data-bs-toggle="modal " data-bs-target="#modal_crear_entidad ">
-                                <div class="card card_dashboard_individual ">
-                                    <div class="card-body ">
-                                        <div class="row ">
-                                            <div class="col-4 ">
-                                                <svg id="Capa_1 " data-name="Capa 1 " xmlns="http://www.w3.org/2000/svg " viewBox="0 0 21.33 21.33 ">
-                                                <defs>
-                                                    <style>
-                                                        .cls-1 {
-                                                            fill: #fff;
-                                                        }
-                                                    </style>
-                                                </defs>
-                                                <title>estadistica</title>
-                                                <path class="cls-1 " d="M10,2.86a8.47,8.47,0,1,0,8.46,8.47H10Z " />
-                                                <path class="cls-1 "
-                                                    d="M11.33,1.54V10h8.46A8.47,8.47,0,0,0,11.33,1.54Z " />
-                                            </svg>
-                                            </div>
-                                            <div class="col-8 ">
-                                                <h5 class="card-title align-self-center ">Crear Estadística</h5>
-                                            </div>
+                <div class="row filtrar">
+
+
+
+
+
+                        <h5>Filtrar</h5>
+
+                        <nav class="tabs_conf_modulos">
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Fechas totales y Region</button>
+                              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Semana Epidemiologica y Region</button>
+                              <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Edades, Fechas y Region</button>
+                            </div>
+                          </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <!-- Contenido para filtrar por Fechas totales y municipio -->
+                                <form action="/da/estamun" class="form-group" method="post" autocomplete="off">
+                                    <div class="row ">
+                                        <div class="col-lg-4 col-xs-12">
+                                                <label for=" ">Desde:</label>
+                                                <input type="date" name="dateini" class="form-control">
+                                                <label for=" ">Hasta</label>
+                                                <input type="date" name="dateend" class="form-control">
+                                        </div>
+                                        <div class="col-lg-4 col-xs-12 ">
+                                                    <label for="">Ver por municipio</label>
+                                                        <input type="text" name="geoEstadistica" list="coddivipola" class="form-control" placeholder="Buscar por nombre" <% if (user.TIP_USER==2 || user.TIP_USER==3){%> readonly="readonly"<% } %> value="<%= user.COD_MUN %> "  >
+                                                        <datalist id="coddivipola">
+                                                         <% lmuni.forEach((listamuni)=>{%>
+                                                         <option value="<%=listamuni.CODMUNIC %>"><%= listamuni.NOMMUNIPIO %> </option>
+                                                         <% }) %>
+                                                        </datalist>
+                                                        <button type="submit" class="form-control btn_green_s btn mt-4">Aplicar filtro <i class="bi bi-search "></i></button>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col col-xs-12">
-                            <form action=" " class="form-group ">
-                                <p class="textos_black ">Buscar estadistica por titulo o codigo</p>
-                                <div class="input-group mb-3 ">
-                                    <input type="text " class="form-control " placeholder="Buscar " aria-label="Buscar " aria-describedby="button-addon2 ">
-                                    <button class="btn btn-outline-secondary btn_search " type="button " id="button-addon2 "><i class="bi bi-search "></i></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="row filtrar">
-                    <form action=" " class="form-group ">
-                        <h5>Filtrar</h5>
-                        <div class="row ">
-                            <div class="col-lg-3 col-xs-12 ">
-                                <label for=" ">Fecha de inicio</label>
-                                <input type="date" name="" id="" class="form-control">
-                                <label for=" ">Fecha final</label>
-                                <input type="date" name="" id="" class="form-control">
+                                    </form>
                             </div>
-                            <div class="col-lg-3 col-xs-12">
-                                <label for=" ">Listado SPA</label>
-                                <select name="spa " id=" " class="form-control "></select>
-                                <label for=" ">Lista de generos</label>
-                                <select name="genero" id=" " class="form-control "></select>
-                            </div>
-                            <div class="col-lg-6 col-xs-12 ">
-                                <div class="row">
-                                    <label for="">Geolocalizacion</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput1">
-                                        <input type="text" class="form-control" placeholder="Buscar por Barrio o Vereda o Centro poblado" aria-label="Buscar" aria-describedby="button-addon2" id="myInput" style="display: none;">
+                            
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <!-- Contenido para filtrar por Semana epidemiologica y region -->
+                                <form action="/da/estasem" class="form-group" method="post" autocomplete="off">
+                                    <div class="row ">
+                                        <div class="col-lg-4 col-xs-12">
+                                            <label for="">Semana Epidem</label>
+    
+                                              <select name="semana" id="" class="form-control">
+                                                <% for (u=1; u<=53 ; u++) { %>
+    
+                                                    <option value="<%= u%>"><%= u%></option>
+                                                    <% } %> 
+    
+                                              </select>
+                                              <label for="">Año</label>
+    
+                                              <select name="ano" id="" class="form-control">
+                                                <% for (z=2022; z>=1900 ; z--) { %>
+    
+                                                    <option value="<%= z%>"><%= z%></option>
+                                                    <% } %> 
+    
+                                              </select>
+                                        </div>
+                                        <div class="col-lg-4 col-xs-12 ">
+                                                    <label for="">Ver por municipio</label>
+                                                        <input type="text" name="geoEstadistica" list="coddivipola" class="form-control" placeholder="Buscar por nombre" <% if (user.TIP_USER==2 || user.TIP_USER==3){%> readonly="readonly"<% } %> value="<%= user.COD_MUN %>">
+                                                        <datalist id="coddivipola">
+                                                         <% lmuni.forEach((listamuni)=>{%>
+                                                         <option value="<%=listamuni.CODMUNIC %>"><%= listamuni.NOMMUNIPIO %> </option>
+                                                         <% }) %>
+                                                        </datalist>
+                                                        <button type="submit" class="form-control btn_green_s btn mt-4">Aplicar filtro <i class="bi bi-search "></i></button>
+                                        </div>
                                     </div>
-                                </div>
+                                    </form>
                             </div>
-                        </div>
-                        <button class="btn_green ">Aplicar</button>
-                    </form>
-                </div> -->
-                <!-- <div class="row estadisticas ">
-                    <div class="card card_estadisticas col-4 ">
-                        <img src="../images/estadistica_barras.svg " class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <h5 class="card-title ">Titulo estadística</h5>
-                            <p class="card-text ">Pequeño resumen de la estadistica</p>
-                            <button class="btn_green " role="link " onclick="location.href='../estadisticas/estadisticas_ejemplo.html' ; ">Leer</button>
-                            <button class="btn_green btn_icons "><i class="bi bi-pencil-square "></i></button>
-                        </div>
-                    </div>
-                    <div class="card card_estadisticas col-4 ">
-                        <img src="../images/estadistica_radial.svg " class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <h5 class="card-title ">Titulo estadística</h5>
-                            <p class="card-text ">Pequeño resumen de la estadistica</p>
-                            <button class="btn_green " role="link " onclick="location.href='../estadisticas/estadisticas_ejemplo.html' ; ">Leer</button>
-                            <button class="btn_green btn_icons "><i class="bi bi-pencil-square "></i></button>
-                        </div>
-                    </div>
-                    <div class="card card_estadisticas col-4 ">
-                        <img src="../images/estadistica_radial.svg " class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <h5 class="card-title ">Titulo estadística</h5>
-                            <p class="card-text ">Pequeño resumen de la estadistica</p>
-                            <button class="btn_green " role="link " onclick="location.href='../estadisticas/estadisticas_ejemplo.html' ; ">Leer</button>
-                            <button class="btn_green btn_icons "><i class="bi bi-pencil-square "></i></button>
-                        </div>
-                    </div>
-                    <div class="card card_estadisticas col-4 ">
-                        <img src="../images/estadistica_barras.svg " class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <h5 class="card-title ">Titulo estadística</h5>
-                            <p class="card-text ">Pequeño resumen de la estadistica</p>
-                            <button class="btn_green " role="link " onclick="location.href='../estadisticas/estadisticas_ejemplo.html' ; ">Leer</button>
-                            <button class="btn_green btn_icons "><i class="bi bi-pencil-square "></i></button>
-                        </div>
-                    </div>
-                </div> -->
-                <div id="app">{{ message }}</div>
+                            <div class="tab-pane fade p-0" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                <!-- Contenido para filtrar por edades de inicio de consumo y edades actuales -->
+                                <form action="/da/estaedad" class="form-group" method="post" autocomplete="off">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-xs-12">
+                                            <label for="">Edad desde:</label>
+    
+                                              <select name="edadini" id="" class="form-control">
+                                                <% for (y=5; y<=99 ; y++) { %>
+    
+                                                    <option value="<%= y%>"><%= y%></option>
+                                                    <% } %> 
+    
+                                              </select>
+                                              <label for="">Edad hasta:</label>
+    
+                                              <select name="edadfinal" id="" class="form-control">
+                                                <% for (w=5; w<=99; w++) { %>
+    
+                                                    <option value="<%= w%>"><%= w%></option>
+                                                    <% } %> 
+    
+                                              </select>
+                                        </div>
+                                        <div class="col-lg-4 col-xs-12">
+                                            <label for="">Semana epidemiologica:</label>
+    
+                                              <select name="semana" id="" class="form-control">
+                                                <% for (y=1; y<=53 ; y++) { %>
+    
+                                                    <option value="<%= y%>"><%= y%></option>
+                                                    <% } %> 
+    
+                                              </select>
+                                              <label for="">Año:</label>
+    
+                                              <select name="ano" id="" class="form-control">
+                                                <% for (w=2022; w>=1900; w--) { %>
+    
+                                                    <option value="<%= w%>"><%= w%></option>
+                                                    <% } %> 
+    
+                                              </select>
+                                        </div>
+                                        <div class="col-lg-4 col-xs-12 ">
 
-                <canvas id="myChart" style="width:100%;"></canvas>
-                
+                                                    <label for="">Municipio</label>
+                                                       <input type="text" name="geoEstadistica" list="coddivipola" class="form-control" placeholder="Buscar por nombre" <% if (user.TIP_USER==2 || user.TIP_USER==3){%> readonly="readonly"<% } %> value="<%= user.COD_MUN %>">
+                                                       <datalist id="coddivipola">
+                                                       <% lmuni.forEach((listamuni)=>{%>
+                                                       <option value="<%=listamuni.CODMUNIC %>"><%= listamuni.NOMMUNIPIO %> </option>
+                                                       <% }) %>
+                                                       </datalist>
+                                                       <button type="submit" class="form-control btn_green_s btn mt-4">Aplicar filtro <i class="bi bi-search "></i></button>
+                                        </div>
+                                    </div>
+                                    </form>
+                            </div>
+                            
+                        </div>
 
+                        
+                </div><div id="chart-container">
+                <canvas id="antioquiaEst" width="100%" height="50px"></canvas>
+            </div>
+                <button id="download"  id="exportar" onclick="saveAsPDF()">download</button>
+            </div>
+            
+            </div>
+           
     </section>
-   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<!-- Estadisticas SPA de todo antioquia sin filtro -->
+<% if(filtro=='ant') {%>
+<script>
+    Chart.register(ChartDataLabels);
+const ctx = document.getElementById('antioquiaEst').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+            'Alcohol',
+            'Tabaco',
+            'Marihuana',
+            'Cocaína y/o derivados ',
+            'Basuco',
+            'Éxtasis – MDMA',
+            'LSD ',
+            'Heroína (Hache o "H")',
+            '2CB (tusi, tucibi o nexus)',
+            'Metanfetaminas',
+            'GHB ("G" o éxtasis líquido)',
+            'Ketamina o ketalar',
+            'Popper',
+            'DICK, ladys, fragancia',
+            'Solventes Inhalables',
+            'Anfetaminas',
+            'Benzodiazepinas',
+            'Analgésicos derivados de los opioides',
+            'Cacao sabanero',
+            'Hongos',
+            'Cannabinoides sintéticos'
+            ],
+            datasets: [{
+                label: 'Consumo Spa en Antioquia',
+                data: [ <%= alcoholAnt%>,
+                        <%= tabaco%>,
+                        <%= marihuana%>,
+                        <%= cocaina%>,
+                        <%= basuco%>,
+                        <%= extasis%>,
+                        <%= lsd%>,
+                        <%= cb2%>,
+                        <%= metanfetaminas%>,
+                        <%= ghb%>,
+                        <%= ketamina%>,
+                        <%= popper%>,
+                        <%= dick%>,
+                        <%= solventes%>,
+                        <%= anfetaminas%>,
+                        <%= benzodiazepinas%>,
+                        <%= analgecicos%>,
+                        <%= cacaosab%>,
+                        <%= hongos%>,
+                        <%= cannartifi%>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                title: {
+                display: true,
+                text: 'Consumo Spa en todo Antioquia desde 1900 hasta 2022'
+            },
+       
+                datalabels: {
+                    formatter: (value, ctx) => {
+                            let sum = 0;
+                            let dataArr = ctx.chart.data.datasets[0].data;
+                            dataArr.map(data => {
+                                sum += data;
+                            });
+                            let percentage = (value*100 / sum).toFixed(0)+"%";
+                            return percentage;
+                        }
+                
+                }
+                }
+        }
+    });
+</script>
+<% } %> 
+<!-- Estadisticas SPA  por municipio  -->
+<% if(filtro=='mun') {%>
+<script>
+        Chart.register(ChartDataLabels);
+    const ctx = document.getElementById('antioquiaEst').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                'Alcohol',
+                'Tabaco',
+                'Marihuana',
+                'Cocaína y/o derivados ',
+                'Basuco',
+                'Éxtasis – MDMA',
+                'LSD ',
+                'Heroína (Hache o "H")',
+                '2CB (tusi, tucibi o nexus)',
+                'Metanfetaminas',
+                'GHB ("G" o éxtasis líquido)',
+                'Ketamina o ketalar',
+                'Popper',
+                'DICK, ladys, fragancia',
+                'Solventes Inhalables',
+                'Anfetaminas',
+                'Benzodiazepinas',
+                'Analgésicos derivados de los opioides',
+                'Cacao sabanero',
+                'Hongos',
+                'Cannabinoides sintéticos'
+                ],
+                datasets: [{
+                    categoryPercentage: 1.0,
+                    label: 'Consumo Spa en <%= muninombre %>',
+                    data: [ <%= alcoholAnt %>,
+                            <%= tabaco %>,
+                            <%= marihuana %>,
+                            <%= cocaina%>,
+                            <%= basuco%>,
+                            <%= extasis%>,
+                            <%= lsd%>,
+                            <%= cb2%>,
+                            <%= metanfetaminas%>,
+                            <%= ghb%>,
+                            <%= ketamina%>,
+                            <%= popper%>,
+                            <%= dick%>,
+                            <%= solventes%>,
+                            <%= anfetaminas%>,
+                            <%= benzodiazepinas%>,
+                            <%= analgecicos%>,
+                            <%= cacaosab%>,
+                            <%= hongos%>,
+                            <%= cannartifi%>],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                display: true,
+                text: 'Consumo Spa desde 1900 hasta 2022'
+            },
+      datalabels: {
+        formatter: (value, ctx) => {
+                let sum = 0;
+                let dataArr = ctx.chart.data.datasets[0].data;
+                dataArr.map(data => {
+                    sum += data;
+                });
+                let percentage = (value*100 / sum).toFixed(0)+"%";
+                return percentage;
+            }
+            }
+            }
+            }
+        });
+</script>
+<% } %> 
 
+<!-- Estadisticas SPA por Semana Epidemiologica -->
+<% if(filtro=='sem') {%>
+<script>
+        Chart.register(ChartDataLabels);
+    const ctx = document.getElementById('antioquiaEst').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                'Alcohol',
+                'Tabaco',
+                'Marihuana',
+                'Cocaína y/o derivados ',
+                'Basuco',
+                'Éxtasis – MDMA',
+                'LSD ',
+                'Heroína (Hache o "H")',
+                '2CB (tusi, tucibi o nexus)',
+                'Metanfetaminas',
+                'GHB ("G" o éxtasis líquido)',
+                'Ketamina o ketalar',
+                'Popper',
+                'DICK, ladys, fragancia',
+                'Solventes Inhalables',
+                'Anfetaminas',
+                'Benzodiazepinas',
+                'Analgésicos derivados de los opioides',
+                'Cacao sabanero',
+                'Hongos',
+                'Cannabinoides sintéticos'
+                ],
+                datasets: [{
+                    label: 'Consumo Spa en <%= nommuni%>',
+                    data: [ <%= alcoholAnt%>,
+                            <%= tabaco%>,
+                            <%= marihuana%>,
+                            <%= cocaina%>,
+                            <%= basuco%>,
+                            <%= extasis%>,
+                            <%= lsd%>,
+                            <%= cb2%>,
+                            <%= metanfetaminas%>,
+                            <%= ghb%>,
+                            <%= ketamina%>,
+                            <%= popper%>,
+                            <%= dick%>,
+                            <%= solventes%>,
+                            <%= anfetaminas%>,
+                            <%= benzodiazepinas%>,
+                            <%= analgecicos%>,
+                            <%= cacaosab%>,
+                            <%= hongos%>,
+                            <%= cannartifi%>],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+          datalabels: {
+            formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = ctx.chart.data.datasets[0].data;
+                    dataArr.map(data => {
+                        sum += data;
+                    });
+                    let percentage = (value*100 / sum).toFixed(0)+"%";
+                    return percentage;
+                }
+          }
+        }
+            }
+        });
+</script>
+<% } %> 
 
-    
+<!-- Estadisticas Por edades -->
+<% if(filtro=='edad') {%>
+    <script>
+            Chart.register(ChartDataLabels);
+        const ctx = document.getElementById('antioquiaEst').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                    'Alcohol',
+                    'Tabaco',
+                    'Marihuana',
+                    'Cocaína y/o derivados ',
+                    'Basuco',
+                    'Éxtasis – MDMA',
+                    'LSD ',
+                    'Heroína (Hache o "H")',
+                    '2CB (tusi, tucibi o nexus)',
+                    'Metanfetaminas',
+                    'GHB ("G" o éxtasis líquido)',
+                    'Ketamina o ketalar',
+                    'Popper',
+                    'DICK, ladys, fragancia',
+                    'Solventes Inhalables',
+                    'Anfetaminas',
+                    'Benzodiazepinas',
+                    'Analgésicos derivados de los opioides',
+                    'Cacao sabanero',
+                    'Hongos',
+                    'Cannabinoides sintéticos'
+                    ],
+                    datasets: [{
+                        label: 'Consumo Spa en <%= nommuni %>',
+                        data: [ <%= alcoholAnt%>,
+                                <%= tabaco%>,
+                                <%= marihuana%>,
+                                <%= cocaina%>,
+                                <%= basuco%>,
+                                <%= extasis%>,
+                                <%= lsd%>,
+                                <%= cb2%>,
+                                <%= metanfetaminas%>,
+                                <%= ghb%>,
+                                <%= ketamina%>,
+                                <%= popper%>,
+                                <%= dick%>,
+                                <%= solventes%>,
+                                <%= anfetaminas%>,
+                                <%= benzodiazepinas%>,
+                                <%= analgecicos%>,
+                                <%= cacaosab%>,
+                                <%= hongos%>,
+                                <%= cannartifi%>],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+              datalabels: {
+                formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value*100 / sum).toFixed(0)+"%";
+                        return percentage;
+                    }
+              }
+            }
+                }
+            });
+    </script>
+    <% } %> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<script>
 
-
-    
+</script>
 
     <%- include('../includes/footer') -%>
+
+

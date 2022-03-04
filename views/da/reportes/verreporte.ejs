@@ -49,10 +49,12 @@
                                     <div class="accordion-body">
                                         <table>
                                             <tr>
+                                                  <td><label for="Tipo de Identificación">1.1 Fecha de Notificación</label></td>
                                                 <td><label for="Tipo de Identificación">2.1 Tipo Identificación</label></td>
                                                 <td><label for="Número Identificación">2.2 Número Identificación</label></td>
                                             </tr>
                                             <tr>
+                                                   <td><input type="date" name="FEC_NOT" class="form-control" required value="<%= db_info_gral.FEC_NOT.toISOString().slice(0, 10); %>"></td>
                                                 <td><select name="ID_TIP_IDE" id="options" class="form-control"  >
                                                     <% tipo_ide.forEach((tipoide)=> { %>
                                                         <option value="<%= tipoide.ID_RL_TIP_IDE %>" <% if(tipoide.ID_RL_TIP_IDE == db_ide_pac.ID_TIP_IDE){ %> selected="selected" <% } %>><%=tipoide.DESC %></option>

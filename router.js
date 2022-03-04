@@ -3,6 +3,7 @@ var appjs= express()
 var router = express.Router()
 const conexion = require('./database/db')
 const q = require('./database/querys')
+
 const cookieParser = require('cookie-parser')
 appjs.use(express.json())
 const bodyparser2 = require('body-parser')
@@ -12,6 +13,7 @@ appjs.use(cookieParser())
 const authController = require('./controllers/authController')
 const filtros = require('./controllers/filtros')
 const reporte = require('./controllers/reportesivespa')
+const estaController = require('./controllers/estaController')
 const fileupload = require('express-fileupload')
 //router para los metodos del controller
 router.post('/registerent', authController.registerent)
@@ -78,12 +80,12 @@ router.get('/crear_contenido', authController.isAuth, async (req, res) => {
   })
 }
 )
-router.get('/resesta' ,async(req,res)=>{
-  esta=await q(`SELECT COUNT (*) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1`)
-  result = JSON.parse(JSON.stringify(esta));
-  console.log(result)
-  res.send(result)
-})
+// router.get('/resesta' ,async(req,res)=>{
+//   esta=await q(`SELECT COUNT (*) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1`)
+//   result = JSON.parse(JSON.stringify(esta));
+//   console.log(result)
+//   res.send(result)
+// })
 
 
 
@@ -92,12 +94,53 @@ router.get('/estadisticas', authController.isAuth, async(req, res) => {
 
 var alcoholAnt=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1`)
 var tabaco=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_TAB = 1`)
-console.log(tabaco)
-console.log(alcoholAnt)
+var marihuana=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MAR = 1`)
+var cocaina=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_COC = 1`)
+var basuco=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1`)
+var extasis=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1`)
+var lsd=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1`)
+var cb2=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1`)
+var metanfetaminas=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1`)
+var ghb=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1`)
+var ketamina=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_KET = 1`)
 
+var popper=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_POP = 1`)
+
+var dick=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_DIC = 1`)
+var solventes=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_SOL = 1`)
+var anfetaminas=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ANF = 1`)
+var benzodiazepinas=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_TRA = 1`)
+var analgecicos=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_OPI = 1`)
+var cacaosab=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CAC = 1`)
+var hongos=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1`)
+var cannartifi=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1`)
+
+var lmuni=await q(`SELECT DISTINCT NOMMUNIPIO,CODMUNIC from rl_divipola`)
   res.render('da/estadisticas/estadisticas', {
     tittle: 'Estadisticas',
-    user: req.user
+    user: req.user,
+alcoholAnt:    alcoholAnt[0].cantidad,
+tabaco:tabaco[0].cantidad,
+marihuana:marihuana[0].cantidad,
+cocaina:cocaina[0].cantidad,
+basuco:basuco[0].cantidad,
+extasis:extasis[0].cantidad,
+lsd:lsd[0].cantidad,
+cb2:cb2[0].cantidad,
+metanfetaminas:metanfetaminas[0].cantidad,
+ghb:ghb[0].cantidad,
+ketamina:ketamina[0].cantidad,
+popper:popper[0].cantidad,
+dick:dick[0].cantidad,
+solventes:solventes[0].cantidad,
+anfetaminas:anfetaminas[0].cantidad,
+benzodiazepinas:benzodiazepinas[0].cantidad,
+analgecicos:analgecicos[0].cantidad,
+cacaosab:cacaosab[0].cantidad,
+hongos:hongos[0].cantidad,
+cannartifi:cannartifi[0].cantidad,
+lmuni:lmuni,
+filtro:'ant'
  
   })
 })
@@ -266,10 +309,10 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
   //estas son las funcionas asincronicas que envian una variable que contiene el query sql y retorna un valor
   //la funcion se encuentra en querys.js
   var municipios = await q(`SELECT * FROM rl_divipola`)
-
+  
   if (req.user.TIP_USER == 1) {
     var queryAjuste = await q('SELECT * FROM `db_aju`');
-    var queryConActual = await q('SELECT * FROM `db_con_act` ');
+    var queryConActual = await q('SELECT * FROM `db_con_act`');
     var queryIdePac = await q('SELECT * FROM `db_ide_pac` ');
     var queryInfoGen = await q('SELECT * FROM `db_info_gral` ');
     var queryIniCon = await q('SELECT * FROM `db_ini_con` ');
@@ -279,7 +322,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft`);
     var tamizajeassist = await q(`SELECT * FROM db_tam_assist`);
 
-  } else if (req.user.TIP_USER == 2) {
+  } else if (req.user.TIP_USER == 2) {  
     var queryuserdemun = await q(`SELECT CEDULA FROM st_user WHERE COD_MUN = ${req.user.COD_MUN}`);
     misusuarios = queryuserdemun
 
@@ -287,6 +330,8 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     for (j = 1; j < misusuarios.length; j++) {
       concatenarMisUsuarios += ',' + misusuarios[j].CEDULA
     }
+
+
     var repMiMun = await q(`SELECT id_reporte FROM db_res_not WHERE NRO_DOC IN (${concatenarMisUsuarios})`);
     if (repMiMun.length > 0) {
       var concatenarMisReportes = `'` + repMiMun[0].id_reporte + `'`
@@ -319,7 +364,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     if (repMiUPGD.length > 0) {
       var concatenarMisReportes = `'` + repMiUPGD[0].id_reporte + `'`
       for (i = 1; i < repMiUPGD.length; i++) {
-        concatenarMisReportes += ',' + `'` + repMiMun[i].id_reporte + `'`
+        concatenarMisReportes += ',' + `'` + repMiUPGD[i].id_reporte + `'`
       }
       var tamizajeassist = await q(`SELECT * FROM db_tam_assist WHERE id_creador IN (${concatenarMisUsuarios})`);
 
@@ -361,7 +406,7 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     }
 
   }
-  
+
   iduser = req.user.CEDULA
   res.render('da/reportes/dashboard_reportes', {
     tittle: 'Reportes SIVESPA ',
@@ -933,5 +978,31 @@ router.get('/vertamizaje_assist/:id', authController.isAuth, async(req,res)=>{
 
 
 })
+
+// filtro estadisticas muni:
+router.post('/estamun',estaController.estamuni)
+
+router.post('/estasem', estaController.estasemana)
+
+router.post('/estaedad', estaController.estaedad)
+
+
+router.get('/estamun', authController.isAuth , (req , res)=>{
+  res.redirect('/da/estadisticas')
+})
+router.get('/estasem', authController.isAuth , (req , res)=>{
+  res.redirect('/da/estadisticas')
+})
+router.get('/estaedad', authController.isAuth , (req , res)=>{
+  res.redirect('/da/estadisticas')
+})
+
+
+
+
+
 module.exports = router
+
+
+
 

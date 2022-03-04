@@ -6,263 +6,244 @@ const { userInfo } = require("os");
 const { Console } = require("console");
 const authController = require('./authController');
 const q = require('../database/querys')
-
-
-exports.tamizajeassist = async(req,res)=>{
-try {
-  const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
-  creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
-  var factual = new Date().toISOString().slice(0, 10);
-  id_tamizaje = req.body.NUM_IDE + factual
-  const id_creador = creador[0].CEDULA
-  const nombrecreador = creador[0].NOMBRE + creador[0].APELLIDO
-  var factual = new Date().toISOString().slice(0, 10);
-  const TIP_IDE = req.body.TIP_IDE
-  const NUM_IDE = req.body.NUM_IDE
-  const PRI_NOM = req.body.PRI_NOM
-  const SEG_NOM = req.body.SEG_NOM
-  const PRI_APE = req.body.PRI_APE
-  const SEG_APE = req.body.SEG_APE
-  const TELEFONO = req.body.TELEFONO
-  const FECHA_NTO = req.body.FECHA_NTO
-  const EDAD = req.body.EDAD
-  const SEXO = req.body.SEXO
-  const NACION = req.body.NACION
-  const ID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA
-  const ID_RL_DIVIPOLA_RESI = req.body.ID_RL_DIVIPOLA_RESI
-  const DIR_RES = req.body.DIR_RES
-  const tip_reg = req.body.tip_reg
-  const cod_adm = req.body.cod_adm
-  const INI_EDAD = req.body.INI_EDAD
-  const PROFESION= req.body.PROFESION
-  ASSIST_P1a_TAB= parseInt(req.body.ASSIST_P1a_TAB) || 0
-  ASSIST_P1_EDAD_INI_CIG=req.body.ASSIST_P1_EDAD_INI_CIG || 0
-  ASSIST_P1b_ALC= parseInt(req.body.ASSIST_P1b_ALC) || 0
-  ASSIST_P1c_CAN= parseInt(req.body.ASSIST_P1c_CAN) || 0
-  ASSIST_P1d_COC= parseInt(req.body.ASSIST_P1d_COC) || 0
-  ASSIST_P1e_ANF= parseInt(req.body.ASSIST_P1e_ANF) || 0
-  ASSIST_P1f_INH= parseInt(req.body.ASSIST_P1f_INH) || 0
-  ASSIST_P1g_TRA= parseInt(req.body.ASSIST_P1g_TRA) || 0
-  ASSIST_P1h_ALU= parseInt(req.body.ASSIST_P1h_ALU) || 0
-  ASSIST_P1i_OPI= parseInt(req.body.ASSIST_P1i_OPI) || 0
-  ASSIST_P1j_OTR= parseInt(req.body.ASSIST_P1j_OTR) || 0
-  ASSIST_P1_CUAL_OTRA=req.body.ASSIST_P1_CUAL_OTRA || 'no aplica'
-  ASSIST_P2a_TAB= parseInt(req.body.ASSIST_P2a_TAB) || 0
-  ASSIST_P2b_ALC= parseInt(req.body.ASSIST_P2b_ALC) || 0
-  ASSIST_P2c_CAN= parseInt(req.body.ASSIST_P2c_CAN) || 0
-  ASSIST_P2d_COC= parseInt(req.body.ASSIST_P2d_COC) || 0
-  ASSIST_P2e_ANF= parseInt(req.body.ASSIST_P2e_ANF) || 0
-  ASSIST_P2f_INH= parseInt(req.body.ASSIST_P2f_INH) || 0
-  ASSIST_P2g_TRA= parseInt(req.body.ASSIST_P2g_TRA) || 0
-  ASSIST_P2h_ALU= parseInt(req.body.ASSIST_P2h_ALU) || 0
-  ASSIST_P2i_OPI= parseInt(req.body.ASSIST_P2i_OPI) || 0
-  ASSIST_P2j_OTR= parseInt(req.body.ASSIST_P2j_OTR) || 0
-  ASSIST_P2i_CUAL=req.body.ASSIST_P2i_CUAL || 'no aplica'
-  ASSIST_P3a_TAB= parseInt(req.body.ASSIST_P3a_TAB) || 0
-  ASSIST_P3b_ALC= parseInt(req.body.ASSIST_P3b_ALC) || 0
-  ASSIST_P3c_CAN= parseInt(req.body.ASSIST_P3c_CAN) || 0
-  ASSIST_P3d_COC= parseInt(req.body.ASSIST_P3d_COC) || 0
-  ASSIST_P3e_ANF= parseInt(req.body.ASSIST_P3e_ANF) || 0
-  ASSIST_P3f_INH= parseInt(req.body.ASSIST_P3f_INH) || 0
-  ASSIST_P3g_TRA= parseInt(req.body.ASSIST_P3g_TRA) || 0
-  ASSIST_P3h_ALU= parseInt(req.body.ASSIST_P3h_ALU) || 0
-  ASSIST_P3i_OPI= parseInt(req.body.ASSIST_P3i_OPI) || 0
-  ASSIST_P3j_OTR= parseInt(req.body.ASSIST_P3j_OTR) || 0
-  ASSIST_P4a_TAB= parseInt(req.body.ASSIST_P4a_TAB) || 0
-  ASSIST_P4b_ALC= parseInt(req.body.ASSIST_P4b_ALC) || 0
-  ASSIST_P4c_CAN= parseInt(req.body.ASSIST_P4c_CAN) || 0
-  ASSIST_P4d_COC= parseInt(req.body.ASSIST_P4d_COC) || 0
-  ASSIST_P4e_ANF= parseInt(req.body.ASSIST_P4e_ANF) || 0
-  ASSIST_P4f_INH= parseInt(req.body.ASSIST_P4f_INH) || 0
-  ASSIST_P4g_TRA= parseInt(req.body.ASSIST_P4g_TRA) || 0
-  ASSIST_P4h_ALU= parseInt(req.body.ASSIST_P4h_ALU) || 0
-  ASSIST_P4i_OPI= parseInt(req.body.ASSIST_P4i_OPI) || 0
-  ASSIST_P4j_OTR= parseInt(req.body.ASSIST_P4j_OTR) || 0
-  ASSIST_P5a_TAB= parseInt(req.body.ASSIST_P5a_TAB) || 0
-  ASSIST_P5b_ALC= parseInt(req.body.ASSIST_P5b_ALC) || 0
-  ASSIST_P5c_CAN= parseInt(req.body.ASSIST_P5c_CAN) || 0
-  ASSIST_P5d_COC= parseInt(req.body.ASSIST_P5d_COC) || 0
-  ASSIST_P5e_ANF= parseInt(req.body.ASSIST_P5e_ANF) || 0
-  ASSIST_P5f_INH= parseInt(req.body.ASSIST_P5f_INH) || 0
-  ASSIST_P5g_TRA= parseInt(req.body.ASSIST_P5g_TRA) || 0
-  ASSIST_P5h_ALU= parseInt(req.body.ASSIST_P5h_ALU) || 0
-  ASSIST_P5i_OPI= parseInt(req.body.ASSIST_P5i_OPI) || 0
-  ASSIST_P5j_OTR= parseInt(req.body.ASSIST_P5j_OTR) || 0
-  ASSIST_P6a_TAB= parseInt(req.body.ASSIST_P6a_TAB) || 0
-  ASSIST_P6b_ALC= parseInt(req.body.ASSIST_P6b_ALC) || 0
-  ASSIST_P6c_CAN= parseInt(req.body.ASSIST_P6c_CAN) || 0
-  ASSIST_P6d_COC= parseInt(req.body.ASSIST_P6d_COC) || 0
-  ASSIST_P6e_ANF= parseInt(req.body.ASSIST_P6e_ANF) || 0
-  ASSIST_P6f_INH= parseInt(req.body.ASSIST_P6f_INH) || 0
-  ASSIST_P6g_TRA= parseInt(req.body.ASSIST_P6g_TRA) || 0
-  ASSIST_P6h_ALU= parseInt(req.body.ASSIST_P6h_ALU) || 0
-  ASSIST_P6i_OPI= parseInt(req.body.ASSIST_P6i_OPI) || 0
-  ASSIST_P6j_OTR= parseInt(req.body.ASSIST_P6j_OTR) || 0
-  ASSIST_P7a_TAB= parseInt(req.body.ASSIST_P7a_TAB) || 0
-  ASSIST_P7b_ALC= parseInt(req.body.ASSIST_P7b_ALC) || 0
-  ASSIST_P7c_CAN= parseInt(req.body.ASSIST_P7c_CAN) || 0
-  ASSIST_P7d_COC= parseInt(req.body.ASSIST_P7d_COC) || 0
-  ASSIST_P7e_ANF= parseInt(req.body.ASSIST_P7e_ANF) || 0
-  ASSIST_P7f_INH= parseInt(req.body.ASSIST_P7f_INH) || 0
-  ASSIST_P7g_TRA= parseInt(req.body.ASSIST_P7g_TRA) || 0
-  ASSIST_P7h_ALU= parseInt(req.body.ASSIST_P7h_ALU) || 0
-  ASSIST_P7i_OPI= parseInt(req.body.ASSIST_P7i_OPI) || 0
-  ASSIST_P7j_OTR= parseInt(req.body.ASSIST_P7j_OTR) || 0
-  ASSIST_P8_1_INY=parseInt(req.body.ASSIST_P8_1_INY) || 0
-  ASSIST_P8_2_FREC=parseInt(req.body.ASSIST_P8_2_FREC) || 0
-
-ASSIST_Puntajea_TAB = ASSIST_P1a_TAB + ASSIST_P2a_TAB + ASSIST_P3a_TAB + ASSIST_P4a_TAB + ASSIST_P5a_TAB + ASSIST_P6a_TAB + ASSIST_P7a_TAB;
-
-ASSIST_Puntajeb_ALC = ASSIST_P1b_ALC +ASSIST_P2b_ALC+ASSIST_P3b_ALC+ASSIST_P4b_ALC+ASSIST_P5b_ALC+ASSIST_P6b_ALC+ASSIST_P7b_ALC
-
-ASSIST_Puntajec_CAN =ASSIST_P1c_CAN+ASSIST_P2c_CAN+ASSIST_P3c_CAN+ASSIST_P4c_CAN+ASSIST_P5c_CAN+ASSIST_P6c_CAN+ASSIST_P7c_CAN
-
-ASSIST_Puntajed_COC =ASSIST_P1d_COC+ASSIST_P2d_COC+ASSIST_P3d_COC+ASSIST_P4d_COC+ASSIST_P5d_COC+ASSIST_P6d_COC+ASSIST_P7d_COC
-
-ASSIST_Puntajee_ANF =ASSIST_P1e_ANF+ASSIST_P2e_ANF+ASSIST_P3e_ANF+ASSIST_P4e_ANF+ASSIST_P5e_ANF+ASSIST_P6e_ANF+ASSIST_P7e_ANF
-
-ASSIST_Puntajef_INH =ASSIST_P1f_INH+ASSIST_P2f_INH+ASSIST_P3f_INH+ASSIST_P4f_INH+ASSIST_P5f_INH+ASSIST_P6f_INH+ASSIST_P7f_INH
-
-ASSIST_Puntajeg_TRA = ASSIST_P1g_TRA+ASSIST_P2g_TRA+ASSIST_P3g_TRA+ASSIST_P4g_TRA+ASSIST_P5g_TRA+ASSIST_P6g_TRA+ASSIST_P7g_TRA
-
-ASSIST_Puntajeh_ALU  =ASSIST_P1h_ALU+ASSIST_P2h_ALU+ASSIST_P3h_ALU+ASSIST_P4h_ALU+ASSIST_P5h_ALU+ASSIST_P6h_ALU+ASSIST_P7h_ALU
-
-ASSIST_Puntajei_OPI =ASSIST_P1i_OPI+ASSIST_P2i_OPI+ASSIST_P3i_OPI+ASSIST_P4i_OPI+ASSIST_P5i_OPI+ASSIST_P6i_OPI+ASSIST_P7i_OPI
-
-ASSIST_Puntajej_OTR = ASSIST_P1j_OTR+ASSIST_P2j_OTR+ASSIST_P3j_OTR+ASSIST_P4j_OTR+ASSIST_P5j_OTR+ASSIST_P6j_OTR+ASSIST_P7j_OTR
-
-ASSIST_Puntajej_8INY = ASSIST_P8_1_INY + ASSIST_P8_2_FREC
-
-
-sqlguardar = `INSERT INTO db_tam_assist VALUES(?)`
-
-
-
-
-values=[
-  id_tamizaje,
-id_creador,
-nombrecreador,
-factual,
-TIP_IDE,
-NUM_IDE,
-PRI_NOM,
-SEG_NOM,
-PRI_APE,
-SEG_APE,
-TELEFONO,
-FECHA_NTO,
-EDAD,
-SEXO,
-NACION,
-ID_RL_DIVIPOLA,
-ID_RL_DIVIPOLA_RESI,
-DIR_RES,
-tip_reg,
-cod_adm,
-INI_EDAD,
-PROFESION,
-ASSIST_P1a_TAB,
-ASSIST_P1_EDAD_INI_CIG,
-ASSIST_P1b_ALC,
-ASSIST_P1c_CAN,
-ASSIST_P1d_COC,
-ASSIST_P1e_ANF,
-ASSIST_P1f_INH,
-ASSIST_P1g_TRA,
-ASSIST_P1h_ALU,
-ASSIST_P1i_OPI,
-ASSIST_P1j_OTR,
-ASSIST_P1_CUAL_OTRA,
-ASSIST_P2a_TAB,
-ASSIST_P2b_ALC,
-ASSIST_P2c_CAN,
-ASSIST_P2d_COC,
-ASSIST_P2e_ANF,
-ASSIST_P2f_INH,
-ASSIST_P2g_TRA,
-ASSIST_P2h_ALU,
-ASSIST_P2i_OPI,
-ASSIST_P2j_OTR,
-ASSIST_P2i_CUAL,
-ASSIST_P3a_TAB,
-ASSIST_P3b_ALC,
-ASSIST_P3c_CAN,
-ASSIST_P3d_COC,
-ASSIST_P3e_ANF,
-ASSIST_P3f_INH,
-ASSIST_P3g_TRA,
-ASSIST_P3h_ALU,
-ASSIST_P3i_OPI,
-ASSIST_P3j_OTR,
-ASSIST_P4a_TAB,
-ASSIST_P4b_ALC,
-ASSIST_P4c_CAN,
-ASSIST_P4d_COC,
-ASSIST_P4e_ANF,
-ASSIST_P4f_INH,
-ASSIST_P4g_TRA,
-ASSIST_P4h_ALU,
-ASSIST_P4i_OPI,
-ASSIST_P4j_OTR,
-ASSIST_P5a_TAB,
-ASSIST_P5b_ALC,
-ASSIST_P5c_CAN,
-ASSIST_P5d_COC,
-ASSIST_P5e_ANF,
-ASSIST_P5f_INH,
-ASSIST_P5g_TRA,
-ASSIST_P5h_ALU,
-ASSIST_P5i_OPI,
-ASSIST_P5j_OTR,
-ASSIST_P6a_TAB,
-ASSIST_P6b_ALC,
-ASSIST_P6c_CAN,
-ASSIST_P6d_COC,
-ASSIST_P6e_ANF,
-ASSIST_P6f_INH,
-ASSIST_P6g_TRA,
-ASSIST_P6h_ALU,
-ASSIST_P6i_OPI,
-ASSIST_P6j_OTR,
-ASSIST_P7a_TAB,
-ASSIST_P7b_ALC,
-ASSIST_P7c_CAN,
-ASSIST_P7d_COC,
-ASSIST_P7e_ANF,
-ASSIST_P7f_INH,
-ASSIST_P7g_TRA,
-ASSIST_P7h_ALU,
-ASSIST_P7i_OPI,
-ASSIST_P7j_OTR,
-ASSIST_P8_1_INY,
-ASSIST_P8_2_FREC,
-ASSIST_Puntajea_TAB,
-ASSIST_Puntajeb_ALC,
-ASSIST_Puntajec_CAN,
-ASSIST_Puntajed_COC,
-ASSIST_Puntajee_ANF,
-ASSIST_Puntajef_INH,
-ASSIST_Puntajeg_TRA,
-ASSIST_Puntajeh_ALU,
-ASSIST_Puntajei_OPI,
-ASSIST_Puntajej_OTR,
-ASSIST_Puntajej_8INY
-]
-conexion.query(sqlguardar, [values], (error) => {
-  if (error) {
-    throw error
-  }else{
-    res.redirect('/da/reportes')
+const { DateTime } = require("luxon");
+var moment = require('moment');  
+exports.tamizajeassist = async (req, res) => {
+  try {
+    const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
+    creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
+    var factual = new Date().toISOString().slice(0, 10);
+    id_tamizaje = req.body.NUM_IDE + factual
+    const id_creador = creador[0].CEDULA
+    const nombrecreador = creador[0].NOMBRE + creador[0].APELLIDO
+    var factual = new Date().toISOString().slice(0, 10);
+    const TIP_IDE = req.body.TIP_IDE
+    const NUM_IDE = req.body.NUM_IDE
+    const PRI_NOM = req.body.PRI_NOM
+    const SEG_NOM = req.body.SEG_NOM
+    const PRI_APE = req.body.PRI_APE
+    const SEG_APE = req.body.SEG_APE
+    const TELEFONO = req.body.TELEFONO
+    const FECHA_NTO = req.body.FECHA_NTO
+    const EDAD = req.body.EDAD
+    const SEXO = req.body.SEXO
+    const NACION = req.body.NACION
+    const ID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA
+    const ID_RL_DIVIPOLA_RESI = req.body.ID_RL_DIVIPOLA_RESI
+    const DIR_RES = req.body.DIR_RES
+    const tip_reg = req.body.tip_reg
+    const cod_adm = req.body.cod_adm
+    const INI_EDAD = req.body.INI_EDAD
+    const PROFESION = req.body.PROFESION
+    ASSIST_P1a_TAB = parseInt(req.body.ASSIST_P1a_TAB) || 0
+    ASSIST_P1_EDAD_INI_CIG = req.body.ASSIST_P1_EDAD_INI_CIG || 0
+    ASSIST_P1b_ALC = parseInt(req.body.ASSIST_P1b_ALC) || 0
+    ASSIST_P1c_CAN = parseInt(req.body.ASSIST_P1c_CAN) || 0
+    ASSIST_P1d_COC = parseInt(req.body.ASSIST_P1d_COC) || 0
+    ASSIST_P1e_ANF = parseInt(req.body.ASSIST_P1e_ANF) || 0
+    ASSIST_P1f_INH = parseInt(req.body.ASSIST_P1f_INH) || 0
+    ASSIST_P1g_TRA = parseInt(req.body.ASSIST_P1g_TRA) || 0
+    ASSIST_P1h_ALU = parseInt(req.body.ASSIST_P1h_ALU) || 0
+    ASSIST_P1i_OPI = parseInt(req.body.ASSIST_P1i_OPI) || 0
+    ASSIST_P1j_OTR = parseInt(req.body.ASSIST_P1j_OTR) || 0
+    ASSIST_P1_CUAL_OTRA = req.body.ASSIST_P1_CUAL_OTRA || 'no aplica'
+    ASSIST_P2a_TAB = parseInt(req.body.ASSIST_P2a_TAB) || 0
+    ASSIST_P2b_ALC = parseInt(req.body.ASSIST_P2b_ALC) || 0
+    ASSIST_P2c_CAN = parseInt(req.body.ASSIST_P2c_CAN) || 0
+    ASSIST_P2d_COC = parseInt(req.body.ASSIST_P2d_COC) || 0
+    ASSIST_P2e_ANF = parseInt(req.body.ASSIST_P2e_ANF) || 0
+    ASSIST_P2f_INH = parseInt(req.body.ASSIST_P2f_INH) || 0
+    ASSIST_P2g_TRA = parseInt(req.body.ASSIST_P2g_TRA) || 0
+    ASSIST_P2h_ALU = parseInt(req.body.ASSIST_P2h_ALU) || 0
+    ASSIST_P2i_OPI = parseInt(req.body.ASSIST_P2i_OPI) || 0
+    ASSIST_P2j_OTR = parseInt(req.body.ASSIST_P2j_OTR) || 0
+    ASSIST_P2i_CUAL = req.body.ASSIST_P2i_CUAL || 'no aplica'
+    ASSIST_P3a_TAB = parseInt(req.body.ASSIST_P3a_TAB) || 0
+    ASSIST_P3b_ALC = parseInt(req.body.ASSIST_P3b_ALC) || 0
+    ASSIST_P3c_CAN = parseInt(req.body.ASSIST_P3c_CAN) || 0
+    ASSIST_P3d_COC = parseInt(req.body.ASSIST_P3d_COC) || 0
+    ASSIST_P3e_ANF = parseInt(req.body.ASSIST_P3e_ANF) || 0
+    ASSIST_P3f_INH = parseInt(req.body.ASSIST_P3f_INH) || 0
+    ASSIST_P3g_TRA = parseInt(req.body.ASSIST_P3g_TRA) || 0
+    ASSIST_P3h_ALU = parseInt(req.body.ASSIST_P3h_ALU) || 0
+    ASSIST_P3i_OPI = parseInt(req.body.ASSIST_P3i_OPI) || 0
+    ASSIST_P3j_OTR = parseInt(req.body.ASSIST_P3j_OTR) || 0
+    ASSIST_P4a_TAB = parseInt(req.body.ASSIST_P4a_TAB) || 0
+    ASSIST_P4b_ALC = parseInt(req.body.ASSIST_P4b_ALC) || 0
+    ASSIST_P4c_CAN = parseInt(req.body.ASSIST_P4c_CAN) || 0
+    ASSIST_P4d_COC = parseInt(req.body.ASSIST_P4d_COC) || 0
+    ASSIST_P4e_ANF = parseInt(req.body.ASSIST_P4e_ANF) || 0
+    ASSIST_P4f_INH = parseInt(req.body.ASSIST_P4f_INH) || 0
+    ASSIST_P4g_TRA = parseInt(req.body.ASSIST_P4g_TRA) || 0
+    ASSIST_P4h_ALU = parseInt(req.body.ASSIST_P4h_ALU) || 0
+    ASSIST_P4i_OPI = parseInt(req.body.ASSIST_P4i_OPI) || 0
+    ASSIST_P4j_OTR = parseInt(req.body.ASSIST_P4j_OTR) || 0
+    ASSIST_P5a_TAB = parseInt(req.body.ASSIST_P5a_TAB) || 0
+    ASSIST_P5b_ALC = parseInt(req.body.ASSIST_P5b_ALC) || 0
+    ASSIST_P5c_CAN = parseInt(req.body.ASSIST_P5c_CAN) || 0
+    ASSIST_P5d_COC = parseInt(req.body.ASSIST_P5d_COC) || 0
+    ASSIST_P5e_ANF = parseInt(req.body.ASSIST_P5e_ANF) || 0
+    ASSIST_P5f_INH = parseInt(req.body.ASSIST_P5f_INH) || 0
+    ASSIST_P5g_TRA = parseInt(req.body.ASSIST_P5g_TRA) || 0
+    ASSIST_P5h_ALU = parseInt(req.body.ASSIST_P5h_ALU) || 0
+    ASSIST_P5i_OPI = parseInt(req.body.ASSIST_P5i_OPI) || 0
+    ASSIST_P5j_OTR = parseInt(req.body.ASSIST_P5j_OTR) || 0
+    ASSIST_P6a_TAB = parseInt(req.body.ASSIST_P6a_TAB) || 0
+    ASSIST_P6b_ALC = parseInt(req.body.ASSIST_P6b_ALC) || 0
+    ASSIST_P6c_CAN = parseInt(req.body.ASSIST_P6c_CAN) || 0
+    ASSIST_P6d_COC = parseInt(req.body.ASSIST_P6d_COC) || 0
+    ASSIST_P6e_ANF = parseInt(req.body.ASSIST_P6e_ANF) || 0
+    ASSIST_P6f_INH = parseInt(req.body.ASSIST_P6f_INH) || 0
+    ASSIST_P6g_TRA = parseInt(req.body.ASSIST_P6g_TRA) || 0
+    ASSIST_P6h_ALU = parseInt(req.body.ASSIST_P6h_ALU) || 0
+    ASSIST_P6i_OPI = parseInt(req.body.ASSIST_P6i_OPI) || 0
+    ASSIST_P6j_OTR = parseInt(req.body.ASSIST_P6j_OTR) || 0
+    ASSIST_P7a_TAB = parseInt(req.body.ASSIST_P7a_TAB) || 0
+    ASSIST_P7b_ALC = parseInt(req.body.ASSIST_P7b_ALC) || 0
+    ASSIST_P7c_CAN = parseInt(req.body.ASSIST_P7c_CAN) || 0
+    ASSIST_P7d_COC = parseInt(req.body.ASSIST_P7d_COC) || 0
+    ASSIST_P7e_ANF = parseInt(req.body.ASSIST_P7e_ANF) || 0
+    ASSIST_P7f_INH = parseInt(req.body.ASSIST_P7f_INH) || 0
+    ASSIST_P7g_TRA = parseInt(req.body.ASSIST_P7g_TRA) || 0
+    ASSIST_P7h_ALU = parseInt(req.body.ASSIST_P7h_ALU) || 0
+    ASSIST_P7i_OPI = parseInt(req.body.ASSIST_P7i_OPI) || 0
+    ASSIST_P7j_OTR = parseInt(req.body.ASSIST_P7j_OTR) || 0
+    ASSIST_P8_1_INY = parseInt(req.body.ASSIST_P8_1_INY) || 0
+    ASSIST_P8_2_FREC = parseInt(req.body.ASSIST_P8_2_FREC) || 0
+    ASSIST_Puntajea_TAB = ASSIST_P1a_TAB + ASSIST_P2a_TAB + ASSIST_P3a_TAB + ASSIST_P4a_TAB + ASSIST_P5a_TAB + ASSIST_P6a_TAB + ASSIST_P7a_TAB;
+    ASSIST_Puntajeb_ALC = ASSIST_P1b_ALC + ASSIST_P2b_ALC + ASSIST_P3b_ALC + ASSIST_P4b_ALC + ASSIST_P5b_ALC + ASSIST_P6b_ALC + ASSIST_P7b_ALC
+    ASSIST_Puntajec_CAN = ASSIST_P1c_CAN + ASSIST_P2c_CAN + ASSIST_P3c_CAN + ASSIST_P4c_CAN + ASSIST_P5c_CAN + ASSIST_P6c_CAN + ASSIST_P7c_CAN
+    ASSIST_Puntajed_COC = ASSIST_P1d_COC + ASSIST_P2d_COC + ASSIST_P3d_COC + ASSIST_P4d_COC + ASSIST_P5d_COC + ASSIST_P6d_COC + ASSIST_P7d_COC
+    ASSIST_Puntajee_ANF = ASSIST_P1e_ANF + ASSIST_P2e_ANF + ASSIST_P3e_ANF + ASSIST_P4e_ANF + ASSIST_P5e_ANF + ASSIST_P6e_ANF + ASSIST_P7e_ANF
+    ASSIST_Puntajef_INH = ASSIST_P1f_INH + ASSIST_P2f_INH + ASSIST_P3f_INH + ASSIST_P4f_INH + ASSIST_P5f_INH + ASSIST_P6f_INH + ASSIST_P7f_INH
+    ASSIST_Puntajeg_TRA = ASSIST_P1g_TRA + ASSIST_P2g_TRA + ASSIST_P3g_TRA + ASSIST_P4g_TRA + ASSIST_P5g_TRA + ASSIST_P6g_TRA + ASSIST_P7g_TRA
+    ASSIST_Puntajeh_ALU = ASSIST_P1h_ALU + ASSIST_P2h_ALU + ASSIST_P3h_ALU + ASSIST_P4h_ALU + ASSIST_P5h_ALU + ASSIST_P6h_ALU + ASSIST_P7h_ALU
+    ASSIST_Puntajei_OPI = ASSIST_P1i_OPI + ASSIST_P2i_OPI + ASSIST_P3i_OPI + ASSIST_P4i_OPI + ASSIST_P5i_OPI + ASSIST_P6i_OPI + ASSIST_P7i_OPI
+    ASSIST_Puntajej_OTR = ASSIST_P1j_OTR + ASSIST_P2j_OTR + ASSIST_P3j_OTR + ASSIST_P4j_OTR + ASSIST_P5j_OTR + ASSIST_P6j_OTR + ASSIST_P7j_OTR
+    ASSIST_Puntajej_8INY = ASSIST_P8_1_INY + ASSIST_P8_2_FREC
+    sqlguardar = `INSERT INTO db_tam_assist VALUES(?)`
+    values = [
+      id_tamizaje,
+      id_creador,
+      nombrecreador,
+      factual,
+      TIP_IDE,
+      NUM_IDE,
+      PRI_NOM,
+      SEG_NOM,
+      PRI_APE,
+      SEG_APE,
+      TELEFONO,
+      FECHA_NTO,
+      EDAD,
+      SEXO,
+      NACION,
+      ID_RL_DIVIPOLA,
+      ID_RL_DIVIPOLA_RESI,
+      DIR_RES,
+      tip_reg,
+      cod_adm,
+      INI_EDAD,
+      PROFESION,
+      ASSIST_P1a_TAB,
+      ASSIST_P1_EDAD_INI_CIG,
+      ASSIST_P1b_ALC,
+      ASSIST_P1c_CAN,
+      ASSIST_P1d_COC,
+      ASSIST_P1e_ANF,
+      ASSIST_P1f_INH,
+      ASSIST_P1g_TRA,
+      ASSIST_P1h_ALU,
+      ASSIST_P1i_OPI,
+      ASSIST_P1j_OTR,
+      ASSIST_P1_CUAL_OTRA,
+      ASSIST_P2a_TAB,
+      ASSIST_P2b_ALC,
+      ASSIST_P2c_CAN,
+      ASSIST_P2d_COC,
+      ASSIST_P2e_ANF,
+      ASSIST_P2f_INH,
+      ASSIST_P2g_TRA,
+      ASSIST_P2h_ALU,
+      ASSIST_P2i_OPI,
+      ASSIST_P2j_OTR,
+      ASSIST_P2i_CUAL,
+      ASSIST_P3a_TAB,
+      ASSIST_P3b_ALC,
+      ASSIST_P3c_CAN,
+      ASSIST_P3d_COC,
+      ASSIST_P3e_ANF,
+      ASSIST_P3f_INH,
+      ASSIST_P3g_TRA,
+      ASSIST_P3h_ALU,
+      ASSIST_P3i_OPI,
+      ASSIST_P3j_OTR,
+      ASSIST_P4a_TAB,
+      ASSIST_P4b_ALC,
+      ASSIST_P4c_CAN,
+      ASSIST_P4d_COC,
+      ASSIST_P4e_ANF,
+      ASSIST_P4f_INH,
+      ASSIST_P4g_TRA,
+      ASSIST_P4h_ALU,
+      ASSIST_P4i_OPI,
+      ASSIST_P4j_OTR,
+      ASSIST_P5a_TAB,
+      ASSIST_P5b_ALC,
+      ASSIST_P5c_CAN,
+      ASSIST_P5d_COC,
+      ASSIST_P5e_ANF,
+      ASSIST_P5f_INH,
+      ASSIST_P5g_TRA,
+      ASSIST_P5h_ALU,
+      ASSIST_P5i_OPI,
+      ASSIST_P5j_OTR,
+      ASSIST_P6a_TAB,
+      ASSIST_P6b_ALC,
+      ASSIST_P6c_CAN,
+      ASSIST_P6d_COC,
+      ASSIST_P6e_ANF,
+      ASSIST_P6f_INH,
+      ASSIST_P6g_TRA,
+      ASSIST_P6h_ALU,
+      ASSIST_P6i_OPI,
+      ASSIST_P6j_OTR,
+      ASSIST_P7a_TAB,
+      ASSIST_P7b_ALC,
+      ASSIST_P7c_CAN,
+      ASSIST_P7d_COC,
+      ASSIST_P7e_ANF,
+      ASSIST_P7f_INH,
+      ASSIST_P7g_TRA,
+      ASSIST_P7h_ALU,
+      ASSIST_P7i_OPI,
+      ASSIST_P7j_OTR,
+      ASSIST_P8_1_INY,
+      ASSIST_P8_2_FREC,
+      ASSIST_Puntajea_TAB,
+      ASSIST_Puntajeb_ALC,
+      ASSIST_Puntajec_CAN,
+      ASSIST_Puntajed_COC,
+      ASSIST_Puntajee_ANF,
+      ASSIST_Puntajef_INH,
+      ASSIST_Puntajeg_TRA,
+      ASSIST_Puntajeh_ALU,
+      ASSIST_Puntajei_OPI,
+      ASSIST_Puntajej_OTR,
+      ASSIST_Puntajej_8INY
+    ]
+    conexion.query(sqlguardar, [values], (error) => {
+      if (error) {
+        throw error
+      } else {
+        res.redirect('/da/reportes')
+      }
+    })
+  } catch (error) {
+    console.log(error)
   }
-})
-} catch (error) {
-  console.log(error)
-}
-
 };
-
-exports.updateAssist=async(req,res)=>{
+exports.updateAssist = async (req, res) => {
   const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
   creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
   var factual = new Date().toISOString().slice(0, 10);
@@ -287,109 +268,98 @@ exports.updateAssist=async(req,res)=>{
   const tip_reg = req.body.tip_reg
   const cod_adm = req.body.cod_adm
   const INI_EDAD = req.body.INI_EDAD
-  const PROFESION= req.body.PROFESION
-  ASSIST_P1a_TAB= parseInt(req.body.ASSIST_P1a_TAB) || 0
-  ASSIST_P1_EDAD_INI_CIG=req.body.ASSIST_P1_EDAD_INI_CIG || 0
-  ASSIST_P1b_ALC= parseInt(req.body.ASSIST_P1b_ALC) || 0
-  ASSIST_P1c_CAN= parseInt(req.body.ASSIST_P1c_CAN) || 0
-  ASSIST_P1d_COC= parseInt(req.body.ASSIST_P1d_COC) || 0
-  ASSIST_P1e_ANF= parseInt(req.body.ASSIST_P1e_ANF) || 0
-  ASSIST_P1f_INH= parseInt(req.body.ASSIST_P1f_INH) || 0
-  ASSIST_P1g_TRA= parseInt(req.body.ASSIST_P1g_TRA) || 0
-  ASSIST_P1h_ALU= parseInt(req.body.ASSIST_P1h_ALU) || 0
-  ASSIST_P1i_OPI= parseInt(req.body.ASSIST_P1i_OPI) || 0
-  ASSIST_P1j_OTR= parseInt(req.body.ASSIST_P1j_OTR) || 0
-  ASSIST_P1_CUAL_OTRA=req.body.ASSIST_P1_CUAL_OTRA || 'no aplica'
-  ASSIST_P2a_TAB= parseInt(req.body.ASSIST_P2a_TAB) || 0
-  ASSIST_P2b_ALC= parseInt(req.body.ASSIST_P2b_ALC) || 0
-  ASSIST_P2c_CAN= parseInt(req.body.ASSIST_P2c_CAN) || 0
-  ASSIST_P2d_COC= parseInt(req.body.ASSIST_P2d_COC) || 0
-  ASSIST_P2e_ANF= parseInt(req.body.ASSIST_P2e_ANF) || 0
-  ASSIST_P2f_INH= parseInt(req.body.ASSIST_P2f_INH) || 0
-  ASSIST_P2g_TRA= parseInt(req.body.ASSIST_P2g_TRA) || 0
-  ASSIST_P2h_ALU= parseInt(req.body.ASSIST_P2h_ALU) || 0
-  ASSIST_P2i_OPI= parseInt(req.body.ASSIST_P2i_OPI) || 0
-  ASSIST_P2j_OTR= parseInt(req.body.ASSIST_P2j_OTR) || 0
-  ASSIST_P2i_CUAL=req.body.ASSIST_P2i_CUAL || 'no aplica'
-  ASSIST_P3a_TAB= parseInt(req.body.ASSIST_P3a_TAB) || 0
-  ASSIST_P3b_ALC= parseInt(req.body.ASSIST_P3b_ALC) || 0
-  ASSIST_P3c_CAN= parseInt(req.body.ASSIST_P3c_CAN) || 0
-  ASSIST_P3d_COC= parseInt(req.body.ASSIST_P3d_COC) || 0
-  ASSIST_P3e_ANF= parseInt(req.body.ASSIST_P3e_ANF) || 0
-  ASSIST_P3f_INH= parseInt(req.body.ASSIST_P3f_INH) || 0
-  ASSIST_P3g_TRA= parseInt(req.body.ASSIST_P3g_TRA) || 0
-  ASSIST_P3h_ALU= parseInt(req.body.ASSIST_P3h_ALU) || 0
-  ASSIST_P3i_OPI= parseInt(req.body.ASSIST_P3i_OPI) || 0
-  ASSIST_P3j_OTR= parseInt(req.body.ASSIST_P3j_OTR) || 0
-  ASSIST_P4a_TAB= parseInt(req.body.ASSIST_P4a_TAB) || 0
-  ASSIST_P4b_ALC= parseInt(req.body.ASSIST_P4b_ALC) || 0
-  ASSIST_P4c_CAN= parseInt(req.body.ASSIST_P4c_CAN) || 0
-  ASSIST_P4d_COC= parseInt(req.body.ASSIST_P4d_COC) || 0
-  ASSIST_P4e_ANF= parseInt(req.body.ASSIST_P4e_ANF) || 0
-  ASSIST_P4f_INH= parseInt(req.body.ASSIST_P4f_INH) || 0
-  ASSIST_P4g_TRA= parseInt(req.body.ASSIST_P4g_TRA) || 0
-  ASSIST_P4h_ALU= parseInt(req.body.ASSIST_P4h_ALU) || 0
-  ASSIST_P4i_OPI= parseInt(req.body.ASSIST_P4i_OPI) || 0
-  ASSIST_P4j_OTR= parseInt(req.body.ASSIST_P4j_OTR) || 0
-  ASSIST_P5a_TAB= parseInt(req.body.ASSIST_P5a_TAB) || 0
-  ASSIST_P5b_ALC= parseInt(req.body.ASSIST_P5b_ALC) || 0
-  ASSIST_P5c_CAN= parseInt(req.body.ASSIST_P5c_CAN) || 0
-  ASSIST_P5d_COC= parseInt(req.body.ASSIST_P5d_COC) || 0
-  ASSIST_P5e_ANF= parseInt(req.body.ASSIST_P5e_ANF) || 0
-  ASSIST_P5f_INH= parseInt(req.body.ASSIST_P5f_INH) || 0
-  ASSIST_P5g_TRA= parseInt(req.body.ASSIST_P5g_TRA) || 0
-  ASSIST_P5h_ALU= parseInt(req.body.ASSIST_P5h_ALU) || 0
-  ASSIST_P5i_OPI= parseInt(req.body.ASSIST_P5i_OPI) || 0
-  ASSIST_P5j_OTR= parseInt(req.body.ASSIST_P5j_OTR) || 0
-  ASSIST_P6a_TAB= parseInt(req.body.ASSIST_P6a_TAB) || 0
-  ASSIST_P6b_ALC= parseInt(req.body.ASSIST_P6b_ALC) || 0
-  ASSIST_P6c_CAN= parseInt(req.body.ASSIST_P6c_CAN) || 0
-  ASSIST_P6d_COC= parseInt(req.body.ASSIST_P6d_COC) || 0
-  ASSIST_P6e_ANF= parseInt(req.body.ASSIST_P6e_ANF) || 0
-  ASSIST_P6f_INH= parseInt(req.body.ASSIST_P6f_INH) || 0
-  ASSIST_P6g_TRA= parseInt(req.body.ASSIST_P6g_TRA) || 0
-  ASSIST_P6h_ALU= parseInt(req.body.ASSIST_P6h_ALU) || 0
-  ASSIST_P6i_OPI= parseInt(req.body.ASSIST_P6i_OPI) || 0
-  ASSIST_P6j_OTR= parseInt(req.body.ASSIST_P6j_OTR) || 0
-  ASSIST_P7a_TAB= parseInt(req.body.ASSIST_P7a_TAB) || 0
-  ASSIST_P7b_ALC= parseInt(req.body.ASSIST_P7b_ALC) || 0
-  ASSIST_P7c_CAN= parseInt(req.body.ASSIST_P7c_CAN) || 0
-  ASSIST_P7d_COC= parseInt(req.body.ASSIST_P7d_COC) || 0
-  ASSIST_P7e_ANF= parseInt(req.body.ASSIST_P7e_ANF) || 0
-  ASSIST_P7f_INH= parseInt(req.body.ASSIST_P7f_INH) || 0
-  ASSIST_P7g_TRA= parseInt(req.body.ASSIST_P7g_TRA) || 0
-  ASSIST_P7h_ALU= parseInt(req.body.ASSIST_P7h_ALU) || 0
-  ASSIST_P7i_OPI= parseInt(req.body.ASSIST_P7i_OPI) || 0
-  ASSIST_P7j_OTR= parseInt(req.body.ASSIST_P7j_OTR) || 0
-  ASSIST_P8_1_INY=parseInt(req.body.ASSIST_P8_1_INY) || 0
-  ASSIST_P8_2_FREC=parseInt(req.body.ASSIST_P8_2_FREC) || 0
-
+  const PROFESION = req.body.PROFESION
+  ASSIST_P1a_TAB = parseInt(req.body.ASSIST_P1a_TAB) || 0
+  ASSIST_P1_EDAD_INI_CIG = req.body.ASSIST_P1_EDAD_INI_CIG || 0
+  ASSIST_P1b_ALC = parseInt(req.body.ASSIST_P1b_ALC) || 0
+  ASSIST_P1c_CAN = parseInt(req.body.ASSIST_P1c_CAN) || 0
+  ASSIST_P1d_COC = parseInt(req.body.ASSIST_P1d_COC) || 0
+  ASSIST_P1e_ANF = parseInt(req.body.ASSIST_P1e_ANF) || 0
+  ASSIST_P1f_INH = parseInt(req.body.ASSIST_P1f_INH) || 0
+  ASSIST_P1g_TRA = parseInt(req.body.ASSIST_P1g_TRA) || 0
+  ASSIST_P1h_ALU = parseInt(req.body.ASSIST_P1h_ALU) || 0
+  ASSIST_P1i_OPI = parseInt(req.body.ASSIST_P1i_OPI) || 0
+  ASSIST_P1j_OTR = parseInt(req.body.ASSIST_P1j_OTR) || 0
+  ASSIST_P1_CUAL_OTRA = req.body.ASSIST_P1_CUAL_OTRA || 'no aplica'
+  ASSIST_P2a_TAB = parseInt(req.body.ASSIST_P2a_TAB) || 0
+  ASSIST_P2b_ALC = parseInt(req.body.ASSIST_P2b_ALC) || 0
+  ASSIST_P2c_CAN = parseInt(req.body.ASSIST_P2c_CAN) || 0
+  ASSIST_P2d_COC = parseInt(req.body.ASSIST_P2d_COC) || 0
+  ASSIST_P2e_ANF = parseInt(req.body.ASSIST_P2e_ANF) || 0
+  ASSIST_P2f_INH = parseInt(req.body.ASSIST_P2f_INH) || 0
+  ASSIST_P2g_TRA = parseInt(req.body.ASSIST_P2g_TRA) || 0
+  ASSIST_P2h_ALU = parseInt(req.body.ASSIST_P2h_ALU) || 0
+  ASSIST_P2i_OPI = parseInt(req.body.ASSIST_P2i_OPI) || 0
+  ASSIST_P2j_OTR = parseInt(req.body.ASSIST_P2j_OTR) || 0
+  ASSIST_P2i_CUAL = req.body.ASSIST_P2i_CUAL || 'no aplica'
+  ASSIST_P3a_TAB = parseInt(req.body.ASSIST_P3a_TAB) || 0
+  ASSIST_P3b_ALC = parseInt(req.body.ASSIST_P3b_ALC) || 0
+  ASSIST_P3c_CAN = parseInt(req.body.ASSIST_P3c_CAN) || 0
+  ASSIST_P3d_COC = parseInt(req.body.ASSIST_P3d_COC) || 0
+  ASSIST_P3e_ANF = parseInt(req.body.ASSIST_P3e_ANF) || 0
+  ASSIST_P3f_INH = parseInt(req.body.ASSIST_P3f_INH) || 0
+  ASSIST_P3g_TRA = parseInt(req.body.ASSIST_P3g_TRA) || 0
+  ASSIST_P3h_ALU = parseInt(req.body.ASSIST_P3h_ALU) || 0
+  ASSIST_P3i_OPI = parseInt(req.body.ASSIST_P3i_OPI) || 0
+  ASSIST_P3j_OTR = parseInt(req.body.ASSIST_P3j_OTR) || 0
+  ASSIST_P4a_TAB = parseInt(req.body.ASSIST_P4a_TAB) || 0
+  ASSIST_P4b_ALC = parseInt(req.body.ASSIST_P4b_ALC) || 0
+  ASSIST_P4c_CAN = parseInt(req.body.ASSIST_P4c_CAN) || 0
+  ASSIST_P4d_COC = parseInt(req.body.ASSIST_P4d_COC) || 0
+  ASSIST_P4e_ANF = parseInt(req.body.ASSIST_P4e_ANF) || 0
+  ASSIST_P4f_INH = parseInt(req.body.ASSIST_P4f_INH) || 0
+  ASSIST_P4g_TRA = parseInt(req.body.ASSIST_P4g_TRA) || 0
+  ASSIST_P4h_ALU = parseInt(req.body.ASSIST_P4h_ALU) || 0
+  ASSIST_P4i_OPI = parseInt(req.body.ASSIST_P4i_OPI) || 0
+  ASSIST_P4j_OTR = parseInt(req.body.ASSIST_P4j_OTR) || 0
+  ASSIST_P5a_TAB = parseInt(req.body.ASSIST_P5a_TAB) || 0
+  ASSIST_P5b_ALC = parseInt(req.body.ASSIST_P5b_ALC) || 0
+  ASSIST_P5c_CAN = parseInt(req.body.ASSIST_P5c_CAN) || 0
+  ASSIST_P5d_COC = parseInt(req.body.ASSIST_P5d_COC) || 0
+  ASSIST_P5e_ANF = parseInt(req.body.ASSIST_P5e_ANF) || 0
+  ASSIST_P5f_INH = parseInt(req.body.ASSIST_P5f_INH) || 0
+  ASSIST_P5g_TRA = parseInt(req.body.ASSIST_P5g_TRA) || 0
+  ASSIST_P5h_ALU = parseInt(req.body.ASSIST_P5h_ALU) || 0
+  ASSIST_P5i_OPI = parseInt(req.body.ASSIST_P5i_OPI) || 0
+  ASSIST_P5j_OTR = parseInt(req.body.ASSIST_P5j_OTR) || 0
+  ASSIST_P6a_TAB = parseInt(req.body.ASSIST_P6a_TAB) || 0
+  ASSIST_P6b_ALC = parseInt(req.body.ASSIST_P6b_ALC) || 0
+  ASSIST_P6c_CAN = parseInt(req.body.ASSIST_P6c_CAN) || 0
+  ASSIST_P6d_COC = parseInt(req.body.ASSIST_P6d_COC) || 0
+  ASSIST_P6e_ANF = parseInt(req.body.ASSIST_P6e_ANF) || 0
+  ASSIST_P6f_INH = parseInt(req.body.ASSIST_P6f_INH) || 0
+  ASSIST_P6g_TRA = parseInt(req.body.ASSIST_P6g_TRA) || 0
+  ASSIST_P6h_ALU = parseInt(req.body.ASSIST_P6h_ALU) || 0
+  ASSIST_P6i_OPI = parseInt(req.body.ASSIST_P6i_OPI) || 0
+  ASSIST_P6j_OTR = parseInt(req.body.ASSIST_P6j_OTR) || 0
+  ASSIST_P7a_TAB = parseInt(req.body.ASSIST_P7a_TAB) || 0
+  ASSIST_P7b_ALC = parseInt(req.body.ASSIST_P7b_ALC) || 0
+  ASSIST_P7c_CAN = parseInt(req.body.ASSIST_P7c_CAN) || 0
+  ASSIST_P7d_COC = parseInt(req.body.ASSIST_P7d_COC) || 0
+  ASSIST_P7e_ANF = parseInt(req.body.ASSIST_P7e_ANF) || 0
+  ASSIST_P7f_INH = parseInt(req.body.ASSIST_P7f_INH) || 0
+  ASSIST_P7g_TRA = parseInt(req.body.ASSIST_P7g_TRA) || 0
+  ASSIST_P7h_ALU = parseInt(req.body.ASSIST_P7h_ALU) || 0
+  ASSIST_P7i_OPI = parseInt(req.body.ASSIST_P7i_OPI) || 0
+  ASSIST_P7j_OTR = parseInt(req.body.ASSIST_P7j_OTR) || 0
+  ASSIST_P8_1_INY = parseInt(req.body.ASSIST_P8_1_INY) || 0
+  ASSIST_P8_2_FREC = parseInt(req.body.ASSIST_P8_2_FREC) || 0
   ASSIST_Puntajea_TAB = ASSIST_P1a_TAB + ASSIST_P2a_TAB + ASSIST_P3a_TAB + ASSIST_P4a_TAB + ASSIST_P5a_TAB + ASSIST_P6a_TAB + ASSIST_P7a_TAB;
-
-  ASSIST_Puntajeb_ALC = ASSIST_P1b_ALC +ASSIST_P2b_ALC+ASSIST_P3b_ALC+ASSIST_P4b_ALC+ASSIST_P5b_ALC+ASSIST_P6b_ALC+ASSIST_P7b_ALC
-
-  ASSIST_Puntajec_CAN =ASSIST_P1c_CAN+ASSIST_P2c_CAN+ASSIST_P3c_CAN+ASSIST_P4c_CAN+ASSIST_P5c_CAN+ASSIST_P6c_CAN+ASSIST_P7c_CAN
-
-  ASSIST_Puntajed_COC =ASSIST_P1d_COC+ASSIST_P2d_COC+ASSIST_P3d_COC+ASSIST_P4d_COC+ASSIST_P5d_COC+ASSIST_P6d_COC+ASSIST_P7d_COC
-
-  ASSIST_Puntajee_ANF =ASSIST_P1e_ANF+ASSIST_P2e_ANF+ASSIST_P3e_ANF+ASSIST_P4e_ANF+ASSIST_P5e_ANF+ASSIST_P6e_ANF+ASSIST_P7e_ANF
-
-  ASSIST_Puntajef_INH =ASSIST_P1f_INH+ASSIST_P2f_INH+ASSIST_P3f_INH+ASSIST_P4f_INH+ASSIST_P5f_INH+ASSIST_P6f_INH+ASSIST_P7f_INH
-
-  ASSIST_Puntajeg_TRA = ASSIST_P1g_TRA+ASSIST_P2g_TRA+ASSIST_P3g_TRA+ASSIST_P4g_TRA+ASSIST_P5g_TRA+ASSIST_P6g_TRA+ASSIST_P7g_TRA
-
-  ASSIST_Puntajeh_ALU  =ASSIST_P1h_ALU+ASSIST_P2h_ALU+ASSIST_P3h_ALU+ASSIST_P4h_ALU+ASSIST_P5h_ALU+ASSIST_P6h_ALU+ASSIST_P7h_ALU
-
-  ASSIST_Puntajei_OPI =ASSIST_P1i_OPI+ASSIST_P2i_OPI+ASSIST_P3i_OPI+ASSIST_P4i_OPI+ASSIST_P5i_OPI+ASSIST_P6i_OPI+ASSIST_P7i_OPI
-
-  ASSIST_Puntajej_OTR = ASSIST_P1j_OTR+ASSIST_P2j_OTR+ASSIST_P3j_OTR+ASSIST_P4j_OTR+ASSIST_P5j_OTR+ASSIST_P6j_OTR+ASSIST_P7j_OTR
-
+  ASSIST_Puntajeb_ALC = ASSIST_P1b_ALC + ASSIST_P2b_ALC + ASSIST_P3b_ALC + ASSIST_P4b_ALC + ASSIST_P5b_ALC + ASSIST_P6b_ALC + ASSIST_P7b_ALC
+  ASSIST_Puntajec_CAN = ASSIST_P1c_CAN + ASSIST_P2c_CAN + ASSIST_P3c_CAN + ASSIST_P4c_CAN + ASSIST_P5c_CAN + ASSIST_P6c_CAN + ASSIST_P7c_CAN
+  ASSIST_Puntajed_COC = ASSIST_P1d_COC + ASSIST_P2d_COC + ASSIST_P3d_COC + ASSIST_P4d_COC + ASSIST_P5d_COC + ASSIST_P6d_COC + ASSIST_P7d_COC
+  ASSIST_Puntajee_ANF = ASSIST_P1e_ANF + ASSIST_P2e_ANF + ASSIST_P3e_ANF + ASSIST_P4e_ANF + ASSIST_P5e_ANF + ASSIST_P6e_ANF + ASSIST_P7e_ANF
+  ASSIST_Puntajef_INH = ASSIST_P1f_INH + ASSIST_P2f_INH + ASSIST_P3f_INH + ASSIST_P4f_INH + ASSIST_P5f_INH + ASSIST_P6f_INH + ASSIST_P7f_INH
+  ASSIST_Puntajeg_TRA = ASSIST_P1g_TRA + ASSIST_P2g_TRA + ASSIST_P3g_TRA + ASSIST_P4g_TRA + ASSIST_P5g_TRA + ASSIST_P6g_TRA + ASSIST_P7g_TRA
+  ASSIST_Puntajeh_ALU = ASSIST_P1h_ALU + ASSIST_P2h_ALU + ASSIST_P3h_ALU + ASSIST_P4h_ALU + ASSIST_P5h_ALU + ASSIST_P6h_ALU + ASSIST_P7h_ALU
+  ASSIST_Puntajei_OPI = ASSIST_P1i_OPI + ASSIST_P2i_OPI + ASSIST_P3i_OPI + ASSIST_P4i_OPI + ASSIST_P5i_OPI + ASSIST_P6i_OPI + ASSIST_P7i_OPI
+  ASSIST_Puntajej_OTR = ASSIST_P1j_OTR + ASSIST_P2j_OTR + ASSIST_P3j_OTR + ASSIST_P4j_OTR + ASSIST_P5j_OTR + ASSIST_P6j_OTR + ASSIST_P7j_OTR
   ASSIST_Puntajej_8INY = ASSIST_P8_1_INY + ASSIST_P8_2_FREC
-
-  updateassist= await q(`UPDATE db_tam_assist SET 
+  FEC_NOT=req.body.FEC_NOT
+  updateassist = await q(`UPDATE db_tam_assist SET 
   id_creador=${id_creador},
 nombrecreador="${nombrecreador}",
-FEC_NOT='${factual}',
+FEC_NOT='${FEC_NOT}',
 TIP_IDE=${TIP_IDE},
 NUM_IDE=${NUM_IDE},
 PRI_NOM="${PRI_NOM}",
@@ -493,19 +463,16 @@ ASSIST_Puntajeh_ALU=${ASSIST_Puntajeh_ALU},
 ASSIST_Puntajei_OPI=${ASSIST_Puntajei_OPI},
 ASSIST_Puntajej_OTR=${ASSIST_Puntajej_OTR},
 ASSIST_Puntajej_8INY=${ASSIST_Puntajej_8INY} WHERE id_tamizaje= "${id_tamizaje}"
-  
   `)
   console.log(id_tamizaje)
   res.redirect(`/da/vertamizaje_assist/${id_tamizaje}`)
-  
 };
-
-exports.deleteAssist = async(req,res)=>{
-  id_tamizaje=req.params.id
+exports.deleteAssist = async (req, res) => {
+  id_tamizaje = req.params.id
   console.log(id_tamizaje)
-  delete_tam=await q(`DELETE FROM db_tam_assist WHERE db_tam_assist.id_tamizaje="${id_tamizaje}"`)
-  res.redirect('/da/reportes')};
-
+  delete_tam = await q(`DELETE FROM db_tam_assist WHERE db_tam_assist.id_tamizaje="${id_tamizaje}"`)
+  res.redirect('/da/reportes')
+};
 exports.tamizajecrafft = async (req, res) => {
   try {
     const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
@@ -515,6 +482,7 @@ exports.tamizajecrafft = async (req, res) => {
     const id_creador = creador[0].CEDULA
     const nombrecreador = creador[0].NOMBRE + creador[0].APELLIDO
     var factual = new Date().toISOString().slice(0, 10);
+    FEC_NOT=req.body.FEC_NOT.toISOString().slice(0, 10);
     const TIP_IDE = req.body.TIP_IDE
     const NUM_IDE = req.body.NUM_IDE
     const PRI_NOM = req.body.PRI_NOM
@@ -539,26 +507,23 @@ exports.tamizajecrafft = async (req, res) => {
     var CRAFFT_Pb1_RIESGOS = parseInt(req.body.CRAFFT_Pb1_RIESGOS)
     var CRAFFT_Pb2_DISMIN = parseInt(req.body.CRAFFT_Pb2_DISMIN)
     var CRAFFT_Pb3_RELAJ = parseInt(req.body.CRAFFT_Pb3_RELAJ)
-     var CRAFFT_Pb4_LIOS = parseInt(req.body.CRAFFT_Pb4_LIOS)
+    var CRAFFT_Pb4_LIOS = parseInt(req.body.CRAFFT_Pb4_LIOS)
     var CRAFFT_Pb5_OLVIDO = parseInt(req.body.CRAFFT_Pb5_OLVIDO)
     var CRAFFT_Pb6_SOLO = parseInt(req.body.CRAFFT_Pb6_SOLO)
-    var CRAFFT_Puntaje=CRAFFT_Pb2_DISMIN + CRAFFT_Pb3_RELAJ + CRAFFT_Pb4_LIOS + CRAFFT_Pb1_RIESGOS + CRAFFT_Pb5_OLVIDO + CRAFFT_Pb6_SOLO
+    var CRAFFT_Puntaje = CRAFFT_Pb2_DISMIN + CRAFFT_Pb3_RELAJ + CRAFFT_Pb4_LIOS + CRAFFT_Pb1_RIESGOS + CRAFFT_Pb5_OLVIDO + CRAFFT_Pb6_SOLO
     console.log(CRAFFT_Puntaje)
-    if (CRAFFT_Puntaje == 1 || CRAFFT_Puntaje==2){
-      var accion='Se debe hacer entrevista a profundidad y hablar con la familia (núcleo primario) por tratarse de un menor de edad.'
-
-    }else if (CRAFFT_Puntaje ==3 || CRAFFT_Puntaje==4 || CRAFFT_Puntaje==6){
-      var accion= 'Alerta sobre un posible consumo de riesgo, criterio para remitir al usuario a una evaluación especializada; se debe afianzar el criterio con lo identificado en la entrevista y la aplicación de otras pruebas'
-      
-    }else{
-      var accion='No corre riesgo'
+    if (CRAFFT_Puntaje == 1 || CRAFFT_Puntaje == 2) {
+      var accion = 'Se debe hacer entrevista a profundidad y hablar con la familia (núcleo primario) por tratarse de un menor de edad.'
+    } else if (CRAFFT_Puntaje == 3 || CRAFFT_Puntaje == 4 || CRAFFT_Puntaje == 6) {
+      var accion = 'Alerta sobre un posible consumo de riesgo, criterio para remitir al usuario a una evaluación especializada; se debe afianzar el criterio con lo identificado en la entrevista y la aplicación de otras pruebas'
+    } else {
+      var accion = 'No corre riesgo'
     }
-
     values = [
       id_tamizaje,
       id_creador,
       nombrecreador,
-      factual,
+      FEC_NOT,
       TIP_IDE,
       NUM_IDE,
       PRI_NOM,
@@ -590,11 +555,10 @@ exports.tamizajecrafft = async (req, res) => {
       accion
     ]
     sqlguardar = 'INSERT INTO db_tam_crafft VALUES (?)'
-
     conexion.query(sqlguardar, [values], (error) => {
       if (error) {
         throw error
-      }else{
+      } else {
         res.redirect('/da/reportes')
       }
     })
@@ -602,9 +566,8 @@ exports.tamizajecrafft = async (req, res) => {
     console.log(error)
   }
 };
-
-exports.updateCrafft= async(req,res)=>{
-  id_tamizaje=req.body.id_tamizaje
+exports.updateCrafft = async (req, res) => {
+  id_tamizaje = req.body.id_tamizaje
   try {
     const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
     creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
@@ -612,7 +575,7 @@ exports.updateCrafft= async(req,res)=>{
     id_tamizaje = req.body.id_tamizaje
     const id_creador = creador[0].CEDULA
     const nombrecreador = creador[0].NOMBRE + creador[0].APELLIDO
-    var factual = new Date().toISOString().slice(0,10);
+    var factual = new Date().toISOString().slice(0, 10);
     const TIP_IDE = req.body.TIP_IDE
     const NUM_IDE = req.body.NUM_IDE
     const PRI_NOM = req.body.PRI_NOM
@@ -621,7 +584,6 @@ exports.updateCrafft= async(req,res)=>{
     const SEG_APE = req.body.SEG_APE
     const TELEFONO = req.body.TELEFONO
     var FECHA_NTO = req.body.FECHA_NTO
-    
     const EDAD = req.body.EDAD
     const SEXO = req.body.SEXO
     const NACION = req.body.NACION
@@ -638,24 +600,21 @@ exports.updateCrafft= async(req,res)=>{
     var CRAFFT_Pb1_RIESGOS = parseInt(req.body.CRAFFT_Pb1_RIESGOS)
     var CRAFFT_Pb2_DISMIN = parseInt(req.body.CRAFFT_Pb2_DISMIN)
     var CRAFFT_Pb3_RELAJ = parseInt(req.body.CRAFFT_Pb3_RELAJ)
-     var CRAFFT_Pb4_LIOS = parseInt(req.body.CRAFFT_Pb4_LIOS)
+    var CRAFFT_Pb4_LIOS = parseInt(req.body.CRAFFT_Pb4_LIOS)
     var CRAFFT_Pb5_OLVIDO = parseInt(req.body.CRAFFT_Pb5_OLVIDO)
     var CRAFFT_Pb6_SOLO = parseInt(req.body.CRAFFT_Pb6_SOLO)
-    var CRAFFT_Puntaje=CRAFFT_Pb2_DISMIN + CRAFFT_Pb3_RELAJ + CRAFFT_Pb4_LIOS + CRAFFT_Pb1_RIESGOS + CRAFFT_Pb5_OLVIDO + CRAFFT_Pb6_SOLO
-    
-    if (CRAFFT_Puntaje == 1 || CRAFFT_Puntaje==2){
-      var accion='Se debe hacer entrevista a profundidad y hablar con la familia (núcleo primario) por tratarse de un menor de edad.'
-
-    }else if (CRAFFT_Puntaje ==3 || CRAFFT_Puntaje==4 || CRAFFT_Puntaje==6){
-      var accion= 'Alerta sobre un posible consumo de riesgo, criterio para remitir al usuario a una evaluación especializada; se debe afianzar el criterio con lo identificado en la entrevista y la aplicación de otras pruebas'
-      
-    }else{
-      var accion='No corre riesgo'
+    var CRAFFT_Puntaje = CRAFFT_Pb2_DISMIN + CRAFFT_Pb3_RELAJ + CRAFFT_Pb4_LIOS + CRAFFT_Pb1_RIESGOS + CRAFFT_Pb5_OLVIDO + CRAFFT_Pb6_SOLO
+    FEC_NOT=req.body.FEC_NOT
+    FEC_NOT=FEC_NOT
+    if (CRAFFT_Puntaje == 1 || CRAFFT_Puntaje == 2) {
+      var accion = 'Se debe hacer entrevista a profundidad y hablar con la familia (núcleo primario) por tratarse de un menor de edad.'
+    } else if (CRAFFT_Puntaje == 3 || CRAFFT_Puntaje == 4 || CRAFFT_Puntaje == 6) {
+      var accion = 'Alerta sobre un posible consumo de riesgo, criterio para remitir al usuario a una evaluación especializada; se debe afianzar el criterio con lo identificado en la entrevista y la aplicación de otras pruebas'
+    } else {
+      var accion = 'No corre riesgo'
     }
-
-    console.log(factual)
     sqlupdate = await q(`UPDATE db_tam_crafft SET nombrecreador='${nombrecreador}',
-      
+    FEC_NOT='${FEC_NOT}',
       TIP_IDE=${TIP_IDE},
       NUM_IDE=${NUM_IDE},
       PRI_NOM='${PRI_NOM}',
@@ -685,25 +644,18 @@ exports.updateCrafft= async(req,res)=>{
       CRAFFT_Pb6_SOLO=${CRAFFT_Pb6_SOLO},
       CRAFFT_Puntaje=${CRAFFT_Puntaje},
       accion='${accion}' WHERE db_tam_crafft.id_tamizaje="${id_tamizaje}"
-    
-    
     `)
     res.redirect(`/da/vertamizaje_crafft/${id_tamizaje}`)
-   
-
-    
   } catch (error) {
     console.log(error)
   }
 };
-
-exports.deleteCrafft = async(req,res)=>{
-  id_tamizaje=req.params.id
+exports.deleteCrafft = async (req, res) => {
+  id_tamizaje = req.params.id
   console.log(id_tamizaje)
-  delete_tam=await q(`DELETE FROM db_tam_crafft WHERE db_tam_crafft.id_tamizaje="${id_tamizaje}"`)
+  delete_tam = await q(`DELETE FROM db_tam_crafft WHERE db_tam_crafft.id_tamizaje="${id_tamizaje}"`)
   res.redirect('/da/reportes')
 };
-
 exports.dareporte = async (req, res) => {
   try {
     const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "dddd");
@@ -718,9 +670,12 @@ exports.dareporte = async (req, res) => {
         currentdate = new Date();
         var oneJan = new Date(currentdate.getFullYear(), 0, 1);
         var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
-        var semanaEp = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7)
+        var semanaEp = req.body.INI_SIN
+        semanaEp=moment(semanaEp).isoWeek()
+        FEC_NOT=req.body.FEC_NOT
         //año
-        const fechaN = new Date()
+        const fechaN = new Date(req.body.INI_SIN)
+        console.log(fechaN.getFullYear())
         var idglobalreporte = req.body.NUM_IDE + factual
         console.log(idglobalreporte)
         //****** leemos variables para db_info_gnral */
@@ -812,7 +767,6 @@ exports.dareporte = async (req, res) => {
         DIR_RES = req.body.DIR_RES
         FEC_CON = req.body.FEC_CON
         INI_SIN = req.body.INI_SIN || new Date("1001-01-01").toISOString().slice(0, 10)
-         
         ID_TIP_CAS = req.body.ID_TIP_CAS
         PAC_HOS = req.body.PAC_HOS
         FEC_HOS = req.body.FEC_HOS || new Date("1001-01-01").toISOString().slice(0, 10)
@@ -841,7 +795,6 @@ exports.dareporte = async (req, res) => {
           TEL_DIL_FI
         ]
         // redaccion del query de db_notif notificacion del incidente
-        
         queryDBnotif = 'INSERT INTO db_notif VALUES (?)'
         //VARIABLES DE AJUSTE DEL CASO
         ID_RL_AJUSTE = req.body.ID_RL_AJUSTE
@@ -993,7 +946,7 @@ exports.dareporte = async (req, res) => {
         queryDBresnot = 'INSERT INTO `db_res_not` VALUES (?)'
         //variables mas globales que van en otras ddb del reporte
         //query y campos para db_info_general
-        const valuesDBinfogneral = [idglobalreporte, NUM_IDE, COD_EVEN, factual, semanaEp, año, COD_PRE, COD_SUB]
+        const valuesDBinfogneral = [idglobalreporte, ID_RL_TIP_IDE, COD_EVEN, FEC_NOT, semanaEp, año, COD_PRE, COD_SUB]
         queryDBinfogneral = 'INSERT INTO db_info_gral VALUES(?)'
         //************* */
         //insertar en db_info_general
@@ -1056,9 +1009,9 @@ exports.updatereporte = async (req, res) => {
     creador = await q(`SELECT * FROM st_user WHERE id_st_user =${decodificada.id}`)
     user = creador[0]
     id_reporte = req.body.id_reporte
-     factual = new Date().toISOString().slice(0, 10);
-     ID_TIP_IDE = req.body.ID_TIP_IDE
-     NUM_IDE = req.body.NUM_IDE
+    factual = new Date().toISOString().slice(0, 10);
+    ID_TIP_IDE = req.body.ID_TIP_IDE
+    NUM_IDE = req.body.NUM_IDE
     PRI_NOM = req.body.PRI_NOM
     SEG_NOM = req.body.SEG_NOM
     PRI_APE = req.body.PRI_APE
@@ -1066,12 +1019,13 @@ exports.updatereporte = async (req, res) => {
     TELEFONO = req.body.TELEFONO
     FECHA_NTO = req.body.FECHA_NTO
     EDAD = req.body.EDAD
+    FEC_NOT= req.body.FEC_NOT
     ID_SEXO = req.body.ID_SEXO
     ID_RL_NACIONALIDAD = req.body.ID_RL_NACIONALIDAD[0]
     var ID_RL_NACIONALIDADa = req.body.ID_RL_NACIONALIDADa
     ID_COD_PAIS_O = ID_RL_NACIONALIDAD[0]
     ID_RL_DIVIPOLA = req.body.ID_RL_DIVIPOLA[0]
-      console.log(req.body.ID_RL_DIVIPOLA[0])
+    console.log(req.body.ID_RL_DIVIPOLA[0])
     DIR_RES = req.body.DIR_RES
     id_rl_tip_ss = req.body.id_rl_tip_ss
     ESTRATO = req.body.ESTRATO
@@ -1224,22 +1178,24 @@ exports.updatereporte = async (req, res) => {
     currentdate = new Date();
     var oneJan = new Date(currentdate.getFullYear(), 0, 1);
     var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
-    var semanaEp = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7)
-    const fechaN = new Date()
+    var semanaEp = req.body.INI_SIN
+    console.log(INI_SIN)
+    semanaEp=moment(semanaEp).isoWeek()
+    const fechaN = req.body.INI_SIN
     const año = fechaN.getFullYear();
     const COD_PRE = user.COD_PRE
     const COD_SUB = user.COD_SUB
     //
-    update_db_info_gral=await q(`UPDATE db_info_gral SET
+    update_db_info_gral = await q(`UPDATE db_info_gral SET
     ID_TIP_IDE = '${ID_TIP_IDE}',
     COD_EVE='${ID_CIE_10}',
-    FEC_NOT='${factual}',
+    FEC_NOT='${FEC_NOT}',
     SEMANA='${semanaEp}',
     ANO='${año}',
     COD_PRE='${COD_PRE}',
     COD_SUB='${COD_SUB}' WHERE db_info_gral.id_reporte='${id_reporte}'`)
     //
-    update_db_ini_con= await q (`UPDATE db_ini_con SET 
+    update_db_ini_con = await q(`UPDATE db_ini_con SET 
     INI_EDAD='${INI_EDAD}',
     ID_RL_LISTA_SPA='${ID_RL_LISTA_SPA}',
     ID_RL_LISTA_SPA2='${ID_RL_LISTA_SPA2}',
@@ -1250,7 +1206,7 @@ exports.updatereporte = async (req, res) => {
     ID_RL_INI_MOTIV='${ID_RL_INI_MOTIV}',
     ID_RL_INI_MOTIV2='${ID_RL_INI_MOTIV2}' WHERE db_ini_con.id_reporte='${id_reporte}'`)
     //
-    update_db_con_act= await q(`UPDATE db_con_act SET 
+    update_db_con_act = await q(`UPDATE db_con_act SET 
     ID_CIE_10='${ID_CIE_10}',
     ID_RL_LISTA_SPA='${ID_RL_LISTA_SPA_ac}',
     ID_RL_LISTA_SPA2='${ID_RL_LISTA_SPA2_ac}',
@@ -1299,18 +1255,16 @@ exports.updatereporte = async (req, res) => {
     console.log(error)
   }
 }
-
-exports.deletereporte= async(req,res)=>{
-  id_reporte=req.params.id
+exports.deletereporte = async (req, res) => {
+  id_reporte = req.params.id
   console.log(id_reporte)
-  delete_db_aju= await q(`DELETE FROM db_aju WHERE db_aju.id_reporte= "${id_reporte}"`)
-  delete_db_ide_pac= await q(`DELETE FROM db_ide_pac WHERE db_ide_pac.id_reporte= "${id_reporte}"`)
-  delete_db_notif= await q(`DELETE FROM db_notif WHERE db_notif.id_reporte= "${id_reporte}"`)
-  delete_db_info_gral= await q(`DELETE FROM db_info_gral WHERE db_info_gral.id_reporte= "${id_reporte}"`)
-  delete_db_ini_con= await q(`DELETE FROM db_ini_con WHERE db_ini_con.id_reporte= "${id_reporte}"`)
-  delete_db_con_act= await q(`DELETE FROM db_con_act WHERE db_con_act.id_reporte= "${id_reporte}"`)
-  delete_db_intven= await q(`DELETE FROM db_intven WHERE db_intven.id_reporte= "${id_reporte}"`)
+  delete_db_aju = await q(`DELETE FROM db_aju WHERE db_aju.id_reporte= "${id_reporte}"`)
+  delete_db_ide_pac = await q(`DELETE FROM db_ide_pac WHERE db_ide_pac.id_reporte= "${id_reporte}"`)
+  delete_db_notif = await q(`DELETE FROM db_notif WHERE db_notif.id_reporte= "${id_reporte}"`)
+  delete_db_info_gral = await q(`DELETE FROM db_info_gral WHERE db_info_gral.id_reporte= "${id_reporte}"`)
+  delete_db_ini_con = await q(`DELETE FROM db_ini_con WHERE db_ini_con.id_reporte= "${id_reporte}"`)
+  delete_db_con_act = await q(`DELETE FROM db_con_act WHERE db_con_act.id_reporte= "${id_reporte}"`)
+  delete_db_intven = await q(`DELETE FROM db_intven WHERE db_intven.id_reporte= "${id_reporte}"`)
   console.log(delete_db_aju)
-
   res.redirect('/da/reportes')
 }
