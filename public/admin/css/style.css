@@ -1229,7 +1229,7 @@ form .input-group button {
     width: 16rem!important;
     background-color: var(--white);
     margin: 15px;
-    border: var(--anchos) #3c4043 solid!important;
+    border: 1px var(--sidebar_hover) solid!important;
 }
 
 .card_informes img {

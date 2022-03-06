@@ -60,15 +60,16 @@
                 <!-- <div class="row" id="administrar_noticias">
                 </div> -->
                 <div class="row">
+                    
                     <% todaslineas.forEach((datalineas)=>{ %> 
                     <div class="col-lg-4 col-xs-12">
                         <div class="card card_news">
                             <div class="card-body">
-                                <h5 class="card-title"><%= datalineas.nombre %> /h5>
+                                <h5 class="card-title"><%= datalineas.nombre %> </h5>
                                 <p class="card-text"><%= datalineas.description %> </p>
-                                <p class="card-text">Numero de linea de atención: <% datalineas.numero %> </p>
-                                <p class="card-text">Nombre del municipio <% datalineas.NOMMUNIPIO %> </p> 
-                                <p class="card-text">Sustancia: <% datalineas.SUSTANCIA %> </p>
+                                <p class="card-text">Numero de linea de atención: <%= datalineas.numero %> </p>
+                                <p class="card-text">Nombre del municipio: <%= datalineas.NOMMUNIPIO %> </p> 
+                                <p class="card-text">Sustancia: <%= datalineas.SUSTANCIA %> </p>
                                
                             </div>
                         </div>
@@ -83,7 +84,7 @@
             <div class="modal-content">
                 <form action="/da/crearlinea" method="post">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar/Editar linea de atención</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar linea de atención</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body modal_lineas">

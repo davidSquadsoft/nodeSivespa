@@ -21,7 +21,7 @@ console.log(vacio)
 };
 function camposAlerta(s){
   Swal.fire({
-    title: 'Validar los siguientes campos vacios antes de guardar el contenido:',
+    title: 'Validar los siguientes campos vacios antes de guardar el informe:',
     html: s,
     icon: 'error',
     confirmButtonText: 'Ok',

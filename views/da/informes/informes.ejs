@@ -52,7 +52,31 @@
                                 </div>
                             </a>
                         </div>
+                        <div class="col-lg-9 col-xs-12">
+                         
+                        </div>
                    
+                    </div>
+                    <div class="row">
+                        <form action="/da/informes" method="post" autocomplete="off">
+                            <div class="row">
+                               
+                                <div class="col-lg-4">
+                                    <label for="fechaini">Desde:</label>
+                                    <input type="date" name="dateini" class="form-control">
+                                    <label for="fechaend">Hasta:</label>
+                                    <input type="date" name="dateend" class="form-control">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="municipio">Municipio:</label>
+                                    <input type="text" class="form-control" name="muni" <% if(user.TIP_USER==3 || user.TIP_USER==2){ %> readonly="readonly" <% } %> value="<%= user.COD_MUN %> " >
+                                    <button type="submit" class="form-control btn_green_s btn mt-4">Aplicar filtro <i class="bi bi-search "></i></button>
+
+                                </div>
+                            </div>
+
+
+                        </form>
                     </div>
                 </div>
                 
@@ -60,16 +84,17 @@
                     <div class="row">
                         <h3>Listado de informes:</h3>
                     </div>
+                    <% informes.forEach((datainfor) => { %> 
+
                     <div class="card card_informes">
                         <div class="card-body">
-                            <h5 class="card-title">Nombre del informe</h5>
-                            <p class="card-text">Pequeño resumen del informe</p>
-                            <button class="btn_green" role="link" onclick="location.href='../informes/informes_ejemplo.php';">Leer</button>
-                            <button class="btn_green btn_icons"><i class="bi bi-printer-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-cloud-arrow-down-fill"></i></button>
-                            <button class="btn_green btn_icons"><i class="bi bi-pencil-square"></i></button>
+                            <h5 class="card-title"><%= datainfor.titulo %> </h5>
+                            <p class="card-text"><% resumen= datainfor.contenido%> <%= resumen.substr(1,50) %></p>
+                            <button class="btn_green" role="link" onclick="location.href='informes/verinforme/<%= datainfor.id %>';">Leer</button>
+                
                         </div>
                     </div>
+                    <% }) %> 
                     
                 </div>
             </div>

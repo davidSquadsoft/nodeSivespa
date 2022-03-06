@@ -17,6 +17,7 @@ exports.estamuni = async (req, res) => {
     dateini = req.body.dateini || new Date('1900/01/01').toISOString().slice(0, 10);
     dateend = req.body.dateend || new Date().toISOString().slice(0, 10);
     codmuni = parseInt(req.body.geoEstadistica) || 0
+
     var filtro
     if(user.TIP_USER==3){
         fechas = await q(`SELECT id_reporte FROM db_info_gral WHERE FEC_NOT >= "${dateini}" AND FEC_NOT <= "${dateend}" AND COD_PRE="${user.COD_PRE}"`)
@@ -65,6 +66,7 @@ exports.estamuni = async (req, res) => {
         var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
+        var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
@@ -86,6 +88,7 @@ exports.estamuni = async (req, res) => {
         var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
+        var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
@@ -110,6 +113,7 @@ exports.estamuni = async (req, res) => {
         var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
+        var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
         var ketamina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_KET = 1 AND id_reporte IN (${concatfechas})`)  || [{cantidad:0}]
@@ -127,6 +131,8 @@ exports.estamuni = async (req, res) => {
     res.render('da/estadisticas/estadisticas', {
       tittle: 'Estadisticas',
       user: user,
+      dateini:dateini,
+dateend:dateend,
       alcoholAnt: alcoholAnt[0].cantidad,
       tabaco: tabaco[0].cantidad,
       marihuana: marihuana[0].cantidad,
@@ -147,6 +153,7 @@ exports.estamuni = async (req, res) => {
       cacaosab: cacaosab[0].cantidad,
       hongos: hongos[0].cantidad,
       cannartifi: cannartifi[0].cantidad,
+      heroina:heroina[0].cantidad,
       lmuni: lmuni,
       filtro:filtro,
       muninombre: muninombre
@@ -194,6 +201,7 @@ exports.estasemana= async(req,res)=>{
     var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
+    var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
@@ -215,6 +223,8 @@ exports.estasemana= async(req,res)=>{
         var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatSem}) AND id_reporte IN (${concatMuni})`)  || [{cantidad:0}]
         var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatSem}) AND id_reporte IN (${concatMuni})`)  || [{cantidad:0}]
         var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatSem}) AND id_reporte IN (${concatMuni})`)  || [{cantidad:0}]
+        var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatSem}) AND id_reporte IN (${concatMuni})`)  || [{cantidad:0}]
+
         var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatSem}) AND id_reporte IN (${concatMuni})`)  || [{cantidad:0}]
         var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatSem}) AND id_reporte IN (${concatMuni})`)  || [{cantidad:0}]
         var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatSem}) AND id_reporte IN (${concatMuni})`)  || [{cantidad:0}]
@@ -237,6 +247,7 @@ exports.estasemana= async(req,res)=>{
     var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
+    var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
     var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatSem})`)  || [{cantidad:0}]
@@ -254,6 +265,8 @@ exports.estasemana= async(req,res)=>{
     res.render('da/estadisticas/estadisticas', {
         tittle: 'Estadisticas',
         user: user,
+        semana:semana,
+        ano:ano,
         alcoholAnt: alcoholAnt[0].cantidad,
         tabaco: tabaco[0].cantidad,
         marihuana: marihuana[0].cantidad,
@@ -261,6 +274,7 @@ exports.estasemana= async(req,res)=>{
         basuco: basuco[0].cantidad,
         extasis: extasis[0].cantidad,
         lsd: lsd[0].cantidad,
+        heroina: heroina[0].cantidad,
         cb2: cb2[0].cantidad,
         metanfetaminas: metanfetaminas[0].cantidad,
         ghb: ghb[0].cantidad,
@@ -313,10 +327,11 @@ exports.estaedad=async(req,res)=>{
     }else{
         concatEdadR = 0
     }
+    filtro='edad'
     //concatenamos los municipios
     var quemuni = municipio
     if (quemuni.length >= 1) {
-        filtro='edad'
+        
       var concatmuni = municipio[0].id_reporte
       for (j = 1; j < municipio.length; j++) {
         concatmuni += ',' + '"' + quemuni[j].id_reporte + '"' 
@@ -341,6 +356,7 @@ exports.estaedad=async(req,res)=>{
         var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
+        var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatmuni}) AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
@@ -362,6 +378,7 @@ exports.estaedad=async(req,res)=>{
         var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
+        var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
@@ -375,7 +392,9 @@ exports.estaedad=async(req,res)=>{
         var cacaosab = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CAC = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var hongos = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var cannartifi = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
+        console.log(alcoholAnt)
     }
+
     if(user.TIP_USER==3){
         var alcoholAnt = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var tabaco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_TAB = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
@@ -384,6 +403,7 @@ exports.estaedad=async(req,res)=>{
         var basuco = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var extasis = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var lsd = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
+        var heroina = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var cb2 = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var metanfetaminas = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
         var ghb = await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1 AND id_reporte IN (${concatfechas}) AND id_reporte IN (${concatEdadR})`)  || [{cantidad:0}]
@@ -401,6 +421,10 @@ exports.estaedad=async(req,res)=>{
     res.render('da/estadisticas/estadisticas', {
         tittle: 'Estadisticas',
         user: user,
+        edadini:edadini,
+        edadfinal:edadfinal,
+        semana:semana,
+        ano:ano,
         alcoholAnt: alcoholAnt[0].cantidad,
         tabaco: tabaco[0].cantidad,
         marihuana: marihuana[0].cantidad,
@@ -408,6 +432,7 @@ exports.estaedad=async(req,res)=>{
         basuco: basuco[0].cantidad,
         extasis: extasis[0].cantidad,
         lsd: lsd[0].cantidad,
+        heroina: heroina[0].cantidad,
         cb2: cb2[0].cantidad,
         metanfetaminas: metanfetaminas[0].cantidad,
         ghb: ghb[0].cantidad,

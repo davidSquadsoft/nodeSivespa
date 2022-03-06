@@ -61,6 +61,7 @@ router.get('/dashboard', authController.isAuth, async(req, res) => {
   var basuco=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1`)
   var extasis=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1`)
   var lsd=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1`)
+  var heroina=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1`)
   var cb2=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1`)
   var metanfetaminas=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1`)
   var ghb=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1`)
@@ -93,6 +94,7 @@ var cannartifi=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHE
     basuco: basuco[0].cantidad,
     extasis: extasis[0].cantidad,
     lsd: lsd[0].cantidad,
+    heroina:heroina[0].cantidad,
     cb2: cb2[0].cantidad,
     metanfetaminas: metanfetaminas[0].cantidad,
     ghb: ghb[0].cantidad,
@@ -150,6 +152,7 @@ var cocaina=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE 
 var basuco=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_BAS = 1`)
 var extasis=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_EXT = 1`)
 var lsd=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_LSD = 1`)
+var heroina=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HER = 1`)
 var cb2=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_2CB = 1`)
 var metanfetaminas=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1`)
 var ghb=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1`)
@@ -177,6 +180,7 @@ cocaina:cocaina[0].cantidad,
 basuco:basuco[0].cantidad,
 extasis:extasis[0].cantidad,
 lsd:lsd[0].cantidad,
+heroina:heroina[0].cantidad,
 cb2:cb2[0].cantidad,
 metanfetaminas:metanfetaminas[0].cantidad,
 ghb:ghb[0].cantidad,
@@ -205,8 +209,62 @@ router.get('/crearestadistica', authController.isAuth, (req, res) => {
 })
 
 router.get('/informes', authController.isAuth, async(req, res) => {
-  res.render('da/informes/informes', { tittle: 'Informes', user: req.user })
+  dateini = req.body.dateini || new Date('1900/01/01').toISOString().slice(0, 10);
+  dateend = req.body.dateend || new Date().toISOString().slice(0, 10);
+  muni = req.body.muni || 0
+  
+
+  if(req.user.TIP_USER==1){
+
+    listainfor=await q(`SELECT * FROM informes WHERE fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${muni}`)
+    console.log(listainfor)
+  }else if(req.user.TIP_USER==2){
+    
+    listainfor=await q(`SELECT * FROM informes WHERE  fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.COD_MUN}`)
+  }else if(req.user.TIP_USER==3){
+    listainfor=await q(`SELECT * FROM informes WHERE c fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.CEDULA}`)
+  }
+  
+
+  res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor })
 })
+
+
+router.post('/informes', authController.isAuth, async(req, res) => {
+
+  dateini = req.body.dateini || new Date('1900/01/01').toISOString().slice(0, 10);
+  dateend = req.body.dateend || new Date().toISOString().slice(0, 10);
+  muni = req.body.muni || 0
+
+
+  if(req.user.TIP_USER==1){
+
+    listainfor=await q(`SELECT * FROM informes WHERE fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${muni}`)
+    console.log(listainfor)
+  }else if(req.user.TIP_USER==2){
+    
+    listainfor=await q(`SELECT * FROM informes WHERE  fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.COD_MUN}`)
+  }else if(req.user.TIP_USER==3){
+    listainfor=await q(`SELECT * FROM informes WHERE c fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.CEDULA}`)
+  }
+  res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor })
+})
+
+router.get('/informes/verinforme/:id' , authController.isAuth, async(req,res)=>{
+  id=req.params.id;
+  console.log(id)
+  informedata=await q(`SELECT * FROM informes WHERE id=${id}`)
+
+  res.render('da/informes/verinforme',{
+    user:req.user,
+    tittle:'Ver informe',
+    verinforme:informedata[0]
+
+  })
+
+
+})
+
 
 router.get('/nuevo_informe', authController.isAuth, (req, res) => {
   res.render('da/informes/crear_informe', { tittle: 'Informes', user: req.user })
@@ -227,9 +285,10 @@ router.get('/politicas', authController.isAuth, (req, res) => {
 })
 router.get('/mislineas', authController.isAuth, async (req, res) => {
   listaspa = await q(`SELECT * FROM rl_lista_spa`)
-  todaslineas = await q(`SELECT * FROM lineas_atencion`)
+  todaslineas = await q(`SELECT * FROM lineas_atention`)
   id_creador = req.user.CEDULA
-  mislineas = await q(`SELECT * FROM lineas_atencion WHERE id_user_creador=${id_creador}`)
+  console.log(todaslineas)
+  mislineas = await q(`SELECT * FROM lineas_atention WHERE id_user_creador=${id_creador}`)
   res.render('da/lineas/mis_lineas', {
     tittle: 'Mis lineas de atención ',
     user: req.user,
@@ -620,9 +679,51 @@ router.get('/show/:u', authController.isAuth, async (req, res) => {
   let nombrespa = spa.filter(lp => lp.id_rl_lista_spa == consumoactual.ID_RL_LISTA_SPA);
   res.send(paciente)
 })
+
+router.post('/guardarinforme', authController.isAuth, async (req, res) => {
+  let sampleFile;
+  let uploadPath;
+  titulo=req.body.NOM_INFOR
+  contenido=req.body.CONT_INFOR
+  cod_muni=req.user.COD_MUN
+  nommuni = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${cod_muni}`)
+  nommunipio=nommuni[0].NOMMUNIPIO
+  id_creador=req.user.CEDULA
+  nomcreador= req.user.NOMBRE + ' ' + req.user.APELLIDO
+
+  factual = new Date().toISOString().slice(0, 10);
+  fecha=factual
+  sampleFile = req.files.estadistica
+  var estadistica = sampleFile.name
+  uploadPath = __dirname + '/public/upload/' + sampleFile.name
+  if (!req.files || Object.keys(req.files).length == 0) {
+    console.log('no archivo')
+  }
+
+  sampleFile.mv(uploadPath, function (err) {
+    if (err) return res.status(500).send(err);
+    conexion.query("INSERT INTO informes SET ?", {
+      fecha: fecha,
+      titulo: titulo,
+      contenido:contenido,
+      estadistica: estadistica,
+      cod_muni: cod_muni,
+      nommunipio: nommunipio,
+      id_creador: id_creador,
+      nomcreador: nomcreador
+ 
+    }, function (err, result) {
+      if (err) return res.status(500).send(err);
+      res.redirect('/da/informes')
+    })
+  })
+
+})
+
 router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
   let sampleFile;
-  let uploadPath
+  let uploadPath;
+
   if (!req.files || Object.keys(req.files).length == 0) {
     console.log('no archivo')
   }
@@ -700,6 +801,8 @@ router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
   //   user: req.user,
   // })
 })
+
+
 // paso siguiente que muestre las noticias, tips luego de cada reporte segun la spa, lineas de atencion segun la SPA y ubicacion
 // paso siguiente que transpole la informacion del reporte en los textos de la db
 // permita guardar reportes en pdf

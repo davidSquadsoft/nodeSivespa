@@ -225,6 +225,7 @@
                         <%= basuco%>,
                         <%= extasis%>,
                         <%= lsd%>,
+                        <%= heroina%>,
                         <%= cb2%>,
                         <%= metanfetaminas%>,
                         <%= ghb%>,
@@ -327,6 +328,7 @@
                             <%= basuco%>,
                             <%= extasis%>,
                             <%= lsd%>,
+                            <%= heroina%>,
                             <%= cb2%>,
                             <%= metanfetaminas%>,
                             <%= ghb%>,
@@ -368,7 +370,7 @@
                 plugins: {
                     title: {
                 display: true,
-                text: 'Consumo Spa desde 1900 hasta 2022'
+                text: 'Consumo Spa desde <%= dateini%> hasta <%= dateend%>'
             },
       datalabels: {
         formatter: (value, ctx) => {
@@ -427,6 +429,7 @@
                             <%= basuco%>,
                             <%= extasis%>,
                             <%= lsd%>,
+                            <%= heroina%>,
                             <%= cb2%>,
                             <%= metanfetaminas%>,
                             <%= ghb%>,
@@ -466,6 +469,11 @@
                     }
                 },
                 plugins: {
+                    
+                    title: {
+                display: true,
+                text: 'Consumo Spa Semana Epidemiologica: <%= semana%> del año: <%= ano %>'
+            },
           datalabels: {
             formatter: (value, ctx) => {
                     let sum = 0;
@@ -523,6 +531,8 @@
                                 <%= basuco%>,
                                 <%= extasis%>,
                                 <%= lsd%>,
+                                
+                                <%= heroina%>,
                                 <%= cb2%>,
                                 <%= metanfetaminas%>,
                                 <%= ghb%>,
@@ -562,6 +572,10 @@
                         }
                     },
                     plugins: {
+                        title: {
+                display: true,
+                text: 'Consumo Spa en edades entre los: <%= edadini%> años, hasta los <%= edadfinal%> años de edad en la semana epidemiologica: <%= semana%> del año: <%= ano %>'
+            },
               datalabels: {
                 formatter: (value, ctx) => {
                         let sum = 0;
