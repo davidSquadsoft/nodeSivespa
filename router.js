@@ -222,7 +222,7 @@ router.get('/informes', authController.isAuth, async(req, res) => {
     
     listainfor=await q(`SELECT * FROM informes WHERE  fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.COD_MUN}`)
   }else if(req.user.TIP_USER==3){
-    listainfor=await q(`SELECT * FROM informes WHERE c fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.CEDULA}`)
+    listainfor=await q(`SELECT * FROM informes WHERE  fecha>='${dateini}' AND fecha<='${dateend}' AND id_creador=${req.user.CEDULA}`)
   }
   
 
@@ -285,16 +285,19 @@ router.get('/politicas', authController.isAuth, (req, res) => {
 })
 router.get('/mislineas', authController.isAuth, async (req, res) => {
   listaspa = await q(`SELECT * FROM rl_lista_spa`)
+
+  if(req.user.TIP_USER==1){
   todaslineas = await q(`SELECT * FROM lineas_atention`)
-  id_creador = req.user.CEDULA
-  console.log(todaslineas)
-  mislineas = await q(`SELECT * FROM lineas_atention WHERE id_user_creador=${id_creador}`)
+} else  if(req.user.TIP_USER==2){
+  todaslineas = await q(`SELECT * FROM lineas_atention WHERE COD_MUN=${req.user.COD_MUN}`)
+}else if(req.user.TIP_USER==3 || req.user.TIP_USER==4){
+  todaslineas = await q(`SELECT * FROM lineas_atention WHERE COD_PRE=${req.user.COD_PRE}`)
+}
   res.render('da/lineas/mis_lineas', {
     tittle: 'Mis lineas de atención ',
     user: req.user,
     listaspa: listaspa,
-    todaslineas: todaslineas,
-    mislineas: mislineas
+    todaslineas: todaslineas
   })
 })
 router.get('/noticias', authController.isAuth, async (req, res) => {
@@ -909,7 +912,7 @@ router.post('/crearlinea', authController.isAuth, async (req, res) => {
   }
 
 
-
+  NOMMUNIPIO=NOMMUNIPIO[0].NOMMUNIPIO
   insertar = await q(`INSERT INTO lineas_atention (nombre, numero, description, COD_PRE, NOMBRE_PRE, COD_MUN, NOMMUNIPIO, id_user_creador, nombrecreador, id_rl_lista_spa, SUSTANCIA)VALUES ("${nombre}","${numero}","${descripcion}",${COD_PRE},"${NOMPRE_PRE}",${COD_MUN},"${NOMMUNIPIO}",${id_user_creador},"${nombrecreador}",${id_rl_lista_spa},"${SUSTANCIA}")`)
   res.redirect('/da/mislineas')
 })

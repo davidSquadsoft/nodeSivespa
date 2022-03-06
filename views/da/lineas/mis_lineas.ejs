@@ -60,7 +60,7 @@
                 <!-- <div class="row" id="administrar_noticias">
                 </div> -->
                 <div class="row">
-                    
+                    <% if (todaslineas!=0){ %> 
                     <% todaslineas.forEach((datalineas)=>{ %> 
                     <div class="col-lg-4 col-xs-12">
                         <div class="card card_news">
@@ -75,6 +75,9 @@
                         </div>
                     </div>
                     <% }) %> 
+                    <% }else { %> 
+                        <h1>Aun no cuentas con lineas de atencion creadas</h1>
+                        <% } %> 
                 
                 </div>
             </div>
