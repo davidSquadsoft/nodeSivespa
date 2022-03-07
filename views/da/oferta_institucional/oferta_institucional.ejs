@@ -80,8 +80,10 @@
                                 <p class="card-text"><%= loferta.contenido %> </p>
                                  
                                 <button class="btn_green" type="button" onclick="location.href='/da/veroferta/<%= loferta.id %>'">Leer</button>
+                                <% if (user.TIP_USER==1 || user.TIP_USER==2){ %> 
                                 <button class="btn_green" type="button" onclick="location.href=`/da/editaroferta/<%= loferta.id %>`">Editar</button>
                                 <button class="btn_red_wide" type="button" onclick="confirmar(<%= loferta.id %>)">Eliminar</button>
+                                <% } %> 
                             </div>
                         </div>
                     </div>
