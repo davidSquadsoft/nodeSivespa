@@ -1,0 +1,191 @@
+<%- include('../includes/header') -%>
+<section class="content">
+  <div class="titulo_pagina row align-items-center">
+    <div class="col-lg-2">
+      <div class="btn_close d-md-none d-lg-block">
+        <button type="button" class="close_sidebar">
+          <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar"
+            >&nbsp;Maximizar</i
+          >
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <h4><%= tittle %></h4>
+    </div>
+    <div class="col-lg-6 d-md-none d-lg-block">
+      <div class="bell_notificaciones">
+        <a href="../notificaciones/notificaciones.html"
+          ><i class="bi bi-bell-fill"></i
+        ></a>
+      </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <% if(user) {%>
+          <p class="nombre_entidad_activa">
+            <%= user.NOMBRE %> <%= user.APELLIDO %>
+          </p>
+          <% }%>
+          <br />
+          <p class="cambiar">Cambiar</p>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+          <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+          <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="section_form fluid-container">
+    <div class="container_reporte_form">
+      <div class="row buscar crear_contenido">
+        <form action="/da/updatecontenido" method="post" enctype="multipart/form-data" autocomplete="off" id="form">
+          <div class="row">
+            <input type="number" name="id" id="" value="<%= datanoticias.id %>" hidden>
+            <div class="col-lg-12 col-xs-12">
+              <label for="">Titulo</label>
+              <input type="text" name="titulo" id="" required value="<%= datanoticias.titulo%>">
+            </div>
+          </div>
+          <div class="row crear_contenido_tipo_notificacion">
+            <div class="col-lg-6 col-xs-12">
+              <label for="">Tipo de contenido:</label>
+              <select name="tipo_con" id="" class="mb-2">
+                <option value="1"<% if(datanoticias.tipo_con==1){ %> selected="selected" <% } %>>Noticia</option>
+                <option value="2" <% if(datanoticias.tipo_con==2){ %> selected="selected" <% } %> >Tip</option>
+     
+              </select>
+     
+              <br />
+              <label for="">Agregar como destacado</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="1"
+                id="flexCheckDefault"
+                name="desta"
+                <% if(datanoticias.desta==1){ %> checked="checked   " <% } %>
+              />
+              <br />
+              <label for="">Este contenido es enfocado a una región especifica? Cual?</label>
+              <p class="textos_black mt-2">
+                Para obtener el codigo del municipio, buscar por el nombre, en caso de ser dirigida a todo antioquia, buscar Antioquia
+               </p>
+              <input name="dirimuni" list="ldirigidos" id="esRegional" required value="<%= datanoticias.dirimuni %>">
+                
+                <datalist id="ldirigidos" value="">
+                  <option value="0" selected>
+                    No, dirigido a toda Antioquia
+                  </option>  
+                  <% municipios.forEach((lmuni) => { %>
+                    <option value="<%= lmuni.CODMUNIC %>"><%= lmuni.NOMMUNIPIO %> </option>
+                    <% })%>
+                </datalist>
+
+              
+          
+              
+              <p class="textos_black mt-2">
+                *Si el contenido va dirigido a algun municipio en especifico, esta solo sera dirigida a dicho municipio
+              </p>
+          
+            </div>
+            <div class="col-lg-6 col-xs-12">
+              <b
+                ><label for=""
+                  >Seleccione a que tipo de usuarios al que va dirigida:</label
+                ></b
+              >
+              <br />
+              <label for="">Administradores:</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                checked="checked"
+                value="1"
+                id="flexCheckDefault"
+                name="dirigidoadmin"
+                <% if(datanoticias.dirigidoadmin==1){ %> checked="checked   " <% } %>
+                
+              />
+              <br />
+              <label for="">Publico ciudadano:</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                checked="checked"
+                value="1"
+                id="flexCheckDefault"
+                name="dirigidociu"
+                <% if(datanoticias.dirigidociu==1){ %> checked="checked   " <% } %>
+                
+              />
+              <br />
+              <label for="">Entidades y sus usuarios:</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                checked="checked"
+                value="1"
+                id="flexCheckDefault"
+                name="dirigidoent"
+                <% if(datanoticias.dirigidoent==1){ %> checked="checked   " <% } %>
+              />
+              <br>
+              <label for="">Spa</label>
+              <p class="textos_black mt-2">
+               Seleccione si el contenido va dirigido enfocado a alguna SPA en especial
+               </p>
+               <select name="spa" id="">
+                 <option value="0">No, va dirigido de manera general</option>
+                 <% spa.forEach((lspa) => { %>
+                  <option value="<%= lspa.id_rl_lista_spa %>"<% if(datanoticias.spa==lspa.id_rl_lista_spa){ %> selected="selected" <% } %>
+                    ><%= lspa.SUSTANCIA %> </option>
+                  <% })%>
+
+               </select>
+            </div>
+          </div>
+ 
+          <div class="row">
+            <div class="col-8 col-xs-12">
+              <label for="">Contenido</label>
+              
+              <textarea name="texto" rows="20" required class="form-control" ><%= datanoticias.texto %>
+              </textarea>
+            </div>
+            <div class="col-4 col-xs-12">
+              <label for="">Imagen Actual</label>
+              <img src="/upload/<%= datanoticias.imagen%>" class="card-img-top" alt="..." style=" object-fit: cover;
+                                        width: 100%;
+                                        height: 20vh;">
+                                            <label for="" class="">Actualizar Imagen</label>
+                                            <input type="file" id="actual-btn" class="" name="foto" accept="image/*"  placeholder="Subir Estadistica">
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-lg-5 col-xs-12 justify-content-end d-flex">
+          
+            </div>
+      
+            <div class="col-lg-2 col-xs-12">
+              <button class="btn_green" type="button" onclick="validar()">Publicar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/admin/scripts/validarcontenido.js"></script>
+
+
+<%- include('../includes/footer') -%>

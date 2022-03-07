@@ -121,6 +121,10 @@
                           <h5 class="card-title"><%= ldatafiltro.titulo%></h5>
                           <p class="card-text"><% resumen= ldatafiltro.texto%> <%= resumen.substr(1,50) %></p>
                           <a href="/da/vertip/<%= ldatafiltro.id %>" class="btn_green pt-2 pb-2">Leer</a>
+                          <% if (user.TIP_USER==1){ %> 
+                            <a href="/da/editarcontenido/<%= ldatafiltro.id %>" class="btn_green pt-2 pb-2">Editar</a>
+                            <a onclick="confirmar(<%= ldatafiltro.id %>)"  class="btn_red_wide pt-2 pb-2">Borrar</a>
+                            <% } %> 
                       </div>
                   </div>
               </div>
@@ -135,37 +139,26 @@
   </div>
 </section>
 
-<div
-  class="modal fade"
-  id="modal_borrar"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        ¿Esta seguro que de sea eliminar la noticia/tip?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn_green" data-bs-dismiss="modal">
-          Aceptar
-        </button>
-        <button type="button" class="btn_green" data-bs-dismiss="modal">
-          Cancelar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+  function confirmar(id){
+      Swal.fire({
+title: 'Desea eliminar el contenido',
+text: "Este cambio no se puede revertir!",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonColor: '#3c773c',
+cancelButtonColor: '#d33',
+confirmButtonText: 'Si, eliminar'
+}).then((result) => {
+if (result.isConfirmed) {
+
+  window.location='/da/borrarcontenido/'+id;
+
+
+
+}
+})
+  }
+</script>
 
 <%- include('../includes/footer') -%>

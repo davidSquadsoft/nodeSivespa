@@ -15,6 +15,7 @@ const filtros = require('./controllers/filtros')
 const reporte = require('./controllers/reportesivespa')
 const estaController = require('./controllers/estaController')
 const fileupload = require('express-fileupload')
+const { Router } = require('express')
 //router para los metodos del controller
 router.post('/registerent', authController.registerent)
 router.post('/registerentM', authController.registerentM)
@@ -283,6 +284,8 @@ router.get('/politicas', authController.isAuth, (req, res) => {
     user: req.user,
   })
 })
+
+
 router.get('/mislineas', authController.isAuth, async (req, res) => {
   listaspa = await q(`SELECT * FROM rl_lista_spa`)
 
@@ -300,6 +303,59 @@ router.get('/mislineas', authController.isAuth, async (req, res) => {
     todaslineas: todaslineas
   })
 })
+
+
+router.get('/editarlinea/:id', authController.isAuth, async (req, res) => {
+  listaspa = await q(`SELECT * FROM rl_lista_spa`)
+
+  id=req.params.id
+  todaslineas = await q(`SELECT * FROM lineas_atention WHERE id=${id}`)
+
+  res.render('da/lineas/editarlineas', {
+    tittle: 'Mis lineas de atención ',
+    user: req.user,
+    listaspa: listaspa,
+    todaslineas: todaslineas[0]
+  })
+})
+
+router.post('/updatelinea', authController.isAuth, async(req,res)=>{
+  id=req.body.id
+  nombre = req.body.nombre
+  numero = req.body.numero
+  descripcion = req.body.descripcion
+  COD_PRE = req.user.COD_PRE
+  NOMPRE_PRE = await q(`SELECT RAZ_SOC FROM db_uni_not WHERE COD_PRE= ${COD_PRE}`)
+  NOMPRE_PRE = NOMPRE_PRE[0].RAZ_SOC
+  COD_MUN = req.user.COD_MUN
+  if (req.user.COD_MUN == 0) {
+    NOMMUNIPIO = 'Todo Antioquia'
+  } else {
+    NOMMUNIPIO = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${COD_MUN}`)
+  }
+  id_user_creador = req.user.CEDULA
+  nombrecreador = req.user.NOMBRE + " " + req.user.APELLIDO
+
+  id_rl_lista_spa = req.body.spa
+  if (id_rl_lista_spa == 0) {
+    SUSTANCIA = 'General'
+  } else {
+    SUSTANCIA = await q(`SELECT SUSTANCIA FROM rl_lista_spa WHERE id_rl_lista_spa = ${id_rl_lista_spa}`)
+    SUSTANCIA = SUSTANCIA[0].SUSTANCIA
+  }
+
+
+  NOMMUNIPIO=NOMMUNIPIO[0].NOMMUNIPIO
+  insertar = await q(`UPDATE lineas_atention SET nombre="${nombre}", numero="${numero}", description="${descripcion}",  id_rl_lista_spa=${id_rl_lista_spa}, SUSTANCIA ="${SUSTANCIA}" WHERE id=${id}`)
+  res.redirect('/da/mislineas')
+
+})
+
+
+
+
+
+
 router.get('/noticias', authController.isAuth, async (req, res) => {
   noticias = await q('SELECT * FROM contenido WHERE tipo_con=1')
   var filtro = 0
@@ -316,16 +372,116 @@ router.get('/notificaciones', authController.isAuth, (req, res) => {
     user: req.user,
   })
 })
-router.get('/crearofertainstitucional', authController.isAuth, (req, res) => {
+router.get('/crearofertainstitucional', authController.isAuth, async(req, res) => {
+
+  spa=await q ('SELECT * FROM rl_lista_spa')
   res.render('da/oferta_institucional/crear_oferta_institucional', {
     tittle: 'Crear oferta institucional ',
     user: req.user,
+    spa:spa
   })
 })
-router.get('/ofertainstitucional', authController.isAuth, (req, res) => {
+
+
+router.post('/guardaroferta', authController.isAuth, async(req, res) => {
+  titulo=req.body.titulo  
+  spa=req.body.spa
+  edadini=req.body.edadini
+  edadfinal=req.body.edadfinal
+  contenido=req.body.contenido
+  cod_mun=req.user.COD_MUN
+  cod_pre=req.user.COD_PRE
+  id_creador=req.user.CEDULA
+  
+  insertar=await q(`INSERT INTO oferta_inst (titulo,
+    spa,
+    edadini,
+    edadfin,
+    contenido,
+    cod_mun,
+    cod_pre,
+    id_creador) VALUES (
+      '${titulo}',
+      ${spa},
+      ${edadini},
+      ${edadfinal},
+      '${contenido}',
+      ${cod_mun},
+      ${cod_pre},
+      '${id_creador}'
+    )`)
+  res.redirect('/da/ofertainstitucional')
+})
+
+router.get('/borraroferta/:id', authController.isAuth, async(req,res)=>{
+  id=req.params.id
+  borrar=await q(`DELETE FROM oferta_inst WHERE id=${id}`)
+  res.redirect('/da/ofertainstitucional')
+
+})
+
+router.get('/veroferta/:id', authController.isAuth, async(req,res)=>{
+  id=req.params.id
+  oferta=await q(`SELECT * FROM oferta_inst WHERE id=${id}`)
+  res.render('da/oferta_institucional/veroferta', {
+    tittle: 'Ver Oferta Institucional',
+    user: req.user,
+    
+    dataoferta:oferta[0]
+  })
+
+})
+
+router.post('/updateoferta', authController.isAuth, async(req, res) => {
+  titulo=req.body.titulo  
+  spa=req.body.spa
+  edadini=req.body.edadini
+  edadfinal=req.body.edadfinal
+  contenido=req.body.contenido
+  cod_mun=req.user.COD_MUN
+  cod_pre=req.user.COD_PRE
+  id_creador=req.user.CEDULA
+  id=req.body.id
+  
+  insertar=await q(`UPDATE  oferta_inst SET 
+    titulo='${titulo}',
+    spa=${spa},
+    edadini=${edadini},
+    edadfin=${edadfinal},
+    contenido='${contenido}',
+    cod_mun=${cod_mun},
+    cod_pre=${cod_pre},
+    id_creador='${id_creador}' WHERE id=${id}`)
+  res.redirect('/da/ofertainstitucional')
+})
+
+
+router.get('/editaroferta/:id', authController.isAuth, async(req, res) => {
+  id=req.params.id
+  oferta=await q (`SELECT * FROM oferta_inst WHERE id=${id}`)
+  spa=await q ('SELECT * FROM rl_lista_spa')
+
+  res.render('da/oferta_institucional/editaroferta',{
+    tittle: 'Crear oferta institucional ',
+    user: req.user,
+    spa:spa,
+    dataoferta:oferta[0]
+  })
+})
+router.get('/ofertainstitucional', authController.isAuth, async(req, res) => {
+  if(req.user.TIP_USER==1){
+
+
+  dataofertas=await q (`SELECT * FROM oferta_inst`)
+}else{
+  dataofertas=await q (`SELECT * FROM oferta_inst WHERE cod_mun=${req.user.COD_MUN}`)
+} 
+
+
   res.render('da/oferta_institucional/oferta_institucional', {
     tittle: 'Oferta institucional ',
     user: req.user,
+    dataofertas:dataofertas
   })
 })
 router.get('/nuevoreporte', authController.isAuth, async (req, res) => {
@@ -819,6 +975,92 @@ router.get('/vernoticia/:id', authController.isAuth, async (req, res) => {
     datanoticias: datanoticia[0]
   })
 })
+
+
+router.get('/editarcontenido/:id', authController.isAuth, async (req, res) => {
+  const id = req.params.id
+  var datanoticia = await q(`SELECT * FROM contenido WHERE id = ${id}`)
+  var queryMuni = await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola');
+  var querySPa = await q('SELECT * from rl_lista_spa');
+  res.render('da/contenido/editar_contenido', {
+    tittle: datanoticia.titulo,
+    user: req.user,
+    datanoticias: datanoticia[0],
+    municipios:queryMuni,
+    spa:querySPa  
+  })
+})
+
+router.post('/updatecontenido',authController.isAuth, async(req,res)=>{
+  let sampleFile;
+  let uploadPath;
+
+  id=req.body.id
+  titulo = req.body.titulo
+  tipo_con = req.body.tipo_con
+  notifi = req.body.notifi || 2
+  desta = req.body.desta || 2
+  inicio = req.body.inicio || 2
+  dirigidoadmin = req.body.dirigidoadmin || 2
+  dirigidociu = req.body.dirigidociu || 2
+  dirigidoent = req.body.dirigidoent || 2
+  spa = req.body.spa
+  dirimuni = req.body.dirimuni || 0
+  texto = req.body.texto
+  idcreador = req.user.CEDULA
+  fcreacion = new Date().toISOString().slice(0, 10);
+  nommuni = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${dirimuni}`)
+  if (spa == 0) {
+    nomspa = 'General'
+  } else {
+    nomspa = await q(`SELECT SUSTANCIA FROM rl_lista_spa WHERE id_rl_lista_spa=${spa}`)
+    nomspa = nomspa[0].SUSTANCIA
+  }
+  nommuni = nommuni[0].NOMMUNIPIO
+
+  if (!req.files || Object.keys(req.files).length == 0) {
+    console.log('no archivo')
+    update=await q(`UPDATE contenido SET titulo='${titulo}',dirimuni=${dirimuni},NOMMUNI='${nommuni}',tipo_con=${tipo_con},
+      desta=${desta},
+      dirigidoadmin=${dirigidoadmin},
+      dirigidociu=${dirigidociu},
+      dirigidoent=${dirigidoent},
+      spa=${spa},
+      dirimuni=${dirimuni},
+      texto='${texto}', NOMSPA='${nomspa}' WHERE id=${id}
+    `)
+  }else{
+    sampleFile = req.files.foto
+    var imagen = sampleFile.name
+    uploadPath = __dirname + '/public/upload/' + sampleFile.name
+          
+        sampleFile.mv(uploadPath, function (err) {
+          if (err) return res.status(500).send(err);
+
+        })
+        update=await q(`UPDATE contenido SET titulo='${titulo}',dirimuni=${dirimuni},NOMMUNI='${nommuni}',tipo_con=${tipo_con},
+        desta=${desta},
+        dirigidoadmin=${dirigidoadmin},
+        dirigidociu=${dirigidociu},
+        dirigidoent=${dirigidoent},
+        spa=${spa},
+        dirimuni=${dirimuni},
+        texto='${texto}', NOMSPA='${nomspa}',imagen ='${imagen}' WHERE id=${id}
+      `)
+  }
+  res.redirect('/da/contenido')
+
+  
+  
+})
+
+
+router.get('/borrarcontenido/:id', authController.isAuth, async(req, res)=>{
+id=req.params.id
+borrar=await q(`DELETE FROM contenido WHERE id=${id}`)
+res.redirect('/da/contenido')
+})
+
 router.get('/vertip/:id', authController.isAuth, async (req, res) => {
   const id = req.params.id
   var datatip = await q(`SELECT * FROM contenido WHERE id = ${id}`)

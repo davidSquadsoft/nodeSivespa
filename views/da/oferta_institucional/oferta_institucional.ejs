@@ -70,46 +70,47 @@
                 </div> -->
                 <div class="row">
                     <h3>Mis ofertas institucionales</h3>
+                    <% dataofertas.forEach((loferta)=>{%> 
                     <div class="col-lg-4 col-xs-12">
                         <div class="card card_news">
-                            <img src="../images/fondo_temporal2.jpg" class="card-img-top" alt="...">
+                       
                             <div class="card-body">
-                                <h5 class="card-title">Nombre del plan</h5>
-                                <p class="card-text">Entidad a la que pertenece.</p>
-                                <p class="card-text">Pequeño parrafo de resumen <br>Lorem ipsum, dolor sit amet consectetur adipisicing elit...</p>
-                                <p class="card-text">Linea de atención: 555 55 55</p>
-                                <button class="btn_green" type="button" onclick="location.href='plan_ejemplo.php'">Leer</button>
-                                <button class="btn_green" type="button" onclick="location.href=`crearplan_accion.php`">Editar</button>
+                                <h5 class="card-title"><%= loferta.titulo %> </h5>
+                             
+                                <p class="card-text"><%= loferta.contenido %> </p>
+                                 
+                                <button class="btn_green" type="button" onclick="location.href='/da/veroferta/<%= loferta.id %>'">Leer</button>
+                                <button class="btn_green" type="button" onclick="location.href=`/da/editaroferta/<%= loferta.id %>`">Editar</button>
+                                <button class="btn_red_wide" type="button" onclick="confirmar(<%= loferta.id %>)">Eliminar</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xs-12">
-                        <div class="card card_news">
-                            <img src="../images/fondo_temporal2.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Nombre del plan</h5>
-                                <p class="card-text">Entidad a la que pertenece.</p>
-                                <p class="card-text">Pequeño parrafo de resumen <br>Lorem ipsum, dolor sit amet consectetur adipisicing elit...</p>
-                                <p class="card-text">Linea de atención: 555 55 55</p>
-                                <button class="btn_green" type="button" onclick="location.href='plan_ejemplo.php'">Leer</button>
-                                <button class="btn_green" type="button" onclick="location.href=`crearplan_accion.php`">Editar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-xs-12">
-                        <div class="card card_news">
-                            <img src="../images/fondo_temporal2.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Nombre del plan</h5>
-                                <p class="card-text">Entidad a la que pertenece.</p>
-                                <p class="card-text">Pequeño parrafo de resumen <br>Lorem ipsum, dolor sit amet consectetur adipisicing elit...</p>
-                                <p class="card-text">Linea de atención: 555 55 55</p>
-                                <button class="btn_green" type="button" onclick="location.href='plan_ejemplo.php'">Leer</button>
-                                <button class="btn_green" type="button" onclick="location.href=`crearplan_accion.php`">Editar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <% }) %> 
+                  
                 </div>
             </div>
     </section>
+
+
+    <script>
+        function confirmar(id){
+            Swal.fire({
+  title: 'Desea eliminar la oferta institucional',
+  text: "Este cambio no se puede revertir!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3c773c',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, eliminar'
+}).then((result) => {
+  if (result.isConfirmed) {
+    
+        window.location='/da/borraroferta/'+id;
+      
+   
+    
+  }
+})
+        }
+    </script>
     <%- include('../includes/footer') -%>

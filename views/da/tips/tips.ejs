@@ -69,6 +69,10 @@
                                     <h5 class="card-title"><%= datatips.titulo%></h5>
                                     <p class="card-text"><% resumen= datatips.texto%> <%= resumen.substr(1,50) %></p>
                                     <a href="/da/vertip/<%= datatips.id %>" class="btn_green pt-2 pb-2">Leer</a>
+                                    <% if (user.TIP_USER==1){ %> 
+                                        <a href="/da/editarcontenido/<%= datatips.id %>" class="btn_green pt-2 pb-2">Editar</a>
+                                        <a onclick="confirmar(<%= datatips.id %>)"  class="btn_red_wide pt-2 pb-2">Borrar</a>
+                                        <% } %> 
                                 </div>
                             </div>
                         </div>
@@ -149,6 +153,9 @@
                                             <h5 class="card-title"><%= ldatafiltro.titulo%></h5>
                                             <p class="card-text"><% resumen= ldatafiltro.texto%> <%= resumen.substr(1,50) %></p>
                                             <a href="/da/vertip/<%= ldatafiltro.id %>" class="btn_green pt-2 pb-2">Leer</a>
+                                            <% if (user.TIP_USER==1){ %> 
+                                                <a href="/da/editarcontenido/<%= ldatafiltro.id %>" class="btn_green pt-2 pb-2">Editar</a>
+                                                <a onclick="confirmar(<%= ldatafiltro.id %>)"  class="btn_red_wide pt-2 pb-2">Borrar</a>                                                    <% } %> 
                                         </div>
                                     </div>
                                 </div>
@@ -159,4 +166,28 @@
             </section>
             <% } %> 
     <script src="/admin/scripts/tips.js"></script>
+
+
+    
+<script>
+    function confirmar(id){
+        Swal.fire({
+  title: 'Desea eliminar el tip',
+  text: "Este cambio no se puede revertir!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3c773c',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, eliminar'
+  }).then((result) => {
+  if (result.isConfirmed) {
+  
+    window.location='/da/borrarcontenido/'+id;
+  
+  
+  
+  }
+  })
+    }
+  </script>
     <%- include('../includes/footer') -%>

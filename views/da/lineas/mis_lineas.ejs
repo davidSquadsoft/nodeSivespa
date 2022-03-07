@@ -62,15 +62,25 @@
                 <div class="row">
                     <% if (todaslineas!=0){ %> 
                     <% todaslineas.forEach((datalineas)=>{ %> 
-                    <div class="col-lg-4 col-xs-12">
+                    <div class="col-lg-4 col-xs-12 ">
+                                                                        
+
                         <div class="card card_news">
-                            <div class="card-body">
+                            <div class="card-body align-items-end">
                                 <h5 class="card-title"><%= datalineas.nombre %> </h5>
                                 <p class="card-text"><%= datalineas.description %> </p>
                                 <p class="card-text">Numero de linea de atención: <%= datalineas.numero %> </p>
                                 <p class="card-text">Nombre del municipio: <%= datalineas.NOMMUNIPIO %> </p> 
                                 <p class="card-text">Sustancia: <%= datalineas.SUSTANCIA %> </p>
-                               
+                                <% if(user.TIP_USER != 4){ %> 
+
+                                    <a href="/da/editarlinea/<%= datalineas.id %>" class="btn_green pt-2 pb-2 ">Editar</a>
+                                    <a onclick="confirmar(<%= datalineas.id %>)"  class="btn_red_wide pt-2 pb-2">Borrar</a>
+
+
+
+
+                                <% } %> 
                             </div>
                         </div>
                     </div>
@@ -82,6 +92,7 @@
                 </div>
             </div>
     </section>
+    s
     <div class="modal fade" id="modal_crear_linea" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -92,7 +103,9 @@
                     </div>
                     <div class="modal-body modal_lineas">
                         <div class="row ">
+                            
                             <div class="col-lg-6 ">
+                                
                                 <label for="" class="">Nombre:</label>
                                 <input type="text" name="nombre" class="form-control">
                             </div>
@@ -107,7 +120,7 @@
                                 <textarea name="descripcion" id="" rows="10" class="w-100"></textarea>
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        <div class="row mt-3" >
                             <div class="col-lg-12">
                                 <label for="" class="form-label">Spa</label>
                                 <select name="spa" id="" class="form-select">
@@ -120,7 +133,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="SUMBIT" class=" btn_green">Guardar</button>
+                        <button type="submit" class=" btn_green">Guardar</button>
                         <button type="button" class=" btn_green" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
@@ -128,4 +141,25 @@
         </div>
     </div>
 
+    <script>
+        function confirmar(id){
+            Swal.fire({
+  title: 'Desea eliminar la linea de atencion',
+  text: "Este cambio no se puede revertir!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3c773c',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, eliminar'
+}).then((result) => {
+  if (result.isConfirmed) {
+    
+        window.location='/da/borrarlinea/'+id;
+      
+   
+    
+  }
+})
+        }
+    </script>
     <%- include('../includes/footer') -%>
