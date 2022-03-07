@@ -3,13 +3,11 @@ var appjs= express()
 var router = express.Router()
 const conexion = require('./database/db')
 const q = require('./database/querys')
-
 const cookieParser = require('cookie-parser')
 appjs.use(express.json())
 const bodyparser2 = require('body-parser')
 appjs.use(bodyparser2.urlencoded({ extended: true }))
 appjs.use(cookieParser())
-
 const authController = require('./controllers/authController')
 const filtros = require('./controllers/filtros')
 const reporte = require('./controllers/reportesivespa')
@@ -40,7 +38,6 @@ router.post('/savetamassist', reporte.tamizajeassist)
 router.post('/updatetamassist',reporte.updateAssist)
 router.get('/deletetamcrafft/:id', reporte.deleteCrafft)
 router.get('/deletetamassist/:id', reporte.deleteAssist)
-
 //ruta principal para el login
 router.get('/login', (req, res) => {
   res.render('da/seguridad/login', {
@@ -52,7 +49,6 @@ router.get('/login', (req, res) => {
 //---------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------
 //:::
-
 router.get('/dashboard', authController.isAuth, async(req, res) => {
   noticiasdes = await q('SELECT * FROM contenido WHERE tipo_con=1 AND desta=1 ORDER BY fcreacion DESC')
   var alcoholAnt=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1`)
@@ -79,11 +75,8 @@ var cannartifi=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHE
   if(noticiasdes.length>=1){
     datanoticias=noticiasdes
   }else{
-    
     datanoticias=0
   }
-
-
   res.render('da/dashboards/dashboard_entidad', {
     tittle: 'Tablero SIVESPA ',
     user: req.user,
@@ -109,10 +102,8 @@ var cannartifi=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHE
     cacaosab: cacaosab[0].cantidad,
     hongos: hongos[0].cantidad,
     cannartifi:cannartifi[0].cantidad
-
   })
 })
-
 router.get('/configuracion', authController.isAuth, (req, res) => {
   res.render('da/configuracion/configuracion', {
     tittle: 'Configuración ',
@@ -139,13 +130,7 @@ router.get('/crear_contenido', authController.isAuth, async (req, res) => {
   })
 }
 )
-
-
-
-
-
 router.get('/estadisticas', authController.isAuth, async(req, res) => {
-
 var alcoholAnt=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ALC = 1`)
 var tabaco=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_TAB = 1`)
 var marihuana=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MAR = 1`)
@@ -158,9 +143,7 @@ var cb2=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_
 var metanfetaminas=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_MET = 1`)
 var ghb=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_GHB = 1`)
 var ketamina=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_KET = 1`)
-
 var popper=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_POP = 1`)
-
 var dick=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_DIC = 1`)
 var solventes=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_SOL = 1`)
 var anfetaminas=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_ANF = 1`)
@@ -169,7 +152,6 @@ var analgecicos=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WH
 var cacaosab=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CAC = 1`)
 var hongos=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1`)
 var cannartifi=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1`)
-
 var lmuni=await q(`SELECT DISTINCT NOMMUNIPIO,CODMUNIC from rl_divipola`)
   res.render('da/estadisticas/estadisticas', {
     tittle: 'Estadisticas',
@@ -197,98 +179,67 @@ hongos:hongos[0].cantidad,
 cannartifi:cannartifi[0].cantidad,
 lmuni:lmuni,
 filtro:'ant'
- 
   })
 })
-
-
 router.get('/crearestadistica', authController.isAuth, (req, res) => {
   res.render('da/estadisticas/crear_estadistica', {
     tittle: 'Crear Estadistica',
     user: req.user
   })
 })
-
 router.get('/informes', authController.isAuth, async(req, res) => {
   dateini = req.body.dateini || new Date('1900/01/01').toISOString().slice(0, 10);
   dateend = req.body.dateend || new Date().toISOString().slice(0, 10);
   muni = req.body.muni || 0;
   listamunicipios=await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola')
-
   if(req.user.TIP_USER==1){
-
     listainfor=await q(`SELECT * FROM informes WHERE fecha>='${dateini}' AND fecha<='${dateend}'`)
     console.log(listainfor)
   }else if(req.user.TIP_USER==2){
-    
     listainfor=await q(`SELECT * FROM informes WHERE  fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.COD_MUN}`)
   }else if(req.user.TIP_USER==3){
     listainfor=await q(`SELECT * FROM informes WHERE  fecha>='${dateini}' AND fecha<='${dateend}' AND id_creador=${req.user.CEDULA}`)
   }
-  
-
   res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor,listamunicipios:listamunicipios })
 })
-
-
 router.post('/informes', authController.isAuth, async(req, res) => {
-
   dateini = req.body.dateini || new Date('1900/01/01').toISOString().slice(0, 10);
   dateend = req.body.dateend || new Date().toISOString().slice(0, 10);
   muni = req.body.muni || 0
   listamunicipios=await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola')
-
   if(req.user.TIP_USER==1){
-
     listainfor=await q(`SELECT * FROM informes WHERE fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${muni}`)
     console.log(listainfor)
   }else if(req.user.TIP_USER==2){
-    
     listainfor=await q(`SELECT * FROM informes WHERE  fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.COD_MUN}`)
   }else if(req.user.TIP_USER==3){
     listainfor=await q(`SELECT * FROM informes WHERE c fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.CEDULA}`)
   }
   res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor,listamunicipios:listamunicipios })
 })
-
 router.get('/informes/verinforme/:id' , authController.isAuth, async(req,res)=>{
   id=req.params.id;
   console.log(id)
   informedata=await q(`SELECT * FROM informes WHERE id=${id}`)
-
   res.render('da/informes/verinforme',{
     user:req.user,
     tittle:'Ver informe',
     verinforme:informedata[0]
-
   })
-
-
 })
-
-
-
 router.get('/informes/editarinforme/:id' , authController.isAuth, async(req,res)=>{
   id=req.params.id;
   console.log(id)
   informedata=await q(`SELECT * FROM informes WHERE id=${id}`)
-
   res.render('da/informes/editar_informe',{
     user:req.user,
     tittle:'Editar informe',
     verinforme:informedata[0]
-
   })
-
-
 })
-
-
 router.get('/nuevo_informe', authController.isAuth, (req, res) => {
   res.render('da/informes/crear_informe', { tittle: 'Informes', user: req.user })
 })
-
-
 router.get('/crearinforme', authController.isAuth, (req, res) => {
   res.render('da/informes/crear_informe', {
     tittle: 'Crear Informe',
@@ -301,11 +252,8 @@ router.get('/politicas', authController.isAuth, (req, res) => {
     user: req.user,
   })
 })
-
-
 router.get('/mislineas', authController.isAuth, async (req, res) => {
   listaspa = await q(`SELECT * FROM rl_lista_spa`)
-
   if(req.user.TIP_USER==1){
   todaslineas = await q(`SELECT * FROM lineas_atention`)
 } else  if(req.user.TIP_USER==2){
@@ -320,14 +268,10 @@ router.get('/mislineas', authController.isAuth, async (req, res) => {
     todaslineas: todaslineas
   })
 })
-
-
 router.get('/editarlinea/:id', authController.isAuth, async (req, res) => {
   listaspa = await q(`SELECT * FROM rl_lista_spa`)
-
   id=req.params.id
   todaslineas = await q(`SELECT * FROM lineas_atention WHERE id=${id}`)
-
   res.render('da/lineas/editarlineas', {
     tittle: 'Editar linea de atención ',
     user: req.user,
@@ -335,7 +279,6 @@ router.get('/editarlinea/:id', authController.isAuth, async (req, res) => {
     todaslineas: todaslineas[0]
   })
 })
-
 router.post('/updatelinea', authController.isAuth, async(req,res)=>{
   id=req.body.id
   nombre = req.body.nombre
@@ -352,7 +295,6 @@ router.post('/updatelinea', authController.isAuth, async(req,res)=>{
   }
   id_user_creador = req.user.CEDULA
   nombrecreador = req.user.NOMBRE + " " + req.user.APELLIDO
-
   id_rl_lista_spa = req.body.spa
   if (id_rl_lista_spa == 0) {
     SUSTANCIA = 'General'
@@ -360,19 +302,10 @@ router.post('/updatelinea', authController.isAuth, async(req,res)=>{
     SUSTANCIA = await q(`SELECT SUSTANCIA FROM rl_lista_spa WHERE id_rl_lista_spa = ${id_rl_lista_spa}`)
     SUSTANCIA = SUSTANCIA[0].SUSTANCIA
   }
-
-
   NOMMUNIPIO=NOMMUNIPIO[0].NOMMUNIPIO
   insertar = await q(`UPDATE lineas_atention SET nombre="${nombre}", numero="${numero}", description="${descripcion}",  id_rl_lista_spa=${id_rl_lista_spa}, SUSTANCIA ="${SUSTANCIA}" WHERE id=${id}`)
   res.redirect('/da/mislineas')
-
 })
-
-
-
-
-
-
 router.get('/noticias', authController.isAuth, async (req, res) => {
   noticias = await q('SELECT * FROM contenido WHERE tipo_con=1')
   var filtro = 0
@@ -390,7 +323,6 @@ router.get('/notificaciones', authController.isAuth, (req, res) => {
   })
 })
 router.get('/crearofertainstitucional', authController.isAuth, async(req, res) => {
-
   spa=await q ('SELECT * FROM rl_lista_spa')
   res.render('da/oferta_institucional/crear_oferta_institucional', {
     tittle: 'Crear oferta institucional ',
@@ -398,8 +330,6 @@ router.get('/crearofertainstitucional', authController.isAuth, async(req, res) =
     spa:spa
   })
 })
-
-
 router.post('/guardaroferta', authController.isAuth, async(req, res) => {
   titulo=req.body.titulo  
   spa=req.body.spa
@@ -409,7 +339,6 @@ router.post('/guardaroferta', authController.isAuth, async(req, res) => {
   cod_mun=req.user.COD_MUN
   cod_pre=req.user.COD_PRE
   id_creador=req.user.CEDULA
-  
   insertar=await q(`INSERT INTO oferta_inst (titulo,
     spa,
     edadini,
@@ -429,26 +358,20 @@ router.post('/guardaroferta', authController.isAuth, async(req, res) => {
     )`)
   res.redirect('/da/ofertainstitucional')
 })
-
 router.get('/borraroferta/:id', authController.isAuth, async(req,res)=>{
   id=req.params.id
   borrar=await q(`DELETE FROM oferta_inst WHERE id=${id}`)
   res.redirect('/da/ofertainstitucional')
-
 })
-
 router.get('/veroferta/:id', authController.isAuth, async(req,res)=>{
   id=req.params.id
   oferta=await q(`SELECT * FROM oferta_inst WHERE id=${id}`)
   res.render('da/oferta_institucional/veroferta', {
     tittle: 'Ver Oferta Institucional',
     user: req.user,
-    
     dataoferta:oferta[0]
   })
-
 })
-
 router.post('/updateoferta', authController.isAuth, async(req, res) => {
   titulo=req.body.titulo  
   spa=req.body.spa
@@ -459,7 +382,6 @@ router.post('/updateoferta', authController.isAuth, async(req, res) => {
   cod_pre=req.user.COD_PRE
   id_creador=req.user.CEDULA
   id=req.body.id
-  
   insertar=await q(`UPDATE  oferta_inst SET 
     titulo='${titulo}',
     spa=${spa},
@@ -471,13 +393,10 @@ router.post('/updateoferta', authController.isAuth, async(req, res) => {
     id_creador='${id_creador}' WHERE id=${id}`)
   res.redirect('/da/ofertainstitucional')
 })
-
-
 router.get('/editaroferta/:id', authController.isAuth, async(req, res) => {
   id=req.params.id
   oferta=await q (`SELECT * FROM oferta_inst WHERE id=${id}`)
   spa=await q ('SELECT * FROM rl_lista_spa')
-
   res.render('da/oferta_institucional/editaroferta',{
     tittle: 'Editar oferta institucional ',
     user: req.user,
@@ -487,14 +406,10 @@ router.get('/editaroferta/:id', authController.isAuth, async(req, res) => {
 })
 router.get('/ofertainstitucional', authController.isAuth, async(req, res) => {
   if(req.user.TIP_USER==1){
-
-
   dataofertas=await q (`SELECT * FROM oferta_inst`)
 }else{
   dataofertas=await q (`SELECT * FROM oferta_inst WHERE cod_mun=${req.user.COD_MUN}`)
 } 
-
-
   res.render('da/oferta_institucional/oferta_institucional', {
     tittle: 'Oferta institucional ',
     user: req.user,
@@ -562,7 +477,6 @@ router.get('/nuevoreporte', authController.isAuth, async (req, res) => {
     if (error) {
       throw error
     } else {
-
       res.render('da/reportes/reportes', {
         tittle: 'Nuevo Reporte - SIVESPA ',
         user: req.user,
@@ -602,7 +516,6 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
   //estas son las funcionas asincronicas que envian una variable que contiene el query sql y retorna un valor
   //la funcion se encuentra en querys.js
   var municipios = await q(`SELECT * FROM rl_divipola`)
-  
   if (req.user.TIP_USER == 1) {
     var queryAjuste = await q('SELECT * FROM `db_aju`');
     var queryConActual = await q('SELECT * FROM `db_con_act`');
@@ -614,17 +527,13 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     var queryResnot = await q('SELECT * FROM `db_res_not` ');
     var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft`);
     var tamizajeassist = await q(`SELECT * FROM db_tam_assist`);
-
   } else if (req.user.TIP_USER == 2) {  
     var queryuserdemun = await q(`SELECT CEDULA FROM st_user WHERE COD_MUN = ${req.user.COD_MUN}`);
     misusuarios = queryuserdemun
-
     var concatenarMisUsuarios = misusuarios[0].CEDULA
     for (j = 1; j < misusuarios.length; j++) {
       concatenarMisUsuarios += ',' + misusuarios[j].CEDULA
     }
-
-
     var repMiMun = await q(`SELECT id_reporte FROM db_res_not WHERE NRO_DOC IN (${concatenarMisUsuarios})`);
     if (repMiMun.length > 0) {
       var concatenarMisReportes = `'` + repMiMun[0].id_reporte + `'`
@@ -632,7 +541,6 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
         concatenarMisReportes += ',' + `'` + repMiMun[i].id_reporte + `'`
       }
       var tamizajeassist = await q(`SELECT * FROM db_tam_assist WHERE id_creador IN (${concatenarMisUsuarios})`);
-
       var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisUsuarios})`);
       var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryConActual = await q(`SELECT * FROM db_con_act WHERE id_reporte IN (${concatenarMisReportes})`);
@@ -652,7 +560,6 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     for (j = 1; j < misusuarios.length; j++) {
       concatenarMisUsuarios += ',' + misusuarios[j].CEDULA
     }
-
     var repMiUPGD = await q(`SELECT id_reporte FROM db_res_not WHERE NRO_DOC IN (${concatenarMisUsuarios})`);
     if (repMiUPGD.length > 0) {
       var concatenarMisReportes = `'` + repMiUPGD[0].id_reporte + `'`
@@ -660,7 +567,6 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
         concatenarMisReportes += ',' + `'` + repMiUPGD[i].id_reporte + `'`
       }
       var tamizajeassist = await q(`SELECT * FROM db_tam_assist WHERE id_creador IN (${concatenarMisUsuarios})`);
-
       var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisUsuarios})`);
       var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryConActual = await q(`SELECT * FROM db_con_act WHERE id_reporte IN (${concatenarMisReportes})`);
@@ -670,11 +576,9 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
       var queryIntven = await q(`SELECT * FROM db_intven WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryNotif = await q(`SELECT * FROM db_notif WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryResnot = await q(`SELECT * FROM db_res_not WHERE id_reporte IN (${concatenarMisReportes})`);
-
     }else{
       console.log('notiene reportes')
     }
-
   }else{
     var misreportesuser= await q (`SELECT * FROM db_res_not WHERE NRO_DOC= ${req.user.CEDULA}`)
     if (misreportesuser.length >0){
@@ -683,7 +587,6 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
         concatenarMisReportes += ',' + `'` + misreportesuser[i].id_reporte + `'`
       }
       var tamizajeassist = await q(`SELECT * FROM db_tam_assist WHERE id_creador IN (${concatenarMisReportes})`);
-
       var tamizajecrafft = await q(`SELECT * FROM db_tam_crafft WHERE id_creador IN (${concatenarMisReportes})`);
       var queryAjuste = await q(`SELECT id_reporte FROM db_aju WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryConActual = await q(`SELECT * FROM db_con_act WHERE id_reporte IN (${concatenarMisReportes})`);
@@ -693,13 +596,10 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
       var queryIntven = await q(`SELECT * FROM db_intven WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryNotif = await q(`SELECT * FROM db_notif WHERE id_reporte IN (${concatenarMisReportes})`);
       var queryResnot = await q(`SELECT * FROM db_res_not WHERE id_reporte IN (${concatenarMisReportes})`);
-  
     }else{
       console.log('no tiene reporetes')
     }
-
   }
-
   iduser = req.user.CEDULA
   res.render('da/reportes/dashboard_reportes', {
     tittle: 'Reportes SIVESPA ',
@@ -718,8 +618,6 @@ router.get('/reportes', authController.isAuth, async (req, res) => {
     tamizajeassist:tamizajeassist
   })
 })
-
-
 router.get('/tassist', authController.isAuth, async(req, res) => {
   var querydivipola = await q(`SELECT * FROM rl_divipola`)
   var querytipide = await q(`SELECT * FROM rl_tip_ide`)
@@ -729,7 +627,6 @@ router.get('/tassist', authController.isAuth, async(req, res) => {
   var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
   var queryspas = await q('SELECT * FROM rl_lista_spa')
   var profesiones= await q(`SELECT * FROM rl_ciu088`)
-
   res.render('da/reportes/tamizaje_assist', {
     tittle: 'Tamizaje ASSIST',
     user: req.user,
@@ -829,8 +726,6 @@ router.get('/entidades', authController.isAuth, (req, res) => {
         listaUSERS: result[6],
         listaMUNI: result[7],
         filtro: 0
-
-
       })
     }
   })
@@ -838,24 +733,18 @@ router.get('/entidades', authController.isAuth, (req, res) => {
 // rutas para ver reportes
 router.get('/misreportes', authController.isAuth, async (req, res) => {
 })
-
 router.get('/show/:u', authController.isAuth, async (req, res) => {
   const id = req.params.u;
-
   let idepaciente = await q(`SELECT * FROM db_ide_pac WHERE NUM_IDE = ${id}`);
   const paciente = idepaciente[0]
   const idreporte = paciente.id_reporte
-
   let conactual = await q(`SELECT * FROM db_con_act WHERE id_reporte = '${idreporte}'`);
-
   const consumoactual = conactual[0]
   let spa = await q(`SELECT * FROM rl_lista_spa`);
   listaspa = spa[0]
-
   let nombrespa = spa.filter(lp => lp.id_rl_lista_spa == consumoactual.ID_RL_LISTA_SPA);
   res.send(paciente)
 })
-
 router.post('/guardarinforme', authController.isAuth, async (req, res) => {
   let sampleFile;
   let uploadPath;
@@ -866,7 +755,6 @@ router.post('/guardarinforme', authController.isAuth, async (req, res) => {
   nommunipio=nommuni[0].NOMMUNIPIO
   id_creador=req.user.CEDULA
   nomcreador= req.user.NOMBRE + ' ' + req.user.APELLIDO
-
   factual = new Date().toISOString().slice(0, 10);
   fecha=factual
   sampleFile = req.files.estadistica
@@ -875,7 +763,6 @@ router.post('/guardarinforme', authController.isAuth, async (req, res) => {
   if (!req.files || Object.keys(req.files).length == 0) {
     console.log('no archivo')
   }
-
   sampleFile.mv(uploadPath, function (err) {
     if (err) return res.status(500).send(err);
     conexion.query("INSERT INTO informes SET ?", {
@@ -887,23 +774,17 @@ router.post('/guardarinforme', authController.isAuth, async (req, res) => {
       nommunipio: nommunipio,
       id_creador: id_creador,
       nomcreador: nomcreador
- 
     }, function (err, result) {
       if (err) return res.status(500).send(err);
       res.redirect('/da/informes')
     })
   })
-
 })
-
 router.get('/borrarinforme/:id',authController.isAuth, async(req,res)=>{
 id=req.params.id
 borrar=await q(`DELETE FROM informes WHERE id=${id}`)
 console.log(borrar)
 res.redirect('/da/informes')
-
-
-
 })
 router.post('/updateinforme', authController.isAuth, async(req, res) => {
   var sampleFile;
@@ -916,12 +797,8 @@ router.post('/updateinforme', authController.isAuth, async(req, res) => {
   nommunipio=nommuni[0].NOMMUNIPIO
   id_creador=req.user.CEDULA
   nomcreador= req.user.NOMBRE + ' ' + req.user.APELLIDO
-
   factual = new Date().toISOString().slice(0, 10);
   fecha=factual
-
-
-
   if (!req.files || Object.keys(req.files).length == 0) {
     update=await q(`UPDATE informes SET titulo='${titulo}', contenido='${contenido}' WHERE id=${id}`)
   }else{
@@ -932,23 +809,15 @@ router.post('/updateinforme', authController.isAuth, async(req, res) => {
       if (err) return res.status(500).send(err);
     })
     update=await q(`UPDATE informes SET titulo='${titulo}', contenido='${contenido}',estadistica='${estadistica}' WHERE id=${id}`)
-
     }
     res.redirect('/da/informes')
-
-
-
-
 })
-
 router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
   let sampleFile;
   let uploadPath;
-
   if (!req.files || Object.keys(req.files).length == 0) {
     console.log('no archivo')
   }
-
   sampleFile = req.files.foto
   var imagen = sampleFile.name
   uploadPath = __dirname + '/public/upload/' + sampleFile.name
@@ -965,7 +834,6 @@ router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
   texto = req.body.texto
   idcreador = req.user.CEDULA
   fcreacion = new Date().toISOString().slice(0, 10);
-
   nommuni = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${dirimuni}`)
  if (spa == 0) {
     nomspa = 'General'
@@ -973,9 +841,7 @@ router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
     nomspa = await q(`SELECT SUSTANCIA FROM rl_lista_spa WHERE id_rl_lista_spa=${spa}`)
     nomspa = nomspa[0].SUSTANCIA
   }
-
   nommuni = nommuni[0].NOMMUNIPIO
-
   values = [
     fcreacion,
     titulo,
@@ -1022,8 +888,6 @@ router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
   //   user: req.user,
   // })
 })
-
-
 // paso siguiente que muestre las noticias, tips luego de cada reporte segun la spa, lineas de atencion segun la SPA y ubicacion
 // paso siguiente que transpole la informacion del reporte en los textos de la db
 // permita guardar reportes en pdf
@@ -1037,8 +901,6 @@ router.get('/vernoticia/:id', authController.isAuth, async (req, res) => {
     datanoticias: datanoticia[0]
   })
 })
-
-
 router.get('/editarcontenido/:id', authController.isAuth, async (req, res) => {
   const id = req.params.id
   var datanoticia = await q(`SELECT * FROM contenido WHERE id = ${id}`)
@@ -1052,11 +914,9 @@ router.get('/editarcontenido/:id', authController.isAuth, async (req, res) => {
     spa:querySPa  
   })
 })
-
 router.post('/updatecontenido',authController.isAuth, async(req,res)=>{
   let sampleFile;
   let uploadPath;
-
   id=req.body.id
   titulo = req.body.titulo
   tipo_con = req.body.tipo_con
@@ -1079,7 +939,6 @@ router.post('/updatecontenido',authController.isAuth, async(req,res)=>{
     nomspa = nomspa[0].SUSTANCIA
   }
   nommuni = nommuni[0].NOMMUNIPIO
-
   if (!req.files || Object.keys(req.files).length == 0) {
     console.log('no archivo')
     update=await q(`UPDATE contenido SET titulo='${titulo}',dirimuni=${dirimuni},NOMMUNI='${nommuni}',tipo_con=${tipo_con},
@@ -1095,10 +954,8 @@ router.post('/updatecontenido',authController.isAuth, async(req,res)=>{
     sampleFile = req.files.foto
     var imagen = sampleFile.name
     uploadPath = __dirname + '/public/upload/' + sampleFile.name
-          
         sampleFile.mv(uploadPath, function (err) {
           if (err) return res.status(500).send(err);
-
         })
         update=await q(`UPDATE contenido SET titulo='${titulo}',dirimuni=${dirimuni},NOMMUNI='${nommuni}',tipo_con=${tipo_con},
         desta=${desta},
@@ -1111,18 +968,12 @@ router.post('/updatecontenido',authController.isAuth, async(req,res)=>{
       `)
   }
   res.redirect('/da/contenido')
-
-  
-  
 })
-
-
 router.get('/borrarcontenido/:id', authController.isAuth, async(req, res)=>{
 id=req.params.id
 borrar=await q(`DELETE FROM contenido WHERE id=${id}`)
 res.redirect('/da/contenido')
 })
-
 router.get('/vertip/:id', authController.isAuth, async (req, res) => {
   const id = req.params.id
   var datatip = await q(`SELECT * FROM contenido WHERE id = ${id}`)
@@ -1136,7 +987,6 @@ router.post('/filtronoticias', authController.isAuth, async (req, res) => {
   const quebuscar = req.body.kbuscar
   var filtro = 1
   resfiltro = await q(`SELECT * from contenido WHERE CONCAT(NOMSPA,titulo,NOMMUNI) LIKE "%${quebuscar}%" AND tipo_con=1`)
-
   res.render('da/noticias/noticias', {
     tittle: 'Noticias ',
     user: req.user,
@@ -1144,12 +994,10 @@ router.post('/filtronoticias', authController.isAuth, async (req, res) => {
     filtro: filtro
   })
 })
-
 router.post('/filtrotips', authController.isAuth, async (req, res) => {
   const quebuscar = req.body.kbuscar
   var filtro = 1
   resfiltro = await q(`SELECT * from contenido WHERE CONCAT(NOMSPA,titulo,NOMMUNI) LIKE "%${quebuscar}%" AND tipo_con=2`)
-
   res.render('da/tips/tips', {
     tittle: 'Tips ',
     user: req.user,
@@ -1157,18 +1005,12 @@ router.post('/filtrotips', authController.isAuth, async (req, res) => {
     filtro: filtro
   })
 })
-
-
 router.get('/filtronoticias', authController.isAuth, async (req, res) => {
-
   res.redirect('/da/noticias')
 })
-
 router.get('/filtrotips', authController.isAuth, async (req, res) => {
-
   res.redirect('/da/tips')
 })
-
 router.get('/tcrafft', authController.isAuth, async (req, res) => {
   var querydivipola = await q(`SELECT * FROM rl_divipola`)
   var querytipide = await q(`SELECT * FROM rl_tip_ide`)
@@ -1189,8 +1031,6 @@ router.get('/tcrafft', authController.isAuth, async (req, res) => {
     spa: queryspas
   })
 })
-
-
 router.post('/crearlinea', authController.isAuth, async (req, res) => {
   nombre = req.body.nombre
   numero = req.body.numero
@@ -1206,7 +1046,6 @@ router.post('/crearlinea', authController.isAuth, async (req, res) => {
   }
   id_user_creador = req.user.CEDULA
   nombrecreador = req.user.NOMBRE + " " + req.user.APELLIDO
-
   id_rl_lista_spa = req.body.spa
   if (id_rl_lista_spa == 0) {
     SUSTANCIA = 'General'
@@ -1214,24 +1053,18 @@ router.post('/crearlinea', authController.isAuth, async (req, res) => {
     SUSTANCIA = await q(`SELECT SUSTANCIA FROM rl_lista_spa WHERE id_rl_lista_spa = ${id_rl_lista_spa}`)
     SUSTANCIA = SUSTANCIA[0].SUSTANCIA
   }
-
-
   NOMMUNIPIO=NOMMUNIPIO[0].NOMMUNIPIO
   insertar = await q(`INSERT INTO lineas_atention (nombre, numero, description, COD_PRE, NOMBRE_PRE, COD_MUN, NOMMUNIPIO, id_user_creador, nombrecreador, id_rl_lista_spa, SUSTANCIA)VALUES ("${nombre}","${numero}","${descripcion}",${COD_PRE},"${NOMPRE_PRE}",${COD_MUN},"${NOMMUNIPIO}",${id_user_creador},"${nombrecreador}",${id_rl_lista_spa},"${SUSTANCIA}")`)
   res.redirect('/da/mislineas')
 })
-
-
 router.get('/datausuario/:id', authController.isAuth, async (req, res) => {
   iduser = req.params.id
   var userver = await q(`SELECT * FROM st_user WHERE id_st_user= ${iduser}`)
   nombrecompleto = userver[0].NOMBRE + " " + userver[0].APELLIDO
-
   nombreide = await q(`SELECT rl_tip_ide.DESC FROM rl_tip_ide WHERE ID_RL_TIP_IDE  = ${userver[0].TIP_IDEN}`)
   listatipoide = await q(`SELECT * FROM rl_tip_ide`)
   miupgd = await q(`SELECT * FROM db_uni_not WHERE COD_PRE= ${userver[0].COD_PRE} AND COD_SUB=${userver[0].COD_SUB}`)
   mimuni = await q(`SELECT DISTINCT * FROM rl_divipola WHERE CODMUNIC=${userver[0].COD_MUN}`)
-
   res.render('da/usuarios/datausuario', {
     tittle: 'Editar Usuario',
     user: req.user,
@@ -1243,18 +1076,12 @@ router.get('/datausuario/:id', authController.isAuth, async (req, res) => {
     mimuni: mimuni[0]
   })
 })
-
-
 router.get('/dataupgd/:id', authController.isAuth, async (req, res) => {
   uidupgd = req.params.id
   var upgdver = await q(`SELECT * FROM db_uni_not WHERE PK_UNI_NOTIF= ${uidupgd}`)
-
-
   responsable = await q(`SELECT * FROM st_user WHERE CEDULA  = ${upgdver[0].ID_RES_NOT}`)
   listatipoide = await q(`SELECT * FROM rl_tip_ide`)
-
   mimuni = await q(`SELECT DISTINCT * FROM rl_divipola WHERE CODMUNIC=${upgdver[0].COD_MUN}`)
-
   res.render('da/usuarios/dataupgd', {
     tittle: 'Editar UPGD',
     user: req.user,
@@ -1266,17 +1093,12 @@ router.get('/dataupgd/:id', authController.isAuth, async (req, res) => {
     mimuni: mimuni[0]
   })
 })
-
 router.get('/dataentmun/:id', authController.isAuth, async (req, res) => {
   identmun = req.params.id
   var entmunver = await q(`SELECT * FROM db_ent_mun WHERE id= ${identmun}`)
-
-
   responsable = await q(`SELECT * FROM st_user WHERE CEDULA  = ${entmunver[0].NRO_DOC}`)
-  
   listatipoide = await q(`SELECT * FROM rl_tip_ide`)
   mimuni = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${entmunver[0].COD_MUN}`)
-
   res.render('da/usuarios/dataentmun', {
     tittle: 'Editar Entidad Municipal',
     user: req.user,
@@ -1288,11 +1110,8 @@ router.get('/dataentmun/:id', authController.isAuth, async (req, res) => {
     mimuni: mimuni[0].NOMMUNIPIO
   })
 })
-
-
 router.get('/verreporte/:id', authController.isAuth, async (req, res) => {
   factual = new Date().toISOString().slice(0, 10);
-
   id_reporte = req.params.id
   // la informacion del reporte :
   db_aju = await q(`SELECT * FROM db_aju WHERE id_reporte="${id_reporte}"`)
@@ -1304,10 +1123,7 @@ router.get('/verreporte/:id', authController.isAuth, async (req, res) => {
   db_notif = await q(`SELECT * FROM db_notif WHERE id_reporte="${id_reporte}"`)
   db_res_not = await q(`SELECT * FROM db_res_not WHERE id_reporte="${id_reporte}"`)
   //***************************** */
-
-
   // la informacion para la relacion de datos en el reporte :
-
   sqlmunicipios = await q(`SELECT DISTINCT NOMMUNIPIO,CODMUNIC from rl_divipola`)
   sqltodomun = await q(`SELECT * from rl_divipola`)
   sqltipoide = await q(`SELECT * FROM rl_tip_ide`)
@@ -1333,9 +1149,7 @@ router.get('/verreporte/:id', authController.isAuth, async (req, res) => {
   sqlcei = await q(`SELECT * FROM rl_cie_10`)
   sqlviaadm = await q(`SELECT * FROM rl_imp_via_adm`)
   sqlpripro = await q(`SELECT * FROM rl_pro_ca`)
-
   muniocu = await q(`SELECT NOMCENTRPOBLADO FROM rl_divipola WHERE CODCENTROPOBLADO=${db_ide_pac[0].ID_RL_DIVIPOLA}`)
-
   nombrepaciente = db_ide_pac[0].PRI_NOM + " " + db_ide_pac[0].SEG_NOM + " " + db_ide_pac[0].PRI_APE + " " + db_ide_pac[0].SEG_APE
   res.render('da/reportes/verreporte', {
     tittle: 'Reporte de: ' + nombrepaciente,
@@ -1373,18 +1187,11 @@ router.get('/verreporte/:id', authController.isAuth, async (req, res) => {
     db_notif: db_notif[0],
     db_res_not: db_res_not[0],
     todomun: muniocu
-
   })
-
-
 })
-
 router.get('/vertamizaje_crafft/:id', authController.isAuth, async(req,res)=>{
-
   id_tamizaje=req.params.id
-
   var vercrafft= await q(`SELECT * FROM db_tam_crafft WHERE id_tamizaje="${id_tamizaje}"`)
-
   var querydivipola = await q(`SELECT * FROM rl_divipola`)
   var querytipide = await q(`SELECT * FROM rl_tip_ide`)
   var querysexo = await q('SELECT * FROM rl_sexo')
@@ -1392,9 +1199,7 @@ router.get('/vertamizaje_crafft/:id', authController.isAuth, async(req,res)=>{
   var querytregimen = await q('SELECT * FROM rl_tip_ss')
   var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
   var queryspas = await q('SELECT * FROM rl_lista_spa')
-  
   var nombre_completo= vercrafft[0].PRI_NOM + ' '+ vercrafft[0].SEG_NOM + ' ' + vercrafft[0].PRI_APE + ' ' + vercrafft[0].SEG_APE
-  
   res.render('da/reportes/vertamizajecrafft', {
     tittle: 'Tamizaje CRAFFT de ' + nombre_completo ,
     user: req.user,
@@ -1407,17 +1212,10 @@ router.get('/vertamizaje_crafft/:id', authController.isAuth, async(req,res)=>{
     spa: queryspas,
     vercrafft:vercrafft[0]
   })
-
-
 })
-
-
 router.get('/vertamizaje_assist/:id', authController.isAuth, async(req,res)=>{
-
   id_tamizaje=req.params.id
-
   var verassist= await q(`SELECT * FROM db_tam_assist WHERE id_tamizaje="${id_tamizaje}"`)
-
   var querydivipola = await q(`SELECT * FROM rl_divipola`)
   var querytipide = await q(`SELECT * FROM rl_tip_ide`)
   var querysexo = await q('SELECT * FROM rl_sexo')
@@ -1426,9 +1224,7 @@ router.get('/vertamizaje_assist/:id', authController.isAuth, async(req,res)=>{
   var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
   var queryspas = await q('SELECT * FROM rl_lista_spa')
   var profesiones= await q("SELECT * FROM rl_ciu088")
-  
   var nombre_completo= verassist[0].PRI_NOM + ' '+verassist[0].SEG_NOM + ' ' + verassist[0].PRI_APE + ' '+ verassist[0].SEG_APE
-  
   res.render('da/reportes/vertamizajeassist', {
     tittle: 'Tamizaje ASSIST de ' + nombre_completo ,
     user: req.user,
@@ -1442,18 +1238,11 @@ router.get('/vertamizaje_assist/:id', authController.isAuth, async(req,res)=>{
     verassist:verassist[0],
     profesiones:profesiones
   })
-
-
 })
-
 // filtro estadisticas muni:
 router.post('/estamun',estaController.estamuni)
-
 router.post('/estasem', estaController.estasemana)
-
 router.post('/estaedad', estaController.estaedad)
-
-
 router.get('/estamun', authController.isAuth , (req , res)=>{
   res.redirect('/da/estadisticas')
 })
@@ -1463,13 +1252,4 @@ router.get('/estasem', authController.isAuth , (req , res)=>{
 router.get('/estaedad', authController.isAuth , (req , res)=>{
   res.redirect('/da/estadisticas')
 })
-
-
-
-
-
 module.exports = router
-
-
-
-

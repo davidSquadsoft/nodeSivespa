@@ -15,6 +15,8 @@ const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 const fileupload= require('express-fileupload');
 const { setMaxListeners } = require("process");
+const q = require('./database/querys');
+
 
 
 dotenv.config({ path: './env/.env' })
@@ -60,7 +62,9 @@ const PORT = process.env.PORT || 3000
 //--------------------
 //--------------------
 //:::
-app.get('/', (req, res) => {
+app.get('/', async(req, res) => {
+  
+  
   res.render('index', { tittle: 'Sivespa' })
 })
 // inicio de rutas de ciudadano
