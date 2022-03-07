@@ -7,7 +7,7 @@ function saveAsPDF() {
           orientation: 'landscape',
         });
           doc.addImage(img, 30, 50,585,322);
-          doc.save('test.pdf');
+          doc.save('estadistica.pdf');
        }
     });
  }

@@ -49,8 +49,8 @@
                 </div>
                 <div class="card-body mt-0 text-center">
                     <button class="btn_green" onclick="saveinforme()" type="button">Descargar</button>
-                    <button class="btn_green">Editar</button>
-                    <button class="btn_red_wide">Eliminar</button>
+                    <button class="btn_green" onclick="location.href='/da/informes/editarinforme/<%= verinforme.id %>';" >Editar</button>
+                    <button class="btn_red_wide"  onclick="confirmar(<%= verinforme.id %>)" >Eliminar</button>
                 </div>
             </div>
 
@@ -113,4 +113,26 @@ loadingTask.promise.then(function(pdf) {
 
 
     </script>
+
+<script>
+    function confirmar(id){
+        Swal.fire({
+title: 'Desea eliminar el informe',
+text: "Este cambio no se puede revertir!",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonColor: '#3c773c',
+cancelButtonColor: '#d33',
+confirmButtonText: 'Si, eliminar'
+}).then((result) => {
+if (result.isConfirmed) {
+
+    window.location='/da/borrarinforme/'+id;
+  
+
+
+}
+})
+    }
+</script>
 <%- include ('../includes/footer')-%>

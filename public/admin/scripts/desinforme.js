@@ -9,7 +9,7 @@ function saveinforme() {
            format:'a4'
          });
            doc.addImage(img,'PNG',-60,10,560,0,null,'FAST',0);
-           doc.save('test.pdf');
+           doc.save('informe.pdf');
         }
      });
 

@@ -1226,9 +1226,9 @@ form .input-group button {
 }
 
 .card.card_informes {
-    width: 16rem!important;
+    
     background-color: var(--white);
-    margin: 15px;
+    
     border: 1px var(--sidebar_hover) solid!important;
 }
 

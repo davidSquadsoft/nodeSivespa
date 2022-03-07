@@ -30,7 +30,7 @@ function camposAlerta(s){
 };
 function guardar(){
   Swal.fire({
-    title: 'Guardar Contenido',
+    title: 'Guardar Informe',
     icon: 'success',
     confirmButtonText: 'Ok',
     confirmButtonColor:'#3c773c',

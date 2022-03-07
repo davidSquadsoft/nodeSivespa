@@ -61,7 +61,7 @@
                         <form action="/da/informes" method="post" autocomplete="off">
                             <div class="row">
                                
-                                <div class="col-lg-4">
+                                <div class="col-lg-8">
                                     <label for="fechaini">Desde:</label>
                                     <input type="date" name="dateini" class="form-control">
                                     <label for="fechaend">Hasta:</label>
@@ -69,8 +69,14 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label for="municipio">Municipio:</label>
-                                    <input type="text" class="form-control" name="muni" <% if(user.TIP_USER==3 || user.TIP_USER==2){ %> readonly="readonly" <% } %> value="<%= user.COD_MUN %> " >
+                                    <input list="municipios" type="text" class="form-control" name="muni" <% if(user.TIP_USER==3 || user.TIP_USER==2){ %> readonly="readonly" value="<%= user.COD_MUN %>" <% }%> >
+                                    <datalist id="municipios">
+                                        <% listamunicipios.forEach((dm)=>{ %> 
+                                            <option value="<%= dm.CODMUNIC %>"><%= dm.NOMMUNIPIO %> </option>
+                                            <% }) %> 
+                                    </datalist>
                                     <button type="submit" class="form-control btn_green_s btn mt-4">Aplicar filtro <i class="bi bi-search "></i></button>
+                                
 
                                 </div>
                             </div>
@@ -86,12 +92,15 @@
                     </div>
                     <% informes.forEach((datainfor) => { %> 
 
-                    <div class="card card_informes">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= datainfor.titulo %> </h5>
-                            <p class="card-text"><% resumen= datainfor.contenido%> <%= resumen.substr(1,50) %></p>
-                            <button class="btn_green" role="link" onclick="location.href='informes/verinforme/<%= datainfor.id %>';">Leer</button>
-                
+                    <div class="col-4 col-xs-12">
+                        <div class="card card_informes">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= datainfor.titulo %> </h5>
+                                <p class="card-text"><% resumen= datainfor.contenido%> <%= resumen.substr(1,50) %></p>
+                                <button class="btn_green" role="link" onclick="location.href='informes/verinforme/<%= datainfor.id %>';">Leer</button>
+                                <button class="btn_green" role="link" onclick="location.href='informes/editarinforme/<%= datainfor.id %>';">Editar</button>
+                                <button class="btn_red_wide" role="link" onclick="confirmar(<%= datainfor.id %>);">Eliminar</button>
+                            </div>
                         </div>
                     </div>
                     <% }) %> 
@@ -99,4 +108,27 @@
                 </div>
             </div>
     </section>
+
+
+    <script>
+        function confirmar(id){
+            Swal.fire({
+  title: 'Desea eliminar el informe',
+  text: "Este cambio no se puede revertir!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3c773c',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, eliminar'
+}).then((result) => {
+  if (result.isConfirmed) {
+    
+        window.location='/da/borrarinforme/'+id;
+      
+   
+    
+  }
+})
+        }
+    </script>
     <%- include('../includes/footer') -%>

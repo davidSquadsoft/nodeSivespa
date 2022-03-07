@@ -1,0 +1,130 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar">Cambiar</p>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
+                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form ">
+                <div class="row buscar crear_contenido">
+                    <form action="/da/updateinforme" method="post" autocomplete="off" enctype="multipart/form-data" id="form">
+                        <div class="row">
+                            <input type="number" name="id" id=""  value="<%= verinforme.id  %>" hidden>
+
+
+                                <label for="">Titulo</label>
+                                <input type="text" name="NOM_INFOR" id="" required value="<%= verinforme.titulo%>">
+              
+                        </div>
+               
+                        <div class="row">
+
+                                <label for="">Contenido</label>
+                                
+                                <textarea name="CONT_INFOR" rows="8" class="form-control" required><%= verinforme.contenido %></textarea>
+           
+
+          
+
+                        </div>
+                        <div class="row crear_contenido_tipo_notificacion">
+                           
+                            <label for="" class="">Estadistica Actual:</label>
+                            <canvas id="the-canvas"></canvas>
+                            <label for="" class="">Actualizar estadistica:</label>
+                            
+                            <input type="file" id="actual-btn" class="" name="estadistica" accept=".pdf"  placeholder="Subir Estadistica">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10"></div>
+                            <div class="col-lg-2 col-xs-12">
+                                <button class="btn_green" type="button" onclick="validar()">Publicar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/admin/scripts/validarinforme.js"></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+
+        // header on that server.
+        var url = '/upload/<%= verinforme.estadistica%>';
+        
+        // Loaded via <script> tag, create shortcut to access PDF.js exports.
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        
+        // The workerSrc property shall be specified.
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+        
+        // Asynchronous download of PDF
+        var loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(function(pdf) {
+          console.log('PDF loaded');
+          
+          // Fetch the first page
+          var pageNumber = 1;
+          pdf.getPage(pageNumber).then(function(page) {
+            console.log('Page loaded');
+            
+            var scale = 1;
+            var viewport = page.getViewport({scale: scale});
+        
+            // Prepare canvas using PDF page dimensions
+            var canvas = document.getElementById('the-canvas');
+            var context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+        
+            // Render PDF page into canvas context
+            var renderContext = {
+              canvasContext: context,
+              viewport: viewport
+            };
+            var renderTask = page.render(renderContext);
+            renderTask.promise.then(function () {
+              console.log('Page rendered');
+            });
+          });
+        }, function (reason) {
+          // PDF loading error
+          console.error(reason);
+        });
+        
+        
+            </script>
+    <%- include('../includes/footer') -%>

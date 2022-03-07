@@ -212,12 +212,12 @@ router.get('/crearestadistica', authController.isAuth, (req, res) => {
 router.get('/informes', authController.isAuth, async(req, res) => {
   dateini = req.body.dateini || new Date('1900/01/01').toISOString().slice(0, 10);
   dateend = req.body.dateend || new Date().toISOString().slice(0, 10);
-  muni = req.body.muni || 0
-  
+  muni = req.body.muni || 0;
+  listamunicipios=await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola')
 
   if(req.user.TIP_USER==1){
 
-    listainfor=await q(`SELECT * FROM informes WHERE fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${muni}`)
+    listainfor=await q(`SELECT * FROM informes WHERE fecha>='${dateini}' AND fecha<='${dateend}'`)
     console.log(listainfor)
   }else if(req.user.TIP_USER==2){
     
@@ -227,7 +227,7 @@ router.get('/informes', authController.isAuth, async(req, res) => {
   }
   
 
-  res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor })
+  res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor,listamunicipios:listamunicipios })
 })
 
 
@@ -236,7 +236,7 @@ router.post('/informes', authController.isAuth, async(req, res) => {
   dateini = req.body.dateini || new Date('1900/01/01').toISOString().slice(0, 10);
   dateend = req.body.dateend || new Date().toISOString().slice(0, 10);
   muni = req.body.muni || 0
-
+  listamunicipios=await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola')
 
   if(req.user.TIP_USER==1){
 
@@ -248,7 +248,7 @@ router.post('/informes', authController.isAuth, async(req, res) => {
   }else if(req.user.TIP_USER==3){
     listainfor=await q(`SELECT * FROM informes WHERE c fecha>='${dateini}' AND fecha<='${dateend}' AND cod_muni=${req.user.CEDULA}`)
   }
-  res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor })
+  res.render('da/informes/informes', { tittle: 'Informes', user: req.user,informes:listainfor,listamunicipios:listamunicipios })
 })
 
 router.get('/informes/verinforme/:id' , authController.isAuth, async(req,res)=>{
@@ -259,6 +259,23 @@ router.get('/informes/verinforme/:id' , authController.isAuth, async(req,res)=>{
   res.render('da/informes/verinforme',{
     user:req.user,
     tittle:'Ver informe',
+    verinforme:informedata[0]
+
+  })
+
+
+})
+
+
+
+router.get('/informes/editarinforme/:id' , authController.isAuth, async(req,res)=>{
+  id=req.params.id;
+  console.log(id)
+  informedata=await q(`SELECT * FROM informes WHERE id=${id}`)
+
+  res.render('da/informes/editar_informe',{
+    user:req.user,
+    tittle:'Editar informe',
     verinforme:informedata[0]
 
   })
@@ -312,7 +329,7 @@ router.get('/editarlinea/:id', authController.isAuth, async (req, res) => {
   todaslineas = await q(`SELECT * FROM lineas_atention WHERE id=${id}`)
 
   res.render('da/lineas/editarlineas', {
-    tittle: 'Mis lineas de atención ',
+    tittle: 'Editar linea de atención ',
     user: req.user,
     listaspa: listaspa,
     todaslineas: todaslineas[0]
@@ -462,7 +479,7 @@ router.get('/editaroferta/:id', authController.isAuth, async(req, res) => {
   spa=await q ('SELECT * FROM rl_lista_spa')
 
   res.render('da/oferta_institucional/editaroferta',{
-    tittle: 'Crear oferta institucional ',
+    tittle: 'Editar oferta institucional ',
     user: req.user,
     spa:spa,
     dataoferta:oferta[0]
@@ -879,6 +896,51 @@ router.post('/guardarinforme', authController.isAuth, async (req, res) => {
 
 })
 
+router.get('/borrarinforme/:id',authController.isAuth, async(req,res)=>{
+id=req.params.id
+borrar=await q(`DELETE FROM informes WHERE id=${id}`)
+console.log(borrar)
+res.redirect('/da/informes')
+
+
+
+})
+router.post('/updateinforme', authController.isAuth, async(req, res) => {
+  var sampleFile;
+  var uploadPath;
+  id=req.body.id;
+  titulo=req.body.NOM_INFOR
+  contenido=req.body.CONT_INFOR
+  cod_muni=req.user.COD_MUN
+  nommuni = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${cod_muni}`)
+  nommunipio=nommuni[0].NOMMUNIPIO
+  id_creador=req.user.CEDULA
+  nomcreador= req.user.NOMBRE + ' ' + req.user.APELLIDO
+
+  factual = new Date().toISOString().slice(0, 10);
+  fecha=factual
+
+
+
+  if (!req.files || Object.keys(req.files).length == 0) {
+    update=await q(`UPDATE informes SET titulo='${titulo}', contenido='${contenido}' WHERE id=${id}`)
+  }else{
+    sampleFile = req.files.estadistica
+    var estadistica = sampleFile.name
+    uploadPath = __dirname + '/public/upload/' + sampleFile.name
+    sampleFile.mv(uploadPath, function (err) {
+      if (err) return res.status(500).send(err);
+    })
+    update=await q(`UPDATE informes SET titulo='${titulo}', contenido='${contenido}',estadistica='${estadistica}' WHERE id=${id}`)
+
+    }
+    res.redirect('/da/informes')
+
+
+
+
+})
+
 router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
   let sampleFile;
   let uploadPath;
@@ -983,7 +1045,7 @@ router.get('/editarcontenido/:id', authController.isAuth, async (req, res) => {
   var queryMuni = await q('SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola');
   var querySPa = await q('SELECT * from rl_lista_spa');
   res.render('da/contenido/editar_contenido', {
-    tittle: datanoticia.titulo,
+    tittle: 'Editar: ' + datanoticia[0].titulo,
     user: req.user,
     datanoticias: datanoticia[0],
     municipios:queryMuni,
