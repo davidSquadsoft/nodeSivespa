@@ -44,13 +44,13 @@
                                 <input type="number" value="<%= responuser.id_st_user %>" hidden name="id_st_user">
                                 <label for="">Razon Social</label>
                              
-                                <input type="text" name="RAZ_SOC" class="form-control mb-2" value="<%= upgdver.RAZ_SOC %> ">
+                                <input type="text" name="RAZ_SOC" class="form-control mb-2" value="<%= upgdver.RAZ_SOC %>" required>
                     
                                 <label for="">Nombre del responsable</label>
                                 
-                                <input type="text" class="form-control mb-2" value="<%= responuser.NOMBRE %>" name="NOMBRE">
+                                <input type="text" class="form-control mb-2" value="<%= responuser.NOMBRE %>" name="NOMBRE" required>
                                 <label for="">Email</label>
-                                <input type="text" name="EMAIL" class="form-control mb-2" value="<%= upgdver.COR_ELE%>">
+                                <input type="text" name="EMAIL" class="form-control mb-2" value="<%= upgdver.COR_ELE%>" required>
                                 <label for="">Tipo de identificación</label>
                                 
                                 <select name="TIP_IDEN" id="" CLASS="form-select">
@@ -63,15 +63,15 @@
                             <div class="col-lg-6">
 
                                 <label for="">NIT</label>
-                                <input type="text" name="NIT_UPGD" class="form-control mb-2" value="<%= upgdver.NIT_UPGD %> ">
+                                <input type="text" name="NIT_UPGD" class="form-control mb-2" value="<%= upgdver.NIT_UPGD %>" required>
                            
                                 <label for="">Apellido del responsable</label>
-                                <input type="text" name="APELLIDO" class="form-control mb-2" value="<%= responuser.APELLIDO %> ">
+                                <input type="text" name="APELLIDO" class="form-control mb-2" value="<%= responuser.APELLIDO %>" required>
                            
                                 <label for="">Telefono de contacto:</label>
-                                <input type="text" name="TEL" class="form-control mb-2" value="<%= upgdver.TEL%>">
+                                <input type="text" name="TEL" class="form-control mb-2" value="<%= upgdver.TEL%>" required>
                                 <label for="">Numero de identificación</label>
-                                <input type="text" name="CEDULA" class="form-control mb-2" value="<%= responuser.CEDULA %>">
+                                <input type="text" name="CEDULA" class="form-control mb-2" value="<%= responuser.CEDULA %>" required>
                       
                             </div>
                         </div>

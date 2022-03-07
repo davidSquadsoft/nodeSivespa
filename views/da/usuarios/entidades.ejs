@@ -139,22 +139,22 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12 col-xs-12">
-                            <form action="/da/registerent" class="form-group modals_dashboard_entidad" method="POST" autocomplete="off">
+                            <form action="/da/registerent" class="form-group modals_dashboard_entidad" method="POST" autocomplete="off" id="formupgd">
                                 <div class="fluid-container">
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Código del prestador de servicios de salud</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="COD_PRE" id=" " placeholder="1000000000 ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="COD_PRE" id=" " placeholder="1000000000 " required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Sub-índice</label>
-                                            <input id="campos_nueva_entidad " class="form-control " type="number" name="COD_SUB" id=" " placeholder="34 ">
+                                            <input id="campos_nueva_entidad " class="form-control " type="number" name="COD_SUB" id=" " placeholder="34 " required>
                                         </div>
                                     </div>
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Nit UPGD</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="NIT_UPGD" id=" " placeholder="1000000000 ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="NIT_UPGD" id=" " placeholder="1000000000 " required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Tipo de unidad notificadora</label>
@@ -167,16 +167,16 @@
                                     <div class="row align-bottom ">   
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Razón Social</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="RAZ_SOC" id=" " placeholder="Nombre ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="RAZ_SOC" id=" " placeholder="Nombre " required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <% if (user.TIP_USER==2) { %>
                                             <label for=" ">Codigo Municipal:</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="COD_MUN" id="" value="<%= user.COD_MUN %>"  readonly="readonly">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number" name="COD_MUN" id="" value="<%= user.COD_MUN %>" readonly="readonly">
                                             <%}%>
                                             <% if (user.TIP_USER==1) { %>
                                                 <label for=" ">Codigo DIVIPOLA del municipio (buscar por nombre) </label>
-                                                <input list="municipios2" name="COD_MUN" class="from-control">
+                                                <input list="municipios2" name="COD_MUN" class="from-control" required>
                                                 <datalist id="municipios2">
                                                     <% for(var i=0; i < regiones.length; i++) { %>
                                                         <option class="text-lowercase" value="<%= regiones[i].CODMUNIC %>" ><%= regiones[i].NOMMUNIPIO %></option>
@@ -188,10 +188,10 @@
                                     <dvi class="row align-bottom mt-2">
                                         <label for=" ">Responsable de Notificación</label>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="NOMBRES" id=" " placeholder="Nombre">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="NOMBRES" id=" " placeholder="Nombre" required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="APELLIDOS" id=" " placeholder="Apellido">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="APELLIDOS" id=" " placeholder="Apellido" required>
                                         </div>
                                     </dvi>
                                     <div class="row align-bottom ">
@@ -206,23 +206,23 @@
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Número de documento</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number " name="NRO_DOC" id=" " placeholder="Numero del documento del responsable ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number " name="NRO_DOC" id=" " placeholder="Numero del documento del responsable" required>
                                         </div>
                                     </div>
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Correo Electrónico</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="COR_ELE" id=" " placeholder="email@domain.com ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="text " name="COR_ELE" id=" " placeholder="email@domain.com" required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Teléfono</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number " name="TEL" id=" " placeholder="300000000 ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="number " name="TEL" id=" " placeholder="300000000" required>
                                         </div>
                                     </div>
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Contraseña</label>
-                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="password" name="pass" id=" " placeholder=" ">
+                                            <input id="campos_nueva_entidad " class="codigo_prestador form-control " type="password" name="pass" id=" " placeholder=" " required>
                                         </div>
                                     </div>
                                     <div class="row row_estado_entidad ">
@@ -234,7 +234,7 @@
                                             <input class="form-check-input" type="checkbox" name="ESTADOUPGD" value="1" id="flexCheckDefault " checked="checked ">
                                         </div>
                                         <div class="col-lg-5 col-xs-12 ">
-                                            <button type="submit" class="btn_green " style="float:right " name="submit ">Guardar</button>
+                                            <button type="button" class="btn_green " style="float:right" onclick="validarupgd()">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@
                 <div class="modal-body ">
                     <div class="row ">
                         <div class="col-lg-12 col-xs-12 ">
-                            <form action="/da/registerentU" class="form-group modals_dashboard_entidad " method="post" autocomplete="off">
+                            <form action="/da/registerentU" class="form-group modals_dashboard_entidad" method="post" autocomplete="off" id="formuser">
                                 <div class="fluid-container ">
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
@@ -271,17 +271,17 @@
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Número de Documento</label>
-                                            <input id="campos_nuevo_usuario " class=" " type="number " name="NRO_DOC" id=" " placeholder="1000000000 ">
+                                            <input id="campos_nuevo_usuario" class=" " type="text" name="NRO_DOC" id=" " placeholder="1000000000" required>
                                         </div>
                                     </div>
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Nombre</label>
-                                            <input id="campos_nuevo_usuario " class=" " type="text " name="NOMBRES" id=" " placeholder="Nombre ">
+                                            <input id="campos_nuevo_usuario" class=" " type="text " name="NOMBRES" id=" " placeholder="Nombre " required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Apellido</label>
-                                            <input id="campos_nuevo_usuario " class=" " type="text " name="APELLIDOS" id=" " placeholder="Apellidos ">
+                                            <input id="campos_nuevo_usuario" class=" " type="text " name="APELLIDOS" id=" " placeholder="Apellidos " required>
                                         </div>
                                     </div>
                                     <div class="row align-bottom ">
@@ -304,17 +304,17 @@
                                         <%} }%>
                                       <% if (user.TIP_USER == 3) {%>
                                         <label for=" ">Codigo de mi Entidad:</label>
-                                        <input id="campos_nuevo_usuario " class=" " type="text " name="COD_PRE" id=" " value="<%= user.COD_PRE %>" readonly="readonly" >
+                                        <input id="campos_nuevo_usuario " class=" " type="text " name="COD_PRE" id=" " value="<%= user.COD_PRE %>" readonly="readonly">
                                       <%}%>
                                       </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom"> 
                                             <% if (user.TIP_USER == 3 || user.TIP_USER == 2) {%>
                                                 <label for=" ">Codigo de municipal dd:</label>
-                                            <input type="number"  value="<%= user.COD_MUN %>" name="COD_MUN" readonly="readonly"  >
+                                            <input type="number"  value="<%= user.COD_MUN %>" name="COD_MUN" readonly="readonly">
                                             <% }%>
                                             <% if (user.TIP_USER == 1) {%>
                                                 <label for=" ">Codigo DIVIPOLA del Municipio al que pertenece:</label>
-                                                <input list="municipios" name="COD_MUN" class="from-control">
+                                                <input list="municipios" name="COD_MUN" class="from-control" required>
                                                 <datalist id="municipios" class="">
                                                     <% for(var i=0; i < regiones.length; i++) { %>
                                                         <option class="text-lowercase" value="<%= regiones[i].CODMUNIC %>" ><%= regiones[i].NOMMUNIPIO %></option>
@@ -326,22 +326,22 @@
                                     <div class="row align-bottom">
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                             <label for="">Correo Electrónico</label>
-                                            <input id="campos_nuevo_usuario" class="" type="text" name="COR_ELE" id="" placeholder="email@domain.com">
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="COR_ELE" id="" placeholder="email@domain.com" required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                             <label for="">Teléfono</label>
-                                            <input id="campos_nuevo_usuario" class="" type="number" name="TEL" id="" placeholder="300000000">
+                                            <input id="campos_nuevo_usuario" class="" type="number" name="TEL" id="" placeholder="300000000" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                         <label for="">Contraseña</label>
-                                        <input id="campos_nuevo_usuario" class="" type="password" name="pass" id="" placeholder="">
+                                        <input id="campos_nuevo_usuario" class="" type="password" name="pass" id="" placeholder="" required>
                                     </div>
                                     </div>
                                     <div class="row row_estado_entidad">
                                         <div class="col-lg-12 col-xs-12">
-                                            <button type="submit" class="btn_green" style="float:right" name="submit">Guardar</button>
+                                            <button type="button" class="btn_green" style="float:right" onclick="validaruser()">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -365,16 +365,16 @@
                 <div class="modal-body ">
                     <div class="row ">
                         <div class="col-lg-12 col-xs-12 ">
-                            <form action="/da/registerentM" class="form-group modals_dashboard_entidad " method="post">
+                            <form action="/da/registerentM" class="form-group modals_dashboard_entidad " method="post" autocomplete="off" id="formmuni">
                                 <div class="fluid-container ">
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Nombre de Entidad Municipal</label>
-                                            <input id="campos_nuevo_usuario " class=" " type="number " name="NOM_MUN" id=" " placeholder="Ej: Alcaldia de ... ">
+                                            <input id="campos_nuevo_usuario " class="form-control "name="NOM_MUN" id=" " placeholder="Ej: Alcaldia de ... " required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                             <label for=" ">Codigo DIVIPOLA del Municipio</label>
-                                            <input list="municipios" name="municipio" class="from-control">
+                                            <input list="municipios" name="municipio" class="from-control" required>
                                             <datalist id="municipios" class="">
                                                 <% for(var i=0; i < regiones.length; i++) { %>
                                                     <option class="text-lowercase" value="<%= regiones[i].CODMUNIC %>" ><%= regiones[i].NOMMUNIPIO %></option>
@@ -385,11 +385,11 @@
                                     <div class="row align-bottom ">
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Nombre del responsable</label>
-                                            <input id="campos_nuevo_usuario " class=" " type="text " name="NOMBRE_RESPON" id=" " placeholder="Nombre ">
+                                            <input id="campos_nuevo_usuario " class=" " type="text " name="NOMBRE_RESPON" id=" " placeholder="Nombre" required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom ">
                                             <label for=" ">Apellido del responsable</label>
-                                            <input id="campos_nuevo_usuario " class=" " type="text " name="APELLIDO_RESPON" id=" " placeholder="Apellidos ">
+                                            <input id="campos_nuevo_usuario " class=" " type="text " name="APELLIDO_RESPON" id=" " placeholder="Apellidos" required>
                                         </div>
                                     </div>
                                     <div class="row align-bottom ">
@@ -403,28 +403,28 @@
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                             <label for="">Número de documento</label>
-                                            <input id="campos_nuevo_usuario" class="" type="" name="NRO_DOC" id="" placeholder="">
+                                            <input id="campos_nuevo_usuario" class="" type="" name="NRO_DOC" id="" placeholder="" required>
                                         </div>
                                     </div>
                                     <div class="row align-bottom">
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                             <label for="">Correo Electrónico</label>
-                                            <input id="campos_nuevo_usuario" class="" type="text" name="EMAIL" id="" placeholder="email@domain.com">
+                                            <input id="campos_nuevo_usuario" class="" type="text" name="EMAIL" id="" placeholder="email@domain.com" required>
                                         </div>
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                             <label for="">Teléfono</label>
-                                            <input id="campos_nuevo_usuario" class="" type="number" name="TEL" id="" placeholder="300000000">
+                                            <input id="campos_nuevo_usuario" class="" type="number" name="TEL" id="" placeholder="300000000" required> 
                                         </div>
                                     </div>
                                     <div class="row align-bottom">
                                         <div class="col-lg-6 col-xs-12 align-bottom">
                                             <label for="">Contraseña</label>
-                                            <input id="campos_nuevo_usuario" class="" type="password" name="pass" id="" placeholder="">
+                                            <input id="campos_nuevo_usuario" class="" type="password" name="pass" id="" placeholder="" required>
                                         </div>
                                     </div>
                                     <div class="row row_estado_entidad">
                                         <div class="col-lg-12 col-xs-12">
-                                            <button type="submit" class="btn_green" style="float:right" name="submit">Guardar</button>
+                                            <button type="button" class="btn_green" style="float:right" onclick="validarmuni()">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -437,6 +437,9 @@
             </div>
         </div>
     </div>
+
+    <script src="/admin/scripts/validarentidad.js"></script>
+
     <script>
         function confirmar(id){
             Swal.fire({
