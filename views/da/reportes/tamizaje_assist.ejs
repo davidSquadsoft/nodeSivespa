@@ -14,21 +14,17 @@
                 </h4>
             </div>
             <div class="col-lg-6 d-md-none d-lg-block">
-                <div class="bell_notificaciones"><a href="../notificaciones/notificaciones.php"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="bell_notificaciones"><a href="/da/notificaciones"><i class="bi bi-bell-fill"></i></a></div>
                 <div class="dropdown">
-                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <% if(user) {%>
                             <p class="nombre_entidad_activa">
                             <%= user.NOMBRE %> <%= user.APELLIDO %>
                             </p><% }%>
                         <br>
-                        <p class="cambiar">Cambiar</p>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
-                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
-                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
-                    </ul>
+                        <p class="cambiar"><%= user.ENTIDAD %></p>
+           
+              
                 </div>
             </div>
         </div>
@@ -102,14 +98,14 @@
                                                 <tr>
                                                     <td><input type="text" name="TELEFONO" id="" class="form-control" required></td>
                                                     <td><input type="date" name="FECHA_NTO" id="" class="form-control" required></td>
-                                                    <td><input class="form-control" name="EDAD">
+                                                    <td><input class="form-control" name="EDAD" required>
                                                     </td>
                                                     <td><select name="SEXO" id="options" class="form-control">
                                                         <% sexo.forEach((lsexo)=>{ %> 
                                                             <option value="<%= lsexo.ID_SEXO %> "><%= lsexo.DESC %> </option>
                                                             <% }) %> 
                                                     </select></td>
-                                                    <td><input name="NACION" id="" class="form-control" list="listanacionalidades">
+                                                    <td><input name="NACION" id="" class="form-control" list="listanacionalidades" required>
                                                         <datalist id="listanacionalidades">
                                                             <% nacion.forEach((lnacion)=>{ %> 
                                                                 <option value="<%= lnacion.ID_NACIONALIDAD %>"><%= lnacion.GENTILICIO_NAC %> </option>
@@ -910,17 +906,18 @@
                                             <table class="lista_spa_reporte">
                                                 <tr>
                                                     <td>Si</td>
-                                                    <td><input class="form-check-input" type="radio" value="" id="flexCheckDefault" name="ASSIST_P8_1_INY"></td>
+                                                    <td><input class="form-check-input" type="radio" value="1" id="flexCheckDefault" name="ASSIST_P8_1_INY"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>No</td>
-                                                    <td><input class="form-check-input" type="radio" value="" id="flexCheckDefault" name="ASSIST_P8_1_INY"></td>
+                                                    <td><input class="form-check-input" type="radio" value="0" id="flexCheckDefault" name="ASSIST_P8_1_INY"></td>
                                                 </tr>
                                             </table>
                                             <table class="lista_spa_reporte">
                                                 <tr>
                                                     <td>Frecuencia de la inyección</td>
-                                                    <td><select name="" id="" class="form-select" name="ASSIST_P8_2_FREC">
+                                                    <td><select id="" class="form-select" name="ASSIST_P8_2_FREC">
+                                                        <option value="0">No aplica</option>
                                                         <option value="1">Una vez a la semana o menos ó Menos de 3 días seguidos</option>
                                                         <option value="2">Más de una vez a la semana ó 3 o más días seguidos</option>
                                                     </select></td>

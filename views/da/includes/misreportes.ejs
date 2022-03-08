@@ -1,6 +1,7 @@
 <% if (idepac) { %>
 <div class="cuerpo_dashboard">
-    <h3>Reportes SIVESPA</h3>
+    <h5>Reportes SIVESPA</h5>
+    <p class="textos_black">Cantidad todal de reportes realizados: <%= conactual.length %></p>
         <div class="row titulo_tabla">
             <div class="col-lg-3">Nro de Documento</div>
             <div class="col-lg-2">Fecha</div>
@@ -12,8 +13,8 @@
 
         
         <% for (j=0; j<conactual.length ; j++) {%>
-            <%= j %>
-            <%= conactual.length %>
+           
+          
         <div class="row crud_user text-capitalize">
             <div class="col-3 border border-secondary align-items-center d-flex">
                 <%= idepac[j].NUM_IDE %>

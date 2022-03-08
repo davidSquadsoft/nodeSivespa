@@ -18,22 +18,15 @@
             <div class="col-lg-6 d-md-none d-lg-block">
                 <div class="bell_notificaciones"><a href="/da/notificaciones"><i class="bi bi-bell-fill"></i></a></div>
                 <div class="dropdown">
-
-                    <button class="btn btn-secondary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <% if(user) {%>
                             <p class="nombre_entidad_activa">
                             <%= user.NOMBRE %> <%= user.APELLIDO %>
                             </p><% }%>
                         <br>
-                        <p class="cambiar">Cambiar</p>
-                        
-                    </button>
-
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Entidad 1</a></li>
-                        <li><a class="dropdown-item" href="#">Entidad 2</a></li>
-                        <li><a class="dropdown-item" href="#">Entidad 3</a></li>
-                    </ul>
+                        <p class="cambiar"><%= user.ENTIDAD %></p>
+           
+              
                 </div>
             </div>
         </div>

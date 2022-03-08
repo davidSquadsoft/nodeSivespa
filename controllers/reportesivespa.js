@@ -236,7 +236,7 @@ exports.tamizajeassist = async (req, res) => {
       if (error) {
         throw error
       } else {
-        res.redirect('/da/reportes')
+        res.redirect(`/da/resultassist/${id_tamizaje}`)
       }
     })
   } catch (error) {
@@ -465,7 +465,7 @@ ASSIST_Puntajej_OTR=${ASSIST_Puntajej_OTR},
 ASSIST_Puntajej_8INY=${ASSIST_Puntajej_8INY} WHERE id_tamizaje= "${id_tamizaje}"
   `)
   console.log(id_tamizaje)
-  res.redirect(`/da/vertamizaje_assist/${id_tamizaje}`)
+  res.redirect(`/da/resultassist/${id_tamizaje}`)
 };
 exports.deleteAssist = async (req, res) => {
   id_tamizaje = req.params.id
@@ -482,7 +482,8 @@ exports.tamizajecrafft = async (req, res) => {
     const id_creador = creador[0].CEDULA
     const nombrecreador = creador[0].NOMBRE + creador[0].APELLIDO
     var factual = new Date().toISOString().slice(0, 10);
-    FEC_NOT=req.body.FEC_NOT.toISOString().slice(0, 10);
+    FEC_NOT=req.body.FEC_NOT
+    
     const TIP_IDE = req.body.TIP_IDE
     const NUM_IDE = req.body.NUM_IDE
     const PRI_NOM = req.body.PRI_NOM
@@ -559,7 +560,7 @@ exports.tamizajecrafft = async (req, res) => {
       if (error) {
         throw error
       } else {
-        res.redirect('/da/reportes')
+        res.redirect(`/da/resultcrafft/${id_tamizaje}`)
       }
     })
   } catch (error) {
@@ -645,7 +646,7 @@ exports.updateCrafft = async (req, res) => {
       CRAFFT_Puntaje=${CRAFFT_Puntaje},
       accion='${accion}' WHERE db_tam_crafft.id_tamizaje="${id_tamizaje}"
     `)
-    res.redirect(`/da/vertamizaje_crafft/${id_tamizaje}`)
+    res.redirect(`/da/resultcrafft/${id_tamizaje}`)
   } catch (error) {
     console.log(error)
   }

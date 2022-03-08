@@ -1,0 +1,206 @@
+<%- include('../includes/header') -%>
+    <section class="content">
+        <div class="titulo_pagina row align-items-center">
+            <div class="col-lg-2">
+                <div class="btn_close d-md-none d-lg-block">
+                    <button type="button" class="close_sidebar">
+                        <i class="bi bi-arrows-fullscreen maximize" id="texto_button_sidebar">&nbsp;Maximizar</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>
+                    <%= tittle%>
+                </h4>
+            </div>
+            <div class="col-lg-6 d-md-none d-lg-block">
+                <div class="bell_notificaciones"><a href="/da/notificaciones"><i class="bi bi-bell-fill"></i></a></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <% if(user) {%>
+                            <p class="nombre_entidad_activa">
+                            <%= user.NOMBRE %> <%= user.APELLIDO %>
+                            </p><% }%>
+                        <br>
+                        <p class="cambiar"><%= user.ENTIDAD %></p>
+                </div>
+            </div>
+        </div>
+        <div class="section_form fluid-container">
+            <div class="container_reporte_form">
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12 mb-2 ">
+                        <h3>Riesgo del consumo de Alcohol: </h3>
+                        <% if(tamizaje.ASSIST_Puntajeb_ALC<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajeb_ALC>=4 && tamizaje.ASSIST_Puntajeb_ALC<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajeb_ALC>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajeb_ALC %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Tabaco: </h3>
+                        <% if(tamizaje.ASSIST_Puntajea_TAB<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajea_TAB>=4 && tamizaje.ASSIST_Puntajea_TAB<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajea_TAB>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajea_TAB %></p>
+                    </div>
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Cannabis: </h3>
+                        <% if(tamizaje.ASSIST_Puntajec_CAN<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajec_CAN>=4 && tamizaje.ASSIST_Puntajec_CAN<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajec_CAN>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajec_CAN %></p>
+                    </div>
+
+                   
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Cocaina: </h3>
+                        <% if(tamizaje.ASSIST_Puntajed_COC<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajed_COC>=4 && tamizaje.ASSIST_Puntajed_COC<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajed_COC>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajed_COC %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Anfetaminas: </h3>
+                        <% if(tamizaje.ASSIST_Puntajee_ANF<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajee_ANF>=4 && tamizaje.ASSIST_Puntajee_ANF<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajee_ANF>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajee_ANF %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Inhalantes: </h3>
+                        <% if(tamizaje.ASSIST_Puntajef_INH<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajef_INH>=4 && tamizaje.ASSIST_Puntajef_INH<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajef_INH>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajef_INH %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Sedantes: </h3>
+                        <% if(tamizaje.ASSIST_Puntajeg_TRA<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajeg_TRA>=4 && tamizaje.ASSIST_Puntajeg_TRA<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajeg_TRA>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajeg_TRA %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Alucinógenos: </h3>
+                        <% if(tamizaje.ASSIST_Puntajeh_ALU<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajeh_ALU>=4 && tamizaje.ASSIST_Puntajeh_ALU<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajeh_ALU>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajeh_ALU %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Opiáceos: </h3>
+                        <% if(tamizaje.ASSIST_Puntajei_OPI<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajei_OPI>=4 && tamizaje.ASSIST_Puntajei_OPI<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajei_OPI>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajei_OPI %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo del consumo de Otras drogas(<%= tamizaje.ASSIST_P1_CUAL_OTRA%>): </h3>
+                        <% if(tamizaje.ASSIST_Puntajej_OTR<=3){
+                            data='BAJO (Sin intervención): El actual patrón de consumo representa un riesgo bajo sobre la salud y de otros problemas.'
+                        } else if(tamizaje.ASSIST_Puntajej_OTR>=4 && tamizaje.ASSIST_Puntajej_OTR<=26){
+                            data='MODERADO (Intervención breve): Presenta riesgo para la salud y de otro tipos de problemas derivados del actual patrón de consumo de sustancias'
+                        }else if(tamizaje.ASSIST_Puntajej_OTR>27){
+                            data='ALTO (Tratamiento más intensivo): Presenta un riesgo elevado de experimentar problemas graves (de salud, sociales, económicos, legales, de pareja, ...) derivado del patrón actual de consumo y probablemente sea dependiente.'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajej_OTR %></p>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 mb-2">
+                        <h3>Riesgo inyectable: </h3>
+                        <% if(tamizaje.ASSIST_P8_1_INY==2 && tamizaje.ASSIST_P8_2_FREC==1){
+                            data='MODERADO (Intervención breve).'
+                        } else if(tamizaje.ASSIST_P8_1_INY==2 && tamizaje.ASSIST_P8_2_FREC==2){
+                            data='ALTO (Tratamiento más intensivo)'
+                        }else if(tamizaje.ASSIST_P8_1_INY==0 || tamizaje.ASSIST_P8_1_INY==1){
+                            data='No aplica'
+                        }
+                        %>
+                        <p><%= data %> </p> 
+                        <p>Puntaje: <%= tamizaje.ASSIST_Puntajej_8INY %></p>
+                    </div>
+
+
+
+
+
+                    <div class="col-lg-6 col-xs-12">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-8">   <a href="/da/nuevoreporte" class="btn_green pt-2 pb-2">Reporte Sivespa</a>
+                        <a href="/da/tassist" class="btn_green pt-2 pb-2">Tamizaje Assist</a>
+                        <a href="/da/tcrafft" class="btn_green pt-2 pb-2">Tamizaje Crafft</a></div>
+                    <div class="col-lg-2"></div>
+                 
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <%- include('../includes/footer') -%>

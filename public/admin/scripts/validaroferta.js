@@ -22,7 +22,7 @@ console.log(vacio)
 };
 function camposAlerta(s){
   Swal.fire({
-    title: 'Validar los siguientes campos vacios antes de guardar el contenido:',
+    title: 'Validar los siguientes campos vacios antes de guardar la oferta institucional:',
     html: s,
     icon: 'error',
     confirmButtonText: 'Ok',
@@ -31,7 +31,7 @@ function camposAlerta(s){
 };
 function guardar(){
   Swal.fire({
-    title: 'Guardar Contenido',
+    title: 'Guardar Oferta Institucional',
     icon: 'success',
     confirmButtonText: 'Ok',
     confirmButtonColor:'#3c773c',

@@ -8,13 +8,11 @@
                     </button>
                 </div>
             </div>
-
             <div class="col-lg-4">
                 <h4>
                     <%= tittle%>
                 </h4>
             </div>
-
             <div class="col-lg-6 d-md-none d-lg-block">
                 <div class="bell_notificaciones"><a href="/da/notificaciones"><i class="bi bi-bell-fill"></i></a></div>
                 <div class="dropdown">
@@ -25,18 +23,30 @@
                             </p><% }%>
                         <br>
                         <p class="cambiar"><%= user.ENTIDAD %></p>
-           
-              
                 </div>
             </div>
         </div>
         <div class="section_form fluid-container">
-
             <div class="container_reporte_form">
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12 mb-2 ">
+                        <h3>Puntaje CRAFFT: <%= tamizaje.CRAFFT_Puntaje %> </h3>
+           
+                        
+                        <p>Acciones: <%= tamizaje.accion %></p>
+                    </div>
 
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia cupiditate ullam nostrum quod doloremque, dolores dignissimos, voluptas omnis magni officiis facilis nesciunt tenetur explicabo doloribus debitis sit similique minima quibusdam.</span>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-8">   <a href="/da/nuevoreporte" class="btn_green pt-2 pb-2">Reporte Sivespa</a>
+                        <a href="/da/tassist" class="btn_green pt-2 pb-2">Tamizaje Assist</a>
+                        <a href="/da/tcrafft" class="btn_green pt-2 pb-2">Tamizaje Crafft</a></div>
+                    <div class="col-lg-2"></div>
+                 
+                </div>
+
             </div>
         </div>
     </section>
-
     <%- include('../includes/footer') -%>

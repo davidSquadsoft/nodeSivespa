@@ -62,7 +62,9 @@
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= userUPGD.RAZ_SOC %></div>
         <% listaUSERS.forEach((data)=>{
             if (data.CEDULA==userUPGD.ID_RES_NOT && data.COD_PRE == userUPGD.COD_PRE && data.TIP_USER==3){
-                result=data.NOMBRE +" "+data.APELLIDO
+
+                result= data.NOMBRE + " " + data.APELLIDO;
+                console.log(result);
             }
         })%>
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= result %></div>
@@ -114,7 +116,7 @@
      <!--Tabla de todos los usuarios para entidad municipal-->
      <% if(user.TIP_USER==2){ %>
      <div class="row crud_user ">
-        <% if (users.COD_MUN==user.COD_MUN){%>
+        <% if (users.COD_MUN==user.COD_MUN && users.TIP_USER!=2 && users.TIP_USER!=3){%>
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.NOMBRE %> <%= users.APELLIDO %></div>
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.CEDULA %></div>
         <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.TEL %> </div>
@@ -125,7 +127,8 @@
         <% } %>
     </div>
     <% } %>
-    <% if(user.TIP_USER==1){ %>
+
+    <% if(user.TIP_USER==1 && users.TIP_USER!=2 && users.TIP_USER!=3){ %>
         <div class="row crud_user ">
     
            <div class="col-lg-2 border border-secondary align-items-center d-flex"><%= users.NOMBRE %> <%= users.APELLIDO %></div>
@@ -138,7 +141,7 @@
           
        </div>
        <% } %>
-       <% if(user.TIP_USER==3){ %>
+       <% if(user.TIP_USER==3 &&  users.TIP_USER!=2 && users.TIP_USER!=3){ %>
         <div class="row crud_user ">
     
             <% if (users.COD_PRE==user.COD_PRE){%>

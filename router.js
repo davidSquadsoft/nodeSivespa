@@ -72,6 +72,7 @@ router.get('/dashboard', authController.isAuth, async(req, res) => {
   var cacaosab=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CAC = 1`)
   var hongos=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_HON = 1`)
 var cannartifi=await q(`SELECT COUNT(id_reporte) AS cantidad FROM db_con_act WHERE ACT_SPA_CSI = 1`)
+
   if(noticiasdes.length>=1){
     datanoticias=noticiasdes
   }else{
@@ -640,6 +641,31 @@ router.get('/tassist', authController.isAuth, async(req, res) => {
     profesiones:profesiones
   })
 })
+
+router.get('/resultassist/:id',authController.isAuth, async(req,res)=>{
+  id=req.params.id
+  resultadoassist=await q(`SELECT * FROM db_tam_assist WHERE id_tamizaje='${id}'`)
+  
+  res.render('da/reportes/resultado_assist',{
+    tittle:'Resultado de tamizaje',
+    user:req.user,
+    tamizaje:resultadoassist[0]
+  })
+
+})
+
+router.get('/resultcrafft/:id',authController.isAuth, async(req,res)=>{
+  id=req.params.id
+  resultadocrafft=await q(`SELECT * FROM db_tam_crafft WHERE id_tamizaje='${id}'`)
+  
+  res.render('da/reportes/resultado_crafft',{
+    tittle:'Resultado de tamizaje',
+    user:req.user,
+    tamizaje:resultadocrafft[0]
+  })
+
+})
+
 router.get('/descargas', authController.isAuth, (req, res) => {
   res.render('da/sivespa/descargas', {
     tittle: 'Descargas - SIVESPA ',
@@ -1019,6 +1045,7 @@ router.get('/tcrafft', authController.isAuth, async (req, res) => {
   var querytregimen = await q('SELECT * FROM rl_tip_ss')
   var queryprestadoras = await q('SELECT * FROM `rl_pre_ser_sal` ')
   var queryspas = await q('SELECT * FROM rl_lista_spa')
+
   res.render('da/reportes/tamizaje_crafft', {
     tittle: 'Tamizaje CRAFFT',
     user: req.user,

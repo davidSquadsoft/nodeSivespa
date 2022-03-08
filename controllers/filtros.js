@@ -1,6 +1,7 @@
 
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
+const conexion = require("../database/db");
 
 const { promisify } = require("util");
 const { userInfo } = require("os");
@@ -15,11 +16,11 @@ exports.filterent = async (req, res) => {
         kbuscar=req.body.kbuscar
         console.log(kbuscar)
 
-        filtroCODDIVIPOLA='SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from RL_DIVIPOLA WHERE CONCAT(`NOMMUNIPIO`,`CODMUNIC`) LIKE "%'+ kbuscar + '%" COLLATE utf8_general_ci'
-
+        filtroCODDIVIPOLA='SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola WHERE CONCAT(`NOMMUNIPIO`,`CODMUNIC`) LIKE "%'+ kbuscar + '%" COLLATE utf8_general_ci'
+    
 
         conexion.query(filtroCODDIVIPOLA, function(error,results){
-
+          console.log(error)
         if(results[0]){
             MUNIbuscar=results[0].CODMUNIC
             console.log(MUNIbuscar)
@@ -43,7 +44,7 @@ exports.filterent = async (req, res) => {
                 (error, resultU) => {
                     req.user = resultU[0];
 
-                  sqlmunicipios = 'SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from RL_DIVIPOLA'
+                  sqlmunicipios = 'SELECT DISTINCT `NOMMUNIPIO`,`CODMUNIC` from rl_divipola'
                   sqltipoide = 'SELECT `DESC`, `COD` FROM rl_tip_ide'
                   sqltipoUPGD = 'SELECT `COD_PRE`,`RAZ_SOC` FROM `db_uni_not`'
                   munfiltro = req.user.COD_MUN

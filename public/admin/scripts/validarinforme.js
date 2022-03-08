@@ -1,9 +1,10 @@
 var requiredElements=document.getElementById('form').querySelectorAll("[required]");
 var form=document.getElementById('form')
-var vacio = 0
+
 o = document.getElementById("output");
 
 function validar() {
+  var vacio = 0
     var s = "";
     for (var i = 0; i < requiredElements.length; i++) {
       var e = requiredElements[i];
