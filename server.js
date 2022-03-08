@@ -89,9 +89,29 @@ app.get('/lc/guia', (req, res) => {
 app.get('/lc/mitos', (req, res) => {
   res.render('lc/mitos', { tittle: 'Mitos y Realidades' })
 })
-app.get('/lc/noticias', (req, res) => {
-  res.render('lc/noticias', { tittle: 'Noticias' })
+
+app.get('/lc/noticias', async(req, res) => {
+  noticias=await q(`SELECT * FROM contenido WHERE tipo_con=1`)
+  
+  res.render('lc/noticias', { tittle: 'Noticias', noticias:noticias })
 })
+
+app.get('/lc/vernoticia/:id', async(req, res) => {
+  id=req.params.id
+  noticias=await q(`SELECT * FROM contenido WHERE id=${id}`)
+  res.render('lc/vernoticia', { tittle: noticias[0].titulo,noticias:noticias[0] })
+})
+
+app.post('/lc/buscarnoticia', async(req,res)=>{
+  kbuscar=req.body.kbuscar
+  
+  busqueda= await q(`SELECT * FROM contenido WHERE CONCAT(titulo,texto,NOMMUNI,NOMSPA) LIKE "%${kbuscar}%" AND tipo_con=1`)
+
+
+  res.render('lc/noticias', { tittle: 'Noticias', noticias:busqueda })
+})
+
+
 app.get('/lc/politica_privacidad', (req, res) => {
   res.render('lc/politica_privacidad', {
     tittle: 'Politica de Privacidad y Datos',
@@ -105,9 +125,25 @@ app.get('/lc/reporte_menor', (req, res) => {
     tittle: 'Planes de acción y líneas de atención',
   })
 })
-app.get('/lc/tips', (req, res) => {
-  res.render('lc/tips', { tittle: 'Tips' })
+app.get('/lc/tips', async(req, res) => {
+  tips=await q(`SELECT * FROM contenido WHERE tipo_con=2`)
+  res.render('lc/tips', { tittle: 'Tips', tips:tips })
 })
+
+app.post('/lc/buscartip', async(req, res) => {
+  kbuscar=req.body.kbuscar
+  
+  busqueda= await q(`SELECT * FROM contenido WHERE CONCAT(titulo,texto,NOMMUNI,NOMSPA) LIKE "%${kbuscar}%" AND tipo_con=2`)
+  res.render('lc/tips', { tittle: 'Tips', tips:busqueda })
+})
+
+app.get('/lc/vertips/:id', async(req, res) => {
+  id=req.params.id
+  tips=await q(`SELECT * FROM contenido WHERE tipo_con=2 AND id=${id}`)
+  res.render('lc/vertip', { tittle: tips[0].titulo, tips:tips[0] })
+})
+
+
 app.get('/lc/tutoriales', (req, res) => {
   res.render('lc/tutoriales', { tittle: 'Tutoriales' })
 })

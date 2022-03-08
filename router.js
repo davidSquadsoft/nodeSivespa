@@ -909,15 +909,9 @@ router.post('/guardarcontenido', authController.isAuth, async (req, res) => {
       res.redirect('/da/contenido')
     })
   })
-  // res.render('da/oferta_institucional/oferta_institucional', {
-  //   tittle: 'Oferta institucional ',
-  //   user: req.user,
-  // })
+
 })
-// paso siguiente que muestre las noticias, tips luego de cada reporte segun la spa, lineas de atencion segun la SPA y ubicacion
-// paso siguiente que transpole la informacion del reporte en los textos de la db
-// permita guardar reportes en pdf
-// permita guardar lista de usuarios en pdf
+
 router.get('/vernoticia/:id', authController.isAuth, async (req, res) => {
   const id = req.params.id
   var datanoticia = await q(`SELECT * FROM contenido WHERE id = ${id}`)
@@ -1066,22 +1060,29 @@ router.post('/crearlinea', authController.isAuth, async (req, res) => {
   NOMPRE_PRE = await q(`SELECT RAZ_SOC FROM db_uni_not WHERE COD_PRE= ${COD_PRE}`)
   NOMPRE_PRE = NOMPRE_PRE[0].RAZ_SOC
   COD_MUN = req.user.COD_MUN
+  var NOMMUNIPIO
   if (req.user.COD_MUN == 0) {
     NOMMUNIPIO = 'Todo Antioquia'
   } else {
     NOMMUNIPIO = await q(`SELECT DISTINCT NOMMUNIPIO FROM rl_divipola WHERE CODMUNIC=${COD_MUN}`)
+    NOMMUNIPIO=NOMMUNIPIO[0].NOMMUNIPIO
   }
+
+  console.log(NOMMUNIPIO)
+
   id_user_creador = req.user.CEDULA
   nombrecreador = req.user.NOMBRE + " " + req.user.APELLIDO
   id_rl_lista_spa = req.body.spa
+
   if (id_rl_lista_spa == 0) {
     SUSTANCIA = 'General'
   } else {
     SUSTANCIA = await q(`SELECT SUSTANCIA FROM rl_lista_spa WHERE id_rl_lista_spa = ${id_rl_lista_spa}`)
     SUSTANCIA = SUSTANCIA[0].SUSTANCIA
   }
-  NOMMUNIPIO=NOMMUNIPIO[0].NOMMUNIPIO
-  insertar = await q(`INSERT INTO lineas_atention (nombre, numero, description, COD_PRE, NOMBRE_PRE, COD_MUN, NOMMUNIPIO, id_user_creador, nombrecreador, id_rl_lista_spa, SUSTANCIA)VALUES ("${nombre}","${numero}","${descripcion}",${COD_PRE},"${NOMPRE_PRE}",${COD_MUN},"${NOMMUNIPIO}",${id_user_creador},"${nombrecreador}",${id_rl_lista_spa},"${SUSTANCIA}")`)
+
+ 
+  insertar = await q(`INSERT INTO lineas_atention (nombre, numero, description, COD_PRE, NOMBRE_PRE, COD_MUN, NOMMUNIPIO, id_user_creador, nombrecreador, id_rl_lista_spa, SUSTANCIA) VALUES ("${nombre}","${numero}","${descripcion}",${COD_PRE},"${NOMPRE_PRE}",${COD_MUN},"${NOMMUNIPIO}",${id_user_creador},"${nombrecreador}",${id_rl_lista_spa},"${SUSTANCIA}")`)
   res.redirect('/da/mislineas')
 })
 router.get('/datausuario/:id', authController.isAuth, async (req, res) => {

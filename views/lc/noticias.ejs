@@ -3,84 +3,31 @@
 
     <div class="container mt-lg-5 filtro_busqueda">
         <!--filtro y buscador de noticias-->
-        <form action="" class="d-inline-flex w-100 ms-3">
-            <input class="form-control round_input" type="search" placeholder="Buscar" aria-label="Search" />
+        <form action="/lc/buscarnoticia" class="d-inline-flex w-100 ms-3" method="post">
+            <input class="form-control round_input" type="search" placeholder="Buscar" name="kbuscar" />
             <button class="btn_search" type="submit">
           <i class="bi bi-search"></i>
         </button>
         </form>
         <div class="row d-grid justify-content-end">
-            <form class="d-grid text-end mt-2 pe-4">
-                <label for="" class="form-label">Ordenar por:</label>
-                <select name="" id="" class="form-select">
-            <option value="">Más recientes</option>
-            <option value="">Más antiguas</option>
-          </select>
-            </form>
+          
         </div>
         <!--Noticias-->
 
         <div class="row mt-5 card-deck">
+            <% noticias.forEach((datanoticias)=>{ %> 
             <div class="col-lg-4 pt-3">
-                <div class="card" onclick="location.href='noticias_ejemplo.html'">
-                    <img class="card-img-top" src="/landing/images/fondo_temporal2.jpg" alt="Card image cap">
+                <div class="card" onclick="location.href='/lc/vernoticia/<%= datanoticias.id%>'">
+                    <img class="card-img-top" src="/upload/<%= datanoticias.imagen %>" alt="Card image cap" style=" object-fit: cover; width: 720;height: 360px;">
                     <div class="card-body">
-                        <h5 class="card-title">Consumo de SPA bajó</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque qui odit tenetur, iusto autem optio cupiditate adipisci, ab neque quia ex in assumenda, dolor repellendus</p>
-                        <p class="card-text"><small class="text-muted">Fecha: 20/11/2021</small></p>
+                        <h5 class="card-title"><%= datanoticias.titulo %></h5>
+                        <p class="card-text"><% resumen=datanoticias.texto %><%= resumen.substr(0,30) %></p>
+                        <p class="card-text"><small class="text-muted">Fecha: <%= datanoticias.fcreacion.toISOString().slice(0,10) %></small></p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 pt-3">
-                <div class="card" onclick="location.href='noticias_ejemplo.html'">
-                    <img class="card-img-top" src="/landing/images/fondo_temporal2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Consumo de SPA bajó</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque qui odit tenetur, iusto autem optio cupiditate adipisci, ab neque quia ex in assumenda, dolor repellendus</p>
-                        <p class="card-text"><small class="text-muted">Fecha: 20/11/2021</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 pt-3">
-                <div class="card" onclick="location.href='noticias_ejemplo.html'">
-                    <img class="card-img-top" src="/landing/images/fondo_temporal2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Consumo de SPA bajó</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque qui odit tenetur, iusto autem optio cupiditate adipisci, ab neque quia ex in assumenda, dolor repellendus</p>
-                        <p class="card-text"><small class="text-muted">Fecha: 20/11/2021</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 pt-3">
-                <div class="card" onclick="location.href='noticias_ejemplo.html'">
-                    <img class="card-img-top" src="/landing/images/fondo_temporal2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Consumo de SPA bajó</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque qui odit tenetur, iusto autem optio cupiditate adipisci, ab neque quia ex in assumenda, dolor repellendus</p>
-                        <p class="card-text"><small class="text-muted">Fecha: 20/11/2021</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 pt-3">
-                <div class="card" onclick="location.href='noticias_ejemplo.html'">
-                    <img class="card-img-top" src="/landing/images/fondo_temporal2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Consumo de SPA bajó</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque qui odit tenetur, iusto autem optio cupiditate adipisci, ab neque quia ex in assumenda, dolor repellendus</p>
-                        <p class="card-text"><small class="text-muted">Fecha: 20/11/2021</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 pt-3">
-                <div class="card" onclick="location.href='noticias_ejemplo.html'">
-                    <img class="card-img-top" src="/landing/images/fondo_temporal2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Consumo de SPA bajó</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque qui odit tenetur, iusto autem optio cupiditate adipisci, ab neque quia ex in assumenda, dolor repellendus</p>
-                        <p class="card-text"><small class="text-muted">Fecha: 20/11/2021</small></p>
-                    </div>
-                </div>
-            </div>
+            <% }) %> 
+           
         </div>
     </div>
     <%-include ('includes/footer') -%>
